@@ -1,0 +1,80 @@
+
+/* Created on 	:  [date] [time] AM/PM 
+ * 
+ * @author  	:  [authorName] 
+ * @version  	:  [version] 
+ */
+
+/*******************************************************************
+ * Class Description 	: [project description ... ] 
+ * Imput Parameters 	: [input parameter ...] 
+ * Output 		: [output ...] 
+ *******************************************************************/
+
+package com.dimata.harisma.entity.masterdata;
+ 
+/* package java */ 
+import java.util.Date;
+
+/* package qdep */
+import com.dimata.qdep.entity.*;
+
+public class Division extends Entity { 
+
+	private String division = "";
+	private String description = "";
+        /*Add Field by Hendra Putu | 2015-07-27 | TYPE_OF_DIVISION*/
+        private int typeOfDivision = 0;
+        private long companyId = 0 ;
+
+	public String getDivision(){
+		return division;
+	} 
+
+	public void setDivision(String division){
+		if ( division == null ) {
+			division = "";
+		} 
+		this.division = division;
+	} 
+
+	public String getDescription(){ 
+		return description; 
+	} 
+
+	public void setDescription(String description){ 
+		if ( description == null ) {
+			description = ""; 
+		} 
+		this.description = description; 
+	}
+
+    /**
+     * @return the companyId
+     */
+    public long getCompanyId() {
+        return companyId;
+    }
+
+    /**
+     * @param companyId the companyId to set
+     */
+    public void setCompanyId(long companyId) {
+        this.companyId = companyId;
+    }
+
+    /**
+     * @return the typeOfDivision
+     */
+    public int getTypeOfDivision() {
+        return typeOfDivision;
+    }
+
+    /**
+     * @param typeOfDivision the typeOfDivision to set
+     */
+    public void setTypeOfDivision(int typeOfDivision) {
+        this.typeOfDivision = typeOfDivision;
+    }
+
+}

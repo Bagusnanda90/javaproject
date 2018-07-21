@@ -1,0 +1,47 @@
+package id80fidh5gdm68dh5hi860;
+
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#id3nyytczuh95siczujqpka.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#com.dimata.qdep.form:oiref> 
+*/
+class reference {
+}/**
+@__ref <oiref:design#Class#id1fux0cyjuau8scyjvegvd.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#com.dimata.qdep.entity:oiref> 
+*/
+class reference18 {
+}/**
+@__ref <oiref:design#Class#id3dyxtd675yvckd678epi4.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#com.dimata.qdep.system:oiref> 
+*/
+class reference19 {
+}/**
+@__ref <oiref:design#Class#id6mk1cyjts9sgcyjtzn85.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#com.dimata.qdep.db:oiref> 
+*/
+class reference20 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions 
+*/
+class __positions {
+}

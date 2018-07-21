@@ -1,0 +1,73 @@
+<%-- 
+    Document   : organization_search-ajax
+    Created on : Jan 25, 2016, 10:50:22 AM
+    Author     : Dimata 007
+--%>
+
+<%@page import="com.dimata.harisma.entity.masterdata.Division"%>
+<%@page import="com.dimata.harisma.entity.masterdata.PstDivision"%>
+<%@page import="com.dimata.harisma.entity.masterdata.PositionDivision"%>
+<%@page import="com.dimata.harisma.entity.masterdata.PstPositionDivision"%>
+<%@page import="com.dimata.harisma.entity.masterdata.MappingPosition"%>
+<%@page import="java.util.Vector"%>
+<%@page import="com.dimata.harisma.entity.masterdata.PstMappingPosition"%>
+<%@page import="com.dimata.qdep.form.FRMQueryString"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%!
+    public String getDivision(long positionId){
+        String str = "";
+        String whereClause = PstPositionDivision.fieldNames[PstPositionDivision.FLD_POSITION_ID]+"="+positionId;
+        Vector listPosDivisi = PstPositionDivision.list(0, 0, whereClause, "");
+        if (listPosDivisi != null && listPosDivisi.size()>0){
+            for(int i=0; i<listPosDivisi.size(); i++){
+                PositionDivision posDiv = (PositionDivision)listPosDivisi.get(i);
+                str += posDiv.getDivisionId() +", ";
+            }
+            str += "0";
+        }
+        return str;
+    }
+
+    public String getDivisionName(long divisionId){
+        String name = "-";
+        if (divisionId != 0) {
+            try {
+                Division division = PstDivision.fetchExc(divisionId);
+                name = division.getDivision();
+            } catch (Exception e) {
+                System.out.println("Division Name =>" + e.toString());
+            }
+        }
+        return name;
+    }
+%>
+<%
+    long selectStructure = FRMQueryString.requestLong(request, "select_structure");
+    
+    if (selectStructure != 0){
+        String whereClause = PstMappingPosition.fieldNames[PstMappingPosition.FLD_TEMPLATE_ID]+"="+selectStructure;
+        Vector listMapping = PstMappingPosition.listDistinct(whereClause);
+        String strPosition = "";
+        if (listMapping != null && listMapping.size()>0){
+            for(int i=0; i<listMapping.size(); i++){
+                Long mapping = (Long)listMapping.get(i);
+                strPosition += mapping + ", ";
+            }
+            strPosition += "0";
+            String whereDiv = PstPositionDivision.fieldNames[PstPositionDivision.FLD_POSITION_ID]+" IN ("+strPosition+")";
+            Vector listDivision = PstPositionDivision.listDistinct(whereDiv);
+            if (listDivision != null && listDivision.size()>0){
+                for (int j=0; j<listDivision.size(); j++){
+                    Long divisi = (Long)listDivision.get(j);
+                    %>
+                    <a href="javascript:cmdView('<%=selectStructure%>','<%=divisi%>')">
+                    <div id="floatleft">
+                        <%=getDivisionName(divisi)%>
+                    </div>
+                    </a>
+                    <%
+                }
+            }
+        }
+    }
+%>

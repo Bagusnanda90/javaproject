@@ -1,0 +1,172 @@
+<%-- 
+    Document   : structure_preview
+    Created on : Sep 17, 2015, 1:54:37 AM
+    Author     : Dimata 007
+--%>
+
+<%@page import="com.dimata.qdep.form.FRMQueryString"%>
+<%@page import="com.dimata.harisma.entity.masterdata.StructureModule"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%
+    long divisionId = FRMQueryString.requestLong(request, "division_id");
+    long parentMain = FRMQueryString.requestLong(request, "parent_main");
+    long templateID = FRMQueryString.requestLong(request, "template_id");
+    int chkPhoto = FRMQueryString.requestInt(request, "chk_photo");
+    int levelRank = FRMQueryString.requestInt(request, "level_rank");
+    String approot = FRMQueryString.requestString(request, "approot");
+    StructureModule structureModule = new StructureModule();
+%>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Structure Preview</title>
+    </head>
+    <style type="text/css">
+        body {
+            font-family: sans-serif;
+        }
+        #mn_utama {color: #FF6600; padding: 5px 14px; border-left: 1px solid #999; font-size: 12px; font-weight: bold; background-color: #F5F5F5;}        
+        #menu_utama {padding: 9px 14px; border-left: 1px solid #0099FF; font-size: 14px; background-color: #F3F3F3; color:#0099FF; font-size: 14px; font-weight: bold;}   
+        .btn {
+          background: #C7C7C7;
+          border: 1px solid #BBBBBB;
+          border-radius: 3px;
+          font-family: Arial;
+          color: #474747;
+          font-size: 11px;
+          padding: 3px 7px;
+          cursor: pointer;
+        }
+
+        .btn:hover {
+          color: #FFF;
+          background: #B3B3B3;
+          border: 1px solid #979797;
+        }
+
+        #btn {
+          background: #3498db;
+          border: 1px solid #0066CC;
+          border-radius: 3px;
+          font-family: Arial;
+          color: #ffffff;
+          font-size: 12px;
+          padding: 3px 9px 3px 9px;
+        }
+
+        #btn:hover {
+          background: #3cb0fd;
+          border: 1px solid #3498db;
+        }
+        #btn1 {
+          background: #f27979;
+          border: 1px solid #d74e4e;
+          border-radius: 3px;
+          font-family: Arial;
+          color: #ffffff;
+          font-size: 12px;
+          padding: 3px 9px 3px 9px;
+        }
+
+        #btn1:hover {
+          background: #d22a2a;
+          border: 1px solid #c31b1b;
+        }
+        #tdForm {
+            padding: 5px;
+        }
+        .detail {
+            background-color: #b01818;
+            color:#FFF;
+            padding: 2px;
+            font-size: 9px;
+            cursor: pointer;
+        }
+        .detail1 {
+            background-color: #ffe400;
+            color:#d76f09;
+            padding: 2px;
+            font-size: 9px;
+            cursor: pointer;
+        }
+        .detail_pos {
+            cursor: pointer;
+        }
+        .tblStyle {border-collapse: collapse; background-color: #FFF;}
+        .tblStyle td {font-size: 11px; color:#05a5c7; text-align: center; border: 1px solid #C7C7C7; padding: 3px 5px;}
+        .tblStyle1 {border-collapse: collapse; background-color: #FFF;}
+        .tblStyle1 td {font-size: 11px; color:#575757; border: 1px solid #C7C7C7; padding: 3px 5px;}
+        .title_tbl {font-weight: bold;background-color: #DDD; color: #575757; }
+        .shareholder {background-color: #999; color: #FFF; padding: 3px;}
+        .comp_media {background-color: #CCC; color: #FFF; padding: 3px;}
+        .dir {background-color: #0599ab; color: #FFF; padding: 3px;}
+        .div {background-color: #dd4949; color: #FFF; padding: 3px;}
+        .dep {background-color: #ff8a00; color: #FFF; padding: 3px; margin: 2px 0px;}
+        .filter {
+            background-color: #DDD;
+            border: 1px solid #FFF;
+            border-radius: 3px;
+            padding: 5px;
+        }
+        .part {
+            background-color: #bce7e9;
+            border:1px solid #64adb0;
+            padding: 3px;
+            margin: 1px 1px 0px 2px;
+            color:#64adb0;
+            font-size: 11px;
+        }
+        .box {
+            color: #0099FF;
+            background-color: #FFF;
+            padding: 3px 9px;
+            margin: 1px 2px;
+        }
+        .box1 {
+            color: #EEE;
+            border: 1px solid #999;
+            background-color: #CCC;
+            padding: 3px 5px;
+            margin: 3px 3px 0px 0px
+        }
+        #space {margin: 3px;}
+        .position {
+            background-color: #FFF;
+            color:#373737;
+            padding: 17px 21px;
+            margin: 1px 0px;
+        }
+        #linkStyle {
+            text-decoration: none;
+            color:#474747;
+        }
+        #linkStyle:hover {
+            color:#ff0000;
+        }
+        .content {
+            background-color: #FFF;
+            color:#575757;
+            font-size: 11px;
+            padding: 17px;
+            margin: 3px 0px;
+            border-radius: 3px;
+        }
+    </style>
+    <body>
+        
+        <table class="tblStyle">
+            <tr>
+                <td>
+                    <% if (chkPhoto == 1){ %>
+                    <div><img width="64" src="<%=approot%>/imgcache/employee-sample.jpg" style="padding:3px; background-color: #373737;" /></div>
+                    <% } %>
+                    <div style="color: #373737"><strong><%=structureModule.getEmployeeName(parentMain, divisionId)%></strong></div>
+                    <div><%=structureModule.getPositionName(parentMain)%></div>
+                    <%=structureModule.getDrawDownPosition(parentMain, templateID, divisionId, approot, chkPhoto, levelRank)%>
+                </td>
+            </tr>
+        </table>
+        
+    </body>
+</html>

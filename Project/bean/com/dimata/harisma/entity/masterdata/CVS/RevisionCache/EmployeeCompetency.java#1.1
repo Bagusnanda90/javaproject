@@ -1,0 +1,118 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dimata.harisma.entity.masterdata;
+
+import com.dimata.qdep.entity.Entity;
+
+/**
+ *
+ * @author Dimata 007
+ */
+public class EmployeeCompetency extends Entity {
+    private long employeeId = 0;
+    private long competencyId = 0;
+    private long competencyLevelId = 0;
+    private float scoreValue = 0;
+    private String specialAchievement = "";
+    private Competency competency = new Competency();
+    private CompetencyLevel compLevel = new CompetencyLevel();
+    /**
+     * @return the employeeId
+     */
+    public long getEmployeeId() {
+        return employeeId;
+    }
+
+    /**
+     * @param employeeId the employeeId to set
+     */
+    public void setEmployeeId(long employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    /**
+     * @return the competencyId
+     */
+    public long getCompetencyId() {
+        return competencyId;
+    }
+
+    /**
+     * @param competencyId the competencyId to set
+     */
+    public void setCompetencyId(long competencyId) {
+        this.competencyId = competencyId;
+    }
+
+    /**
+     * @return the competencyLevelId
+     */
+    public long getCompetencyLevelId() {
+        return competencyLevelId;
+    }
+
+    /**
+     * @param competencyLevelId the competencyLevelId to set
+     */
+    public void setCompetencyLevelId(long competencyLevelId) {
+        this.competencyLevelId = competencyLevelId;
+    }
+
+    /**
+     * @return the scoreValue
+     */
+    public float getScoreValue() {
+        return scoreValue;
+    }
+
+    /**
+     * @param scoreValue the scoreValue to set
+     */
+    public void setScoreValue(float scoreValue) {
+        this.scoreValue = scoreValue;
+    }
+
+    /**
+     * @return the specialAchievement
+     */
+    public String getSpecialAchievement() {
+        return specialAchievement;
+    }
+
+    /**
+     * @param specialAchievement the specialAchievement to set
+     */
+    public void setSpecialAchievement(String specialAchievement) {
+        this.specialAchievement = specialAchievement;
+    }
+
+    /**
+     * @return the competency
+     */
+    public Competency getCompetency() {
+        return competency;
+    }
+
+    /**
+     * @param competency the competency to set
+     */
+    public void setCompetency(Competency competency) {
+        this.competency = competency;
+    }
+
+    /**
+     * @return the compLevel
+     */
+    public CompetencyLevel getCompLevel() {
+        return compLevel;
+    }
+
+    /**
+     * @param compLevel the compLevel to set
+     */
+    public void setCompLevel(CompetencyLevel compLevel) {
+        this.compLevel = compLevel;
+    }
+}

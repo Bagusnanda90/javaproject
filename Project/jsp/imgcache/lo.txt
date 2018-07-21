@@ -1,0 +1,1407 @@
+ Volume in drive D has no label.
+ Volume Serial Number is 3EEE-6C7A
+
+ Directory of D:\Dimata\apache-tomcat-6.0.30\webapps\z---imgcache\imgcache-BPD
+
+08/13/2015  12:27 PM    <DIR>          .
+08/13/2015  12:27 PM    <DIR>          ..
+12/19/2012  09:29 AM           179,854 (0206) I Nyoman Arnawa, SH.JPG
+01/08/2013  11:54 AM            87,275 (0223) I Nyoman Taman..jpg
+01/08/2013  11:54 AM           143,793 (0226) Sang Made Adnyana, SE.jpg
+12/19/2012  09:14 AM           147,286 (0229) I Wayan Suartika, SE.JPG
+01/08/2013  11:55 AM           111,560 (0231) I Nengah Muditha.jpg
+01/08/2013  11:56 AM           127,417 (0240) I.B.Gde Putra Manuaba.jpg
+01/04/2006  08:39 AM            25,267 (0244) Ida Bagus Putu Suadnya.jpg
+01/08/2013  11:57 AM           117,325 (0246) Ni Luh Gede Nurtisiati..jpg
+01/08/2013  11:58 AM           124,882 (0248) I.A.Ayu Alit Ruspadiyasa,SE..jpg
+01/08/2013  11:59 AM           106,847 (0250) Ida Bagus Putu Arsa,SH..jpg
+12/19/2012  09:24 AM           173,037 (0251) A.A.Dewi Indrayati,SE.JPG
+01/08/2013  12:00 PM           118,493 (0252) A.A.Sayang Supeni, SE.jpg
+01/08/2013  12:01 PM            95,776 (0257) Ida Bagus Putu Warsana..jpg
+01/08/2013  01:10 PM           105,060 (0259) I Wayan Kartika..jpg
+01/08/2013  01:11 PM           119,854 (0260) Ida Bagus Gde Arsana..jpg
+01/08/2013  01:12 PM           115,083 (0261) I Wayan Diartha..jpg
+01/08/2013  01:12 PM           102,287 (0264) I Ketut Suastika Budhi Aryawan, SE.jpg
+01/08/2013  01:13 PM           126,058 (0265) I Gusti Ketut Sugiana..jpg
+12/19/2012  09:19 AM           181,241 (0266) Ni Nym.Suryaningsih, SE..JPG
+01/08/2013  01:15 PM           112,361 (0268) I Dewa Gde Astawa..jpg
+01/08/2013  01:15 PM           142,019 (0269) I Gusti Ngurah Sudana,SE..jpg
+01/08/2013  01:16 PM           130,347 (0270) I Wayan Sukerta..jpg
+01/08/2013  01:21 PM           120,522 (0271) Ida Bgs.Wayan Suanda..jpg
+01/08/2013  01:21 PM           111,837 (0273) I Made Jiwa, SE.jpg
+01/08/2013  01:22 PM           112,323 (0274) Ni Ketut Kawi, SE.jpg
+01/08/2013  01:22 PM           139,530 (0277) A.A.Ayu Sri Damayanti, SE.jpg
+01/08/2013  01:23 PM           131,592 (0278) I Wayan Kartha..jpg
+01/08/2013  01:23 PM           105,418 (0281) I Gusti Lanang Rai Arjana..jpg
+01/08/2013  01:24 PM           105,637 (0282) Ida Bagus Putu Yudha..jpg
+01/08/2013  01:25 PM           129,733 (0283) I Nyoman Rudita, SH.jpg
+01/08/2013  01:25 PM           117,772 (0284) I Wayan Darma..jpg
+01/08/2013  01:28 PM           128,320 (0285) I Gusti Lanang Ngurah..jpg
+01/08/2013  03:47 PM            97,833 (0286) Drs. I Komang Sumerta..jpg
+01/08/2013  03:48 PM           144,008 (0289) Ida Bagus Made Astawa.jpg
+01/08/2013  03:48 PM           110,837 (0292) I Made Musariawan..jpg
+01/08/2013  03:49 PM           112,750 (0293) I Made Wita.jpg
+01/08/2013  03:49 PM           128,595 (0296) Ni Luh Kompiang Soka, SE.jpg
+01/08/2013  03:50 PM           126,618 (0297) I Made Suastam, SE.jpg
+12/19/2012  09:16 AM           191,746 (0299) I Wayan Sujana, SE..JPG
+01/08/2013  03:52 PM            95,671 (0301) I Dewa Made Subagia,SE.jpg
+01/08/2013  03:52 PM           119,684 (0302) Ni Made Murniasih,SE.jpg
+12/19/2012  09:16 AM           163,541 (0304) Drs.I Nyoman Muskawan,..JPG
+01/08/2013  04:23 PM           137,527 (0305) I Made Suki.jpg
+01/08/2013  04:24 PM           129,673 (0306) Dra.Ni Wayan Suryani..jpg
+12/19/2012  09:15 AM           185,102 (0308) I Gusti Bagus Mahaputra,SE..JPG
+12/19/2012  09:20 AM           190,881 (0309) I Nyoman Sudarja, SE..JPG
+01/08/2013  04:25 PM           137,113 (0310) I Ketut Ardana,SH..jpg
+01/08/2013  04:26 PM           119,262 (0312) Ida Bagus Made Wirata.,SH..jpg
+01/08/2013  04:26 PM           123,280 (0315) I Wyn Wirya Gunawan,BSc..jpg
+01/08/2013  04:27 PM           116,662 (0317) Ida Bagus Rai Saskara..jpg
+12/19/2012  09:17 AM           167,390 (0318) I Nengah Suarjana.,SH..JPG
+01/08/2013  04:27 PM           133,629 (0320) Ida Bagus Raka Sumertha, SE.jpg
+01/08/2013  04:28 PM            98,446 (0321) I Made Lekik..jpg
+01/08/2013  04:28 PM           118,803 (0322) I Nyoman Rugeg..jpg
+01/08/2013  04:29 PM           114,692 (0323) I Gusti Ayu Putri, SH.jpg
+01/06/2006  06:15 PM            55,359 (0324) Ida Bagus Putu Suryawan..jpg
+12/19/2012  09:21 AM           148,017 (0326) I Gusti Bagus Susrama,SE..JPG
+01/08/2013  04:31 PM           115,715 (0327) I Nyoman Sudastra, SE.jpg
+01/08/2013  04:31 PM           132,216 (0328) I Ketut Sukiartha, SE.jpg
+12/19/2012  09:26 AM           154,250 (0329) I Dewa Ayu Mayuni,SE, Msi.JPG
+01/06/2006  07:16 PM            45,866 (0330) I Gusti Lanang Ngurah..jpg
+01/08/2013  04:33 PM            98,824 (0333) I Made Toya Arsana..jpg
+01/08/2013  04:33 PM           118,710 (0334) I Wayan Jara..jpg
+01/08/2013  04:34 PM           127,693 (0335) I Wayan Sumeyasa.jpg
+01/08/2013  04:35 PM           140,068 (0336) I Ketut Weja..jpg
+01/08/2013  04:35 PM           109,704 (0338) Putu Sumerta..jpg
+01/08/2013  04:36 PM           112,946 (0339) Ngurah Pancasila..jpg
+01/08/2013  04:36 PM           131,605 (0342) Ida Bagus Putrawan..jpg
+01/08/2013  04:36 PM            91,561 (0344) A.A.Ngurah Wiradharma..jpg
+01/08/2013  04:37 PM            91,597 (0345) I Ketut Widia, S.Sos.jpg
+01/08/2013  04:38 PM           108,082 (0346) I Gusti Bagus Suwarjaya..jpg
+01/08/2013  04:38 PM           111,348 (0347) I Ketut Ramia..jpg
+01/08/2013  04:39 PM           120,053 (0348) I Nyoman Ebeh Tenaya, SE.jpg
+01/08/2013  04:39 PM           107,116 (0349) I Made Sujana..jpg
+12/19/2012  09:22 AM           173,195 (0351) Cokorda Oka Putra,SE..JPG
+12/19/2012  09:23 AM           152,447 (0353) Putu Restyani Prima Setyawati, SE.JPG
+01/08/2013  04:40 PM           144,208 (0354) I Ketut Rasnu,SE...jpg
+01/06/2006  06:17 PM            50,347 (0355) I Made Wiwarta, SH.MH.jpg
+12/19/2012  09:20 AM           180,604 (0356) I Nyoman Ciptanadi,SE..JPG
+01/08/2013  04:41 PM           137,127 (0357) I Made Widana..jpg
+01/08/2013  04:42 PM           117,731 (0359) Wayan Sukadana..jpg
+01/08/2013  04:43 PM           128,709 (0360) Dra. Ni Wayan Seriani.jpg
+01/08/2013  04:44 PM           136,156 (0361) I. B. Gede Weda Agama, SE, MH.jpg
+01/08/2013  04:44 PM           117,962 (0363) I Nyoman Wija, SH.jpg
+01/08/2013  04:44 PM            83,832 (0364) Wakidi.jpg
+01/08/2013  04:45 PM           125,328 (0366) I Nyoman Alit Putra Adi..jpg
+12/19/2012  09:23 AM           159,485 (0367) Ida Bagus Ketut Putra,SE,Msi.JPG
+01/08/2013  04:46 PM           115,729 (0368) I Ketut Suarja, SH.jpg
+01/08/2013  04:46 PM           127,843 (0371) I Ketut Suastika..jpg
+01/08/2013  04:47 PM           115,068 (0372) I Putu Sudana..jpg
+01/06/2006  06:40 PM            41,826 (0373) A.A.Bgs Artha Negara Putra.,SH..jpg
+01/08/2013  04:50 PM           114,553 (0374) I Made Suranajaya,SE..jpg
+01/08/2013  04:50 PM           138,553 (0375) Tjokorda Gde Putra..jpg
+01/08/2013  04:51 PM           118,850 (0376) I Ketut Geria, SE.jpg
+01/08/2013  04:51 PM           157,054 (0377) I Nyoman Suastika,SE..jpg
+01/08/2013  04:52 PM           133,109 (0378) I Nyoman Parwata..jpg
+01/08/2013  04:52 PM           125,433 (0380) I Nengah Kadek, SE.jpg
+01/08/2013  04:53 PM           103,547 (0381) Drs. I Made Kasna..jpg
+01/08/2013  04:53 PM           121,123 (0382) I Nyoman Wage..jpg
+01/08/2013  04:54 PM           121,703 (0383) Dewa Putu Sukadana, SH.jpg
+01/08/2013  04:55 PM           123,807 (0384) I Komang Sayoga..jpg
+01/08/2013  04:55 PM           113,834 (0385) Gusti Made Hartawan, SE.jpg
+01/08/2013  04:56 PM           110,062 (0386) I Wayan Diastra..jpg
+01/08/2013  04:56 PM           129,321 (0387) I Nengah Karni Antara..jpg
+01/08/2013  04:56 PM           106,888 (0388) I Dewa Alit Wisnu,SE..jpg
+12/19/2012  09:15 AM           143,746 (0389) Ida Bgs Nym.Suwinem,SH..JPG
+01/08/2013  04:57 PM           102,982 (0390) I Made Budiartha..jpg
+01/08/2013  04:58 PM           105,815 (0391) I Putu Suardana..jpg
+01/08/2013  04:58 PM           122,231 (0392) I Nengah Arjana..jpg
+01/08/2013  04:59 PM           136,840 (0394) Dsk  Gede Yuni Endrawati..jpg
+01/08/2013  04:59 PM           110,467 (0395) I Ketut Suarsa..jpg
+01/08/2013  05:00 PM           125,711 (0396) I Gusti Made Sinangken..jpg
+01/08/2013  05:00 PM           157,431 (0398) I Made Swaryadala..jpg
+01/08/2013  05:01 PM           102,997 (0399) Ida Bagus Nyoman Tusta, Ssos..jpg
+01/08/2013  05:01 PM           109,821 (0400) I Komang Patra, SH.jpg
+01/08/2013  05:02 PM           108,753 (0401) I Ketut Arsika..jpg
+01/08/2013  05:02 PM           144,799 (0402) I Gusti Ngurah Made Raka..jpg
+01/08/2013  05:17 PM           124,675 (0404) I Kade Ginastra..jpg
+01/08/2013  05:18 PM           146,942 (0405) I Nyoman Purna..jpg
+01/08/2013  05:18 PM           122,354 (0406) Anak Agung Anom Jelantik..jpg
+01/08/2013  05:18 PM           112,106 (0407) I Ketut Pasek..jpg
+01/08/2013  05:19 PM           103,784 (0408) A.A. Istri Megayoni,SE..jpg
+01/08/2013  05:19 PM           114,225 (0409) Ni Ketut Sugesni,SE.jpg
+01/08/2013  05:20 PM           127,264 (0410) Cok Alit Aryani, SE.jpg
+01/08/2013  05:20 PM           126,620 (0411) I Made Sukadana, SE..jpg
+01/08/2013  05:21 PM           123,435 (0412) Sang Ayu Rai Wirawati, SH.jpg
+01/09/2013  08:14 AM           108,180 (0414) I Ketut Gede Gunawan..jpg
+01/09/2013  08:15 AM           132,590 (0415) I.G.A.Pt.Margareta Indrawati..jpg
+01/09/2013  08:15 AM           126,746 (0416) I Gusti Ngurah Rai Sutapa, SE.jpg
+01/09/2013  08:16 AM           125,368 (0417) Ni Nyoman Ciptarini, SE,MM.jpg
+01/09/2013  08:16 AM           141,345 (0418) Ni Ketut Setiasih, SE.jpg
+01/09/2013  08:17 AM           128,631 (0419) Ida Ayu Alit Manuaba, SE.jpg
+01/09/2013  08:17 AM           115,390 (0420) Dsk Gde Bintang Agustini..jpg
+01/09/2013  08:18 AM           140,354 (0421) Ida Ayu Tri Rasmiwinari,SE,MM.jpg
+01/09/2013  08:18 AM           102,695 (0422) I Made Subamia, SH.jpg
+01/09/2013  08:19 AM           108,738 (0423) I Ketut Widnyana, SH.jpg
+01/09/2013  08:19 AM           120,084 (0425) I Gede Sudarsana, SE.jpg
+01/09/2013  08:20 AM           112,867 (0426) I Made Suardiasa.,SH, MM.jpg
+01/09/2013  08:21 AM           129,375 (0427) Ida Bagus Gde Arta, SH..jpg
+01/09/2013  08:21 AM           121,274 (0428) Nyoman Supariana..jpg
+01/09/2013  08:22 AM           114,142 (0429) I Wayan Suandi, SE.jpg
+01/09/2013  08:22 AM           131,638 (0430) I Made Suarta.SH.jpg
+01/09/2013  09:01 AM           141,942 (0432) I Nyoman Netra Astawa, SH.jpg
+01/09/2013  09:01 AM           121,232 (0433) Ni Gusti Rai Ani, SE.jpg
+01/09/2013  09:02 AM           126,117 (0434) A.A.Sri Utami Dewi, SE.jpg
+01/09/2013  09:03 AM           124,780 (0435) Sagung Agung Anggraeniningrat, SE.jpg
+01/09/2013  09:03 AM           128,330 (0438) I Gede Sukarjati, SE.jpg
+01/09/2013  09:04 AM            97,267 (0439) I B  Arnawa Manuaba, SH, Msi.jpg
+01/09/2013  09:04 AM           100,225 (0440) I Wayan Wedana..jpg
+01/09/2013  09:05 AM           132,592 (0441) I Gst.Kt.Suparta Wintara..jpg
+01/09/2013  09:05 AM           133,837 (0442) I Wayan Suwarjana..jpg
+01/09/2013  09:06 AM           123,493 (0443) Ida Bagus Rai Diksa..jpg
+01/09/2013  09:06 AM           133,315 (0445) I Nyoman Sukarja..jpg
+01/09/2013  09:07 AM           117,827 (0446) Ida Bagus Astika.jpg
+01/09/2013  09:08 AM           128,725 (0448) I Gusti Putu Genawa..jpg
+01/09/2013  09:09 AM           110,453 (0449) I Wayan Suryadi..jpg
+01/09/2013  09:10 AM           114,954 (0450) I Nengah Widia..jpg
+01/09/2013  09:10 AM           139,401 (0451) I Dewa Ketut Nuija..jpg
+01/09/2013  09:11 AM           123,776 (0452) I Ketut Suparta..jpg
+01/09/2013  09:11 AM           115,755 (0453) I Wayan Rasna, SH.jpg
+01/09/2013  09:12 AM           113,723 (0454) Ngurah Anom..jpg
+01/09/2013  09:12 AM           121,994 (0455) I Ketut Parsana..jpg
+01/09/2013  09:27 AM           119,647 (0456) Ida Bagus Gede Suryawan..jpg
+01/09/2013  09:27 AM           139,770 (0457) I Wayan Sujaya..jpg
+01/09/2013  09:28 AM           123,674 (0458) I Gusti Putu Wirata..jpg
+01/09/2013  09:28 AM           117,461 (0459) I Made Merta..jpg
+01/09/2013  09:29 AM           119,506 (0460) Ida Bagus Made Oka.jpg
+01/09/2013  09:30 AM           116,103 (0461) I Km. Gde Sujana Putra, SE.jpg
+01/09/2013  09:31 AM           110,156 (0462) I Ketut Widiana..jpg
+01/09/2013  09:31 AM           112,692 (0463) I Nyoman Sudarma..jpg
+01/09/2013  09:32 AM           113,061 (0464) I Made Sueta..jpg
+01/09/2013  09:34 AM           148,866 (0465) I Gusti Ngurah Oka..jpg
+01/09/2013  09:34 AM           116,764 (0466) I Dewa Made Sumajaya..jpg
+01/09/2013  09:35 AM           125,762 (0467) I Wayan Suantara, S.Sos.jpg
+01/09/2013  09:35 AM           113,568 (0468) I Gusti Agung Mas Winarni, SE.jpg
+01/09/2013  09:36 AM           110,807 (0469) I Gst Ngurah Murjayadhi,SH..jpg
+01/09/2013  10:45 AM           117,279 (0470) Drs. I Made Miasa Giri.jpg
+01/09/2013  10:46 AM            88,435 (0471) I Wayan Ardika..jpg
+01/09/2013  10:46 AM           133,022 (0472) I Wayan Nurya..jpg
+01/09/2013  10:47 AM           130,578 (0473) I Wayan Sudiartha..jpg
+01/09/2013  10:48 AM           121,120 (0474) Ni Gusti Ayu Darma Asih,SE..jpg
+01/09/2013  10:48 AM           116,629 (0475) Anak Agung Istri Inten,SE..jpg
+01/09/2013  10:49 AM           118,795 (0476) Cok.Istri Pradnyawati,SE..jpg
+01/09/2013  10:49 AM           132,152 (0477) Ir.I Gusti Ngurah Surawan..jpg
+01/09/2013  10:50 AM           109,721 (0478) Ni Nyoman Sariani,SE..jpg
+12/19/2012  09:29 AM           144,121 (0479) Ida Bagus Made Putra,SH..JPG
+01/09/2013  10:51 AM           135,758 (0480) Made Sukendriani,SH..jpg
+01/09/2013  10:51 AM           139,124 (0481) Kadek Marleni,SE..jpg
+01/09/2013  10:52 AM           128,734 (0482) Drs. Ec. I Wayan Sugiarta, MM.jpg
+01/09/2013  10:53 AM           102,665 (0483) I. B. Wijaya Kusuma,SH.jpg
+01/09/2013  10:53 AM           123,938 (0484) Drs.I Wayan Sutela Negara,MM..jpg
+01/09/2013  10:54 AM           117,254 (0485) I Dewa Gede Putra Yustina,SH..jpg
+01/09/2013  10:55 AM           142,278 (0486) I Wayan Martana,SE,MM..jpg
+12/19/2012  09:13 AM           162,792 (0487) Ir.A.A.Made Yudiartha, MT.JPG
+01/09/2013  10:56 AM           118,024 (0488) I Nengah Dana Wirawan,SE..jpg
+01/09/2013  10:56 AM           108,576 (0489) I Wayan Sumer Widagda,SE..jpg
+01/09/2013  10:57 AM           119,638 (0490) Ni Ketut Suciati, SH.jpg
+01/09/2013  10:57 AM           124,322 (0491) Rita Puspita,SE..jpg
+01/09/2013  11:05 AM           131,083 (0492) Dra.Erna Noviani Arthanti.jpg
+01/09/2013  11:07 AM           119,047 (0493) Luh Rai Karmiwati,SE..jpg
+01/09/2013  11:07 AM           124,523 (0494) Kadek Rentiasa, SE.jpg
+01/09/2013  11:09 AM           138,443 (0495) Ida Ayu Putu Dewi Wardani..jpg
+12/19/2012  09:28 AM           147,216 (0496) I Gst.N. Bagus Artawan,SH..JPG
+01/09/2013  11:10 AM           128,548 (0497) Ida Ayu Gede Mayuni, SE.jpg
+01/09/2013  11:10 AM           109,771 (0498) Ni Made Rekawati, SE.jpg
+01/09/2013  11:11 AM           115,132 (0500) I Dewa Made Suwitra..jpg
+01/09/2013  11:11 AM           111,742 (0501) I Nyoman Kawit Arsana, SE.jpg
+01/09/2013  11:17 AM           125,907 (0502) Desak Gde Kristiani Dharhendra, SE.jpg
+01/09/2013  11:18 AM           119,385 (0503) Komang Yuni, SE.jpg
+01/09/2013  11:19 AM           138,391 (0504) I Ketut Daging Arta, SE.jpg
+01/09/2013  11:20 AM           136,349 (0505) I.A.Nym.Pastining Ratnadi..jpg
+01/09/2013  11:20 AM           126,310 (0506) I Dewa Made Anom Wijaya.jpg
+01/09/2013  11:21 AM           115,022 (0507) I Wayan Gemuh, SH.jpg
+01/09/2013  11:22 AM           105,586 (0508) I Wayan Sukariana.,SH..jpg
+01/09/2013  11:22 AM           124,329 (0509) Ni Kadek Nuriyani..jpg
+01/09/2013  11:23 AM           113,390 (0510) I Wayan Sudiana, SE.jpg
+01/09/2013  11:28 AM           113,138 (0511) Ni Wayan Retna Wulandari, SE.jpg
+01/09/2013  11:30 AM            94,822 (0512) I Gusti Made Candra Nadi..jpg
+01/09/2013  11:31 AM           112,352 (0513) Ni Nyoman Sri Dhanti, SE.jpg
+01/09/2013  11:31 AM           121,031 (0514) Ni Nyoman Warnasih, SE.jpg
+01/09/2013  11:32 AM           125,116 (0515) Dewa Ayu Eka Yanawanti, SE.jpg
+01/09/2013  11:32 AM           129,293 (0516) I Nyoman Gede Antara, SE.jpg
+01/09/2013  11:33 AM           118,531 (0518) Ida Bagus Darma Manuaba, SH.jpg
+12/19/2012  09:24 AM           151,596 (0519) I Ketut Adi.,SE..JPG
+01/09/2013  11:34 AM           129,022 (0520) Drs. I Gusti Made Narmada.jpg
+01/09/2013  11:40 AM           110,719 (0521) I Made Arya Wijaya..jpg
+01/09/2013  11:40 AM           108,149 (0522) I Made Sudarma, SE.jpg
+01/09/2013  11:44 AM           133,669 (0523) Ni Made Wisnawati, SE.jpg
+01/09/2013  11:44 AM           109,670 (0524) I Nyoman Astawa.,SH.jpg
+01/09/2013  11:45 AM           113,903 (0525) Leo Darwis, SE.jpg
+01/09/2013  11:46 AM           116,327 (0526) I Made Artana..jpg
+01/09/2013  11:52 AM           126,638 (0529) Ni Wayan Sukerti..jpg
+01/09/2013  01:05 PM           141,450 (0530) Gusti Ayu Putu Pusparini..jpg
+01/09/2013  01:05 PM           126,057 (0531) I Gusti Ngrh. Made Supardi, SE.jpg
+01/09/2013  01:12 PM           127,321 (0532) Ida Ayu Putu Arpini, SE.jpg
+01/09/2013  01:39 PM           130,777 (0534) I Dewa Nyoman Satiawan,SH..jpg
+01/09/2013  01:39 PM           114,590 (0535) Ni Wayan Suyastuti, SE.jpg
+01/09/2013  01:53 PM            95,407 (0536) I Komang Suarjana..jpg
+01/09/2013  01:53 PM           130,791 (0537) I Ketut Guna Aksara..jpg
+01/09/2013  01:54 PM           129,269 (0538) I Made Sunda..jpg
+01/09/2013  01:54 PM           124,418 (0539) Ni Luh Putu Sri Andayani, SE.jpg
+01/09/2013  01:55 PM           134,423 (0540) Made Sri Ayu Martini, SE.jpg
+01/09/2013  01:55 PM           109,965 (0541) Cok. Bagus Mahendra Putra, SE.jpg
+01/09/2013  04:44 PM           116,912 (0543) I Made Adnyana, SE.jpg
+01/09/2013  04:44 PM           103,268 (0544) I Ketut Tantana, SE.jpg
+01/09/2013  04:45 PM            99,170 (0545) I Gusti Made Mahardika..jpg
+12/19/2012  09:28 AM           162,625 (0546) I Made Artawa, SE.JPG
+01/09/2013  04:46 PM           121,982 (0547) Ni Wayan Sucitawati, SE.jpg
+01/09/2013  04:46 PM            95,993 (0548) I Nengah Lilir Adnya,SH..jpg
+01/09/2013  04:47 PM           122,614 (0549) Ir.Gede Arimbawa..jpg
+01/09/2013  04:48 PM           135,166 (0551) Gusti Ayu Nilayanti, SE.jpg
+01/09/2013  04:48 PM           120,097 (0552) Ida Ayu Putu Anom Yusmini, SE.jpg
+01/09/2013  04:49 PM            85,251 (0553) I Ketut Pasek Adiwijaya..jpg
+01/09/2013  04:50 PM           103,325 (0554) Ida Bgs.Made Gede Astawa.jpg
+01/09/2013  04:51 PM           102,551 (0555) I Ketut Suarjana, SE.jpg
+01/09/2013  04:51 PM           119,613 (0556) Ida Ayu Mas Artini..jpg
+01/09/2013  04:52 PM           140,628 (0557) Ni Ketut Alit Sriati., SE..jpg
+01/09/2013  04:52 PM           138,541 (0558) Ni Putu Sukaseni..jpg
+01/09/2013  04:53 PM           111,460 (0559) I Gede Sumarita, SE.jpg
+01/09/2013  04:53 PM           118,100 (0560) Ni Ketut Dewi Suarmini, SE.jpg
+01/09/2013  04:54 PM           125,083 (0562) Ni Made Seriandayani, SE.jpg
+01/09/2013  05:00 PM           137,289 (0563) Anak Agung Putu Sutama,SH.jpg
+01/09/2013  05:00 PM           139,147 (0564) Ni Ketut Suriati, SE.jpg
+01/09/2013  05:02 PM           125,225 (0565) Ni Ketut Rai Wiratiningsih.,SE..jpg
+01/09/2013  05:02 PM           101,268 (0566) I Made Suardana, SE.jpg
+01/09/2013  05:02 PM           113,851 (0567) Ida Bgs Ketut Arsa Putra,SE,MM.jpg
+01/09/2013  05:03 PM           139,555 (0568) I Made Anjasmara..jpg
+01/09/2013  05:04 PM           140,960 (0569) Ida Bgs.Gde Adnyana Manuaba, SE.jpg
+01/09/2013  05:04 PM           114,858 (0571) I Ketut Suandika, SH.jpg
+01/09/2013  05:05 PM           136,198 (0572) Anak Agung Ayu Mas Aryani..jpg
+01/11/2013  10:40 AM            95,508 (0573) Ida Bagus Made Dwi Putra..jpg
+01/11/2013  10:40 AM           131,090 (0574) I Made Putra.,SE..jpg
+01/11/2013  10:41 AM           130,982 (0575) Ni Putu Eka Asmariyani, SE.jpg
+01/11/2013  10:41 AM           114,424 (0576) Ida Bgs Made Raka Arjana.jpg
+01/11/2013  10:42 AM           133,570 (0577) Ida Ayu Putu Sasih, SE.jpg
+01/11/2013  10:42 AM           125,975 (0578) Dewi Ari Udayani, SE.jpg
+12/19/2012  09:30 AM           143,839 (0579) I.B.Gd. Ary Wijaya Guntur,SE,MM.JPG
+01/11/2013  10:43 AM           128,063 (0580) Ida Ayu Putu Mas Prilyawati, SE.jpg
+01/11/2013  10:44 AM           110,205 (0581) Ni Putu Evie Oktawati,SE.jpg
+01/11/2013  10:45 AM           114,105 (0583) I Gede Made Rusdiana Pande, SE.jpg
+01/11/2013  10:45 AM           144,620 (0584) Ni Ketut Sulastri, SE.jpg
+01/11/2013  10:46 AM           130,240 (0585) Ida Bagus Gde Arimbawa.jpg
+01/11/2013  10:46 AM           118,861 (0586) Ida Ayu Oka Arini, SE.jpg
+01/11/2013  10:47 AM           168,131 (0588) Ida Bagus Rai Suadnyana, S.sos.jpg
+01/11/2013  10:47 AM           108,206 (0589) Ida Bagus Djaya Muditha, SE.jpg
+01/11/2013  10:47 AM           106,391 (0590) I Nyoman Sudika, SE.jpg
+01/11/2013  10:48 AM           125,882 (0591) Ni Luh Putu Widnyani, SE.jpg
+01/11/2013  10:48 AM           140,439 (0592) Ni Made Widiasih, SE.jpg
+01/11/2013  10:49 AM           144,119 (0593) Ni Made Suariani, SE.jpg
+01/11/2013  10:50 AM           135,190 (0594) Ni Komang Ayuji Asmariani, SE.jpg
+01/11/2013  10:50 AM           125,757 (0595) Ida ayu Gede Jangga Manik, SE.jpg
+01/11/2013  10:51 AM           137,483 (0597) Ni Nyoman Suciati, SE.jpg
+01/11/2013  10:52 AM           137,488 (0598) I Gusti Ayu Sri Saraswini, SE.jpg
+01/11/2013  10:52 AM           104,465 (0600) Nyoman Manik Widayani, SE.jpg
+01/11/2013  10:53 AM           132,272 (0601) Cokorda Istri Ratna Dewi, S.sos.jpg
+01/11/2013  10:53 AM            98,031 (0602) Cok.Gde Putra Susanta.jpg
+01/11/2013  10:54 AM           104,798 (0603) Ida Ketut Jelantik.jpg
+01/11/2013  10:55 AM           122,057 (0604) Made Gede Prawira.jpg
+01/11/2013  10:55 AM           138,287 (0605) Ida Ayu Made Sriani.jpg
+01/11/2013  10:56 AM           116,740 (0606) Anak Agung Made Agung, SE.jpg
+01/11/2013  10:56 AM           115,884 (0607) A.A.Bagus Wisada Putra,SE..jpg
+01/11/2013  10:57 AM           113,370 (0608) I Nyoman Sukawan, SE.jpg
+01/11/2013  10:57 AM           111,752 (0609) I Gusti Ngurah Astika, SE.jpg
+01/11/2013  10:58 AM           116,070 (0610) Ni Wayan Widiani, SE.jpg
+01/11/2013  10:58 AM           139,016 (0611) Sagung Ayu Sri Sutrisni.jpg
+01/11/2013  10:59 AM           116,933 (0612) Ni Ketut Dewi Kesuma, SE.jpg
+01/11/2013  11:23 AM           142,436 (0613) Desak Gede Juliani.jpg
+01/11/2013  11:23 AM           111,137 (0614) I Md Lestara Widiatmika,SE.jpg
+01/11/2013  11:24 AM           124,541 (0615) Ni Luh Gde Januarnadi, SE.jpg
+01/11/2013  11:24 AM           109,121 (0616) Dewa Made Berata.jpg
+01/11/2013  11:25 AM           125,270 (0617) I Ketut Sudarta, SH.jpg
+01/11/2013  11:25 AM           123,777 (0618) I Ketut Mekel.jpg
+01/11/2013  11:26 AM           105,074 (0619) I Ketut Merdana.jpg
+01/11/2013  11:26 AM           131,200 (0620) I Ketut Suwija.jpg
+01/11/2013  11:27 AM           120,973 (0621) I Nengah Susila.jpg
+01/11/2013  11:27 AM           122,016 (0622) Ida Bagus Made Sukawan.jpg
+01/11/2013  11:27 AM            99,050 (0623) I Nyoman Gde Orita.jpg
+01/11/2013  11:28 AM           130,489 (0624) I Ketut Ruma Ardana.jpg
+01/11/2013  11:28 AM           109,942 (0625) I Ketut Sudiarta, SE.jpg
+01/11/2013  11:29 AM           119,930 (0626) I Putu Sumandita.jpg
+01/11/2013  11:29 AM           128,358 (0627) I Nyoman Srimurti.jpg
+01/11/2013  11:30 AM            93,393 (0628) I Ketut Sudarta.jpg
+01/11/2013  11:30 AM            93,658 (0629) I Nengah Segara.jpg
+01/11/2013  11:30 AM            94,291 (0630) I Komang Mertana, SE.jpg
+01/11/2013  11:33 AM           121,151 (0631) I Dewa Gede Suyoga, SE.jpg
+01/11/2013  11:34 AM           125,892 (0632) I Nengah Sumiarta.jpg
+01/11/2013  11:35 AM           104,252 (0633) I Nengah Widastra.jpg
+01/11/2013  11:36 AM            83,254 (0634) I Made Oka.jpg
+01/11/2013  11:36 AM            97,178 (0635) I Ketut Suardika, SH.jpg
+01/11/2013  11:37 AM           108,677 (0636) I Made Badra,SE..jpg
+01/11/2013  11:38 AM           105,663 (0637) I.B.Rai Swastika Manuaba.jpg
+01/11/2013  11:39 AM           132,908 (0638) I Ketut Arwata, SE.jpg
+01/11/2013  11:39 AM           129,903 (0639) I Gusti Ketut Arta.jpg
+01/11/2013  11:40 AM           107,410 (0640) I Wayan Miluyasa.jpg
+01/11/2013  11:41 AM           109,679 (0641) I Gusti Putu Artawan, SH.jpg
+01/11/2013  11:42 AM           139,906 (0642) Ni Ketut Rani, SE.jpg
+01/11/2013  11:44 AM            86,944 (0643) I Ketut Parnawa.jpg
+01/11/2013  11:45 AM           124,298 (0644) Kadek Arsana.jpg
+01/11/2013  11:45 AM           125,694 (0645) I Nyoman Suyasa.jpg
+01/11/2013  11:46 AM           118,709 (0646) I Made Murdiana.jpg
+01/11/2013  11:46 AM           111,125 (0647) I Gst.Ngr Agung Sudanta.jpg
+01/11/2013  11:46 AM            89,145 (0648) I Gst.Ngurah Yudiana, SE.jpg
+01/11/2013  11:49 AM            96,941 (0649) Anak Agung Putu Wiyasa.jpg
+01/11/2013  11:50 AM           119,319 (0651) I Nyoman Manuada.jpg
+01/11/2013  11:50 AM           132,946 (0652) I Nyoman Pasek Sriarta.jpg
+01/11/2013  11:51 AM            91,853 (0653) I Dw.Gde Agung Wijaya,SE..jpg
+01/11/2013  11:51 AM           116,680 (0655) Ni Nyoman Sri Mayuni, SE.jpg
+01/11/2013  11:52 AM            83,430 (0656) I Nyoman Sirka,SE.jpg
+01/11/2013  11:52 AM           115,724 (0657) Made Darsana.jpg
+01/11/2013  11:52 AM           101,867 (0658) I Made Sumardika, SE.jpg
+01/11/2013  11:53 AM           111,047 (0659) Ni Luh Nika Hartini, SE.jpg
+01/11/2013  01:24 PM            90,458 (0660) I Ketut Bakti, SH.jpg
+01/11/2013  01:24 PM           118,576 (0661) I Nyoman Arsa.jpg
+01/11/2013  01:25 PM           123,053 (0662) I Wayan Suteja.jpg
+01/11/2013  01:26 PM           108,831 (0663) Wayan Julianta.jpg
+01/11/2013  01:26 PM           113,878 (0664) I Ketut Sumantra.jpg
+01/11/2013  01:27 PM            96,236 (0666) I Wayan Dipastra.jpg
+01/11/2013  01:27 PM           140,142 (0667) I Wayan Mulia.jpg
+01/11/2013  01:27 PM           132,097 (0668) I Ketut Alit Bagiasa.jpg
+01/11/2013  01:28 PM           134,396 (0669) Anak Agung Ketut Suarta.jpg
+01/21/2013  11:09 AM           111,887 (0670) I Nyoman Darta.jpg
+01/21/2013  11:09 AM           136,409 (0671) I Wayan Murtika,SE..jpg
+01/21/2013  11:10 AM           125,734 (0672) Ida Bagus Made Sedana.jpg
+01/21/2013  11:10 AM           105,574 (0673) I Putu Gede Dwi Arsana.jpg
+01/21/2013  11:11 AM           135,241 (0674) I Putu Kartika, SH.jpg
+01/21/2013  11:11 AM           118,066 (0675) I Ketut Gede Suwitha.jpg
+01/21/2013  11:11 AM           124,153 (0676) I Gusti Made Yudantara.jpg
+01/21/2013  11:12 AM           145,280 (0677) I Wayan Bawa Samiarta.jpg
+12/19/2012  09:27 AM           160,594 (0678) I Nyoman Budiartha,ST.JPG
+01/21/2013  11:13 AM           141,352 (0679) Putu Dharmapatni,SE..jpg
+01/21/2013  11:13 AM           106,906 (0680) I Dewa Gede Oka Juni Adnyana, SE.jpg
+01/21/2013  11:13 AM           112,806 (0681) Ida Bagus Arka.jpg
+01/21/2013  11:14 AM           111,277 (0682) I Wayan Pasek.jpg
+01/21/2013  11:14 AM           128,110 (0683) Anak Agung Gede Dalem.jpg
+01/21/2013  11:14 AM           116,951 (0684) I Md.Juniada Sugiastama.jpg
+01/21/2013  11:15 AM           149,284 (0685) I Wayan Undana.jpg
+01/21/2013  11:15 AM           126,398 (0686) I Dewa Gede Putra.jpg
+01/21/2013  11:16 AM           121,064 (0687) I Wayan Suniasa.jpg
+01/21/2013  11:16 AM           117,191 (0688) I Nyoman Ardita.jpg
+01/21/2013  11:17 AM           110,167 (0689) I Komang Tirta Nadiasa.jpg
+01/21/2013  11:17 AM           100,148 (0690) I Made Prima Widhiastawa, SE.jpg
+01/21/2013  11:17 AM           133,662 (0691) I Dewa Made Sumendra.jpg
+01/21/2013  11:18 AM           107,982 (0692) I Wayan Anom Widiasa Giri.jpg
+01/21/2013  11:18 AM           107,814 (0693) I Made Heriyawan.jpg
+01/21/2013  11:18 AM           121,852 (0694) I Nengah Sudirta.jpg
+01/21/2013  11:19 AM           125,422 (0695) I Made Purnawa.jpg
+01/21/2013  11:19 AM           107,254 (0696) I Komang Suardana, SH.jpg
+01/21/2013  11:20 AM            88,452 (0697) I Dewa Gede Wijaya, SE.jpg
+01/21/2013  11:20 AM           122,631 (0698) I Gede Putra Sanjaya.jpg
+01/21/2013  11:20 AM            92,739 (0699) I Gusti Ngurah Rai Sutarta.jpg
+12/19/2012  09:19 AM           182,444 (0700) Ida Bgs Gd Setia Yasa,S.Kom,MM.JPG
+01/21/2013  11:22 AM           133,402 (0701) Ni Luh Gd.Rosmala Dewi,SE..jpg
+01/21/2013  11:23 AM           120,222 (0702) I Gst. Ag.Putri Dwiyanthi,SE.jpg
+12/19/2012  09:17 AM           167,092 (0704) Ni Wayan Suciati,SE AK..JPG
+01/21/2013  11:23 AM           116,790 (0705) A A.Istri Eka Parwita Dewi,SE,MM.jpg
+12/19/2012  09:16 AM           174,512 (0706) I Gst. Ayu Citrawati,SE..JPG
+01/21/2013  11:24 AM           120,914 (0707) I G A. Semara Sri Widari,SE.jpg
+12/19/2012  09:15 AM           142,689 (0708) I G A.Gede Suadnyana,ST..JPG
+12/19/2012  09:20 AM           175,305 (0709) I Nyoman Sudharma, SH,MH.JPG
+12/19/2012  09:22 AM           148,223 (0710) I Made Wismana,SE..JPG
+12/19/2012  09:24 AM           162,448 (0711) AA.Indraprasta Yasa,S.Kom..JPG
+01/21/2013  11:26 AM           114,163 (0712) Ni Made Suriani,SE..jpg
+01/21/2013  11:26 AM            99,321 (0713) Kadek Laba Karniawan.jpg
+01/21/2013  11:27 AM            94,244 (0714) I Wayan Karbawa Arsa.jpg
+01/21/2013  11:27 AM           101,808 (0715) I Komang Astawa, SE.jpg
+01/21/2013  11:28 AM            92,402 (0716) I Dewa Gede Putra.jpg
+01/04/2006  08:03 AM            18,529 (0717) I Gede Putu Wedana,ST..jpg
+01/21/2013  11:30 AM           122,413 (0718) A.A.Putri Arni Asih,SH..jpg
+01/21/2013  11:30 AM           112,216 (0719) I Komang Wiratnajaya,ST.MM..jpg
+01/21/2013  11:30 AM           129,117 (0720) I Gusti Ayu Diah Sundari,SP.MM.jpg
+01/21/2013  11:31 AM           122,369 (0721) I.B.Nyoman Ari Suryantara,SH,MM.jpg
+01/21/2013  11:31 AM           114,802 (0722) I.A.Sri Wahyuni Darmawati,SE.MM.jpg
+01/21/2013  11:31 AM           110,632 (0723) Dsk.Made Diah Pranawati,SE..jpg
+01/21/2013  11:32 AM           122,447 (0724) Ni Luh Putu Sri Rahayu,SE, MM.jpg
+12/19/2012  09:18 AM           153,902 (0725) Ni Nyoman Sri Utari Tresna,SE..JPG
+01/21/2013  11:33 AM           125,880 (0726) I Gede Sukanada,SE..jpg
+01/21/2013  11:33 AM           117,874 (0727) Made Sarasthyamada Dhiantha,SE..jpg
+01/21/2013  11:34 AM           103,359 (0728) Ida Ayu Putri Yuniawati,SE..jpg
+12/19/2012  09:27 AM           144,433 (0729) I Nyoman Sumanaya,SE,MM.JPG
+01/21/2013  11:34 AM           154,799 (0730) IGN Agustana Dharyantara M.,SE.MM.jpg
+01/21/2013  11:35 AM           109,944 (0731) Dewi Ag. Suryaningsih,SE.,MM,.jpg
+01/21/2013  11:35 AM           119,056 (0732) Ayun Marheny,SE..jpg
+01/21/2013  11:36 AM           124,265 (0733) Ni Ketut Lestari,S.TP..jpg
+01/21/2013  11:36 AM           128,464 (0734) Ida Ayu Nyoman Tresna,SP..jpg
+01/21/2013  11:37 AM           108,821 (0735) Ida Bagus Made Surawan,SPi..jpg
+01/21/2013  11:37 AM           177,044 (0736) Ida Ayu Ketut Hariasih, SE.jpg
+01/21/2013  11:37 AM           108,608 (0737) Ida Bagus Oka Astika.jpg
+01/21/2013  11:38 AM           100,598 (0738) Ida Bagus Taman.jpg
+01/21/2013  11:38 AM           123,565 (0739) Komang Yudi.jpg
+01/21/2013  11:38 AM           125,727 (0740) I Made Sumerta.jpg
+01/21/2013  11:39 AM           119,351 (0741) I Dewa Gede Gelgel, SE.jpg
+01/21/2013  11:39 AM            98,538 (0742) I Dewa Gede Putra.jpg
+01/21/2013  11:40 AM           100,257 (0743) A.A.Gd.Agung Semara Putra, SE.jpg
+01/21/2013  11:40 AM           124,047 (0744) I Wayan Suardana.jpg
+01/21/2013  11:40 AM           112,696 (0745) Ida Bagus Putu Punia.jpg
+01/21/2013  11:41 AM           119,825 (0746) Komang Sukarma, SE.jpg
+01/21/2013  11:41 AM           103,978 (0747) I Ketut Gede Pertama Suyasa, SE.jpg
+01/21/2013  11:41 AM           122,255 (0748) Drs. I Made Kastawa.jpg
+01/21/2013  11:42 AM           126,903 (0749) Ir.Tjok.Gede Rocky Putrajaya.jpg
+01/21/2013  11:42 AM           125,541 (0750) Ni Luh Emy Trisnawati.jpg
+01/21/2013  11:43 AM           109,803 (0751) I Gst.Ngr.Kt.Citarsa, SE.jpg
+02/11/2013  02:00 PM           105,032 (0753) I Made Ariadi.jpg
+02/11/2013  02:00 PM           142,495 (0754) Ni Nengah Sukarti, SE.jpg
+02/11/2013  02:01 PM            91,196 (0755) I Gusti Lanang Mantra, SE.jpg
+02/11/2013  02:02 PM            97,250 (0756) Kadek Budiastra, SE.jpg
+02/11/2013  02:02 PM           111,215 (0757) I Made Suarjana.jpg
+02/11/2013  02:02 PM            79,603 (0758) I Ketut Putu Arsana, SE.jpg
+02/11/2013  02:03 PM            96,690 (0759) I Ketut Werdi Sentana Putra, SH.jpg
+02/11/2013  02:03 PM            77,603 (0760) Dewa Putu Oka, SE.jpg
+02/11/2013  02:04 PM            88,894 (0761) Made Karmayasa, SE.jpg
+02/11/2013  02:07 PM            84,302 (0762) I Komang Suastika.jpg
+02/11/2013  02:07 PM            91,881 (0763) I Wayan Santika, SE.jpg
+02/11/2013  02:08 PM           105,731 (0764) Ida Ayu Nyoman Tresna Asih, SH.jpg
+02/11/2013  02:08 PM           106,109 (0765) I Gede Subagia, SE.jpg
+02/11/2013  02:09 PM            84,581 (0766) I Dewa Gede Sayang.jpg
+02/11/2013  02:09 PM            83,428 (0767) Ni Made Sri Warjani, SH.jpg
+02/11/2013  02:10 PM           107,751 (0768) A.A.Oka Krisna Arnika, SH.jpg
+02/11/2013  02:10 PM           106,448 (0769) Komang Bayu Baruna,SE.,MM..jpg
+02/11/2013  02:11 PM           102,083 (0770) Ida Bagus Alit Widiana,SE..jpg
+02/11/2013  02:23 PM            85,839 (0772) Putu Puspareni, SE.jpg
+02/11/2013  02:24 PM            93,828 (0773) I Dewa Gede Sutama.jpg
+02/11/2013  02:39 PM            81,340 (0774) I Made Gita, AMd.jpg
+02/11/2013  02:40 PM            97,502 (0775) I Gst.Ngurah Putrayasa, SE.jpg
+02/11/2013  02:40 PM            73,201 (0776) Ida Bgs.Putra Manuaba.jpg
+02/11/2013  02:41 PM            76,073 (0777) I Ketut Sukadarma.jpg
+02/11/2013  02:41 PM            93,685 (0778) Dsk N. Anggreni Beratha,SE..jpg
+02/11/2013  02:42 PM            91,679 (0779) Ida Bgs. Suryakanta Pidada,SE..jpg
+02/11/2013  02:42 PM            91,666 (0780) I Made Darmawan,S.Kom..jpg
+02/11/2013  02:50 PM           119,063 (0781) I Gd.Arya Purusa Dhana,S.Kom..jpg
+02/11/2013  02:50 PM            90,879 (0782) Gusti Ngurah Tanaya, SE.jpg
+02/11/2013  02:50 PM           101,778 (0783) Ida Bagus Ananda, SH.jpg
+02/11/2013  02:51 PM           120,771 (0784) I.B.Ananta Manuaba,SE..jpg
+02/11/2013  02:51 PM            90,275 (0785) Ni Luh Gde Dwi Putri, SE.jpg
+02/11/2013  02:52 PM            88,656 (0786) Ida Bgs.Gede Surya Darma, SH.jpg
+02/11/2013  02:53 PM            99,187 (0787) I Gusti Ayu Dewi Andayani, S.Tp.jpg
+02/11/2013  02:53 PM            93,139 (0788) Gusi Komang Adi Wirawan, SE.jpg
+02/11/2013  02:53 PM            94,037 (0789) I G A.Dian Anggreni Drestari, SE.jpg
+02/11/2013  02:55 PM           105,381 (0790) I Nyoman Stikirana Yuana,S.Kom..jpg
+02/11/2013  02:56 PM           124,278 (0791) I G N Widya Rusdyantha,S.Kom.jpg
+02/11/2013  02:56 PM            93,205 (0792) Ni  Putu Eka Wiryantini  Andewi,S.Kom,MM.jpg
+02/11/2013  02:57 PM            84,704 (0793) I Putu Agus Dharmendra,S.Kom.jpg
+02/11/2013  02:57 PM           109,490 (0794) Komang Tri Ayu Ristami,S.Kom.jpg
+02/11/2013  02:58 PM            85,198 (0795) I Made Indra Taurisiana,ST.jpg
+02/11/2013  02:58 PM            89,355 (0796) Dw Nym Meita Sastra Yudiana AR,ST..jpg
+02/11/2013  02:59 PM            95,674 (0797) Ni Nym.Asri Nila Windari.jpg
+02/11/2013  02:59 PM           100,396 (0798) I Wayan Rasna, SE.jpg
+02/11/2013  03:00 PM            75,393 (0799) I Nyoman Suartika.jpg
+02/11/2013  03:01 PM            90,949 (0800) I Ketut Samudra, SE.jpg
+02/11/2013  03:02 PM            91,043 (0801) I Nyoman Sutarta.jpg
+02/11/2013  03:02 PM           103,552 (0802) I Wayan Supiana.jpg
+02/11/2013  03:03 PM            90,307 (0803) I Dewa Putu Gunawan.jpg
+02/11/2013  03:03 PM           103,055 (0804) I Komang Suyasa.jpg
+02/11/2013  03:04 PM            89,416 (0805) I Made Arta.jpg
+02/11/2013  03:04 PM           102,899 (0806) Putu Endang Mariati, SS.jpg
+02/11/2013  03:04 PM            89,245 (0807) Ni Luh Putu Adriani, SE.jpg
+02/11/2013  03:05 PM           116,743 (0808) Desak Gede Seniwati.jpg
+02/11/2013  03:05 PM           105,776 (0809) Cok.Istri Mas Indrawati, SH.jpg
+02/11/2013  03:05 PM            96,981 (0810) I Wayan Ariwangsa,ST..jpg
+02/11/2013  03:06 PM            95,143 (0811) I Putu Gde Yasa Nurjaya,ST..jpg
+02/11/2013  03:06 PM            88,641 (0812) I.B.Sindu Wardana M,S.Kom..jpg
+02/11/2013  03:06 PM           103,336 (0815) I Made Astawa, SH.jpg
+02/11/2013  03:07 PM           100,737 (0816) I Gede Deny Tanaya, SH.jpg
+02/11/2013  03:07 PM            77,063 (0817) I Gede Satriawan.jpg
+02/11/2013  03:08 PM           105,690 (0818) Tjok.Istri Diah Utari,S.TP, MM.jpg
+02/11/2013  03:11 PM            78,471 (0820) Ketut Tyagita Daksa, SE.jpg
+02/11/2013  03:16 PM           115,135 (0821) I Dw.Ayu Rai Widyastuti, SE, Ak.jpg
+02/11/2013  03:16 PM            94,704 (0822) Ida Bagus Mas Aribujaya, ST.jpg
+02/11/2013  03:16 PM            81,102 (0823) I Dw.Gede Dodi Baskara.jpg
+02/11/2013  03:17 PM            87,059 (0824) Putu Karca Sumanjaya, SE,MM.jpg
+02/11/2013  03:17 PM           100,101 (0825) I Dw.Gd.Asmara Putra, SH.jpg
+02/11/2013  03:18 PM           105,188 (0826) Kadek Sutarya.jpg
+02/11/2013  03:18 PM           104,557 (0827) Ketut Andayana Kusuma Yasa,SE.jpg
+02/11/2013  03:23 PM            94,586 (0828) Dewa Ayu Satmiasari,SE,MM.jpg
+02/11/2013  03:43 PM            89,773 (0829) Yunita Rahyuda,SE,MM.jpg
+02/11/2013  03:44 PM            90,051 (0831) I Nengah Wardana, SE.jpg
+02/11/2013  03:44 PM            89,546 (0832) I Made Teju Artha, SE.jpg
+02/11/2013  03:44 PM            88,431 (0833) I Wayan Juni Ardana, S.Sos.jpg
+12/19/2012  09:08 AM           150,587 (0834) Sanjaya Caesar, SH...JPG
+02/11/2013  03:45 PM            77,473 (0835) Ni Nym.Diah Witari,SE, MM.jpg
+02/11/2013  03:50 PM           104,894 (0836) Dewi Anggreni Agustini,SE.jpg
+02/11/2013  03:50 PM            89,143 (0837) I.B. Ketut Eka Putra Aryawan.jpg
+02/11/2013  03:51 PM           106,269 (0838) I Dewa Gede Agung Putra.jpg
+02/11/2013  03:56 PM            95,081 (0840) I Gusti Ngr.Suarsana.jpg
+02/11/2013  03:57 PM           125,066 (0841) I Wayan Sukarja Sastrawan, SE.jpg
+02/11/2013  03:57 PM           112,956 (0842) I. B.Gde Dwi Asmarantika.jpg
+02/11/2013  03:57 PM            95,996 (0843) I Gusti Ngurah Sanjaya Putra, SE.jpg
+02/11/2013  03:58 PM            81,345 (0844) Ida Bgs.Kade Siswandi, SH.jpg
+02/11/2013  03:58 PM            72,279 (0845) I Ketut Sudana.jpg
+02/11/2013  03:59 PM            97,456 (0847) Cok. Gede Raka Pemayun.jpg
+02/11/2013  03:59 PM            89,182 (0848) Ida Ayu Yuniarti Dewi,ST..jpg
+02/11/2013  03:59 PM            86,174 (0849) I Gusti Bagus Jendra.jpg
+02/11/2013  04:00 PM            83,498 (0850) I Gd.Supradnyan Muliasa, SE.jpg
+02/11/2013  04:00 PM            94,223 (0851) I Gst. Ayu Sri Mindiawati,SH..jpg
+02/11/2013  04:00 PM           103,218 (0852) I Komang Wiryadi,SE.jpg
+02/11/2013  04:01 PM            92,087 (0853) Yuni Lestari Dewi,SE.jpg
+02/11/2013  04:01 PM            77,154 (0854) I Ketut Sukartana, SE..jpg
+02/11/2013  04:01 PM           113,378 (0855) I Made Astika Budiyasa,ST, MM.jpg
+02/11/2013  04:02 PM            76,877 (0856) I Gede Yoga Sugiri,SE.MM.jpg
+02/11/2013  04:02 PM            90,954 (0857) A.A.Gede Bagus Purnawan,SH, MH.jpg
+02/11/2013  04:02 PM            79,266 (0858) I Gede Agus Tustayasa,SE, MM.jpg
+02/11/2013  04:05 PM           101,501 (0859) Ni Luh Made Verawati,ST..jpg
+02/11/2013  04:14 PM            96,949 (0860) Gst.Ayu Putu Yuliari,SE.,Msi.jpg
+02/14/2013  09:44 AM           110,747 (0861) Putu Adi Manusmara,SE..jpg
+02/14/2013  09:45 AM           102,370 (0862) Ida Ayu  Alit Wijayanti,SE.jpg
+02/14/2013  09:45 AM            97,098 (0863) Made Adhitya Pranajaya,SE,MM.jpg
+02/14/2013  09:46 AM            93,151 (0864) Ni Nyoman Ari Astiti,SE..jpg
+02/14/2013  09:46 AM            97,969 (0865) Ni Putu Dista Sari,SE..jpg
+02/14/2013  09:47 AM            94,506 (0866) Komang Budhita Wirautama,ST..jpg
+02/14/2013  09:47 AM            96,294 (0867) Ni Made Ari Wiratini,SE..jpg
+02/14/2013  09:47 AM            98,638 (0868) A.A.Ngr.Agung Bimarthama,ST, MM.jpg
+02/14/2013  09:48 AM            88,629 (0869) I.D G.Yuniko Satria Wibawa,SE,MM.jpg
+02/14/2013  09:49 AM            98,647 (0870) A.A.Sg.Istri Kusuma Artharini,SE.jpg
+02/14/2013  09:50 AM            93,117 (0871) Ni Made Wiliani,SE,MM.jpg
+02/14/2013  09:50 AM           104,226 (0872) Made Suhardika,ST..jpg
+02/14/2013  09:52 AM            91,527 (0873) Ni Kadek Sri Wahyuni,SE..jpg
+02/14/2013  09:52 AM            96,571 (0874) Ida Ayu Lely Parwati,SE..jpg
+02/14/2013  05:09 PM           100,564 (0875) I Ketut Bagus Ariana,SE, MM.jpg
+02/14/2013  05:09 PM            78,270 (0876) A.A.Putu Dewi Anggraini,SE..jpg
+02/15/2013  03:05 PM           155,044 (0877) Ni Dsk.Made Sari Nalurita,SE..jpg
+02/15/2013  03:05 PM           126,155 (0878) Anak Agung Ayu Sri Nurhayati,SE,MM.jpg
+02/15/2013  03:06 PM           125,077 (0880) I Wayan Sudana Yasa,SE..jpg
+02/15/2013  03:07 PM           150,138 (0881) A.A.Sg.Sri Darmayanthi,SE..jpg
+02/15/2013  03:07 PM           118,843 (0882) I.B.Pt.Mahardika Manuaba,SE..jpg
+02/15/2013  03:08 PM           121,787 (0883) I.G.N.B. Adi Satria Wibawa Kepakisan, SE, MM.jpg
+02/15/2013  03:08 PM           115,972 (0884) Ida Bagus Palguna,SE.jpg
+06/07/2013  01:39 PM           125,454 (0885) I Putu Eka Juliartha,SE..jpg
+02/15/2013  03:10 PM           132,480 (0886) I Dw.Gede Pidana Putra,SE..jpg
+02/15/2013  03:12 PM           149,796 (0887) I Gede Eka Artha Nugraha,SE.MM.jpg
+02/15/2013  03:13 PM           108,819 (0888) Sang Kompiang Muliawan, SH.jpg
+02/15/2013  03:20 PM           130,751 (0889) I Putu Gede Darmawan, SE.jpg
+02/15/2013  03:21 PM           137,139 (0890) Putu Ayu Intang Sisilia,SE..jpg
+02/15/2013  03:21 PM           120,043 (0891) Kadek Dody Ariyasa,SE.jpg
+02/15/2013  03:22 PM           126,565 (0892) Desak Putu Heni Susanthi,SE.jpg
+02/15/2013  03:22 PM           106,672 (0893) Ida Bagus Purnayasa.jpg
+02/15/2013  03:23 PM           136,800 (0894) I Nyoman Suradnya,S.Sos..jpg
+02/15/2013  03:23 PM           127,257 (0895) I Gusti Putu Ngurah Eko Putra, SE.jpg
+02/15/2013  03:25 PM           110,835 (0896) Ida Bagus Ketut Putra Parwata.jpg
+02/15/2013  03:25 PM           142,185 (0897) I Nyoman Gede Sugiartha.jpg
+02/15/2013  03:25 PM           132,366 (0898) Ida Bgs.Gede Chrisna Anuja, SE.jpg
+02/25/2013  09:33 AM           107,569 (0899) Sang Kompiang Sadnyana Putra, SH.jpg
+12/19/2012  09:14 AM           138,190 (0900) Gede Fajar Bagyastra, SH.JPG
+02/25/2013  09:34 AM           123,652 (0902) I Nyoman Artana Putra, SE.jpg
+02/25/2013  09:35 AM           119,024 (0903) I Ketut Budiarta, SH.jpg
+02/25/2013  09:35 AM           132,881 (0904) I Gst.Putu Kesuma Werdiana, SE.jpg
+02/25/2013  09:35 AM           114,215 (0905) I Ketut Putra Budiarsa, S.Sos.jpg
+02/25/2013  09:36 AM           126,319 (0906) Anak Agung Ayu Wulandari, SH.jpg
+02/25/2013  09:37 AM           102,407 (0907) I Ketut Swardana Putra, SE.jpg
+02/25/2013  09:38 AM           109,398 (0908) Tjok.Prahasara Jaya Ningrat, SE.jpg
+02/25/2013  09:38 AM           138,355 (0909) Ida Bagus Purwa Pidada,SE.jpg
+02/25/2013  09:38 AM           147,418 (0910) I Nyoman Sudiarta.jpg
+02/25/2013  09:39 AM           122,685 (0911) Ni Luh Putu Rusmayanthi, SE.jpg
+02/25/2013  09:39 AM           117,585 (0912) I Komang Swastawa.jpg
+02/25/2013  09:40 AM           116,700 (0913) I Ketut Suriata.jpg
+02/25/2013  09:40 AM            98,117 (0914) I Md Sutrisna Cakra Noviana.jpg
+01/09/2013  01:57 PM           132,683 (0915) Ida Bgs.Gede Adi Putra.jpg
+01/09/2013  01:57 PM           129,293 (0916) I Wayan Gede.jpg
+01/09/2013  01:58 PM           114,317 (0917) Made Agus Puja Semara.jpg
+01/09/2013  01:58 PM           124,266 (0918) Dewi Krisnayanti, SE.jpg
+01/09/2013  01:58 PM           129,158 (0919) I Nyoman Nooraspaty Krishna, ST.JPG
+01/09/2013  01:59 PM           119,426 (0920) Miming Trisnandari, SH, MH.jpg
+01/09/2013  01:59 PM           118,037 (0921) I Nyoman Widiartha, SH,MH.jpg
+01/09/2013  02:00 PM           126,719 (0922) Ni Komang Sri Guntari, SE.jpg
+01/09/2013  02:00 PM           140,040 (0923) A.A. Bagus Dharma Putra, SE.jpg
+01/09/2013  02:32 PM           123,744 (0924) Ketut Wulandari Ayuningtyas, SE.jpg
+01/09/2013  02:37 PM           128,693 (0925) L Pt Sri Wulandari Semadi, SP, MM.jpg
+01/09/2013  02:37 PM           149,341 (0926) Ni Wayan Kartini, SE,MM.jpg
+01/09/2013  02:40 PM           118,679 (0927) I Made Astayasa Putra, SE.Ak, MM.jpg
+01/09/2013  02:40 PM           103,845 (0928) I Gede Oka Gunawan, SE,MM.jpg
+01/09/2013  02:41 PM           121,422 (0929) I Gede Muliawan, SE.jpg
+01/09/2013  02:42 PM           119,078 (0930) I Komang Sandhyana Kartika, SE, MM.jpg
+01/09/2013  02:42 PM           153,845 (0931) I Made Suwitra, SE.jpg
+01/09/2013  02:46 PM           112,711 (0932) Ida Bagus Gde Bandayuda, SE.jpg
+01/09/2013  02:46 PM           101,107 (0933) Ni Ketut Hendrayani, SE.jpg
+01/09/2013  02:47 PM           112,843 (0934) Komang Agus Trio Putra Darma, SE,MM.jpg
+01/09/2013  02:47 PM           103,178 (0935) I Putu Gede Arie Yana, SE.jpg
+01/09/2013  02:47 PM           123,035 (0936) Reri Krisna, S.Sos.jpg
+01/09/2013  02:48 PM           122,969 (0937) Ida Bagus Putu Juliartha, SP.jpg
+01/09/2013  02:48 PM           100,403 (0938) I Wayan Kurniawan, SE.jpg
+01/09/2013  02:49 PM            94,692 (0939) A.A. Ngurah Oka Dhananjaya, SE,MM, Ak.jpg
+01/09/2013  02:49 PM           111,669 (0940) I.G.A. Kresna Surya Purnama, SE.MM.jpg
+01/09/2013  02:50 PM           121,547 (0941) Ida Ayu Made Denia Sari, SE.jpg
+01/09/2013  02:50 PM           130,472 (0942) Ayu Putu Yeni Sulistio Dewi, SE.jpg
+01/09/2013  03:12 PM           103,388 (0943) I.B.Gd. Krisna Cahyadi Putra, ST.jpg
+01/09/2013  03:13 PM           114,089 (0944) I Putu Wicahya, ST.jpg
+01/09/2013  03:13 PM           127,651 (0945) Putrawan Mahardika, ST.jpg
+01/09/2013  03:14 PM           119,816 (0946) Ni Komang Trisna Karnawati, SE.jpg
+01/09/2013  03:16 PM           126,123 (0947) Anak Agung Sagung Putri, SS.jpg
+01/09/2013  03:17 PM           135,936 (0948) Ni Komang Ariani, ST.jpg
+01/09/2013  03:18 PM           112,497 (0949) Adi Sustika, ST.jpg
+01/09/2013  03:41 PM           116,968 (0951) Putu Arie Astuti, SE.jpg
+12/19/2012  09:13 AM           139,381 (0952) I Gusti Gde Yuniartha, S.Kom.JPG
+02/25/2013  09:50 AM           133,229 (0953) A.A. Istri Putri Yuliati, S.Psi.jpg
+02/25/2013  09:51 AM           129,944 (0954) I.B. Gede Eka Dharma, SE.jpg
+02/25/2013  09:51 AM           140,711 (0955) Harumi Anggilia, A.Md. Keu..jpg
+02/25/2013  09:51 AM           135,749 (0956) Ni Made Wahyu Sugihartini, SE.Ak.jpg
+02/25/2013  09:52 AM           136,271 (0957) Ida Ayu Putu Utami, SE.jpg
+02/25/2013  09:52 AM           137,539 (0958) Ni Ketut Reni Astuti, SE.jpg
+02/25/2013  09:53 AM           122,090 (0959) I Gusti Putu Wisnu Prabawa, SE.jpg
+02/25/2013  09:53 AM           136,374 (0960) I G.A Diah Chandra Kemala, SE.jpg
+02/25/2013  09:54 AM           104,753 (0961) Kadek Marlon, SH.jpg
+02/25/2013  09:55 AM           123,238 (0962) I.A. Putu Sri Wulandari, SE.jpg
+02/25/2013  09:55 AM           126,362 (0963) Ni Luh Putu Eka Yuniati, SE.jpg
+02/25/2013  09:57 AM           134,324 (0964) Desak Gede Romilda Rosiana,AR,SE,MM.jpg
+02/25/2013  09:57 AM           131,440 (0965) Ida Ayu Gede Eka Asri, SE.jpg
+02/25/2013  09:58 AM           110,604 (0966) A.A. Ngurah Aryadiputra, SE.Ak.jpg
+02/25/2013  09:58 AM           139,539 (0967) Ni Putu Suka Widhy Astuti, SE.jpg
+02/25/2013  09:58 AM           123,818 (0968) A.A. Bagus Joni Aryanegara, SE.jpg
+02/25/2013  09:59 AM           135,513 (0969) Ni Ketut Dian Fitriari Darmi, SE.jpg
+02/25/2013  10:00 AM           144,567 (0970) Sri Dewi Kumarayanti, SS.jpg
+02/25/2013  10:00 AM           129,848 (0971) Ida Bagus Krisna Widhana, SE.jpg
+02/25/2013  10:01 AM           122,380 (0972) I Gusti Agung Diah Kusuma Dewi, SE.jpg
+02/25/2013  10:01 AM            94,945 (0973) Ida Bagus Wiasa Putra, SE.jpg
+02/25/2013  10:02 AM           137,779 (0974) Ida Bagus Ary Rahma, S.IP.jpg
+02/25/2013  10:02 AM           133,292 (0975) I Gede Agus Setiawan, SE.jpg
+02/25/2013  10:03 AM           115,847 (0976) I Nyoman Gede Piana Putra, SE.jpg
+02/25/2013  10:03 AM           121,725 (0977) Pande Gede Yamindra, ST.jpg
+02/25/2013  10:06 AM           132,772 (0978) Ida Ayu Ari Suryati, SE.jpg
+02/27/2013  10:52 AM           139,641 (0979) I Gede Suarya Wijaya, SE.jpg
+02/27/2013  10:53 AM           124,127 (0980) Made Ayu Amy Dwi Utami, SE.jpg
+02/27/2013  10:53 AM           126,173 (0981) Ida Bagus Nyoman Baskara, SE.jpg
+02/27/2013  10:53 AM           128,494 (0982) Ni Kadek Oka Dwi Ariati, SE,MM.jpg
+02/27/2013  10:54 AM           125,640 (0983) I Gusti Ayu Rai Sulasmi, SE.jpg
+02/27/2013  10:54 AM           131,556 (0984) Made Sema, SE.jpg
+02/27/2013  10:55 AM           132,626 (0985) Ketut Mertha Yasa,SE.jpg
+02/27/2013  10:55 AM           138,117 (0986) A.A. Sagung Mas Vivin Jayanti, SE.jpg
+02/27/2013  10:55 AM           133,484 (0987) I Putu Yoga Sugama, SE.jpg
+02/27/2013  10:56 AM           109,418 (0988) I Gde Arie Krhisna Mudira, SE.jpg
+02/27/2013  10:56 AM           101,214 (0989) Agus Junio Kurniawan, S.Sos.jpg
+02/27/2013  10:57 AM           135,126 (0990) I Gusti Ayu Pratiwi Handayani, SE,MM.jpg
+02/27/2013  10:58 AM           136,275 (0991) Ni Luh Gede Suryatini, SE.jpg
+02/27/2013  10:58 AM           124,120 (0992) A.A. Istri Diah Jayanti, SE.Ak.jpg
+02/27/2013  10:58 AM           133,435 (0993) Ida Ayu Ari Handayani, SE.jpg
+02/27/2013  10:59 AM           178,722 (0995) Ida Ayu Sindi Sucitra Dewi, ST.jpg
+02/27/2013  10:59 AM           133,459 (0996) I Nyoman Wardana, SH.jpg
+02/27/2013  11:07 AM           149,266 (0997) I Dewa Made Ariana, SE.jpg
+02/27/2013  11:07 AM           118,663 (0998) I Made Adi Dwi Putra, SS.jpg
+02/27/2013  11:08 AM           135,414 (0999) I Gusti Agung Hermayanti, SE.jpg
+02/27/2013  11:08 AM           141,819 (1000) I Made Budiarta, SE.jpg
+02/27/2013  11:08 AM           115,084 (1001) KD. Agus Nanda Sutrisna.jpg
+02/27/2013  11:09 AM           110,528 (1002) Ida Bagus Gede Suherudiana.jpg
+02/27/2013  11:10 AM           139,837 (1003) I Wayan Widiyasmara.jpg
+02/27/2013  11:10 AM           113,266 (1004) I Ketut Adi Susila, SE.jpg
+02/27/2013  11:10 AM           130,231 (1005) I Dewa Gede Agustina, SE.jpg
+02/27/2013  11:11 AM           118,837 (1006) Ni Wayan Kartini Asih, SE.jpg
+02/27/2013  11:11 AM           122,506 (1007) Ida Bagus Made Putra Darmendra.jpg
+02/27/2013  11:12 AM           123,301 (1008) Putu Budi Cahyadi, SST.Par.jpg
+02/27/2013  11:12 AM           127,191 (1009) I Dw Pt Dedy Suwidyantara Putra Nida.jpg
+02/27/2013  11:13 AM           139,888 (1010) Ayu Laksmi Dewi.jpg
+02/27/2013  11:13 AM           119,784 (1011) Ni Ketut Ida Royani, SE.jpg
+02/27/2013  11:14 AM           141,417 (1012) Ida Bagus Made Martana, SE.jpg
+02/27/2013  11:14 AM           128,325 (1013) I.B.Ketut Iswara Mahardika Manuaba, SE.jpg
+02/27/2013  11:14 AM           110,079 (1014) I.B. Wedha Raden Manuaba.jpg
+02/27/2013  11:15 AM           111,439 (1015) I.B. Gde Mantra Manuaba.jpg
+02/27/2013  11:22 AM           110,231 (1016) Ida Bagus Darma Putra.jpg
+02/27/2013  11:22 AM           127,358 (1017) Kadek Yuli Anggraini, SE.jpg
+02/27/2013  11:23 AM           134,633 (1018) I Gusti Agung Mas Risnawati.jpg
+02/27/2013  11:25 AM           107,565 (1019) I Gusti Ngurah Araniaka Yogi Swara.jpg
+02/27/2013  11:25 AM           128,213 (1020) I Gusti Ayu Krisna Dewi, A.Md.jpg
+02/27/2013  11:25 AM           116,544 (1021) I Putu Suardana.jpg
+02/27/2013  11:27 AM           113,486 (1022) Kadek Adi Wirawan.jpg
+02/27/2013  11:27 AM           124,942 (1023) Ida Bagus Gede Bawa Pramana.jpg
+02/27/2013  11:27 AM           139,562 (1024) Made Dwi Pramana, SE.jpg
+02/27/2013  11:30 AM           126,399 (1025) I Gusti Ngurah Bagus Satrya Wibawa, SE.jpg
+02/27/2013  11:30 AM           112,555 (1026) I G.A. Bagus Putra Kusuma.jpg
+02/27/2013  11:30 AM           151,734 (1027) Putu Eli Desi Arisandi.jpg
+02/27/2013  11:31 AM           134,917 (1028) Ni Luh Putu Fitrina Hapsari.jpg
+02/27/2013  11:31 AM           125,768 (1030) Anak Agung Ngurah Bagus Mahayadnya Kamasan, SE.jpg
+02/27/2013  11:32 AM           132,070 (1031) I Putu Agus Yuliana Eka Diputra, SE.jpg
+02/27/2013  11:32 AM           107,746 (1032) Wayan Ari Sastra, S.Kom.jpg
+02/27/2013  11:33 AM           160,732 (1033) Ida Ayu Ari, SE.jpg
+02/27/2013  11:33 AM           138,532 (1034) A.A. Ngurah Trisna Andayana.jpg
+02/27/2013  11:34 AM           124,686 (1035) Nyoman Dharma Yuda, SE.jpg
+02/27/2013  11:34 AM           116,437 (1036) Ida Bagus Ketut Candra Sutapahala.jpg
+02/27/2013  11:34 AM           122,537 (1037) Ketut Mahendra Utama Sadmita, SE.jpg
+02/27/2013  11:35 AM           140,428 (1038) Made Santi Pratiwi.jpg
+02/27/2013  11:35 AM           126,265 (1039) I Wayan Gede Widiarta.jpg
+02/27/2013  11:36 AM           124,292 (1040) I Made Yogantara, SE.jpg
+02/27/2013  11:36 AM           119,018 (1041) Anak Agung Ngurah Juhendra.jpg
+02/27/2013  11:37 AM           142,250 (1042) I Komang Cipto Kusuma Adi, SE.jpg
+02/27/2013  11:37 AM           118,862 (1043) Ida Bagus Mahayasa, SE.jpg
+02/27/2013  11:37 AM           129,187 (1044) I Nyoman Sudarmanta.jpg
+02/27/2013  11:38 AM           126,480 (1045) I Nyoman  Agustia.jpg
+02/27/2013  11:38 AM           130,392 (1046) Ni Made Indrawati, SE.jpg
+02/27/2013  11:39 AM           158,094 (1047) I Nyoman Dama.jpg
+02/27/2013  11:39 AM           115,898 (1048) I Putu Suwendra, SE.jpg
+02/27/2013  11:39 AM           110,952 (1049) Ida Bagus Gede Arsana, Sag.jpg
+02/27/2013  11:40 AM           131,205 (1050) Ni Made Sunari.jpg
+02/27/2013  11:40 AM           130,650 (1051) I Gusti Agung Wiradharma.jpg
+02/27/2013  11:41 AM           105,979 (1052) I Ketut Gede Mudarta.jpg
+02/27/2013  11:41 AM           126,954 (1053) I Nyoman Sumberdika.jpg
+02/27/2013  11:41 AM           137,843 (1054) I Ketut Suteja.jpg
+02/27/2013  11:48 AM           121,234 (1055) I Ketut Suardana.jpg
+02/27/2013  11:49 AM           142,993 (1056) Ida Bgs.Nyoman Astawa.jpg
+02/27/2013  11:49 AM           142,099 (1057) I Putu Suradi.jpg
+02/27/2013  11:50 AM           120,264 (1058) Tjokorda Gede Putra Kusuma Wijaya, SE.jpg
+02/27/2013  11:50 AM           117,404 (1059) Ida Bagus Eka Trisna.jpg
+02/27/2013  11:50 AM           107,648 (1060) Ida Bagus Gd Topan Irawan, SE.jpg
+02/27/2013  01:46 PM           130,129 (1061) Ida Bagus Mahaputra, SE.jpg
+02/27/2013  01:46 PM           130,437 (1062) I Nyoman Suliawan.jpg
+02/27/2013  01:46 PM           136,192 (1063) I Made Subiakta.jpg
+02/27/2013  03:46 PM           120,632 (1064) I Wayan Suarjana.jpg
+02/27/2013  03:47 PM           122,747 (1065) I Gusti Lanang Artha.jpg
+02/27/2013  03:47 PM           133,212 (1066) I Wayan Gede Rawan.jpg
+02/27/2013  03:47 PM           127,010 (1067) I Wayan Gede Suniawan.jpg
+02/27/2013  03:48 PM           119,196 (1068) Wayan Lega Suriawan.jpg
+02/27/2013  03:49 PM           120,112 (1069) I Komang Sintayasa.jpg
+02/27/2013  03:50 PM           117,544 (1070) I Made Subagia Artadana.jpg
+02/27/2013  03:50 PM           129,626 (1071) I Wayan Sudata, SE.jpg
+02/27/2013  03:50 PM           120,131 (1072) I Putu Wirawan, SE.jpg
+02/27/2013  03:51 PM           113,474 (1073) I Wayan Karya Putra Negara.jpg
+02/27/2013  03:51 PM           136,616 (1074) I Putu Setiawan.jpg
+02/27/2013  03:52 PM           119,272 (1075) I Nyoman Karta.jpg
+02/27/2013  03:52 PM           159,641 (1076) Ni Made Sumarni.jpg
+02/27/2013  03:53 PM           132,257 (1077) I Ketut Subur.jpg
+02/27/2013  03:53 PM           117,698 (1078) Ida Bagus Gili Putra.jpg
+02/27/2013  03:55 PM           118,878 (1079) Putu Agus Jaya Asmara.jpg
+02/27/2013  03:55 PM           106,981 (1081) I Nyoman Winaya Arimbawa.jpg
+02/27/2013  04:13 PM           137,017 (1082) Ni Luh Putu Sri Purnamiasih.jpg
+02/27/2013  04:13 PM           135,537 (1083) Ni Kadek Ratna Sri Wahyuni.jpg
+02/27/2013  04:14 PM           101,401 (1084) I Wayan Sudana, SS.jpg
+02/27/2013  04:14 PM           122,191 (1085) Kadek Artiningsih,SH.jpg
+02/27/2013  04:15 PM            93,017 (1086) I Wayan Swiantara, SS.jpg
+02/27/2013  04:15 PM           138,825 (1087) I Made Adi Nuradi,SE.jpg
+02/27/2013  04:16 PM           149,816 (1088) I Made Dana, SE.jpg
+02/27/2013  05:00 PM           108,220 (1089) Nyoman Sutadnyana.jpg
+02/27/2013  05:00 PM           137,559 (1090) I Wayan Linggih.jpg
+02/27/2013  05:00 PM           142,378 (1091) I Wayan Badera.jpg
+02/27/2013  05:01 PM           114,830 (1092) I Nyoman Suarta.jpg
+02/27/2013  05:01 PM           107,535 (1093) Sang Nyoman Oka Ariyasa.jpg
+02/27/2013  05:02 PM           135,841 (1094) Anak Agung Ngurah Gede Darmawan.jpg
+02/27/2013  05:02 PM           112,848 (1095) I Ketut Sugangga Karang.jpg
+02/27/2013  05:02 PM           128,679 (1096) I Ketut Dana Susila.jpg
+02/27/2013  05:03 PM           146,604 (1097) I Nengah Sujana.jpg
+02/27/2013  05:03 PM           127,814 (1098) I Gusti Bagus Mahardika, AMd.jpg
+02/27/2013  05:04 PM           100,803 (1099) I Putu Sudirta.jpg
+02/27/2013  05:04 PM            99,738 (1100) Tjokorda Bagus Pemayun, SE.jpg
+02/27/2013  05:04 PM           110,083 (1101) Wayan Guna Wineka.jpg
+02/27/2013  05:05 PM           137,416 (1102) A.A.Ngurah Jaya Negara.jpg
+02/27/2013  05:05 PM           118,461 (1103) Agus Suhartono.jpg
+02/27/2013  05:06 PM           144,741 (1104) G.A.Oka Subandi.jpg
+02/27/2013  05:06 PM           132,661 (1105) I Nyoman Litra.jpg
+02/27/2013  05:06 PM           132,586 (1106) I Agus Yudi Adnyana.jpg
+03/22/2013  02:57 PM            70,242 (1107) I Dw.Gd.Ngurah Persada.jpg
+03/22/2013  02:57 PM           116,200 (1108) I Kadek Widhiantara.jpg
+03/22/2013  02:58 PM            67,680 (1109) Ida Bagus Nym. Adnyana Putra.jpg
+03/22/2013  02:59 PM            95,787 (1110) I Nengah Sujana Diantara.jpg
+03/22/2013  02:59 PM            95,919 (1111) I Gst. Agung Ngr. Adhi Mertha, SE.jpg
+03/22/2013  03:00 PM           125,129 (1112) Ida Bgs.Gede Agung Parwata.jpg
+03/22/2013  03:01 PM           106,753 (1113) Ida Bgs.Made Dharma Putra.jpg
+03/22/2013  03:01 PM           111,632 (1114) Dewa Alit Purnama.jpg
+03/22/2013  03:01 PM            91,003 (1115) I Komang Sudarsana.jpg
+03/22/2013  03:02 PM           101,123 (1116) I Wayan Sukarma.jpg
+03/22/2013  03:02 PM           123,654 (1117) I Komang Putra Buana.jpg
+03/22/2013  03:03 PM            82,778 (1118) Cokorda Bagus Anom Pemayun, SH.jpg
+03/22/2013  03:03 PM            83,222 (1119) I Nengah Mustika.jpg
+03/22/2013  03:03 PM           115,830 (1121) Putu Gede Kresnajaya.jpg
+03/22/2013  03:04 PM           109,698 (1122) I Komang Sujana.jpg
+03/22/2013  03:04 PM            91,946 (1123) I Made Suardana.jpg
+03/22/2013  03:04 PM            91,313 (1124) I Ketut Adi Ardika.jpg
+03/22/2013  03:19 PM           115,529 (1125) Kadek Sidemen.jpg
+03/22/2013  03:33 PM            91,836 (1126) I Komang Sujana.jpg
+03/22/2013  03:34 PM           107,436 (1127) Edi Suroso.jpg
+03/22/2013  03:34 PM            86,256 (1128) I Komang Artana.jpg
+03/22/2013  03:35 PM            80,679 (1129) Ida Bagus Gede Panca.jpg
+03/22/2013  03:35 PM            98,883 (1130) Kadek Sanjaya, SE.jpg
+03/22/2013  03:35 PM           113,456 (1131) I Kadek Ardana.jpg
+03/22/2013  03:36 PM            89,222 (1132) I Gusti Lanang Agung Aryanto.jpg
+03/22/2013  03:36 PM            94,400 (1133) I Made Ardana.jpg
+03/22/2013  03:36 PM            91,709 (1134) Made Sukarjana.jpg
+08/27/2014  02:55 PM            54,362 (1135) Putu Pariasta.jpg
+03/22/2013  03:37 PM            96,431 (1136) I Gede Sulasdana.jpg
+03/22/2013  03:42 PM            96,281 (1137) I Dewa Gede Rosadifa Adyana, S.Ag.jpg
+03/22/2013  03:43 PM            92,129 (1138) I Ketut Suwambawa.jpg
+03/22/2013  03:43 PM            92,812 (1139) Ni Made Putri Asih, SE.jpg
+03/22/2013  03:43 PM           101,965 (1140) I Dewa Gede Kembar Jaya.jpg
+03/22/2013  03:44 PM            92,122 (1141) Made Arimbawa.jpg
+03/22/2013  03:44 PM            91,466 (1142) I Wayan Sukardi.jpg
+03/22/2013  03:44 PM            87,393 (1143) I Komang Suardana.jpg
+03/22/2013  03:50 PM            78,441 (1144) I Nyoman Sudiasa.jpg
+03/22/2013  03:51 PM           100,386 (1145) Tjokorda Gde Agung Dwipayana.jpg
+03/22/2013  03:51 PM            87,151 (1146) I Nyoman Sila Darma.jpg
+03/22/2013  03:51 PM            81,065 (1147) I Gusti Ketut Suparta.jpg
+03/22/2013  03:52 PM            90,266 (1148) I Made Budana.jpg
+03/22/2013  03:52 PM            86,689 (1149) I Wayan Nuarta, SSn.jpg
+03/22/2013  03:53 PM            92,606 (1150) A. A. Lanang Eka Arsana, SE.jpg
+03/22/2013  03:53 PM            89,345 (1151) I Putu Mustika.jpg
+03/22/2013  03:53 PM           113,385 (1152) I Putu Agus Juniarta, SE.jpg
+03/22/2013  03:55 PM            71,167 (1153) Komang Ary Ambara, SE.jpg
+03/22/2013  03:55 PM           102,214 (1154) I Ketut Artana.jpg
+03/22/2013  03:56 PM           110,310 (1155) I Wayan Widiarta.jpg
+03/22/2013  03:56 PM           102,954 (1156) I Gusti Putu Mudita.jpg
+03/22/2013  03:57 PM           103,104 (1157) I Gusti Putu Adi Sastrawan.jpg
+03/22/2013  03:57 PM            85,295 (1158) I Wayan Sudiarta.jpg
+03/22/2013  03:58 PM            96,175 (1159) Ida Bagus Oka Brahmana.jpg
+03/22/2013  03:58 PM           115,818 (1160) I Wayan Subawa.jpg
+03/22/2013  03:59 PM            89,173 (1161) I Dewa Made Rai Suardana.jpg
+03/22/2013  04:33 PM           114,706 (1162) I Nyoman Sutarama.jpg
+03/22/2013  04:33 PM           115,271 (1163) I Wayan Sueca.jpg
+03/22/2013  04:34 PM            77,829 (1164) I Komang Gede Ariyana.jpg
+03/22/2013  04:34 PM           108,273 (1165) I Nengah Sugita.jpg
+03/22/2013  04:35 PM           102,154 (1166) I Wayan Yasa.jpg
+03/22/2013  04:35 PM           101,068 (1167) I Gede Sudiyasa.jpg
+03/22/2013  04:36 PM            64,916 (1168) I Wayan Wisna.jpg
+03/22/2013  04:36 PM            68,196 (1169) I Gusti Bagus Adi Dharma Yuda.jpg
+03/22/2013  04:40 PM           116,086 (1170) I Gusti Lanang Agung Suwardana.jpg
+03/22/2013  04:41 PM            99,486 (1171) A. A. Gede Alit Arjaya Putra.jpg
+03/22/2013  04:42 PM            97,410 (1172) I Made Lebih.jpg
+03/22/2013  04:42 PM            93,963 (1173) I Gede Made Suka Wiryawan.jpg
+03/22/2013  04:43 PM           101,198 (1174) I Wayan Witana.jpg
+03/22/2013  04:43 PM            91,528 (1176) Sang Made Darma Putra.jpg
+03/22/2013  04:43 PM            89,257 (1177) Ida Bagus Nyoman Permana Putra.jpg
+03/22/2013  04:44 PM            82,228 (1178) A. A. Gede Raka Kepakisan.jpg
+03/22/2013  04:44 PM            83,614 (1179) Ida Bagus Made Dwi Hermanto.jpg
+03/22/2013  04:45 PM            56,795 (1180) I Wayan Budiarta.jpg
+03/22/2013  04:50 PM           100,572 (1181) I Ketut Pantes.jpg
+03/22/2013  04:50 PM            81,144 (1182) I Wayan Agus Manuaba.jpg
+03/22/2013  04:51 PM            95,891 (1183) I Dewa Nyoman Suwartamaja.jpg
+03/22/2013  04:51 PM           105,555 (1184) I Made Sudarma.jpg
+03/22/2013  04:51 PM            86,078 (1185) I Ketut Sukadana.jpg
+03/22/2013  04:52 PM           110,821 (1186) Made Devid Suryawan, SH.jpg
+03/22/2013  04:53 PM           104,629 (1187) I Made Darta.jpg
+03/22/2013  04:53 PM            91,571 (1188) Ida Bagus Gede Surya Lesmana.jpg
+03/22/2013  04:53 PM            68,076 (1189) I Made Astika.jpg
+04/22/2013  03:36 PM           130,603 (1190) I Ketut Artana.jpg
+04/22/2013  03:36 PM           102,850 (1191) I Wayan Kembariyata, SH.jpg
+04/22/2013  03:37 PM           120,348 (1192) I Gede Arsana Giri, SE.jpg
+04/22/2013  03:37 PM           119,199 (1193) I Gede Purbawa.jpg
+04/22/2013  03:38 PM           130,296 (1194) Ida Bagus Dinasti Pramasidi, S.Ag.jpg
+04/22/2013  03:38 PM           127,534 (1195) I Ketut Alit Ardana.jpg
+04/22/2013  03:39 PM           131,652 (1197) I Wayan Suparta.jpg
+04/22/2013  03:39 PM           121,836 (1198) I Made Sukarma.jpg
+04/22/2013  03:40 PM           109,746 (1199) Ida Bgs.Gd.Wijaya Kusuma.jpg
+04/22/2013  03:40 PM           128,580 (1200) I Ketut Riata.jpg
+04/22/2013  03:41 PM           139,213 (1201) I Gusti Putu Mahadi Putra, SH.jpg
+04/22/2013  03:41 PM           107,394 (1202) I Nyoman Gede Adnyana.jpg
+04/22/2013  03:42 PM           143,150 (1203) I Gede Gunarta.jpg
+04/22/2013  03:42 PM           113,102 (1204) A.A. Gede Raka Dharma Yudha.jpg
+04/22/2013  03:43 PM           117,746 (1205) I Made Suyasa.jpg
+04/22/2013  03:43 PM           124,886 (1206) I Putu Sudarsana.jpg
+04/22/2013  03:43 PM            98,451 (1207) I Wayan Edi Ariawan.jpg
+04/22/2013  03:44 PM           101,881 (1208) I Gusti Putu Saputra Wijaya.jpg
+04/22/2013  03:44 PM           130,481 (1209) I Putu Suardika.jpg
+04/22/2013  03:45 PM           106,664 (1210) I Putu Gede Mahardika.jpg
+04/22/2013  03:45 PM           108,694 (1211) I Gede Hendra Putra Atmaja.jpg
+04/22/2013  03:46 PM           103,665 (1212) Ketut Agus Hartawan.jpg
+04/22/2013  03:46 PM           114,363 (1213) I Gede Suwarto.jpg
+04/22/2013  03:46 PM           111,981 (1214) I Putu Wirawan.jpg
+04/22/2013  03:47 PM           122,131 (1215) Ida Bagus Rai.jpg
+04/22/2013  03:47 PM           133,644 (1216) I Gede Sangkayasa.jpg
+04/22/2013  03:48 PM           148,738 (1217) I Dewa Gede Santika.jpg
+04/22/2013  03:48 PM           117,496 (1218) I Putu Eka Mahendra.jpg
+04/22/2013  03:49 PM           113,245 (1219) Ida Bagus Gede Manuaba.jpg
+04/22/2013  03:49 PM           128,682 (1220) I Made Suadnyana.jpg
+04/22/2013  03:50 PM           127,071 (1221) I Wayan Sudiarsa.jpg
+04/22/2013  03:50 PM           133,562 (1222) I Made Jati Ardana.jpg
+04/22/2013  03:50 PM           113,436 (1223) Dewa Putu Mega Putra.jpg
+04/22/2013  03:51 PM           123,257 (1224) I Nyoman Suadnyana.jpg
+04/22/2013  03:51 PM           134,732 (1225) I Nyoman Armaya, SE.jpg
+04/22/2013  03:51 PM           116,415 (1226) I Wayan Suti Atmika.jpg
+04/22/2013  03:52 PM           158,137 (1227) Ida Bagus Ari Usada, ST.jpg
+04/22/2013  03:52 PM           113,609 (1228) Putu Eka Prasetya.jpg
+04/22/2013  03:53 PM           106,436 (1229) Ngakan Putu Gede Astawan.jpg
+04/22/2013  03:53 PM           101,416 (1230) Ni Wayan Suartiasih,SE.jpg
+04/22/2013  03:54 PM           111,937 (1231) Ni Made Yogi Prabandani,SE,MM.jpg
+04/22/2013  03:54 PM           122,816 (1232) I Nyoman Suparta, SE.jpg
+04/22/2013  03:54 PM           119,872 (1233) Dewa Gede Artha Putra,SE.jpg
+04/22/2013  03:55 PM           119,581 (1234) Ida Bagus Putu Rahitha.jpg
+04/22/2013  03:55 PM           119,032 (1235) Ni Komang Ayu Erawati,SE.jpg
+04/22/2013  03:56 PM           104,896 (1236) Ida Bagus Kompyang Astika.jpg
+04/22/2013  03:56 PM           134,238 (1237) Ida Ayu Ketut Suryanti.jpg
+04/22/2013  03:57 PM           105,773 (1238) Ida Bagus Alit Ardana.jpg
+04/22/2013  03:57 PM           111,913 (1239) I Made Suanda,SH.jpg
+04/22/2013  03:57 PM           106,709 (1240) I Made Pustaka.jpg
+04/22/2013  03:58 PM           133,480 (1241) Sumanto.jpg
+04/22/2013  03:58 PM           128,649 (1242) Kadek Arsana.jpg
+04/22/2013  03:58 PM           105,105 (1243) I Nengah Ardana.jpg
+04/22/2013  03:59 PM           133,747 (1244) Ni Made Suci Astini.jpg
+04/22/2013  03:59 PM           119,590 (1245) Dewa Gede Agus  Nuryadi.jpg
+04/22/2013  04:00 PM           134,450 (1246) I G.A.A. Ariani Ekayanti.jpg
+04/22/2013  04:00 PM           122,746 (1247) Made Suwitri.jpg
+04/22/2013  04:00 PM           105,487 (1248) I Wayan Agus Sugiarta Jaya.jpg
+04/22/2013  04:01 PM           122,950 (1249) I Gede Nadiasa.jpg
+04/22/2013  04:01 PM           118,588 (1250) Ni Putu Muliati.jpg
+04/22/2013  04:01 PM           140,196 (1251) Desak Made Weli Andriyani.jpg
+04/22/2013  04:02 PM           108,448 (1252) I Made Sudiana.jpg
+04/22/2013  04:02 PM           120,181 (1253) Ni Wayan Rustini.jpg
+04/22/2013  04:03 PM           103,572 (1254) Arya Wirawan.jpg
+04/22/2013  04:03 PM            95,319 (1255) I Ketut Suanda.jpg
+04/22/2013  04:03 PM           108,539 (1256) I Wayan Sujaya.jpg
+04/22/2013  04:07 PM           136,599 (1257) I Nyoman Bagiana.jpg
+04/22/2013  04:07 PM           126,720 (1258) Ida Ayu Ketut Ngurah.jpg
+04/22/2013  04:08 PM           103,845 (1259) I Wayan Edi Putrawan.jpg
+04/22/2013  04:08 PM           117,034 (1260) I Wayan Sutaya.jpg
+04/22/2013  04:09 PM           117,279 (1261) Ni Wayan  Resmini.jpg
+04/22/2013  04:09 PM           123,069 (1262) Ni Luh Ketut Karmini.jpg
+04/22/2013  04:10 PM           107,722 (1263) I Gusti Ngurah Purnawan.jpg
+04/22/2013  04:10 PM           112,476 (1264) I Made Nuyadi.jpg
+04/22/2013  04:10 PM           137,220 (1265) Ni Nyoman Widiasih.jpg
+04/22/2013  04:11 PM           108,759 (1266) Ida Bagus Gede Surya.jpg
+04/22/2013  04:11 PM           130,081 (1267) I Ketut Suasta.jpg
+04/22/2013  04:12 PM           106,016 (1268) Ni Putu Sutrisni.jpg
+04/22/2013  04:12 PM           101,388 (1269) Dewa Made Wijanaz.jpg
+04/22/2013  04:12 PM           108,961 (1270) A.A. Agus Hardianta.jpg
+04/22/2013  04:13 PM           147,461 (1271) Ni Made Ayu Puspitasari.jpg
+04/22/2013  04:14 PM           115,203 (1272) I Wayan Puspa Artha.jpg
+04/22/2013  04:15 PM           118,301 (1273) Ni Nyoman Merta.jpg
+04/22/2013  04:15 PM           103,618 (1274) Ida Bagus Kris Suadnyana.jpg
+04/22/2013  04:16 PM           131,997 (1275) Ida Ayu Nyoman Sumiati.jpg
+04/22/2013  04:16 PM           118,373 (1276) Ni Wayan Sarjani.jpg
+04/22/2013  04:16 PM           119,591 (1277) I Nyoman Bagiawan.jpg
+04/22/2013  04:17 PM           123,592 (1278) I Nyoman Suwitra.jpg
+04/22/2013  04:17 PM           131,553 (1279) Ni Nyoman Masning.jpg
+04/22/2013  04:17 PM           103,933 (1280) I Gusti Ngurah Candra Natha.jpg
+04/22/2013  04:44 PM           123,539 (1281) I Nyoman Trisna Adi Putra.jpg
+04/24/2013  10:36 AM           129,229 (1282) Nyoman Agus Mahendra.jpg
+04/24/2013  10:39 AM            98,263 (1283) Themy Triviansyah.jpg
+04/22/2013  04:24 PM           103,969 (1284) I Ketut Wira Anggara Putra.jpg
+04/22/2013  04:24 PM            90,224 (1285) Ida Bagus Made Adi Nugraha, SE.jpg
+04/22/2013  04:25 PM           100,854 (1286) I Made Gde Deddy Apramada, SH.jpg
+04/22/2013  04:32 PM           126,053 (1287) I Dewa Ayu Agung Candra Apsari.jpg
+04/22/2013  04:32 PM           113,576 (1288) Ida Ayu Gde Ratih Soetha Paramitha.jpg
+04/22/2013  04:33 PM           103,364 (1289) I Putu Ana Prayoga.jpg
+04/22/2013  04:33 PM           106,030 (1290) I Wayan Gede Karang Kasmaendra.jpg
+04/22/2013  04:34 PM           118,746 (1291) Ida Bagus Putra Pradnyana Kemenuh.jpg
+04/22/2013  04:35 PM           118,608 (1292) Anak Agung Gde Agung Pramawisesa, ST.jpg
+04/22/2013  04:36 PM           112,204 (1293) Gede Krisna Yudiawan.jpg
+04/22/2013  04:36 PM           104,386 (1294) I Gusti Ngurah Arya Wibawanta.jpg
+04/22/2013  04:37 PM            99,257 (1295) I Gusti Ngurah Adiwijaya.jpg
+04/22/2013  04:38 PM           110,643 (1296) I Ketut Widiyasa Ary Saputra.jpg
+04/22/2013  04:38 PM           116,683 (1297) I Wayan Diaspina.jpg
+04/22/2013  04:39 PM           111,085 (1298) Kadek Teguh Arthajaya.jpg
+04/22/2013  04:39 PM           110,638 (1299) I Wayan Adi Sanjaya.jpg
+04/22/2013  04:40 PM           117,689 (1300) Ida Ayu Kartiza Aprilianti.jpg
+04/22/2013  04:40 PM           111,384 (1301) Wahyu Febriyana.jpg
+04/22/2013  04:41 PM           109,306 (1302) I Made Rai Budi Astama.jpg
+04/22/2013  04:42 PM            88,823 (1303) I Putu Artha Wijaya.jpg
+04/22/2013  04:43 PM           114,663 (1304) I Gede Yasa Suardana.jpg
+04/22/2013  04:43 PM           110,473 (1305) Gusti Ayu Ketut Widyaningsih.jpg
+04/22/2013  04:44 PM           114,579 (1306) I Putu Ari Jayantara Darma.jpg
+04/22/2013  04:45 PM           131,539 (1307) Ida Ayu Arie Mahayuni.jpg
+04/24/2013  10:25 AM           131,054 (1308) Ayu Ita Kumala Dewi.jpg
+04/24/2013  10:25 AM           106,444 (1309) I Gusti Ayu Komang Astri Wijayanti.jpg
+04/24/2013  10:26 AM           125,695 (1310) Ni Nyoman Rini Florenta.jpg
+04/24/2013  10:26 AM           131,749 (1311) Ni Wayan Novie Andayani.jpg
+04/24/2013  10:27 AM           125,386 (1312) Ni Putu Adi Bertha Susiani.jpg
+04/24/2013  10:28 AM           122,534 (1313) I Dewa Gde Indra Adiputra.jpg
+04/24/2013  10:29 AM           123,043 (1314) Ni Ketut Rywulantari.jpg
+04/24/2013  10:29 AM           132,577 (1315) Ida Ayu Agung Adriani.jpg
+04/24/2013  10:31 AM           112,341 (1316) Cokorda Istri Diah Sinta Dewi.jpg
+04/24/2013  10:31 AM           122,790 (1317) Ida Ayu Dewi Arini.jpg
+04/24/2013  10:31 AM           114,326 (1318) Venny Lanita Dewi.jpg
+04/24/2013  10:31 AM           154,687 (1319) Anak Agung Sagung Istri Mas Wrastuti.jpg
+04/24/2013  10:33 AM           124,014 (1320) Ni Ketut Sri Dahayani.jpg
+04/24/2013  10:34 AM           126,901 (1321) Made Tyas Wulandari.jpg
+04/24/2013  10:35 AM           132,854 (1322) Ida Bagus Putu Andika Wibawa.jpg
+04/24/2013  10:35 AM           104,969 (1323) Ida Bagus Nara Dwija.jpg
+04/24/2013  10:35 AM           113,682 (1324) I Gusti Agung Anantha.jpg
+04/24/2013  10:36 AM           144,277 (1325) Ngakan Made Kutha Indrawijaya.jpg
+04/24/2013  10:37 AM           112,620 (1326) Ni Ketut Aryawati.jpg
+04/24/2013  10:39 AM           123,468 (1327) Ida Ayu Sinta Hapsari.jpg
+04/24/2013  10:40 AM           132,161 (1328) Ida Ayu Putu Andres Yanthi, SE.jpg
+04/24/2013  10:40 AM           108,236 (1329) Dewa Ketut Alit Wirawan.jpg
+04/24/2013  10:46 AM            93,346 (1330) I Made Windu Sara, ST..jpg
+04/24/2013  10:46 AM           120,650 (1331) Anak Agung Istri Agung Eka Sawitri, SE..jpg
+04/24/2013  10:45 AM           143,655 (1332) Ni Putu Novyanti Utami, SE..jpg
+04/24/2013  10:45 AM           127,252 (1333) I Kadek Adhi Wira Kusuma, SSi..jpg
+04/24/2013  10:41 AM           110,382 (1334) A. A. Gede Krisna Kusuma Wardana D., ST..jpg
+04/24/2013  10:44 AM           116,199 (1335) I Putu Wismayadi, ST..jpg
+04/24/2013  10:49 AM           114,062 (1336) I Gusti Ngurah Ary Widiatmika, ST..jpg
+04/24/2013  10:43 AM           103,947 (1337) Nyoman Agus Suryawan, ST..jpg
+04/24/2013  10:42 AM           105,299 (1338) I Wayan Rake Sancaya, SE..jpg
+04/24/2013  10:46 AM           131,890 (1339) Ni Made Alit Suryani, SH..jpg
+04/24/2013  10:50 AM           115,273 (1340) Anak Agung Ngurah Mustakawarman, ST..jpg
+04/24/2013  10:43 AM           106,040 (1341) I Gusti Agung Bagus Ade Putrawan, ST..jpg
+04/24/2013  10:48 AM           135,560 (1342) I Gusti Agung Gde Harisudana, Amp.SE..jpg
+04/24/2013  10:47 AM           123,747 (1343) Ida Bagus Gede Widiadnyana, SE..jpg
+04/24/2013  10:47 AM           133,609 (1344) Ni Wayan Budiani, SE..jpg
+04/24/2013  10:45 AM           135,342 (1345) Rahayu Kartika Dewi, SE..jpg
+04/24/2013  10:41 AM           103,158 (1346) Ida Bagus Hari Wangsa, SS..jpg
+04/24/2013  10:50 AM           128,737 (1347) Ni Nyoman Arik Handayani, SE..jpg
+04/24/2013  10:42 AM           107,867 (1348) I Made Rasya Mahendra, SE..jpg
+04/24/2013  10:42 AM           107,252 (1349) I Wayan Artana, SH..jpg
+04/24/2013  10:50 AM           140,736 (1350) Ida Bagus Gede Ambara Putra, SE..jpg
+04/24/2013  10:47 AM           123,213 (1351) Nyoman Asri Sundari, SE..jpg
+04/22/2013  04:33 PM           118,715 (1352) I Gede Dedy Suarjaya.jpg
+04/22/2013  04:34 PM           105,110 (1353) Ida Bagus Gede Adi Parwata.jpg
+04/22/2013  04:35 PM           142,954 (1354) Ayu Mega Permana.jpg
+04/22/2013  04:36 PM           108,239 (1355) Bawa Maha Putra.jpg
+04/22/2013  04:37 PM           118,248 (1356) Luh Gede Ari Kerthia Dewi.jpg
+04/22/2013  04:39 PM           127,669 (1357) I Dewa Gede Dimas Perdana.jpg
+04/22/2013  04:40 PM           112,796 (1358) Ida Bagus Anggri Adnyana.jpg
+04/22/2013  04:41 PM           125,621 (1359) I Gusti Putu Ayu Dewi Agustini.jpg
+04/22/2013  04:43 PM            97,520 (1360) I Kadek Budi Artha.jpg
+04/22/2013  04:44 PM           144,806 (1361) Ni Komang Ayu Puspawati.jpg
+04/24/2013  10:25 AM            90,054 (1362) Wayan Ari Sanjaya.jpg
+04/24/2013  10:27 AM           119,993 (1363) Made Budhi Wirawan.jpg
+04/24/2013  10:27 AM           119,992 (1364) I Putu Apriadi.jpg
+04/24/2013  10:29 AM           116,188 (1365) Ida Bagus Indrayana.jpg
+04/24/2013  10:36 AM            93,892 (1366) Anak Agung Ngurah Gede Swantawarman.jpg
+04/24/2013  10:37 AM            99,653 (1367) Anak Agung Putu Darmawan.jpg
+04/24/2013  10:38 AM           122,277 (1368) I Made Prasetya Nugraha.jpg
+04/24/2013  10:38 AM           111,807 (1369) Ni Putu Anggelina, SE.jpg
+04/24/2013  10:38 AM           134,402 (1370) Anak Agung Ayu Putri Utami.jpg
+04/24/2013  10:40 AM           127,573 (1371) Wayan Yudhi Pranata, SE.jpg
+04/24/2013  10:51 AM           113,213 (1372) Ida Bagus Made Siwa Tanaya, SE.jpg
+04/24/2013  10:51 AM           101,219 (1373) Ida Bagus Gede Putra, SE.jpg
+04/24/2013  10:51 AM           116,048 (1374) I Nyoman Partha Wijaya, SE.jpg
+04/24/2013  10:52 AM           112,410 (1375) I Gede Githa Darmasetiawan, SE.jpg
+04/24/2013  10:52 AM           112,168 (1376) I Putu Widya Purniawan, ST.jpg
+04/24/2013  10:53 AM           117,764 (1377) I Gede Eka Yuniantara, ST.jpg
+04/24/2013  10:53 AM           102,034 (1378) I Gede Made Rupayana, ST.jpg
+04/24/2013  10:54 AM           111,539 (1379) I Wayan Eka Guna Pretama, S.Kom.jpg
+04/24/2013  10:54 AM           140,278 (1380) I Nengah Agus Sutana, S.Kom.jpg
+04/24/2013  10:54 AM           117,635 (1381) I Gusti Ngurah Bagus Dwiana Putra, ST.jpg
+04/24/2013  10:55 AM           109,094 (1382) I Gede Eka Sanjaya, S.Kom.jpg
+04/24/2013  10:55 AM           169,469 (1383) I Gusti Bagus Narotama, S.Kom.jpg
+04/22/2013  04:44 PM           123,549 (1384) Anak Agung Mirah Dessy Ratna Dewi.jpg
+04/24/2013  10:55 AM           108,882 K (1486) Ida Ayu Rat Kumalasari, SE.jpg
+04/24/2013  11:03 AM           108,324 K (1487) I Putu Restawan, SE.jpg
+04/24/2013  11:03 AM           132,109 K (1488) Ni Luh Putu  Yuliana Widia Rahayu, SE.jpg
+04/24/2013  11:10 AM            86,220 K (1489) I Gusti Putu Dirga Yusa, SE.jpg
+04/24/2013  11:10 AM           121,239 K (1490) I Gusti Ngurah Agung Ariwiantara, SE.jpg
+04/24/2013  11:10 AM           141,137 K (1491) Ni Wayan Saniari, SE.jpg
+04/24/2013  11:11 AM           107,626 K (1492) I Made Oka Mahardika, SE.jpg
+04/24/2013  11:18 AM           118,983 K (1493) Desak Komang Ratih Kurnia Pratiwi, SE.jpg
+04/24/2013  11:18 AM           137,207 K (1494) I.B.  Hendra Prawira D, SE.jpg
+04/24/2013  11:19 AM           125,877 K (1495) Anak Agung Ayu  Ratih Radityastuti, SE.jpg
+04/24/2013  11:19 AM           100,155 K (1496) Made Ery Arta Yuda, ST.jpg
+04/24/2013  11:20 AM           106,540 K (1497) I Gusti Agung Gde Dwipayana, SE.jpg
+04/24/2013  11:21 AM            99,748 K (1498) M. Indra Mahayana, SE.jpg
+04/24/2013  11:21 AM           117,655 K (1499)  Putu Indah Suyantari, SE.jpg
+04/24/2013  11:22 AM           115,036 K (1500)  Eka Asta Pratiwi, SE.jpg
+04/24/2013  11:22 AM            96,883 K (1501) I Wayan Suyastrawan, SE.jpg
+04/24/2013  11:22 AM           123,712 K (1502) I Gusti Ayu Arina Wijayanti, ST.jpg
+04/24/2013  11:23 AM           109,512 K (1503) I Dewa Gede Partawindu, SE.jpg
+04/24/2013  11:23 AM           116,555 K (1504) I Gusti Ayu Intan Mayasari Artha, SE.jpg
+04/24/2013  11:24 AM           125,455 K (1505)  Ayu Mirah Saraswati, SE.jpg
+04/24/2013  11:24 AM           126,054 K (1506) Ida Ayu Made Wiryandari Kusuma Handayani, SE.jpg
+04/24/2013  11:25 AM           108,239 K (1507) Arya Nugraha Suryaatmaja, SE.jpg
+04/24/2013  11:25 AM           108,308 K (1508) Putu Ferryawan, SE.jpg
+04/24/2013  11:26 AM           111,829 K (1509) Komang Widhya Sedana Putra P, SE.jpg
+04/24/2013  11:26 AM           126,974 K (1510)  Bertha Ayu Yosiana, SE.jpg
+04/24/2013  11:26 AM           133,267 K (1511) Desak Putu  Mira Pradnyani, SE.jpg
+04/24/2013  11:27 AM           135,937 K (1512) Ni Nyoman  Sri Artini, S.Si.jpg
+04/24/2013  11:27 AM           119,377 K (1513) I Putu Bayu Winanda, SE.jpg
+04/24/2013  11:28 AM           118,122 K (1514) Ni Putu  Ayu Putri Dharmayanti, SE.jpg
+04/24/2013  11:28 AM           123,921 K (1515) I Made  Septia Ariguna, SE.jpg
+04/24/2013  11:29 AM           106,786 K (1516) Gusti Bagus  Ananta Tridaputra, SE.jpg
+04/24/2013  11:30 AM            86,533 K (1517) I Dewa Gde Ery Suputra, SE.jpg
+04/24/2013  11:30 AM           118,436 K (1518) Ida Bagus  Agung Adi Jaya Suma, SE.jpg
+04/24/2013  11:30 AM           107,519 K (1519) I Made  Prasada Setia Kurniawan, SE.jpg
+04/24/2013  11:31 AM           115,290 K (1520) Luh  Mas Suya Eka Jayanthi, SE.jpg
+04/24/2013  11:31 AM           144,433 K (1521) Ni Nyoman  Manik Yistiani, SE.jpg
+04/24/2013  11:31 AM           130,798 K (1522) Ni Luh Putu Arik Prabayanti, SE.jpg
+04/24/2013  11:32 AM           104,356 K (1523) I Gusti Ngurah  Dody Setyawan, SE.jpg
+04/24/2013  11:32 AM           134,824 K (1524)  Regina Megasari, SH.jpg
+04/24/2013  11:32 AM           108,967 K (1525) Nyoman Tri Kusuma Atmaja, SH.jpg
+04/24/2013  11:33 AM           108,929 K (1526) Ni Gusti Ayu Ari Susanthi, SE.jpg
+04/24/2013  11:33 AM           102,233 K (1527) Made Gde Ariwangsa, SE.jpg
+04/24/2013  11:33 AM           123,834 K (1528) I Gusti Ayu  Linda Dwi Pratiwi, SE.jpg
+04/24/2013  11:34 AM           107,562 K (1529) Marmita Indraswari S, SE.jpg
+04/24/2013  11:34 AM           117,383 K (1530)  Devatti Ari Ayi Suendra, SE.jpg
+04/24/2013  11:34 AM           108,481 K (1531) Putu Anik Witarini, SE.jpg
+04/24/2013  11:35 AM           103,943 K (1532) I Gde  Adi Juni Artha, SE.jpg
+04/24/2013  11:35 AM            98,489 K (1533) Gde  Satryadi Dharma, SE.jpg
+04/24/2013  11:37 AM           112,488 K (1534) I Wayan Candra Purna Wijaya, SE.jpg
+04/24/2013  11:38 AM           123,996 K (1535) Ni Nyoman  Dina Kartika Sari, SE.jpg
+04/24/2013  11:38 AM           116,297 K (1536)  Vitri Arishanti, S.Si.jpg
+04/24/2013  11:39 AM           130,631 K (1537) Ni Nyoman  Astri Agustina, SE.jpg
+04/24/2013  11:39 AM           126,874 K (1538) Kadek Ayu Dwiyanti Indrawati, SE.jpg
+04/24/2013  11:39 AM           102,572 K (1539) Dewa Ayu Ening Pramaheni Lestari, SE.jpg
+04/24/2013  11:40 AM           125,481 K (1540) Putu Pradnyani Utari, SE.jpg
+04/24/2013  11:40 AM           125,554 K (1541) Ni Wayan Ayu Yuni Apsari, SE.jpg
+04/24/2013  11:41 AM           110,053 K (1542) G.M. Sutarjana, SE.jpg
+12/19/2012  09:14 AM           141,205 K (1543) Made  Wika Sanjaya, SE.JPG
+12/19/2012  09:13 AM           173,627 K (1544) Putu  Chrisna Arissana Dewi, SH.jpg
+04/24/2013  11:42 AM           124,346 K (1545) Luh Dewi Trisnawati, ST.jpg
+04/24/2013  11:42 AM           116,261 K (1546) Ni Made Rai Suwarniti, SE.jpg
+04/24/2013  11:43 AM           124,520 K (1547)  A.A. Ayu Atika Paramitha Wendha, SE.jpg
+04/24/2013  11:43 AM           135,968 K (1548) Made  Ary Bayu Juliantini, SE.jpg
+04/24/2013  11:43 AM           124,379 K (1549) Anak Agung  Mas Putri Indrayani, SE.jpg
+04/24/2013  11:44 AM           200,508 K (1550) Ni Made Ratih Wijayanthi, SE.jpg
+04/24/2013  11:44 AM           115,774 K (1551) Luh Gede P.  Pradnya Paramita, SH.jpg
+12/19/2012  09:11 AM           160,806 K (1552) Sri Widyari Kartika, SE.jpg
+04/24/2013  11:47 AM           138,748 K (1553) I Gusti Ayu Suta Premawati, SE.jpg
+04/24/2013  11:48 AM           128,561 K (1554)  A.A. Ayu Chandra Laraswati, SE.jpg
+04/24/2013  11:48 AM           113,610 K (1555) Putu  Yuni Dwi Astini Prabawati, A.Md.jpg
+04/24/2013  11:48 AM           113,694 K (1556) Ni Putu Eka Surya Pratiwi, A.Md.jpg
+04/24/2013  11:49 AM           131,855 K (1557) Maha Dewi Uthari.jpg
+04/24/2013  11:49 AM           130,669 K (1558) Anak Agung Wahyuni Paramita.jpg
+04/24/2013  11:49 AM           132,930 K (1559) Ni Putu Widyanthi.jpg
+04/24/2013  11:50 AM           111,330 K (1560) Ida Ayu Putu Trisna Yulianti.jpg
+04/24/2013  11:51 AM           129,129 K (1561) Putu Priska Jelita.jpg
+04/24/2013  11:51 AM           127,887 K (1562) Ni Putu  Diah Larasati Dewi.jpg
+04/24/2013  11:52 AM           112,821 K (1563) A A Sagung Verayunita Handayani.jpg
+04/24/2013  11:52 AM            99,650 K (1564) Ida Ayu Made Adrianita Dewi.jpg
+04/24/2013  11:53 AM           121,695 K (1565) Ni Putu Sutra Reniantari.jpg
+04/24/2013  11:53 AM           116,292 K (1566) Indah Mega Pratiwi.jpg
+04/24/2013  11:54 AM           118,423 K (1567) Ni Kadek Meindrayani.jpg
+04/24/2013  01:46 PM           132,485 K (1568) Luh Putu Anjariyanti.jpg
+04/24/2013  01:47 PM           140,933 K (1569) Luh Gede Ayu Chandra Pramani.jpg
+04/24/2013  01:48 PM           130,530 K (1570) Putu Ayu Asrini.jpg
+04/24/2013  01:48 PM           122,087 K (1571) Ni Luh Putu Tuti Indriyani.jpg
+04/24/2013  01:49 PM           110,118 K (1572) Ni Made Duhita Dewi.jpg
+04/24/2013  01:49 PM           107,938 K (1573) Ayu Krisna Wulandari.jpg
+04/24/2013  01:49 PM           132,216 K (1574) Ni Made Ayu Trisna Dewi.jpg
+04/24/2013  01:50 PM           138,639 K (1575) Ida Ayu Indri Praharsini.jpg
+04/24/2013  01:50 PM           138,824 K (1576) Ni Nyoman Yuni Juwitaristanty.jpg
+04/24/2013  01:50 PM           131,091 K (1578) Putu Atika Gladistya Inggriani.jpg
+04/24/2013  01:51 PM           117,535 K (1579) Ni Putu Leoni Paramita.jpg
+04/24/2013  01:51 PM           140,244 K (1580) Putu Yovina Sari Parthady.jpg
+04/24/2013  01:52 PM           142,736 K (1581) Ni Wayan Apriliana Dewi.jpg
+04/24/2013  01:52 PM           113,069 K (1582) Ni Putu Wiwin Savitri.jpg
+06/09/2014  11:05 AM           146,240 K (1583) A.A. Mas Pramitasari, SE.jpg
+06/09/2014  11:06 AM           116,432 K (1584) I Gusti Agung Ayu Putu Sri Septiari Dewi, ST.jpg
+06/09/2014  11:08 AM           111,973 K (1587) I Gusti Ngurah Made Dwija Putra, SE.jpg
+06/09/2014  11:07 AM           108,080 K (1588) I Gusti Agung Ketut Dwi Swadharma, SE.jpg
+06/09/2014  11:10 AM           132,098 K (1589) I Gusti Ayu Suadyanti, SE.jpg
+06/09/2014  11:11 AM           121,314 K (1590) Ni Luh Eka Trisnasari, SE.jpg
+06/09/2014  11:12 AM           136,847 K (1591) Ni Made Lusi Adimakayani, SE.jpg
+06/09/2014  11:13 AM           123,245 K (1592) Putu Sintya Apriliana, SE.jpg
+06/09/2014  11:01 AM            63,234 K (1593) Putu Wahyu Mustika Dewi, SE.jpg
+06/09/2014  11:02 AM            64,221 K (1594) Putu Yunni Ristantini, SE.jpg
+06/09/2014  11:03 AM            69,939 K (1595) Made Wika Wijayanti, SE.jpg
+06/09/2014  11:04 AM            70,066 K (1596) I Nyoman Girigangga Natha, SE.jpg
+06/09/2014  08:22 AM            51,318 K (1597) Ketut Erik Priatama Wijaya Putra, SE.jpg
+06/09/2014  08:23 AM            53,480 K (1598) Ni Putu Sari Artiningsih, SE.jpg
+06/09/2014  08:24 AM            44,270 K (1599) Cokorda Gede Wisnu Saputra, S.Si.jpg
+06/09/2014  08:26 AM            69,126 K (1600) Ni Nyoman Ramdiani, SE.jpg
+06/09/2014  08:27 AM            51,291 K (1601) Harry Nurhayady, SE.jpg
+06/09/2014  08:28 AM            53,125 K (1602) Ayuk Putri Sugiantari, S.Si.jpg
+06/09/2014  08:29 AM            60,190 K (1603) Ida Bagus Nyoman Kusumayuda, SE.jpg
+06/09/2014  08:30 AM            50,283 K (1604) I Putu Ria Antara, S.Si.jpg
+06/09/2014  08:32 AM            55,139 K (1605) Ida Bagus Terisna Negara, S.Si.jpg
+06/09/2014  08:34 AM            49,128 K (1606) Kadek Andikayanti, SE.jpg
+06/09/2014  08:35 AM            46,340 K (1607) I Made Januari Antara, SE.jpg
+06/09/2014  08:39 AM            44,957 K (1608) I Made Yogi Pradnya Sugiartana, SE.jpg
+06/09/2014  08:43 AM            52,453 K (1609) I Putu Riska Sulistiana, SE., Ak.jpg
+06/09/2014  08:44 AM            63,655 K (1610) I Made Adi Suryadharma, SE.jpg
+06/09/2014  08:46 AM            43,289 K (1611) I Dewa Made Oka Widiatmika, SE.jpg
+06/09/2014  08:48 AM            54,599 K (1612) Putu Ayu Sri Wahyuni, SE.jpg
+06/09/2014  08:49 AM            57,177 K (1613) I Wayan Edy Suantika, SE.jpg
+06/09/2014  08:50 AM            42,288 K (1614) I Gede Adhitya, SE,. Ak.jpg
+06/09/2014  08:54 AM            53,940 K (1615) I Ketut Agustyawan, SE.jpg
+06/09/2014  08:56 AM            44,986 K (1616) Septian Indra Cahya, SE.jpg
+06/09/2014  08:57 AM            52,080 K (1617) I Nyoman yudi Gunawan, SH.jpg
+06/09/2014  08:58 AM            47,944 K (1618) Niken Ayu Adisti, SE.jpg
+06/09/2014  08:59 AM            47,543 K (1619) I Wayan Suarsana, SE.jpg
+06/09/2014  09:00 AM            47,552 K (1620) I Nyoman Agus Yogi Saputra, SE.jpg
+06/09/2014  09:00 AM            62,559 K (1621) Ni Made Dwi Kardani, SE.jpg
+06/09/2014  09:01 AM            51,186 K (1622) I Wayan Darma Sugita, S.Si.jpg
+06/09/2014  09:02 AM            57,496 K (1623) I Gede Indra Sukma Pratama, SH.jpg
+06/09/2014  09:04 AM            57,227 K (1624) Ni Putu Ayu Widyasari, SE.jpg
+06/09/2014  09:05 AM            47,919 K (1625) Nyoman Bramtika, SE.jpg
+06/09/2014  09:06 AM            48,309 K (1626) Nyoman Utama Prayatna, SE.jpg
+06/09/2014  09:07 AM            55,097 K (1627) I Gusti Agung Gede Sutama ningrat, SE.jpg
+06/09/2014  09:08 AM            56,444 K (1628) I Gede Bagus Arya Adiputra, S.S.jpg
+06/09/2014  09:09 AM            68,649 K (1629) Ni Ketut Sukmayanti, SS.jpg
+06/05/2014  02:27 PM            65,709 K (1630) Dian Putri Oktarini.jpg
+06/05/2014  09:24 AM            73,085 K (1631) Ketut Ayu Sri Wahyuni.jpg
+06/05/2014  09:56 AM            65,307 K (1632) Ni Kadek Milan Cahyani.jpg
+06/05/2014  09:59 AM            78,148 K (1633) Ni Luh Putu Juliantari.jpg
+06/05/2014  10:02 AM            61,505 K (1634) Ni Made Pradnya Dhaniswari.jpg
+06/05/2014  10:07 AM            68,872 K (1635) Ni Putu Ayu Suryantini.jpg
+06/05/2014  02:24 PM            65,987 K (1636) Putu Ayu Trisna Dewi.jpg
+06/05/2014  10:24 AM            56,715 K (1637) Shabrina Umi Rahayu.jpg
+06/05/2014  10:26 AM            69,087 K (1638) Ni Made Ary Parsini.jpg
+06/05/2014  10:28 AM            58,697 K (1639) Ni Nengah Wida Yasmari.jpg
+06/05/2014  10:55 AM            55,236 K (1640) Ni Wayan Heny Purwanita.jpg
+06/05/2014  10:57 AM           116,490 K (1641) Ni Wayan Jukemayani.jpg
+06/05/2014  02:28 PM            56,211 K (1642) Anak Agung Ketut Raiyani.jpg
+06/05/2014  10:09 AM            58,415 K (1643) Ni Luh Putu Lialistiari.jpg
+06/05/2014  10:11 AM            63,624 K (1644) Ni Putu Novia Andriani.jpg
+06/05/2014  10:12 AM            73,948 K (1645) Ida Ayu Sita Astari.jpg
+06/05/2014  10:14 AM            63,179 K (1646) Kadek Ayu Ningtias Savitri.jpg
+06/05/2014  10:20 AM           110,772 K (1647) Komang Ayu Tri Wahyundari.jpg
+06/05/2014  11:19 AM            59,930 K (1648) Komang Sri Purnami.jpg
+06/05/2014  11:00 AM            88,123 K (1649) Ni Ketut Novi Trisna Dewi.jpg
+06/05/2014  11:02 AM            78,994 K (1650) Ni Komang Sutiawathi.jpg
+06/05/2014  11:04 AM            60,267 K (1651) Ni Putu Sulistyarini.jpg
+06/05/2014  11:05 AM            68,662 K (1652) Dewa Ayu Ratika Dewi.jpg
+06/05/2014  11:07 AM           127,749 K (1653) Dewi Sartika Pramitha.jpg
+06/05/2014  11:21 AM            58,278 K (1654) G.A.Devi Maswiningrum.jpg
+06/05/2014  11:08 AM            56,158 K (1655) Ni Luh Made Sendyari.jpg
+06/05/2014  11:10 AM            59,316 K (1656) Ni Made Rika Damiari.jpg
+06/05/2014  11:12 AM            71,931 K (1657) Ni Putu Mahayanti Darmaningrat.jpg
+06/05/2014  11:13 AM            57,311 K (1658) Putu Ayu Ratna Wulandari.jpg
+06/05/2014  11:15 AM            73,199 K (1659) A.A. Ayu Ras Indraswari.jpg
+06/05/2014  01:26 PM            72,843 K (1660) A.A. Ayunda Putri.jpg
+06/05/2014  11:51 AM            58,653 K (1661) A.A. Inten Adnyaswari.jpg
+06/05/2014  11:52 AM            79,630 K (1662) Gusti Ayu Wulan Lestari.jpg
+06/05/2014  11:54 AM            63,362 K (1663) Komang Ayu Novita Sari.jpg
+06/05/2014  11:55 AM            76,862 K (1664) Ni Ketut Rika Dewi Utami.jpg
+06/05/2014  11:56 AM            62,978 K (1665) Ni Luh Putu Ika Suryani.jpg
+06/05/2014  01:28 PM            61,686 K (1666) Ni Putu Tresna Widiastuti.jpg
+06/05/2014  11:58 AM            73,975 K (1667) Dewa Ayu Putu Putri Prabandari.jpg
+06/05/2014  11:59 AM            62,899 K (1668) I Gusti Ayu Maha Sudantari.jpg
+06/05/2014  12:01 PM            56,383 K (1669) Ni Komang Mita Permata Sari.jpg
+06/05/2014  12:03 PM            84,294 K (1670) Gusti Ayu Diah Widya Pramitha.jpg
+06/05/2014  12:04 PM            65,545 K (1671) Kadek Mega Krisna Yanti.jpg
+06/05/2014  01:51 PM            68,878 K (1672) Kadek Widiastitiani.jpg
+06/05/2014  01:31 PM            65,083 K (1673) Ni Wayan Devi Eka Juliantari.jpg
+06/05/2014  01:33 PM            66,618 K (1674) Ni Wayan Shinta Sumariani.jpg
+06/05/2014  01:35 PM           115,775 K (1675) A.A. Ayu Anggun Diana Paramita.jpg
+06/05/2014  01:36 PM            64,184 K (1676) Gusti Ayu Sri Astuti.jpg
+06/05/2014  01:40 PM            51,975 K (1677) Ida Ayu Komang Juniartini.jpg
+06/05/2014  01:52 PM            72,872 K (1678) Luh Putu Sintya Kristiana Devi.jpg
+06/05/2014  01:42 PM           144,439 K (1679) Nyoman Ayu Sriani.jpg
+06/05/2014  01:44 PM            68,324 K (1680) Nyoman Ratna Sari.jpg
+06/05/2014  01:45 PM            58,899 K (1681) Putu Yusli Yanti.jpg
+06/05/2014  01:46 PM            56,067 K (1682) Dewa Agung Ayu Pramitari.jpg
+06/05/2014  01:48 PM            60,157 K (1683) Ni Komang Ayu Retmawati.jpg
+06/05/2014  11:46 AM            62,271 K (1684) Ni Komang Mega Puspitasari.jpg
+06/05/2014  11:24 AM            71,218 K (1685) Ni Nyoman Juliantariani.jpg
+06/05/2014  11:26 AM            73,343 K (1686) Ni Putu Mirayati.jpg
+06/05/2014  11:28 AM            65,933 K (1687) Ni Putu Yunita Enjelia Dewi, S.St.jpg
+06/05/2014  11:30 AM            58,102 K (1688) Nyoman Dewi Anggarini.jpg
+06/05/2014  11:33 AM            63,333 K (1689) Rizky Ramadhanissa Yunus.jpg
+06/05/2014  11:47 AM            71,607 K (1690) A.A. Istri Mira Agung.jpg
+06/05/2014  11:35 AM            62,460 K (1691) Cokorda Istri Sutari Kencana Sukawati.jpg
+06/05/2014  11:36 AM            55,294 K (1692) Ni Luh Ayu Sri Widari.jpg
+06/05/2014  11:39 AM            57,772 K (1693) Ni Wayan Wiyadnyani.jpg
+06/05/2014  11:41 AM            57,840 K (1694) Sang Ayu Agung Wiesna Dewintha.jpg
+06/05/2014  11:43 AM            60,560 K (1695) A.A Raka Riani Tanaya.jpg
+06/05/2014  01:55 PM            71,942 K (1696) Chintya Paramitha Septyarini Putri.jpg
+06/05/2014  01:57 PM            64,363 K (1697) Gusti Agung Ayu Rina Febrina.jpg
+06/05/2014  01:59 PM            95,698 K (1698) Kadek Citra Dharmayanti.jpg
+06/05/2014  02:01 PM            70,064 K (1699) Ketut Suci Widiasri.jpg
+06/05/2014  02:03 PM            54,816 K (1700) Ni Made Ayu Sukma Chrisnadewi.jpg
+06/05/2014  02:05 PM            69,109 K (1701) Ni Made Maharatih Prabandari Mastra.jpg
+06/05/2014  02:08 PM            63,950 K (1702) Ni Putu Purnawati.jpg
+06/05/2014  02:09 PM           100,024 K (1703) Ida Ayu Agung Istri Peranasari.jpg
+06/05/2014  02:12 PM            79,412 K (1704) Ni Putu Silva Mona Kartika.jpg
+06/05/2014  02:13 PM            56,511 K (1705) Putu Noviari.jpg
+06/05/2014  02:34 PM            45,822 K (1706) Gd. Hendra Yudha Satriawan.jpg
+06/05/2014  02:36 PM            48,635 K (1707) Kd. Fajar Andika Karma.jpg
+06/05/2014  02:38 PM            46,817 K (1708) I Gede Krisna Dwipa Jaya.jpg
+06/05/2014  02:40 PM            47,983 K (1709) I Putu Widyatama Pradipta.jpg
+06/05/2014  02:41 PM            49,010 K (1710) Kadek Indah Maheswari.jpg
+06/05/2014  02:42 PM            62,282 K (1711) Pramita Wardhani.jpg
+06/05/2014  02:43 PM            47,297 K (1712) K. Ratih Rahayuningsih.jpg
+06/05/2014  02:45 PM            43,626 K (1713) Wira Dhita Kusuma.jpg
+06/05/2014  02:46 PM            42,722 K (1714) Putu Candra Gunantara.jpg
+06/05/2014  02:47 PM            49,528 K (1715) A.A. Gede Bayu Putra.jpg
+06/05/2014  02:49 PM            47,180 K (1716) I Putu Eri Widyasthana.jpg
+06/05/2014  02:50 PM            53,461 K (1717) Ni Wayan Pastini.jpg
+06/05/2014  02:53 PM            49,134 K (1718) Ni Putu Devi Andrayani.jpg
+06/05/2014  02:55 PM            42,173 K (1719) A.A. Putra Maradi Anandha K..jpg
+06/05/2014  02:57 PM            42,832 K (1720) Cok. Bagus Aditya Prakasa.jpg
+06/05/2014  02:58 PM            55,850 K (1721) Gusti Ayu Sri Sedayatana.jpg
+06/05/2014  02:59 PM            51,586 K (1722) Ni Ketut Ayu Septiari.jpg
+06/05/2014  03:00 PM            43,879 K (1723) Oka Semara Utama.jpg
+06/05/2014  03:01 PM            42,186 K (1724) Ni Nyoman Desi Pramiyanti.jpg
+06/05/2014  03:02 PM            48,739 K (1725) Nyoman Tri Pita Apsara.jpg
+06/05/2014  03:03 PM            43,709 K (1726) Wayan Wiratmara Pande.jpg
+06/05/2014  03:04 PM            48,732 K (1727) Ni Putu Ayu Kartika Dewi.jpg
+06/05/2014  03:06 PM            47,315 K (1728) Dwi Kardri Pramita.jpg
+06/05/2014  03:07 PM            45,413 K (1729) I Wayan Eka Mahendra.jpg
+06/05/2014  03:09 PM           150,702 K (1730) Ni Nyoman Devi Septiani.jpg
+06/05/2014  03:10 PM            51,385 K (1731) Nengah Budiarka.jpg
+06/05/2014  03:12 PM           128,056 K (1732) Kadek Satya Ary Nareswara.jpg
+06/05/2014  03:14 PM            45,474 K (1733) I Wayan Joni Arta.jpg
+06/05/2014  03:15 PM            53,900 K (1734) Dsk. Made Riza Amelia Permana.jpg
+06/05/2014  03:17 PM            52,264 K (1735) I Wayan Edi Jana Saputra.jpg
+06/05/2014  03:18 PM            53,421 K (1736) I Gusti Ayu Rimawathi.jpg
+06/05/2014  03:19 PM            82,424 K (1737) Putu Yunita Febri Astuti.jpg
+06/05/2014  03:20 PM            48,747 K (1738) I Made Dede Fradytha.jpg
+06/05/2014  03:21 PM            54,541 K (1739) I Gusti Ngurah Arioka.jpg
+06/05/2014  03:23 PM            44,500 K (1740) I Made Satria Wahyudi.jpg
+06/05/2014  03:24 PM            61,970 K (1741) Putu Desi Miadalyni.jpg
+06/06/2014  09:13 AM            72,162 K (1742) I Gusti Ngurah Oka Ardhika.jpg
+06/05/2014  03:33 PM            46,115 K (1743) I Ketut Nugraha Eka Putra.jpg
+06/05/2014  03:34 PM            47,440 K (1744) Dw. Gede Anggada Sayoga D..jpg
+06/05/2014  03:36 PM            41,998 K (1745) I Md. Bryan Sabda Yuwana A. P..jpg
+06/05/2014  03:37 PM            51,467 K (1746) Karina Magdani A. Putri.jpg
+06/05/2014  03:38 PM            46,068 K (1747) Kadek Sona Kristiana.jpg
+06/05/2014  03:39 PM            45,040 K (1748) Kadek Hervina Mayasari.jpg
+06/05/2014  03:41 PM            50,387 K (1749) I Gst. Agung Dande Andika.jpg
+06/05/2014  03:42 PM            44,298 K (1750) I Nyoman Edi Suryadi.jpg
+06/05/2014  03:43 PM            46,864 K (1751) Indra Satya Prasavita A..jpg
+06/05/2014  03:44 PM            45,300 K (1752) Made Adi Wijaya.jpg
+06/05/2014  03:45 PM            50,294 K (1753) Nyoman Shintya Purnama Dewi.jpg
+06/05/2014  03:48 PM            45,059 K (1754) I Putu Adi Paramartha.jpg
+06/05/2014  03:49 PM            55,749 K (1755) Ni Made Srirastini.jpg
+06/05/2014  03:50 PM            38,126 K (1756) Ngurah Kukuh Brahmanta.jpg
+06/05/2014  03:51 PM            46,307 K (1757) I Dw. Gd. Dedy Purnama P..jpg
+06/05/2014  03:53 PM            38,283 K (1758) I.B. Adi Surya Parameswara.jpg
+06/05/2014  03:54 PM            49,550 K (1759) Ketut Mahardika.jpg
+06/05/2014  03:55 PM            41,717 K (1760) I Gusti Ayu Dewi Paramita.jpg
+06/05/2014  03:56 PM            46,827 K (1761) I Gd. Yogadharana Karma Oka.jpg
+06/05/2014  03:57 PM            51,374 K (1762) Luh Candra Wedawati.jpg
+06/05/2014  03:58 PM            37,270 K (1763) I Wayan Pande Angga Wira K..jpg
+06/05/2014  03:59 PM            46,650 K (1764) Gusti Murdananda.jpg
+06/05/2014  04:00 PM            46,191 K (1765) I Made Adi Suhendra.jpg
+06/05/2014  04:04 PM            47,790 K (1766) Kadek Bagus Wira Adi Nata.jpg
+06/05/2014  04:05 PM            46,983 K (1767) I Gusti Ayu Gede Wertianti.jpg
+06/05/2014  04:06 PM            49,163 K (1768) I Gusti Ayu Raka Heriyanthi.jpg
+06/05/2014  04:39 PM            44,028 K (1769) Ni Luh Prawita Sari.jpg
+06/05/2014  04:46 PM            43,693 K (1770) I Pt. Dhimas Windu Pratama.jpg
+06/05/2014  04:48 PM            44,611 K (1771) I Dw. Gede Pingga Mahariana B..jpg
+06/05/2014  04:54 PM            45,010 K (1772) Ni Putu Dwi Eka Rini Sugiarthi.jpg
+06/05/2014  04:55 PM            49,114 K (1773) Ni Putu Mira Diantari Sadia.jpg
+06/05/2014  04:56 PM            49,095 K (1774) Kadek Septa Ganesa Putra.jpg
+06/05/2014  04:58 PM            47,726 K (1775) Made Ari Setiadharma.jpg
+06/05/2014  04:59 PM            57,741 K (1776) Made Ratih Baskaraningrum.jpg
+06/05/2014  05:00 PM            41,384 K (1777) Dw. Gd. Angga Sumanjaya.jpg
+06/05/2014  05:04 PM            49,289 K (1778) I Gede Yudha Priesta Suma P..jpg
+06/05/2014  05:05 PM            54,909 K (1779) I Kadek Suparna.jpg
+06/05/2014  05:07 PM            47,236 K (1780) I.G.N Mayun Prabawa Lingga.jpg
+06/05/2014  05:09 PM            54,235 K (1781) Sagung Binda Karmita.jpg
+06/05/2014  05:10 PM            51,202 K (1782) Putu Ciptadi Karkata.jpg
+06/05/2014  05:11 PM            59,496 K (1783) I Dewa Ayu Karimah.jpg
+06/05/2014  05:12 PM            47,302 K (1784) I Ketut Adi Karmana Surya.jpg
+06/05/2014  05:14 PM            48,190 K (1785) Komang Devi Methili Purnajaya.jpg
+06/05/2014  05:15 PM            70,239 K (1786) I Dewa Ayu Ari Pramitasari.jpg
+06/05/2014  05:17 PM            57,228 K (1787) Nyoman Tri Arya Nugraha.jpg
+06/05/2014  05:18 PM            49,619 K (1788) Made Dwi Reka Nugraha.jpg
+06/05/2014  05:19 PM            58,446 K (1789) Ayu Indira Mega Susanti.jpg
+06/06/2014  08:05 AM            49,874 K (1790) Ari Pradnyanawati.jpg
+06/06/2014  08:07 AM            43,631 K (1791) I.B. Pradnyana Manuaba.jpg
+06/06/2014  08:08 AM            47,579 K (1792) Luh Putu Emi Novitasari.jpg
+06/06/2014  08:10 AM            42,766 K (1793) Made Hentya Deshari.jpg
+06/06/2014  08:13 AM            45,064 K (1794) Gede Artha Aditya Permana.jpg
+06/06/2014  08:14 AM            51,223 K (1795) Pt. Ayu Sinthia Adnyasuari.jpg
+06/06/2014  08:16 AM            45,951 K (1796) I Nyoman Ari Widana N..jpg
+06/06/2014  08:18 AM            44,350 K (1797) Kadek Wulan Dwi Cahyani.jpg
+06/06/2014  08:19 AM            43,899 K (1798) Yan Putra Suratmaja.jpg
+06/06/2014  08:20 AM            45,607 K (1799) Dewa Made Dwi Adnyana B..jpg
+06/06/2014  08:21 AM            45,699 K (1800) A.A. Sagung Istri Ratih Pratiwi.jpg
+06/06/2014  08:22 AM            48,029 K (1801) I Komang Nova Riatna.jpg
+06/06/2014  08:26 AM            52,341 K (1802) Ni Made Dwi Kristiani.jpg
+06/06/2014  08:26 AM            55,981 K (1803) Luh Ketut Deva Ganika Murtha.jpg
+06/06/2014  08:27 AM            48,977 K (1804) Tria Mantra.jpg
+06/06/2014  08:28 AM            64,332 K (1805) I Gusti Ayu Lisna Dewi.jpg
+06/06/2014  08:29 AM            48,946 K (1806) I Putu Mahendra Suriana.jpg
+06/06/2014  08:31 AM            47,338 K (1807) I Gusti Ayu Mertha Dewi.jpg
+06/06/2014  08:32 AM            65,961 K (1808) Dwi Mas Sukma Agung.jpg
+06/06/2014  08:33 AM            64,554 K (1809) I.G.A. Mas Pradnya Nharaswarie.jpg
+06/06/2014  08:35 AM            54,777 K (1810) I Gusti Agung Ayu Indri Swari.jpg
+06/06/2014  08:36 AM            44,697 K (1811) I Gede Widya Saputra.jpg
+06/06/2014  08:38 AM            51,377 K (1812) I Gede Putu Surya Prawira.jpg
+06/06/2014  08:39 AM            57,741 K (1813) I Wayan Adi Arimbawa.jpg
+06/06/2014  08:41 AM            52,026 K (1814) Ni Wayan Ratna Santika Putri.jpg
+06/06/2014  08:42 AM            50,893 K (1815) I Gusti Bagus Bengkel Surya D..jpg
+06/06/2014  08:43 AM            53,745 K (1816) Gede Norman Dharma P..jpg
+06/06/2014  08:44 AM            50,508 K (1817) Ngakan Bagus Prasasta S..jpg
+06/06/2014  08:48 AM            59,658 K (1818) A.A. Gede Ngurah Ananda Kusuma.jpg
+06/06/2014  08:50 AM            52,685 K (1819) Komang Wery Kasnadi.jpg
+06/06/2014  08:52 AM            49,778 K (1820) Putu Mega Christanta.jpg
+06/06/2014  08:53 AM            58,064 K (1821) Putu Topan Pribadi.jpg
+06/06/2014  08:54 AM            51,324 K (1822) I.B. Gede Wisnu Wibawa.jpg
+06/06/2014  08:56 AM            46,295 K (1823) Gede Endy Suarnaya.jpg
+06/06/2014  08:57 AM            51,275 K (1824) Candra Adi Surya Marga S..jpg
+06/06/2014  08:58 AM            57,732 K (1825) Kd. Suhendra Wina Dwi P..jpg
+06/06/2014  09:00 AM            62,186 K (1826) I Nyoman Sedanayasa Satyawan.jpg
+06/06/2014  09:02 AM            69,703 K (1827) I Gusti Ayu Dian Sasmita Ratih.jpg
+06/06/2014  09:02 AM            53,393 K (1828) A.A. Ari Chintya Dewi.jpg
+08/13/2015  12:27 PM                 0 lo.txt
+            1398 File(s)    149,953,246 bytes
+               2 Dir(s)  10,512,953,344 bytes free

@@ -1,0 +1,475 @@
+<%-- 
+    Document   : candidate_selection
+    Created on : Sep 20, 2015, 5:22:18 PM
+    Author     : Dimata 007
+--%>
+<%@page import="com.dimata.util.Command"%>
+<%@page import="com.dimata.gui.jsp.ControlCombo"%>
+<%@ include file = "../../main/javainit.jsp" %>
+<% int appObjCode = AppObjInfo.composeObjCode(AppObjInfo.G1_EMPLOYEE, AppObjInfo.G2_DATABANK, AppObjInfo.OBJ_DATABANK);%>
+<% boolean privGenerate = userSession.checkPrivilege(AppObjInfo.composeCode(appObjCode, AppObjInfo.COMMAND_GENERATE_SALARY_LEVEL));%>
+<%@ include file = "../../main/checkuser.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%!
+    public String getTypeName(long typeId){
+        String str = "";
+        try {
+            TrainType train = PstTrainType.fetchExc(typeId);
+            str = train.getTypeName();
+        } catch(Exception e){
+            System.out.println(""+e.toString());
+        }
+        return str;
+    }
+%>
+<%
+int iCommand = FRMQueryString.requestCommand(request);
+long candidateMainId = FRMQueryString.requestLong(request, "oid");
+String[] educationId = FRMQueryString.requestStringValues(request, "chx_edu");
+String[] trainingId = FRMQueryString.requestStringValues(request, "chx_training");
+String[] competencyId = FRMQueryString.requestStringValues(request, "chx_competency");
+String[] kpiId = FRMQueryString.requestStringValues(request, "chx_kpi");
+String whereClause = "";
+String orderBy = "";
+if (iCommand == Command.SAVE && candidateMainId > 0){
+    if (educationId == null || educationId.length == 0 ){
+        educationId = new String[1];
+        educationId[0] = "0";
+    }
+    if (trainingId == null || trainingId.length == 0){
+        trainingId = new String[1];
+        trainingId[0] = "0";
+    }
+    if (competencyId == null || competencyId.length == 0){
+        competencyId = new String[1];
+        competencyId[0] = "0";
+    }
+    if (kpiId == null || kpiId.length == 0){
+        kpiId = new String[1];
+        kpiId[0] = "0";
+    }
+    
+    int size = -1;
+    int eduSize = educationId.length;
+    int trainSize = trainingId.length;
+    int compSize = competencyId.length;
+    int kpiSize = kpiId.length;
+
+    /* menentukan size */
+    if (eduSize > size){
+        size = eduSize;
+    }
+    if (trainSize > size){
+        size = trainSize;
+    }
+    if (compSize > size){
+        size = compSize;
+    }
+    if (kpiSize > size){
+        size = kpiSize;
+    }
+    
+    String[] arrEducation = new String[size];
+    String[] arrTraining = new String[size];
+    String[] arrCompetency = new String[size];
+    String[] arrKPI = new String[size];
+    
+    
+    if (size > 0){
+        for(int h=0; h<size; h++){
+            arrEducation[h] = "0";
+            arrTraining[h] = "0";
+            arrCompetency[h] = "0";
+            arrKPI[h] = "0";
+        }
+        for(int e=0; e<educationId.length; e++){
+            arrEducation[e] = educationId[e];
+        }
+        for(int t=0; t<trainingId.length; t++){
+            arrTraining[t] = trainingId[t];
+        }
+        for(int c=0; c<competencyId.length; c++){
+            arrCompetency[c] = competencyId[c];
+        }
+        for(int k=0; k<kpiId.length; k++){
+            arrKPI[k] = kpiId[k];
+        }
+        
+        CandidateSelection canSelection = new CandidateSelection();
+        for(int i=0; i<size; i++){
+            canSelection.setCandidateMainId(candidateMainId);
+            canSelection.setCandidateEducationId(Long.valueOf(arrEducation[i]));
+            canSelection.setCandidateTrainingId(Long.valueOf(arrTraining[i]));
+            canSelection.setCandidateCompetencyId(Long.valueOf(arrCompetency[i]));
+            canSelection.setCandidateKpiId(Long.valueOf(arrKPI[i]));
+            try {
+                PstCandidateSelection.insertExc(canSelection);
+            } catch(Exception e){
+                System.out.println(""+e.toString());
+            }
+        }
+        String redirectURL = approot+"/employee/candidate/candidate_complete.jsp?oid="+candidateMainId;
+        response.sendRedirect(redirectURL);
+    }
+}
+%>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Candidate Selection</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <link rel="stylesheet" href="../../styles/main.css" type="text/css">
+        <link rel="stylesheet" href="../../styles/tab.css" type="text/css">
+        <link href="<%=approot%>/stylesheets/superTables.css" rel="Stylesheet" type="text/css" /> 
+        <style type="text/css">
+
+            #mn_utama {color: #FF6600; padding: 5px 14px; border-left: 1px solid #999; font-size: 12px; font-weight: bold; background-color: #F5F5F5;}
+            
+            #menu_utama {padding: 9px 14px; border-left: 1px solid #0099FF; font-size: 14px; background-color: #F3F3F3; color:#0099FF; font-size: 14px; font-weight: bold;}
+            
+            #btn {
+              background: #3498db;
+              border: 1px solid #0066CC;
+              border-radius: 3px;
+              font-family: Arial;
+              color: #ffffff;
+              font-size: 12px;
+              padding: 3px 9px 3px 9px;
+            }
+
+            #btn:hover {
+              background: #3cb0fd;
+              border: 1px solid #3498db;
+            }
+            #btn1 {
+              background-color: #DDD;
+              border: 1px solid #CCC;
+              border-radius: 3px;
+              color: #575757;
+              font-size: 11px;
+              padding: 2px 5px;
+              cursor: pointer;
+            }
+            #btn1:hover {
+              color: #373737;
+              background-color: #c5c5c5;
+              border: 1px solid #999;
+            }
+            
+            #btn2 {
+              background-color: #00ccff;
+              border: 1px solid #00aeda;
+              border-radius: 3px;
+              color: #FFF;
+              font-size: 14px;
+              padding: 9px 17px;
+              cursor: pointer;
+            }
+            #btn2:hover {
+              color: #FFF;
+              background-color: #0096bb;
+              border: 1px solid #007592;
+            }
+            
+            #btn_disable {
+              background-color: #EEE;
+              border: 1px solid #D5D5D5;
+              border-radius: 3px;
+              color: #CCC;
+              font-size: 14px;
+              padding: 9px 17px;
+            }
+            .tblStyle {border-collapse: collapse;font-size: 11px;}
+            .tblStyle td {padding: 3px 5px; border: 1px solid #CCC;}
+            .title_tbl {font-weight: bold;background-color: #DDD; color: #575757;}
+            .title_part {background-color: #FFF; border-left: 1px solid #3cb0fd; padding:5px 15px;  color: #575757; margin: 1px 0px;}
+            
+            .divLocation {
+                margin:3px 0px; 
+                padding:5px 7px; 
+                background-color: #FFF;
+                color: #575757;
+                font-weight: bold;
+            }
+            
+            .position {
+                color: #474747;
+                background-color: #DDD;
+                padding: 3px 5px;
+                margin: 3px;
+                border-radius: 3px;
+            }
+            
+            #nav-next {
+              background-color: #00ccff;
+              color: #FFF;
+              font-size: 14px;
+              padding: 11px 17px 10px 17px;
+            }
+            #nav-next-disable {
+              background-color: #d9d9d9;
+              color: #FFF;
+              font-size: 14px;
+              padding: 11px 17px 10px 17px;
+            }
+            .title_part {
+                color:#0599ab;
+                padding: 7px 21px;
+                background-color: #FFF;
+                border-left: 1px solid #0099FF;
+            }
+        </style>
+        <script type="text/javascript">
+            function cmdNext(){
+                document.frm.command.value="<%=Command.SAVE%>";
+                document.frm.action = "candidate_selection.jsp";
+                document.frm.submit();
+            }
+        </script>
+
+    </head>
+    <body <%=noBack%> bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%" bgcolor="#F9FCFF" >
+            <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%> 
+            <%@include file="../../styletemplate/template_header.jsp" %>
+            <%} else {%>
+            <tr> 
+                <td ID="TOPTITLE" background="<%=approot%>/images/HRIS_HeaderBg3.jpg" height="54"> 
+                    <!-- #BeginEditable "header" --> 
+                    <%@ include file = "../../main/header.jsp" %>
+                    <!-- #EndEditable --> 
+                </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="15" ID="MAINMENU" valign="middle"> <!-- #BeginEditable "menumain" --> 
+                    <%@ include file = "../../main/mnmain.jsp" %>
+                    <!-- #EndEditable --> </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="10" valign="middle"> 
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr> 
+                            <td align="left"><img src="<%=approot%>/images/harismaMenuLeft1.jpg" width="8" height="8"></td>
+                            <td align="center" background="<%=approot%>/images/harismaMenuLine1.jpg" width="100%"><img src="<%=approot%>/images/harismaMenuLine1.jpg" width="8" height="8"></td>
+                            <td align="right"><img src="<%=approot%>/images/harismaMenuRight1.jpg" width="8" height="8"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <%}%>
+            <tr> 
+                <td valign="top" align="left" width="100%"> 
+                    <table border="0" cellspacing="3" cellpadding="2" id="tbl0" width="100%">
+                        <tr> 
+                            <td  colspan="3" valign="top" style="padding: 12px"> 
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr> 
+                                        <td height="20"> <div id="menu_utama">Candidate Selection</div> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color:#EEE;" valign="top" width="100%">
+                                       
+                                            
+                                            <table width="100%" style="padding:9px; border:1px solid <%=garisContent%>;"  border="0" cellspacing="1" cellpadding="1" class="tablecolor">
+                                                <tr>
+                                                    <td valign="top">
+                                                        <form name="frm" method="post" action="">
+                                                            <input type="hidden" name="command" value="<%=iCommand%>">
+                                                            <input type="hidden" name="oid" value="<%=candidateMainId%>">
+                                                            <table>
+                                                                <tr>
+                                                                    <td colspan="2" style="border-bottom:1px solid #CCC; padding:15px 9px;">
+                                                                        <table cellspacing="0" cellpadding="0" border="0">
+                                                                            <tr>
+                                                                                <td valign="top"><div id="nav-next">1) Candidate Main</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next-enable.png" /></td>
+                                                                                <td valign="top"><div id="nav-next">2) Candidate Location</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next-enable.png" /></td>
+                                                                                <td valign="top"><div id="nav-next">3) Candidate Position</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next-enable.png" /></td>
+                                                                                <td valign="top"><div id="nav-next">4) Candidate Matrix</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next-enable.png" /></td>
+                                                                                <td valign="top"><div id="nav-next">5) Candidate Selection</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next.png" /></td>
+                                                                                <td valign="top"><div id="nav-next-disable">6) Candidate Complete</div></td>                                                                                
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign="top">
+                                                                        <table>
+                                                                            <tr>
+                                                                                <td valign="top">
+                                                                                    <table>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <div class="title_part">Education</div>
+                                                                                                <table class="tblStyle">
+                                                                                                    <tr>
+                                                                                                        <td class="title_tbl">&nbsp;</td>
+                                                                                                        <td class="title_tbl">Education</td>
+                                                                                                        <td class="title_tbl">Education Description</td>
+                                                                                                    </tr>
+                                                                                                    <%
+                                                                                                    Vector listEducation = PstEducation.list(0, 0, "", "");
+                                                                                                    if (listEducation != null && listEducation.size()>0){
+                                                                                                        for(int e=0; e<listEducation.size(); e++){
+                                                                                                            Education edu = (Education)listEducation.get(e);
+                                                                                                            %>
+                                                                                                            <tr>
+                                                                                                                <td><input type="checkbox" name="chx_edu" value="<%=edu.getOID()%>" /></td>
+                                                                                                                <td><%=edu.getEducation()%></td>
+                                                                                                                <td><%=edu.getEducationDesc()%></td>
+                                                                                                            </tr>
+                                                                                                            <%
+                                                                                                        }
+                                                                                                    }
+                                                                                                    %>
+                                                                                                </table>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <div class="title_part">Training</div>
+                                                                                                <table class="tblStyle">
+                                                                                                    <tr>
+                                                                                                        <td class="title_tbl">&nbsp;</td>
+                                                                                                        <td class="title_tbl">Training</td>
+                                                                                                        <td class="title_tbl">Type</td>
+                                                                                                    </tr>
+                                                                                                    <%
+                                                                                                    Vector listTraining = PstTraining.list(0, 0, "", "");
+                                                                                                    if (listTraining != null && listTraining.size()>0){
+                                                                                                        for(int t=0; t<listTraining.size(); t++){
+                                                                                                            Training training = (Training)listTraining.get(t);
+                                                                                                            %>
+                                                                                                            <tr>
+                                                                                                                <td><input type="checkbox" name="chx_training" value="<%=training.getOID()%>" /></td>
+                                                                                                                <td><%=training.getName()%></td>
+                                                                                                                <td><%=getTypeName(training.getType())%></td>
+                                                                                                            </tr>
+                                                                                                            <%
+                                                                                                        }
+                                                                                                    }
+                                                                                                    %>
+                                                                                                    
+                                                                                                </table>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <div class="title_part">Competency</div>
+                                                                                                <table class="tblStyle">
+                                                                                                    <tr>
+                                                                                                        <td class="title_tbl">&nbsp;</td>
+                                                                                                        <td class="title_tbl">Competency Name</td>
+                                                                                                    </tr>
+                                                                                                    <%
+                                                                                                    Vector listCompetency = PstCompetency.list(0, 0, "", "");
+                                                                                                    if (listCompetency != null && listCompetency.size()>0){
+                                                                                                        for (int c=0; c<listCompetency.size(); c++){
+                                                                                                            Competency competency = (Competency)listCompetency.get(c);
+                                                                                                    %>
+                                                                                                    <tr>
+                                                                                                        <td><input type="checkbox" name="chx_competency" value="<%=competency.getOID()%>" /></td>
+                                                                                                        <td><%=competency.getCompetencyName()%></td>
+                                                                                                    </tr>
+                                                                                                    <% 
+                                                                                                        }
+                                                                                                    }
+                                                                                                    %>
+                                                                                                </table>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <div class="title_part">Key Performance Indicator (KPI)</div>
+                                                                                                <table class="tblStyle">
+                                                                                                    <tr>
+                                                                                                        <td class="title_tbl">&nbsp;</td>
+                                                                                                        <td class="title_tbl">KPI Title</td>
+                                                                                                    </tr>
+                                                                                                    <%
+                                                                                                    Vector listKPI = PstKPI_List.list(0, 0, "", "");
+                                                                                                    if (listKPI != null && listKPI.size()>0){
+                                                                                                        for(int k=0; k<listKPI.size(); k++){
+                                                                                                            KPI_List kpi = (KPI_List)listKPI.get(k);
+                                                                                                            %>
+                                                                                                            <tr>
+                                                                                                                <td><input type="checkbox" name="chx_kpi" value="<%=kpi.getOID()%>" /></td>
+                                                                                                                <td><%=kpi.getKpi_title()%></td>
+                                                                                                            </tr>
+                                                                                                            <%
+                                                                                                        }
+                                                                                                    }
+                                                                                                    %>
+                                                                                                    
+                                                                                                </table>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>                                                                        
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2" style="border-top:1px solid #DDD; padding-top: 12px">
+                                                                        <button id="btn2" onclick="cmdNext()">Next Step</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        
+                                        </td>
+                                    </tr>
+                                </table><!---End Tble--->
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%>
+            <tr>
+                <td valign="bottom">
+                    <!-- untuk footer -->
+                    <%@include file="../../footer.jsp" %>
+                </td>
+                            
+            </tr>
+            <%} else {%>
+            <tr> 
+                <td colspan="2" height="20" > <!-- #BeginEditable "footer" --> 
+                    <%@ include file = "../../main/footer.jsp" %>
+                    <!-- #EndEditable --> </td>
+            </tr>
+            <%}%>
+        </table>
+    </body>
+    <!-- #BeginEditable "script" --> <script language="JavaScript">
+                var oBody = document.body;
+                var oSuccess = oBody.attachEvent('onkeydown',fnTrapKD);
+    </script>
+                
+    <!-- #EndEditable --> <!-- #EndTemplate -->
+</html>

@@ -1,0 +1,33 @@
+package id4q75cdc9pzo8ydc9qzz73;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#id4my16d6kf5nyad6kmrvgc.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#com.dimata.system.session.system:oiref> 
+*/
+class reference {
+}/**
+@__ref <oiref:java#Class#com.dimata.system.session.SessSystemProperty:oiref><oihard>
+@__modelType reference 
+*/
+class reference13 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions 
+*/
+class __positions {
+}

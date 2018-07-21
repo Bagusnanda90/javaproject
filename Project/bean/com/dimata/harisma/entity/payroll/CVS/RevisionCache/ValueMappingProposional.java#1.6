@@ -1,0 +1,583 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dimata.harisma.entity.payroll;
+
+import com.dimata.harisma.entity.employee.CareerPath;
+import com.dimata.harisma.entity.employee.Employee;
+import com.dimata.harisma.entity.employee.PstCareerPath;
+import com.dimata.harisma.entity.employee.PstEmployee;
+import com.dimata.qdep.db.DBHandler;
+import com.dimata.qdep.db.DBResultSet;
+import java.sql.ResultSet;
+import java.util.Date;
+import java.util.Vector;
+
+/**
+ * Date : 2016-03-07
+ *
+ * @author Dimata 007 | Hendra Putu
+ */
+public class ValueMappingProposional {
+
+    private String fieldKey = "";
+    private String valueKey = "";
+
+    public String getDigit(int val) {
+        String str = "";
+        String nilai = String.valueOf(val);
+        if (nilai.length() == 1) {
+            str = "0" + nilai;
+        } else {
+            str = nilai;
+        }
+        return str;
+    }
+
+    /**
+     * getRangeOfDate : mencari rentangan tanggal dari start date to end date.
+     * misal : start date = 2015-09-09 To 2015-09-13, maka hasilnya::
+     * 2015-09-09, 2015-09-10, 2015-09-11, 2015-09-12, 2015-09-13
+     */
+    public Vector<String> getRangeOfDate(String startDate, String endDate) {
+        Vector<String> rangeDate = new Vector<String>();
+        String[] arrStart = startDate.split("-");
+        String[] arrEnd = endDate.split("-");
+
+        int yearStart = Integer.valueOf(arrStart[0]);
+        int monthStart = Integer.valueOf(arrStart[1]);
+        int dayStart = Integer.valueOf(arrStart[2]);
+
+        int yearEnd = Integer.valueOf(arrEnd[0]);
+        int monthEnd = Integer.valueOf(arrEnd[1]);
+        int dayEnd = Integer.valueOf(arrEnd[2]);
+
+        String tanggal = "";
+        if (yearStart != yearEnd) {
+            for (int y = yearStart; y <= yearEnd; y++) {
+                if (y < yearEnd) { // 2014-01-01 AND 2016-01-01 (2014-01-01, 2015-01-01, 2016-05-01)
+                    if (monthStart == 1) {
+                        for (int m = 1; m <= 12; m++) {
+                            if (dayStart == 1) {
+                                for (int d = 1; d <= 31; d++) {
+                                    tanggal = y + "-" + getDigit(m) + "-" + getDigit(d);
+                                    rangeDate.add(tanggal);
+                                }
+                            } else {
+                                for (int d = dayStart; d <= 31; d++) {
+                                    tanggal = y + "-" + getDigit(m) + "-" + getDigit(d);
+                                    rangeDate.add(tanggal);
+                                }
+                                dayStart = 1;
+                            }
+                        }
+                    } else {
+                        for (int m = monthStart; m <= 12; m++) {
+                            if (dayStart == 1) {
+                                for (int d = 1; d <= 31; d++) {
+                                    tanggal = y + "-" + getDigit(m) + "-" + getDigit(d);
+                                    rangeDate.add(tanggal);
+                                }
+                            } else {
+                                for (int d = dayStart; d <= 31; d++) {
+                                    tanggal = y + "-" + getDigit(m) + "-" + getDigit(d);
+                                    rangeDate.add(tanggal);
+                                }
+                                dayStart = 1;
+                            }
+                        }
+                        monthStart = 1;
+                    }
+                } else {
+                    if (monthStart == monthEnd) {
+                        if (dayStart == dayEnd) {
+                            tanggal = y + "-" + getDigit(monthStart) + "-" + getDigit(dayStart);
+                            rangeDate.add(tanggal);
+                        } else {
+                            if (dayStart < dayEnd) {
+                                for (int d = dayStart; d <= dayEnd; d++) {
+                                    tanggal = y + "-" + getDigit(monthStart) + "-" + getDigit(d);
+                                    rangeDate.add(tanggal);
+                                }
+                            }
+                        }
+                    } else {
+                        if (monthStart < monthEnd) { // 2015-01-01 AND 2015-02-05
+                            for (int m = monthStart; m <= monthEnd; m++) {
+                                if (m < monthEnd) {
+                                    if (dayStart == 1) {
+                                        for (int d = 1; d <= 31; d++) {
+                                            tanggal = y + "-" + getDigit(m) + "-" + getDigit(d);
+                                            rangeDate.add(tanggal);
+                                        }
+                                    } else {
+                                        if (dayStart > 1) {
+                                            for (int d = dayStart; d <= 31; d++) {
+                                                tanggal = y + "-" + getDigit(m) + "-" + getDigit(d);
+                                                rangeDate.add(tanggal);
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    for (int d = 1; d <= dayEnd; d++) {
+                                        tanggal = y + "-" + getDigit(m) + "-" + getDigit(d);
+                                        rangeDate.add(tanggal);
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            if (monthStart == monthEnd) {
+                if (dayStart == dayEnd) {
+                    tanggal = yearStart + "-" + getDigit(monthStart) + "-" + getDigit(dayStart);
+                    rangeDate.add(tanggal);
+                } else {
+                    if (dayStart < dayEnd) {
+                        for (int d = dayStart; d <= dayEnd; d++) {
+                            tanggal = yearStart + "-" + getDigit(monthStart) + "-" + getDigit(d);
+                            rangeDate.add(tanggal);
+                        }
+                    }
+                }
+            } else {
+                if (monthStart < monthEnd) { // 2015-01-01 AND 2015-02-05
+                    for (int m = monthStart; m <= monthEnd; m++) {
+                        if (m < monthEnd) {
+                            if (dayStart == 1) {
+                                for (int d = 1; d <= 31; d++) {
+                                    tanggal = yearStart + "-" + getDigit(m) + "-" + getDigit(d);
+                                    rangeDate.add(tanggal);
+                                }
+                            } else {
+                                if (dayStart > 1) {
+                                    for (int d = dayStart; d <= 31; d++) {
+                                        tanggal = yearStart + "-" + getDigit(m) + "-" + getDigit(d);
+                                        rangeDate.add(tanggal);
+                                    }
+                                }
+                            }
+                        } else {
+                            for (int d = 1; d <= dayEnd; d++) {
+                                tanggal = yearStart + "-" + getDigit(m) + "-" + getDigit(d);
+                                rangeDate.add(tanggal);
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return rangeDate;
+    }
+
+    public double getValuemapping(String fromdate, String todate, String employeeId, String salaryComp) {
+        DBResultSet dbrs = null;
+        double nilai = 0;
+        String test = "";
+        Employee employee = new Employee();
+        try {
+            employee = PstEmployee.fetchExc(Long.valueOf(employeeId));
+        } catch (Exception e) {
+        }
+        try {
+            String sql = " SELECT * FROM " + PstValue_Mapping.TBL_VALUE_MAPPING + " WHERE "
+                    + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + " = \"" + salaryComp + "\" "
+                    + " AND ((" + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_END_DATE]
+                    + " >= \"" + fromdate + " 00:00:00" + "\") OR (END_DATE = \"0000-00-00  00:00:00\")  OR ( END_DATE IS NULL ) )";
+            dbrs = DBHandler.execQueryResult(sql);
+            ResultSet rs = dbrs.getResultSet();
+
+            int count = 0;
+            while (rs.next()) {
+                // Employee employee = PstEmployee.fetchExc(employeeId);
+
+                long VmCompanyId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMPANY_ID]);
+                long VmDivisionId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_DIVISION_ID]);
+                long VmDepartmentId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_DEPARTMENT_ID]);
+                long VmSectionId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_SECTION_ID]);
+                long VmLevelId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_LEVEL_ID]);
+                long VmMaritalId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_MARITAL_ID]);
+                double VmLengthOfService = rs.getDouble(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_LENGTH_OF_SERVICE]);
+                long VmEmpCategoryId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_EMPLOYEE_CATEGORY]);
+                long VmPositionId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_POSITION_ID]);
+                long VmEmployeeId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_EMPLOYEE_ID]);
+                double VmValue = rs.getDouble(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_VALUE]);
+                long VmGradeId = rs.getLong(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_GRADE]);
+                int VmSex = rs.getInt(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_SEX]);
+
+                java.util.Date today = new java.util.Date();
+                boolean nilaitf = true;
+                /* melakukan perbandingan ke object Employee */
+                if ((VmCompanyId != 0) && (VmCompanyId > 0)) {
+                    if (VmCompanyId != employee.getCompanyId()) {
+                        nilaitf = false;
+                    } else {
+                        setFieldKey(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMPANY_ID]);
+                        setValueKey("" + VmCompanyId);
+                    }
+                }
+
+                if ((VmDivisionId != 0) && (VmDivisionId > 0)) {
+                    if (VmDivisionId != employee.getDivisionId()) {
+                        nilaitf = false;
+                    } else {
+                        setFieldKey(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_DIVISION_ID]);
+                        setValueKey("" + VmDivisionId);
+                    }
+                }
+                if ((VmDepartmentId != 0) && (VmDepartmentId > 0)) {
+                    if (VmDepartmentId != employee.getDepartmentId()) {
+                        nilaitf = false;
+                    } else {
+                        setFieldKey(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_DEPARTMENT_ID]);
+                        setValueKey("" + VmDepartmentId);
+                    }
+                }
+                if ((VmSectionId != 0) && (VmSectionId > 0)) {
+                    if (VmSectionId != employee.getSectionId()) {
+                        nilaitf = false;
+                    } else {
+                        setFieldKey(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_SECTION_ID]);
+                        setValueKey("" + VmSectionId);
+                    }
+                }
+                if ((VmPositionId != 0) && (VmPositionId > 0)) {
+                    if (VmPositionId != employee.getPositionId()) {
+                        nilaitf = false;
+                    } else {
+                        setFieldKey(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_POSITION_ID]);
+                        setValueKey("" + VmPositionId);
+                    }
+                }
+                if ((VmGradeId != 0) && (VmGradeId > 0)) {
+                    if (VmGradeId != employee.getGradeLevelId()) {
+                        nilaitf = false;
+                    } else {
+                        setFieldKey(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_GRADE]);
+                        setValueKey("" + VmGradeId);
+                    }
+                }
+                if ((VmEmpCategoryId != 0) && (VmEmpCategoryId > 0)) {
+                    if (VmEmpCategoryId != employee.getEmpCategoryId()) {
+                        nilaitf = false;
+                    } else {
+                        setFieldKey(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_EMPLOYEE_CATEGORY]);
+                        setValueKey("" + VmEmpCategoryId);
+                    }
+                }
+                if ((VmLevelId != 0) && (VmLevelId > 0)) {
+                    if (VmLevelId != employee.getLevelId()) {
+                        nilaitf = false;
+                    } else {
+                        setFieldKey(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_LEVEL_ID]);
+                        setValueKey("" + VmLevelId);
+                    }
+                }
+                if ((VmMaritalId != 0) && (VmMaritalId > 0)) {
+                    if (VmMaritalId != employee.getMaritalId()) {
+                        nilaitf = false;
+                    }
+                }
+                if ((VmEmployeeId != 0) && (VmEmployeeId > 0)) {
+                    if (VmEmployeeId != employee.getOID()) {
+                        nilaitf = false;
+                    }
+                }
+
+                if ((VmSex != -1) && (VmSex > -1)) {
+                    if (VmSex != employee.getSex()) {
+                        nilaitf = false;
+                    }
+                }
+
+                if ((VmLengthOfService != 0) && (VmLengthOfService > 0)) {
+                    double diff = today.getTime() - employee.getCommencingDate().getTime();
+                    double yeardiff = diff / (1000 * 60 * 60 * 24 * 365);
+                    if ((yeardiff != VmLengthOfService) || (yeardiff < VmLengthOfService)) {
+                        nilaitf = false;
+                    }
+                }
+                /* End melakukan perbandingan ke object Employee */
+                if (nilaitf) {
+                    nilai = VmValue;
+                }
+            }
+            //rs.close();
+            return nilai;
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            DBResultSet.close(dbrs);
+        }
+        return 0;
+    }
+
+    public double getValueMappingTotal(String periodFrom, String periodTo, String employeeId, String salaryComp) {
+        String[] periodStart = periodFrom.split("-");
+        int index = 0;
+        Vector listRangeDate = new Vector();
+        Vector valueMappingCareer = new Vector();
+        String whereClause = "";
+        String order = "";
+        // dapatkan value mapping current
+        double valueCurrent = getValuemapping(periodFrom, periodTo, employeeId, salaryComp);
+        double valuePrevious = 0;
+        double proporsionalCurr = 0;
+        double proporsionalPrev = 0;
+        double totalValue = 0;
+        // dapatkan PayComponent
+        whereClause = PstPayComponent.fieldNames[PstPayComponent.FLD_COMP_CODE] + "='" + salaryComp + "'";
+        Vector listPayComponent = PstPayComponent.list(0, 0, whereClause, "");
+        if (listPayComponent != null && listPayComponent.size() > 0) {
+            PayComponent payComp = (PayComponent) listPayComponent.get(0);
+            if (payComp.getProporsionalCalculate() != 0) {
+                String fieldKey = getFieldKey();
+                String valueKey = getValueKey();
+                if (fieldKey.equals(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_EMPLOYEE_CATEGORY])) {
+                    fieldKey = PstCareerPath.fieldNames[PstCareerPath.FLD_EMP_CATEGORY_ID];
+                }
+                if (fieldKey.equals(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_GRADE])) {
+                    fieldKey = PstCareerPath.fieldNames[PstCareerPath.FLD_GRADE_LEVEL_ID];
+                }
+                boolean find = false;
+                boolean math = false;
+                // Jika value Current != 0 maka cari list career
+                if (valueCurrent != 0) {
+                    whereClause = PstCareerPath.fieldNames[PstCareerPath.FLD_EMPLOYEE_ID] + "=" + employeeId;
+                    order = PstCareerPath.fieldNames[PstCareerPath.FLD_WORK_FROM] + " DESC";
+                    Vector listCareerPath = PstCareerPath.list(0, 1, whereClause, order);
+                    whereClause = "";
+                    if (listCareerPath != null && listCareerPath.size() > 0) {
+                        CareerPath career = (CareerPath) listCareerPath.get(0);
+
+                        if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_COMPANY_ID])) {
+                            if (!getValueKey().equals("" + career.getCompanyId())) {
+                                whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMPANY_ID] + "=" + career.getCompanyId();
+                            } else {
+                                find = true;
+                            }
+                        }
+                        if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_DIVISION_ID])) {
+                            if (!getValueKey().equals("" + career.getDivisionId())) {
+                                whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_DIVISION_ID] + "=" + career.getDivisionId();
+                            } else {
+                                find = true;
+                            }
+                        }
+                        if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_DEPARTMENT_ID])) {
+                            if (!getValueKey().equals("" + career.getDepartmentId())) {
+                                whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_DEPARTMENT_ID] + "=" + career.getDepartmentId();
+                            } else {
+                                find = true;
+                            }
+                        }
+                        if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_SECTION_ID])) {
+                            if (!getValueKey().equals("" + career.getSectionId())) {
+                                whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_SECTION_ID] + "=" + career.getSectionId();
+                            } else {
+                                find = true;
+                            }
+                        }
+                        if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_LEVEL_ID])) {
+                            if (!getValueKey().equals("" + career.getLevelId())) {
+                                whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_LEVEL_ID] + "=" + career.getLevelId();
+                            } else {
+                                find = true;
+                            }
+                        }
+                        if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_POSITION_ID])) {
+                            if (!getValueKey().equals("" + career.getPositionId())) {
+                                whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_POSITION_ID] + "=" + career.getPositionId();
+                            } else {
+                                find = true;
+                            }
+                        }
+                        if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_EMP_CATEGORY_ID])) {
+                            if (!getValueKey().equals("" + career.getEmpCategoryId())) {
+                                whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_EMPLOYEE_CATEGORY] + "=" + career.getEmpCategoryId();
+                            } else {
+                                find = true;
+                            }
+                        }
+                        if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_GRADE_LEVEL_ID])) {
+                            if (!getValueKey().equals("" + career.getGradeLevelId())) {
+                                whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_GRADE] + "=" + career.getGradeLevelId();
+                            } else {
+                                find = true;
+                            }
+                        }
+
+                        listRangeDate = getRangeOfDate("" + career.getWorkFrom(), "" + career.getWorkTo());
+                        if (listRangeDate != null && listRangeDate.size() > 0) {
+                            for (int r = 0; r < listRangeDate.size(); r++) {
+                                String rDate = (String) listRangeDate.get(r);
+                                if (rDate.equals(periodFrom)) {
+                                    math = true;
+                                }
+                            }
+                        }
+
+                        valueMappingCareer = PstValue_Mapping.list(0, 0, whereClause, "");
+                        if (find == false && math == true) {
+                            if (valueMappingCareer != null && valueMappingCareer.size() > 0) {
+                                Value_Mapping valueMapping = (Value_Mapping) valueMappingCareer.get(0);
+                                valuePrevious = valueMapping.getValue();
+                                String workTo = "" + career.getWorkTo();
+                                String[] arrWorkTo = workTo.split("-");
+                                /* periodStart[0] = YYYY | periodStart[1] = MM */
+                                /* membandingkan YEAR dan MONTH, jika YEAR dan MONTH pada period dan WORK_TO sama maka */
+                                if (periodStart[0].equals(arrWorkTo[0])) {
+                                    int periodInt = Integer.valueOf(periodStart[0] + periodStart[1] + periodStart[2]);
+                                    int workToInt = Integer.valueOf(arrWorkTo[0] + arrWorkTo[1] + arrWorkTo[2]);
+                                    if (periodInt < workToInt) {
+                                        totalValue = valuePrevious;
+                                    } else {
+                                        /// listRangeDate = getRangeOfDate("" + career.getWorkFrom(), "" + career.getWorkTo());
+                                        if (listRangeDate != null && listRangeDate.size() > 0) {
+                                            for (int r = 0; r < listRangeDate.size(); r++) {
+                                                String rDate = (String) listRangeDate.get(r);
+                                                if (rDate.equals(periodFrom)) {
+                                                    index = r;
+                                                }
+                                            }
+                                            int amountPrev = listRangeDate.size() - index;
+                                            int amountCurr = 30 - amountPrev;
+                                            proporsionalPrev = (valuePrevious / 30) * amountPrev;
+                                            proporsionalCurr = (valueCurrent / 30) * amountCurr;
+                                            totalValue = proporsionalPrev + proporsionalCurr;
+                                        }
+                                    }
+                                } else {
+                                    totalValue = valueCurrent;
+                                }
+                            } else {
+                                totalValue = valuePrevious;
+                            }
+                        } else {
+                            totalValue = valueCurrent;
+                        }
+                    }
+                } else { /* Fokus pencarian ke riwayat jabatan */
+
+                    whereClause = PstCareerPath.fieldNames[PstCareerPath.FLD_EMPLOYEE_ID] + "=" + employeeId;
+                    order = PstCareerPath.fieldNames[PstCareerPath.FLD_WORK_FROM] + " DESC";
+                    Vector listCareerPath = PstCareerPath.list(0, 1, whereClause, order);
+                    whereClause = "";
+                    if (listCareerPath != null && listCareerPath.size() > 0) {
+                        CareerPath career = (CareerPath) listCareerPath.get(0);
+
+
+                        listRangeDate = getRangeOfDate("" + career.getWorkFrom(), "" + career.getWorkTo());
+                        if (listRangeDate != null && listRangeDate.size() > 0) {
+                            for (int r = 0; r < listRangeDate.size(); r++) {
+                                String rDate = (String) listRangeDate.get(r);
+                                if (rDate.equals(periodFrom)) {
+                                    math = true;
+                                }
+                            }
+                        }
+
+                        if (math == true) {
+                            whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                            valueMappingCareer = PstValue_Mapping.list(0, 0, whereClause, "");
+                            if (valueMappingCareer != null && valueMappingCareer.size() > 0) {
+                                for (int i = 0; i < valueMappingCareer.size(); i++) {
+                                    Value_Mapping valueMapping = (Value_Mapping) valueMappingCareer.get(i);
+                                    if (valueMapping.getCompany_id() != 0) {
+                                        if (valueMapping.getCompany_id() == career.getCompanyId()) {
+                                            valuePrevious = valueMapping.getValue();
+                                        }
+                                    }
+                                    if (valueMapping.getDivision_id() != 0) {
+                                        if (valueMapping.getDivision_id() == career.getDivisionId()) {
+                                            valuePrevious = valueMapping.getValue();
+                                        }
+                                    }
+                                    if (valueMapping.getDepartment_id() != 0) {
+                                        if (valueMapping.getDepartment_id() == career.getDepartmentId()) {
+                                            valuePrevious = valueMapping.getValue();
+                                        }
+                                    }
+                                    if (valueMapping.getSection_id() != 0) {
+                                        if (valueMapping.getSection_id() == career.getSectionId()) {
+                                            valuePrevious = valueMapping.getValue();
+                                        }
+                                    }
+                                    if (valueMapping.getLevel_id() != 0) {
+                                        if (valueMapping.getLevel_id() == career.getLevelId()) {
+                                            valuePrevious = valueMapping.getValue();
+                                        }
+                                    }
+                                    if (valueMapping.getEmployee_category() != 0) {
+                                        if (valueMapping.getEmployee_category() == career.getEmpCategoryId()) {
+                                            valuePrevious = valueMapping.getValue();
+                                        }
+                                    }
+                                    if (valueMapping.getPosition_id() != 0) {
+                                        if (valueMapping.getPosition_id() == career.getPositionId()) {
+                                            valuePrevious = valueMapping.getValue();
+                                        }
+                                    }
+                                    if (valueMapping.getGrade() != 0) {
+                                        if (valueMapping.getGrade() == career.getGradeLevelId()) {
+                                            valuePrevious = valueMapping.getValue();
+                                        }
+                                    }
+                                }
+                                totalValue = valuePrevious;
+                            }
+                        }
+                    }
+                }
+            } else {
+                totalValue = valueCurrent;
+            }
+        } else {
+            totalValue = valueCurrent;
+        }
+
+        return totalValue;
+    }
+
+    /**
+     * @return the fieldKey
+     */
+    public String getFieldKey() {
+        return fieldKey;
+    }
+
+    /**
+     * @param fieldKey the fieldKey to set
+     */
+    public void setFieldKey(String fieldKey) {
+        this.fieldKey = fieldKey;
+    }
+
+    /**
+     * @return the valueKey
+     */
+    public String getValueKey() {
+        return valueKey;
+    }
+
+    /**
+     * @param valueKey the valueKey to set
+     */
+    public void setValueKey(String valueKey) {
+        this.valueKey = valueKey;
+    }
+}

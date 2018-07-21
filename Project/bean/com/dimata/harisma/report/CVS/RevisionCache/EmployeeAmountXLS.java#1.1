@@ -1,0 +1,523 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dimata.harisma.report;
+
+import com.dimata.harisma.entity.employee.Employee;
+import com.dimata.harisma.entity.employee.PstEmpEducation;
+import com.dimata.harisma.entity.employee.PstEmployee;
+import com.dimata.harisma.entity.masterdata.Division;
+import com.dimata.harisma.entity.masterdata.Education;
+import com.dimata.harisma.entity.masterdata.EmpCategory;
+import com.dimata.harisma.entity.masterdata.Level;
+import com.dimata.harisma.entity.masterdata.Position;
+import com.dimata.harisma.entity.masterdata.PstDivision;
+import com.dimata.harisma.entity.masterdata.PstEducation;
+import com.dimata.harisma.entity.masterdata.PstEmpCategory;
+import com.dimata.harisma.entity.masterdata.PstLevel;
+import com.dimata.harisma.entity.masterdata.PstPosition;
+import com.dimata.qdep.db.DBHandler;
+import com.dimata.qdep.db.DBResultSet;
+import com.dimata.qdep.form.FRMQueryString;
+import com.dimata.system.entity.PstSystemProperty;
+import java.sql.ResultSet;
+import java.util.Vector;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.util.CellRangeAddress;
+
+/**
+ *
+ * @author Dimata 007
+ */
+public class EmployeeAmountXLS extends HttpServlet {
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+
+    }
+    
+    public void destroy() {
+    }
+    
+    private static HSSFFont createFont(HSSFWorkbook wb, int size, int color, boolean isBold) {
+        HSSFFont font = wb.createFont();
+        font.setFontHeightInPoints((short) size);
+        font.setColor((short) color);
+        if (isBold) {
+            font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+        }
+        return font;
+    }
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, java.io.IOException {
+        
+
+        System.out.println("---===| Excel Report |===---");
+        response.setContentType("application/x-msexcel");
+
+        HSSFWorkbook wb = new HSSFWorkbook();
+        HSSFSheet sheet = wb.createSheet("Employee Amount XLS");
+
+        HSSFCellStyle style1 = wb.createCellStyle();/*
+        style1.setFillBackgroundColor(new HSSFColor.WHITE().getIndex());
+        style1.setFillForegroundColor(new HSSFColor.WHITE().getIndex());
+        style1.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);*/
+        
+        HSSFCellStyle style2 = wb.createCellStyle();
+        style2.setFillBackgroundColor(new HSSFColor.WHITE().getIndex());//HSSFCellStyle.WHITE);
+        style2.setFillForegroundColor(new HSSFColor.WHITE().getIndex());//HSSFCellStyle.WHITE);
+        style2.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        style2.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        style2.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        style2.setBorderRight(HSSFCellStyle.BORDER_THIN);
+
+        HSSFCellStyle style3 = wb.createCellStyle();
+        style3.setFillBackgroundColor(new HSSFColor.GREY_25_PERCENT().getIndex());//HSSFCellStyle.GREY_25_PERCENT);
+        style3.setFillForegroundColor(new HSSFColor.GREY_25_PERCENT().getIndex());//HSSFCellStyle.GREY_25_PERCENT);
+        style3.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        style3.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+        style3.setBorderTop(HSSFCellStyle.BORDER_THIN);
+        style3.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+        style3.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+        style3.setBorderRight(HSSFCellStyle.BORDER_THIN);
+
+
+        HSSFCellStyle styleTitle = wb.createCellStyle();
+        styleTitle.setFillBackgroundColor(new HSSFColor.WHITE().getIndex());//HSSFCellStyle.WHITE);
+        styleTitle.setFillForegroundColor(new HSSFColor.WHITE().getIndex());//HSSFCellStyle.WHITE);
+        styleTitle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+        styleTitle.setFont(createFont(wb, 12, HSSFFont.COLOR_NORMAL /*HSSFFont.BLACK*/, true));
+
+
+        HSSFRow row = sheet.createRow((short) 0);
+        HSSFCell cell = row.createCell((short) 0);
+
+        String printHeader = PstSystemProperty.getValueByName("PRINT_HEADER");
+        String[] divisionSelect = FRMQueryString.requestStringValues(request, "division_select");
+        String[] levelSelect = FRMQueryString.requestStringValues(request, "level_select");
+        String[] categorySelect = FRMQueryString.requestStringValues(request, "category_select");
+        String[] positionSelect = FRMQueryString.requestStringValues(request, "position_select");
+        int chooseBy = FRMQueryString.requestInt(request, "choose_by");
+        
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 3, 5)); // Periode :
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 3, 5)); // Satuan Kerja :
+        sheet.addMergedRegion(new CellRangeAddress(3, 3, 3, 5)); // Level || Emp Category || Position
+        
+        int countRow = 0;
+        row = sheet.createRow((short) 1);
+        cell = row.createCell((short) 2);
+        cell.setCellValue("PERIODE");
+        cell.setCellStyle(style1);
+        cell = row.createCell((short) 3);
+        cell.setCellValue("VALUE PERIODE");
+        cell.setCellStyle(style1);
+        
+        row = sheet.createRow((short) 2);
+        cell = row.createCell((short) 2);
+        cell.setCellValue("SATUAN KERJA");
+        cell.setCellStyle(style1);
+        cell = row.createCell((short) 3);
+        cell.setCellValue("VALUE SATUAN KERJA");
+        cell.setCellStyle(style1);
+        Vector listEdu = new Vector();
+        switch(chooseBy){
+            case 0: // For Level Selected
+                row = sheet.createRow((short) 3);
+                cell = row.createCell((short) 2);
+                cell.setCellValue("LEVEL");
+                cell.setCellStyle(style1);
+                cell = row.createCell((short) 3);
+                cell.setCellValue("VALUE LEVEL");
+                cell.setCellStyle(style1);
+                countRow = 5;
+                row = sheet.createRow((short) countRow);
+
+                cell = row.createCell((short) 1);
+                cell.setCellValue("NO");
+                cell.setCellStyle(style3);
+
+                cell = row.createCell((short) 2);
+                cell.setCellValue("DIVISI / SATUAN KERJA");
+                cell.setCellStyle(style3);
+                
+                /* For Title Table : No & Divisi / Satuan Kerja */
+                sheet.addMergedRegion(new CellRangeAddress(5, 6, 1, 1)); // merge row 5 dengan row 6 | merge col 1 dengan col 1
+                sheet.addMergedRegion(new CellRangeAddress(5, 6, 2, 2)); // merge row 5 dengan row 6 | merge col 2 dengan col 2
+                
+                if (levelSelect != null){
+                    int kol = 3;
+                    for(int h=0; h<levelSelect.length; h++){
+                        sheet.addMergedRegion(new CellRangeAddress(5, 5, kol, kol+1));
+                        cell = row.createCell((short) kol);
+                        cell.setCellValue(getLevelName(Long.valueOf(levelSelect[h])));
+                        cell.setCellStyle(style3);
+                        kol = kol + 2;
+                    }
+                    sheet.addMergedRegion(new CellRangeAddress(5, 5, kol, kol+1));
+                    cell = row.createCell((short) kol);
+                    cell.setCellValue("TOTAL");
+                    cell.setCellStyle(style3);
+                }
+                countRow = 6;
+                row = sheet.createRow((short) countRow);
+                if (levelSelect != null){
+                    int kol1 = 3;
+                    int kol2 = 4;
+                    for(int j=0; j<levelSelect.length; j++){
+                        cell = row.createCell((short) kol1);
+                        cell.setCellValue("LAKI-LAKI");
+                        cell.setCellStyle(style3);
+                        cell = row.createCell((short) kol2);
+                        cell.setCellValue("PEREMPUAN");
+                        cell.setCellStyle(style3);
+                        kol1 = kol1 + 2;
+                        kol2 = kol2 + 2;
+                    }
+                    cell = row.createCell((short) kol1);
+                    cell.setCellValue("LAKI-LAKI");
+                    cell.setCellStyle(style3);
+                    cell = row.createCell((short) kol2);
+                    cell.setCellValue("PEREMPUAN");
+                    cell.setCellStyle(style3);
+                }
+                break; // end level
+            case 1: // For Emp Category Selected
+                row = sheet.createRow((short) 3);
+                cell = row.createCell((short) 2);
+                cell.setCellValue("KATEGORI KARYAWAN");
+                cell.setCellStyle(style1);
+                cell = row.createCell((short) 3);
+                cell.setCellValue("VALUE KATEGORI");
+                cell.setCellStyle(style1);
+                countRow = 5;
+                row = sheet.createRow((short) countRow);
+
+                cell = row.createCell((short) 1);
+                cell.setCellValue("NO");
+                cell.setCellStyle(style3);
+
+                cell = row.createCell((short) 2);
+                cell.setCellValue("DIVISI / SATUAN KERJA");
+                cell.setCellStyle(style3);
+                
+                /* For Title Table : No & Divisi / Satuan Kerja */
+                sheet.addMergedRegion(new CellRangeAddress(5, 6, 1, 1)); // merge row 5 dengan row 6 | merge col 1 dengan col 1
+                sheet.addMergedRegion(new CellRangeAddress(5, 6, 2, 2)); // merge row 5 dengan row 6 | merge col 2 dengan col 2
+                
+                if (categorySelect != null){
+                    /* Get Education Data */
+                    listEdu = PstEducation.list(0, 0, "", "");
+                    
+                    int kol = 3;
+                    for(int h=0; h<categorySelect.length; h++){
+                        sheet.addMergedRegion(new CellRangeAddress(5, 5, kol, kol+(listEdu.size()-1)));
+                        cell = row.createCell((short) kol);
+                        cell.setCellValue(getEmpCategory(Long.valueOf(categorySelect[h])));
+                        cell.setCellStyle(style3);
+                        kol = kol + listEdu.size();
+                    }
+                    sheet.addMergedRegion(new CellRangeAddress(5, 6, kol, kol));
+                    cell = row.createCell((short) kol);
+                    cell.setCellValue("TOTAL");
+                    cell.setCellStyle(style3);
+                    countRow = 6;
+                    row = sheet.createRow((short) countRow);
+                    kol = 3;
+                    for(int i=0; i<categorySelect.length; i++){
+                        if (listEdu != null && listEdu.size()>0){
+                            for(int e=0; e<listEdu.size(); e++){
+                                Education edu = (Education)listEdu.get(e);
+                                cell = row.createCell((short) kol);
+                                cell.setCellValue(edu.getEducation());
+                                cell.setCellStyle(style3);
+                                kol++;
+                            }
+                        }
+                    }
+                }
+                break; // end emp category
+            case 2: // For Position Selected
+                row = sheet.createRow((short) 3);
+                cell = row.createCell((short) 2);
+                cell.setCellValue("POSITION");
+                cell.setCellStyle(style1);
+                cell = row.createCell((short) 3);
+                cell.setCellValue("VALUE POSITION");
+                cell.setCellStyle(style1);
+                countRow = 5;
+                row = sheet.createRow((short) countRow);
+
+                cell = row.createCell((short) 1);
+                cell.setCellValue("NO");
+                cell.setCellStyle(style3);
+
+                cell = row.createCell((short) 2);
+                cell.setCellValue("DIVISI / SATUAN KERJA");
+                cell.setCellStyle(style3);
+                
+                if (positionSelect != null){
+                    int kol = 3;
+                    for (int h=0; h<positionSelect.length; h++){
+                        cell = row.createCell((short) kol);
+                        cell.setCellValue(getPositionName(Long.valueOf(positionSelect[h])));
+                        cell.setCellStyle(style3);
+                        kol++;
+                    }
+                    cell = row.createCell((short) kol);
+                    cell.setCellValue("TOTAL");
+                    cell.setCellStyle(style3);
+                }
+                break; // end position
+        }
+
+        int no = 0;
+        /* Record Result */
+        if (divisionSelect != null){
+            for(int i=0; i<divisionSelect.length; i++){
+                no++;
+                countRow++;
+                row = sheet.createRow((short) (countRow));
+                cell = row.createCell((short) 1);
+                cell.setCellValue(no);
+                cell.setCellStyle(style2);
+                
+                cell = row.createCell((short) 2);
+                cell.setCellValue(getDivisionName(Long.valueOf(divisionSelect[i])));
+                cell.setCellStyle(style2);
+                switch(chooseBy){
+                    case 0: 
+                        if (levelSelect != null){
+                            int kol1 = 3;
+                            int kol2 = 4;
+                            int total1 = 0;
+                            int total2 = 0;
+                            for (int h=0; h<levelSelect.length; h++){
+                                String where = PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divisionSelect[i];
+                                where += " AND "+ PstEmployee.fieldNames[PstEmployee.FLD_LEVEL_ID]+"="+levelSelect[h];
+                                where += " AND "+ PstEmployee.fieldNames[PstEmployee.FLD_SEX]+"=0";
+                                int total = getTotalEmployeeByPosition(where);
+                                total1 = total1 + total;
+                                cell = row.createCell((short) kol1);
+                                cell.setCellValue(total);
+                                cell.setCellStyle(style2);
+                                where = PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divisionSelect[i];
+                                where += " AND "+ PstEmployee.fieldNames[PstEmployee.FLD_LEVEL_ID]+"="+levelSelect[h];
+                                where += " AND "+ PstEmployee.fieldNames[PstEmployee.FLD_SEX]+"=1";
+                                total = getTotalEmployeeByPosition(where);
+                                total2 = total2 + total;
+                                cell = row.createCell((short) kol2);
+                                cell.setCellValue(total);
+                                cell.setCellStyle(style2);
+                                kol1 = kol1 + 2;
+                                kol2 = kol2 + 2;
+                            }
+                            cell = row.createCell((short) kol1);
+                            cell.setCellValue(total1);
+                            cell.setCellStyle(style2);
+                            
+                            cell = row.createCell((short) kol2);
+                            cell.setCellValue(total2);
+                            cell.setCellStyle(style2);
+                        }
+                        break;
+                    case 1:
+                        if (categorySelect != null){
+                            int kol = 3;
+                            for (int h=0; h<categorySelect.length; h++){
+                                String where = PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divisionSelect[i];
+                                where += " AND "+ PstEmployee.fieldNames[PstEmployee.FLD_EMP_CATEGORY_ID]+"="+categorySelect[h];
+                                int total = 0;
+                                Vector listEmp = PstEmployee.list(0, 0, where, "");
+                                String strEmp = "";
+                                if (listEmp != null && listEmp.size()>0){
+                                    for(int em=0; em<listEmp.size(); em++){
+                                        Employee emp = (Employee)listEmp.get(em);
+                                        strEmp += emp.getOID()+", ";
+                                    }
+                                    strEmp += "0";
+                                }
+                                int totalAll = 0;
+                                if(listEdu != null && listEdu.size()>0){
+                                    for(int e=0; e<listEdu.size(); e++){
+                                        Education edu = (Education)listEdu.get(e);
+                                        String whereEmpEdu = "";
+                                        whereEmpEdu = PstEmpEducation.fieldNames[PstEmpEducation.FLD_EMPLOYEE_ID]+" IN("+strEmp+")";
+                                        whereEmpEdu += " AND "+PstEmpEducation.fieldNames[PstEmpEducation.FLD_EDUCATION_ID]+"="+edu.getOID();
+                                        total = getTotalEmpEducation(whereEmpEdu);
+                                        totalAll = totalAll + total;
+                                        cell = row.createCell((short) kol);
+                                        cell.setCellValue(total);
+                                        cell.setCellStyle(style2);
+                                        total = 0;
+                                        kol++;
+                                    }
+                                    cell = row.createCell((short) kol);
+                                    cell.setCellValue(totalAll);
+                                    cell.setCellStyle(style2);
+                                }
+                                
+                            }
+                        }
+                        break;
+                    case 2: 
+                        if (positionSelect != null){
+                            int kol = 3;
+                            int totalAll = 0;
+                            for (int h=0; h<positionSelect.length; h++){
+                                String where = PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divisionSelect[i];
+                                where += " AND "+ PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID]+"="+positionSelect[h];
+                                int total = getTotalEmployeeByPosition(where);
+                                totalAll = totalAll + total;
+                                cell = row.createCell((short) kol);
+                                cell.setCellValue(total);
+                                cell.setCellStyle(style2);
+                                kol++;
+                            }
+                            cell = row.createCell((short) kol);
+                            cell.setCellValue(totalAll);
+                            cell.setCellStyle(style2);
+                        }
+                        break;
+                }
+                
+            }
+        }
+
+        ServletOutputStream sos = response.getOutputStream();
+        wb.write(sos);
+        sos.close();
+    
+    }
+    
+    public String getDivisionName(long divisionId){
+        String name = "-";
+        if (divisionId != 0) {
+            try {
+                Division division = PstDivision.fetchExc(divisionId);
+                name = division.getDivision();
+            } catch (Exception e) {
+                System.out.println("Division Name =>" + e.toString());
+            }
+        }
+        return name;
+    }
+    
+    public String getEmpCategory(long empCategoryId){
+        String name = "-";
+        if (empCategoryId != 0){
+            try {
+                EmpCategory empCategory = PstEmpCategory.fetchExc(empCategoryId);
+                name = empCategory.getEmpCategory();
+            } catch (Exception e){
+                System.out.println("Category Name =>" + e.toString());
+            }
+        }
+        return name;
+    }
+    
+    public String getPositionName(long positionId){
+        String name = "-";
+        if (positionId != 0){
+             try {
+                Position position = PstPosition.fetchExc(positionId);
+                name = position.getPosition();
+            } catch (Exception e) {
+                System.out.println("Position Name =>" + e.toString());
+            }
+        }
+        return name;
+    }
+    
+    public String getLevelName(long levelId){
+        String name = "-";
+        if (levelId != 0){
+            try {
+                Level level = PstLevel.fetchExc(levelId);
+                name = level.getLevel();
+            } catch (Exception e) {
+                System.out.println("Level Name =>" + e.toString());
+            }
+        }
+        return name;
+    }
+    
+    public static int getTotalEmployeeByPosition(String whereClause){
+        DBResultSet dbrs = null;
+
+        try {
+            String sql = " SELECT COUNT("+PstEmployee.TBL_HR_EMPLOYEE+"."+PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_ID]+") AS total_employee ";
+            sql += " FROM "+PstEmployee.TBL_HR_EMPLOYEE+" ";
+            sql += " WHERE ";            
+            sql += whereClause;
+
+            dbrs = DBHandler.execQueryResult(sql);
+            ResultSet rs = dbrs.getResultSet();
+
+            int count = 0;
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+            rs.close();
+            return count;
+        } catch (Exception e) {
+            return 0;
+        } finally {
+            DBResultSet.close(dbrs);
+        }
+    }
+    
+    public static int getTotalEmpEducation(String whereClause){
+        DBResultSet dbrs = null;
+
+        try {
+            String sql = " SELECT COUNT("+PstEmpEducation.fieldNames[PstEmpEducation.FLD_EMP_EDUCATION_ID]+") AS total_emp_edu";
+            sql += " FROM "+PstEmpEducation.TBL_HR_EMP_EDUCATION+" ";
+            sql += " WHERE ";            
+            sql += whereClause;
+
+            dbrs = DBHandler.execQueryResult(sql);
+            ResultSet rs = dbrs.getResultSet();
+
+            int count = 0;
+            while (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+            rs.close();
+            return count;
+        } catch (Exception e) {
+            return 0;
+        } finally {
+            DBResultSet.close(dbrs);
+        }
+    }
+    
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, java.io.IOException {
+        processRequest(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, java.io.IOException {
+        processRequest(request, response);
+    }
+
+    public String getServletInfo() {
+        return "Short description";
+    }
+}

@@ -1,0 +1,690 @@
+<%-- 
+    Document   : flyout
+    Created on : Sep 18, 2013, 5:13:29 PM
+    Author     : user
+--%>
+
+<%@page import="com.dimata.util.lang.I_Dictionary"%>
+<%@page import="com.dimata.harisma.entity.admin.AppUser"%>
+<%@page import="com.dimata.harisma.session.admin.SessUserSession"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.dimata.harisma.entity.admin.AppObjInfo"%>
+<%@page import="com.dimata.harisma.entity.template.Flyout"%>
+
+
+<%if(true){%>
+<!-- isMSIE -->
+<link rel="stylesheet" href="../stylesheets/flayout_no_ie.css" type="text/css">
+<%}else{%>
+<style type="text/css">
+    .content{position:relative; width:100%; 
+/*background-color:white;
+background-repeat: repeat-x;
+padding-top:61px;*/
+min-height: 400px;
+height: 400px !important;
+background-attachment: local;
+ background-image:url(../stylesheets/images/background.png);
+ background-repeat: no-repeat;
+background-position: right bottom;
+ /*background:url(../menuaplikasi/imgHeader/elemet%20grafis.png) no-repeat right ;*/
+}
+</style>
+<link rel="stylesheet" href=""+approot+"/stylesheets/flayout_with_ie.css" type="text/css">
+<%}%>
+<%
+/*
+ * Description : mengambil user name pada AppUser
+ * Date : 2015-01-20
+ * Author : Hendra Putu
+*/
+SessUserSession userSessionn = (SessUserSession)session.getValue(SessUserSession.HTTP_SESSION_NAME);
+AppUser appUserSess1 = userSessionn.getAppUser();
+String namaUser1 = appUserSess1.getFullName();
+I_Dictionary dictionaryD = userSession.getUserDictionary();
+ dictionaryD.loadWord();
+Flyout flyout = new Flyout();
+flyout.setUrlKlik(url);
+if(namaUser1.equals("Employee")){
+    flyout.addMenuFlyOut("employee.jsp", "Employee", "Data Bank", false, null, "data_bank", ""+approot+"/employee/databank/employee_view.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+} else {
+    flyout.addMenuFlyOut("employee.jsp", "Employee", "Data Bank", false, null, "data_bank", ""+approot+"/employee/databank/srcemployee.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+}
+
+/* Menu Organisasi */
+/*
+1) Organisasi
+  Organsasi Perusahaan
+  Cetak Unit Kerja
+  Posisi History
+  Posisi
+  Informasi Pejabat
+  Struktur Organisasi
+  KPI
+ * 
+*/
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.ORGANITATION_COMPANY), false, null, "company_structure", ""+approot+"/employee/databank/srcEmployee_structure.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_COMPANY_STRUCTURE, AppObjInfo.OBJ_MENU_COMPANY_STRUCTURE), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), "Cetak Unit Kerja", false, null, "position", ""+approot+"/masterdata/srcposition.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_POSITION), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), "Division Type Master", false, null, "division_type", ""+approot+"/masterdata/division_type.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_POSITION), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), "Department Type Master", false, null, "department_type", ""+approot+"/masterdata/department_type.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_POSITION), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.POSITION), false, null, "position", ""+approot+"/masterdata/srcposition.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_POSITION), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), "Informasi Pejabat", false, null, "new_employee", ""+approot+"/employee/databank/new_employee_list.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_NEW_EMPLOYEE, AppObjInfo.OBJ_MENU_NEW_EMPLOYEE), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), false, null, "absence_management", ""+approot+"/masterdata/structure_org.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_ABSENCE_MANAGEMENT, AppObjInfo.OBJ_MENU_ABSENCE_MANAGEMENT), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), "KPI", false, null, "absence_management", ""+approot+"/employee/absence/srcabsence.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_ABSENCE_MANAGEMENT, AppObjInfo.OBJ_MENU_ABSENCE_MANAGEMENT), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.COMPANY), true, dictionaryD.getWord(I_Dictionary.COMPANY), "company", "#", ""+approot+"/masterdata/company.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_COMMPANY), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.COMPANY), true, "Division", "company", "#", ""+approot+"/masterdata/division.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_DIVISION), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.COMPANY), true, "Departement", "company", "#", ""+approot+"/masterdata/department.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_DEPARTMENT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.COMPANY), true, dictionaryD.getWord(I_Dictionary.POSITION), "company", "#", ""+approot+"/masterdata/srcposition.jsp",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_POSITION), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.COMPANY), true, "Section", "company", "#", ""+approot+"/masterdata/srcsection.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_SECTION), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.COMPANY), true, "Public Holiday", "company", "#", ""+approot+"/masterdata/publicHoliday.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_PUBLIC_HOLIDAY), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("organisasi.jsp", dictionaryD.getWord(I_Dictionary.ORGANITATION_STRUCTUR), dictionaryD.getWord(I_Dictionary.COMPANY), true, "Leave Target", "company", "#", ""+approot+"/masterdata/leaveTarget.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_LEAVE_TARGET), 
+             AppObjInfo.COMMAND_VIEW)));
+/* end structur organisasi */
+
+/* Menu Karyawan */
+/*
+2) Karyawan
+  Databank
+  Pencarian Karyawan
+  Cetak Karyawan
+*/
+flyout.addMenuFlyOut("employee.jsp", "Employee", "Data Bank", false, null, "data_bank", ""+approot+"/employee/databank/srcemployee.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("employee.jsp", "Employee", "Pencarian Karyawan", false, null, "data_bank", ""+approot+"/employee/databank/srcemployee.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("employee.jsp", "Employee", "Cetak Karyawan", false, null, "data_bank", ""+approot+"/employee/databank/srcemployee.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("employee.jsp", "Employee", "Custom Field Master", false, null, "data_bank", ""+approot+"/masterdata/custom_field_master.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+/* End Menu Karyawan*/
+
+/*
+3) Penggajian (Payroll)
+  Pay.Setup
+  Overtime
+  Pay.Process
+  Perubahan Karyawan
+  Penghasilan Tambahan
+  Slip Gaji
+  Simulasi implikasi
+*/
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Payroll Setup", false, null, "general", ""+approot+"/payroll/setup/general_list.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_GENERAL), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Payroll Periode", false, null, "payroll_periode", ""+approot+"/payroll/setup/period.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_PAYROLL_PERIOD), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Bank List", false, null, "bank_list", ""+approot+"/payroll/setup/list-bank.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_BANK_LIST), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Pay Slip Group", false, null, "pay_slip_group", ""+approot+"/payroll/process/pay_payslip_group.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_PAY_SLIP_GROUP), 
+             AppObjInfo.COMMAND_VIEW)));
+// update by Hendra McHen 2015-01-29
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Benefit Configuration", true, "Benefit Configuration", "benefit_config", "#", ""+approot+"/payroll/setup/benefit_config.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_BANK_LIST), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Benefit Configuration", true, "Benefit Input", "benefit_input", "#", ""+approot+"/payroll/setup/benefit_input.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_BANK_LIST), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Benefit Configuration", true, "Benefit Employee", "benefit_employee", "#", ""+approot+"/payroll/setup/benefit_employee.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_BANK_LIST), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Benefit Configuration", true, "Benefit Input History", "benefit_input_history", "#", ""+approot+"/payroll/setup/benefit_input_history.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_BANK_LIST), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Salary Component", false, null, "salary_component", ""+approot+"/payroll/setup/salary-comp.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_SALARY_COMPONENT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Salary Level", false, null, "salary_level", ""+approot+"/payroll/setup/salary-level.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_SALARY_LEVEL), 
+             AppObjInfo.COMMAND_VIEW))); 
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Employee Setup", false, null, "employee_setup", ""+approot+"/payroll/setup/employee-setup.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_EMPLOYEE_SETUP), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Currency", false, null, "currency", ""+approot+"/payroll/setup/currency.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_CURRENCY), 
+             AppObjInfo.COMMAND_VIEW)));
+			 			 
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Currency Rate", false, null, "currency", ""+approot+"/payroll/setup/currency_rate.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_CURRENCY_RATE), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Chart of Account", false, null, "chartofaccount", ""+approot+"/masterdata/account_chart.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_SETUP, AppObjInfo.OBJ_MENU_CURRENCY_RATE), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Prepare Data", false, null, "prepare_data",""+approot+"/payroll/process/pay-pre-data.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_PROCESS, AppObjInfo.OBJ_MENU_PAYROLL_PROCESS_PREPARE_DATA), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Payroll Input", false, null, "payroll_input","" + approot + "/payroll/process/pay-input.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_PROCESS, AppObjInfo.OBJ_MENU_PAYROLL_PROCESS_INPUT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+/*Menu created by Kartika : 20150225 */
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Employee A/R", true, "AR Entry"          , "payroll_employee_ar","#", ""+approot + "/arap/arap_entry_edit.jsp?get_time_menu=1397466008793&arap_type=0&menu_type=1", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_PROCESS, AppObjInfo.OBJ_MENU_PAYROLL_PROCESS_INPUT), 
+             AppObjInfo.COMMAND_VIEW)));
+/*End Menu byh Kartika*/
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Payroll Process", false, null, "payroll_process","" + approot + "/payroll/process/pay-process.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_PROCESS, AppObjInfo.OBJ_MENU_PAYROLL_PROCESS_PROCESS), 
+             AppObjInfo.COMMAND_VIEW)));
+ 
+
+flyout.addMenuFlyOut("payroll.jsp", dictionaryD.getWord(I_Dictionary.PAYROLL), "Payslip  Printing", false, null, "payroll_process", "" + approot + "/payroll/process/pay-printing.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_PROCESS, AppObjInfo.OBJ_MENU_PAYROLL_PROCESS_PRINTING), 
+             AppObjInfo.COMMAND_VIEW)));
+/*
+4) Kandidat
+  Pencarian Kandidat
+  Rotasi Karyawan
+  Analisa Kandidat
+  Persyaratan Jabatan
+*/
+flyout.addMenuFlyOut("candidate.jsp", dictionaryD.getWord(I_Dictionary.CANDIDATE), "Pencarian Kandidat", false, null, "data_bank", ""+approot+"/employee/databank/srcemployee.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("candidate.jsp", dictionaryD.getWord(I_Dictionary.CANDIDATE), "Rotasi Karyawan", false, null, "data_bank", ""+approot+"/employee/databank/srcemployee.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("candidate.jsp", dictionaryD.getWord(I_Dictionary.CANDIDATE), "Analisa Kandidat", false, null, "data_bank", ""+approot+"/employee/databank/srcemployee.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("candidate.jsp", dictionaryD.getWord(I_Dictionary.CANDIDATE), "Persyaratan Jabatan", false, null, "data_bank", ""+approot+"/employee/databank/srcemployee.jsp", "", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_DATABANK, AppObjInfo.OBJ_MENU_DATABANK), 
+             AppObjInfo.COMMAND_VIEW)));
+/* 
+5) Kompetensi & talent pool
+*/
+flyout.addMenuFlyOut("competence.jsp", "Kompetensi dan Talent Pool", "Competency", true, "Competency Type", "competency_type", "#", ""+approot+"/masterdata/competency_type.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_DIVISION), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("competence.jsp", "Kompetensi dan Talent Pool", "Competency", true, "Competency Group", "competency_group", "#", ""+approot+"/masterdata/competency_group.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_DEPARTMENT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("competence.jsp", "Kompetensi dan Talent Pool", "Competency", true, "Competency", "competency", "#", ""+approot+"/masterdata/competency.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_COMMPANY), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("competence.jsp", "Kompetensi dan Talent Pool", "Competency", true, "Competency Detail", "competency_detail", "#", ""+approot+"/masterdata/competency_detail.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_DEPARTMENT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("competence.jsp", "Kompetensi dan Talent Pool", "Competency", true, "Competency Level", "competency_level", "#", ""+approot+"/masterdata/competency_level.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_DEPARTMENT), 
+             AppObjInfo.COMMAND_VIEW)));
+/*
+10) Pelatihan (Training)
+*/
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), "training_type", "#", ""+approot+"/masterdata/list_train_type.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_TYPE, AppObjInfo.OBJ_MENU_TRAINING_TYPE), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, "Training Venue", "training_venue", "#", ""+approot+"/masterdata/list_train_venue.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_VANUE, AppObjInfo.OBJ_MENU_TRAINING_VANUE), 
+             AppObjInfo.COMMAND_VIEW)));
+			 			 
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, "Training Program", "training_program", "#", ""+approot+"/masterdata/srctraining.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_PROGRAM, AppObjInfo.OBJ_MENU_TRAINING_PROGRAM), 
+             AppObjInfo.COMMAND_VIEW)));
+			 	 
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, "Training Plan", "training_plan", "#", ""+approot+"/employee/training/training_plan_list.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_PLAN, AppObjInfo.OBJ_MENU_TRAINING_PLAN), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, "Training Actual", "training_actual", "#", ""+approot+"/employee/training/training_actual_list.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_ACTUAL, AppObjInfo.OBJ_MENU_TRAINING_ACTUAL), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, "Training Search", "training_search", "#", ""+approot+"/employee/training/search_training.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_TRAINING_SEARCH, AppObjInfo.OBJ_MENU_TRAINING_SEARCH), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, "Training History", "training_history", "#", ""+approot+"/employee/training/src_training_hist_hr.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_TRAINING_HISTORY, AppObjInfo.OBJ_MENU_TRAINING_HISTORY), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, "Training Organizer", "training_organizer", "#", ""+approot+"/masterdata/contact/srccontact_list.jsp?title=Training Organizer", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_ORGANIZER , AppObjInfo.OBJ_TRAINING_ORGANIZER_CONTACT ), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("training.jsp", dictionaryD.getWord(I_Dictionary.TRAINING), dictionaryD.getWord(I_Dictionary.TRAINING_TYPE), true, "Organizer Type", "training_organizer", "#", ""+approot+"/masterdata/contact/contact_class.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_TRAINING, AppObjInfo.G2_TRAINING_ORGANIZER , AppObjInfo.OBJ_TRAINING_ORGANIZER_CONTACT ), 
+             AppObjInfo.COMMAND_VIEW)));
+
+/* 11) Absensi */
+flyout.addMenuFlyOut("absensi.jsp", "Absensi", "Attendance", true, "Working Schedule", "attendance", "#", ""+approot+"/employee/attendance/srcempschedule.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_ATTENDANCE, AppObjInfo.OBJ_MENU_WORKING_SCHEDULE), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("absensi.jsp", "Absensi", "Attendance", true, "Manual Registration", "attendance", "#", ""+approot+"/employee/presence/srcpresence.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_ATTENDANCE, AppObjInfo.OBJ_MENU_MANUAL_REGISTRATION), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("absensi.jsp", "Absensi", "Attendance", true, "Re-Generate Sch Holidays", "attendance", "#", ""+approot+"/report/presence/Update_schedule_If_holidays.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_ATTENDANCE, AppObjInfo.OBJ_MENU_REGENERATE_SCHEDULE_HOLIDAYS), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("absensi.jsp", "Absensi", "Schedule", true, "Periode", "Schedule", "#", ""+approot+"/masterdata/period.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_SCHEDULE, AppObjInfo.OBJ_MENU_SCHEDULE_PERIOD), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("absensi.jsp", "Absensi", "Schedule", true, "Category", "Schedule", "#", ""+approot+"/masterdata/schedulecategory.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_SCHEDULE, AppObjInfo.OBJ_MENU_SCHEDULE_CATEGORY), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("absensi.jsp", "Absensi", "Schedule", true, "Symbol", "Schedule", "#", ""+approot+"/masterdata/srcschedulesymbol.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_SCHEDULE, AppObjInfo.OBJ_MENU_SCHEDULE_SYMBOL), 
+             AppObjInfo.COMMAND_VIEW)));
+/*
+12) Lembur (Overtime)
+*/
+flyout.addMenuFlyOut("overtime.jsp", "Overtime", "Overtime Form", false, null, "overtime_form", ""+approot+"/payroll/overtimeform/src_overtime.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_OVERTIME, AppObjInfo.OBJ_MENU_PAYROLL_OVERTIME_FORM), 
+             AppObjInfo.COMMAND_VIEW))); 
+			 	 
+flyout.addMenuFlyOut("overtime.jsp", "Overtime", "Overtime Report & Process", false, null, "overtime_report", ""+approot+"/payroll/overtimeform/src_overtime_report.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_OVERTIME, AppObjInfo.OBJ_MENU_PAYROLL_OVERTIME_REPORT_PROCESS), 
+             AppObjInfo.COMMAND_VIEW))); 
+
+
+flyout.addMenuFlyOut("overtime.jsp", "Overtime", "Overtime Index", false, null, "overtime_index", ""+approot+"/payroll/overtime/ov-index.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_OVERTIME, AppObjInfo.OBJ_MENU_PAYROLL_OVERTIME_INDEX), 
+             AppObjInfo.COMMAND_VIEW))); 
+			 
+flyout.addMenuFlyOut("overtime.jsp", "Overtime", "Overtime Summary", false, null, "overtime_summary", ""+approot+"/payroll/overtimeform/src_overtime_summary.jsp", "",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_PAYROLL, AppObjInfo.G2_MENU_PAYROLL_OVERTIME, AppObjInfo.OBJ_MENU_PAYROLL_OVERTIME_SUMMARY), 
+             AppObjInfo.COMMAND_VIEW)));
+
+/* 13) Cuti (Leave) */
+if(namaUser1.equals("Employee")){
+    flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Application", true, "Leave Form", "leave_application", "#", ""+approot+"/employee/leave/leave_app_edit_emp.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+                 AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_APPLICATION, AppObjInfo.OBJ_MENU_LEAVE_FORM), 
+                 AppObjInfo.COMMAND_VIEW)));
+} else {	 
+    flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Application", true, "Leave Form", "leave_application", "#", ""+approot+"/employee/leave/leave_app_src.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+                 AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_APPLICATION, AppObjInfo.OBJ_MENU_LEAVE_FORM), 
+                 AppObjInfo.COMMAND_VIEW)));
+
+    flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Application", true, "Leave AL Closing", "leave_application", "#", ""+approot+"/employee/leave/leave_al_closing.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+                 AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_APPLICATION, AppObjInfo.OBJ_MENU_LEAVE_AL_CLOSING), 
+                 AppObjInfo.COMMAND_VIEW)));
+
+    flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Application", true, "Leave LI Closing", "leave_application", "#", ""+approot+"/employee/leave/leave_ll_closing.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+                 AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_APPLICATION, AppObjInfo.OBJ_MENU_LEAVE_LI_CLOSING), 
+                 AppObjInfo.COMMAND_VIEW)));
+
+    flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Application", true, "DP Management", "leave_application", "#", ""+approot+"/employee/attendance/dp.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+                 AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_APPLICATION, AppObjInfo.OBJ_MENU_DP_MANAGEMENT), 
+                 AppObjInfo.COMMAND_VIEW)));
+
+    flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Application", true, "DP Re-Calculate", "leave_application", "#", ""+approot+"/employee/leave/if_dp_not_balance.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+                 AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_APPLICATION, AppObjInfo.OBJ_MENU_DP_RECALCULATE), 
+                 AppObjInfo.COMMAND_VIEW)));
+}
+			 
+flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Balancing", true, "Annual Leave", "leave_balancing", "#", ""+approot+"/system/leave/AL_Balancing.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_BALANCING, AppObjInfo.OBJ_MENU_ANNUAL_LEAVE), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Balancing", true, "Long Leave", "leave_balancing", "#", ""+approot+"/system/leave/LL_Balancing.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_BALANCING, AppObjInfo.OBJ_MENU_LONG_LEAVE), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("leave.jsp", "Cuti", "Leave Balancing", true, "Day off Payment", "leave_balancing", "#", ""+approot+"/system/leave/DP_Balancing.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_EMPLOYEE, AppObjInfo.G2_MENU_LEAVE_BALANCING, AppObjInfo.OBJ_MENU_DAY_OFF_PAYMENT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+/* 14) Warning & Repriman*/
+flyout.addMenuFlyOut("teguran.jsp", "Teguran", "Warning and Reprimand", true, "BAB", "master_data", "#", ""+approot+"/masterdata/warningreprimand_bab.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_COMMPANY), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("teguran.jsp", "Teguran", "Warning and Reprimand", true, "Pasal", "master_data", "#", ""+approot+"/masterdata/warningreprimand_pasal.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_COMMPANY), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("teguran.jsp", "Teguran", "Warning and Reprimand", true, "Ayat", "master_data", "#", ""+approot+"/masterdata/warningreprimand_ayat.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_MASTERDATA, AppObjInfo.G2_MENU_MD_COMPANY, AppObjInfo.OBJ_MENU_COMMPANY), 
+             AppObjInfo.COMMAND_VIEW)));
+/*
+15) Laporan (Report)
+*/
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Staff Control", true, "Attendance Record", "staff_control", "#", ""+approot+"/employee/presence/att_record_monthly.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_STAFF_CONTROL_REPORT, AppObjInfo.OBJ_MENU_ATTENDANCE_RECORD_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Presence", true, "Daily Report", "Presence", "#", ""+approot+"/report/presence/presence_report_daily.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PRESENCE_REPORT, AppObjInfo.OBJ_MENU_PRESENCE_DAILY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Presence", true, "Weekly Report", "Presence", "#", ""+approot+"/report/presence/weekly_presence.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PRESENCE_REPORT, AppObjInfo.OBJ_MENU_PRESENCE_WEEKLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Presence", true, "Monthly Report", "Presence", "#", ""+approot+"/report/presence/monthly_presence.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PRESENCE_REPORT, AppObjInfo.OBJ_MENU_PRESENCE_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Presence", true, "Year Report", "Presence", "#", ""+approot+"/report/presence/year_report_presence.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PRESENCE_REPORT, AppObjInfo.OBJ_MENU_YEAR_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Presence", true, "Attendance Summary", "Presence", "#", ""+approot+"/report/presence/summary_attendance_sheet.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PRESENCE_REPORT, AppObjInfo.OBJ_MENU_ATTENDANCE_SUMMARY), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Presence", true, "Rekapitulasi Absensi", "Presence", "#", ""+approot+"/report/presence/rekapitulasi_absensi.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PRESENCE_REPORT, AppObjInfo.OBJ_MENU_ATTENDANCE_SUMMARY), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Lateness", true, "Daily Report", "lateness", "#", ""+approot+"/report/lateness/lateness_report.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LATENESS_REPORT, AppObjInfo.OBJ_MENU_LATENESS_DAILY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Lateness", true, "Weekly Report", "lateness", "#", ""+approot+"/report/lateness/lateness_weekly_report.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LATENESS_REPORT, AppObjInfo.OBJ_MENU_LATENESS_WEEKLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Lateness", true, "Monthly Report", "lateness", "#", ""+approot+"/report/lateness/lateness_monthly_report.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LATENESS_REPORT, AppObjInfo.OBJ_MENU_LATENESS_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Split Shift", true, "Daily Report", "split_shift", "#", ""+approot+"/report/splitshift/daily_split.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SPLIT_SHIFT_REPORT, AppObjInfo.OBJ_MENU_SPLIT_SHIFT_DAILY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Split Shift", true, "Weekly Report", "split_shift", "#", ""+approot+"/report/splitshift/weekly_split.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SPLIT_SHIFT_REPORT, AppObjInfo.OBJ_MENU_SPLIT_SHIFT_WEEKLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Split Shift", true, "Monthly Report", "split_shift", "#", ""+approot+"/report/splitshift/monthly_split.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SPLIT_SHIFT_REPORT, AppObjInfo.OBJ_MENU_SPLIT_SHIFT_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Night Shift", true, "Daily Report", "night_shift", "#", ""+approot+"/report/nightshift/daily_night.jsp",userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_NIGHT_SHIFT_REPORT, AppObjInfo.OBJ_MENU_NIGHT_SHIFT_DAILY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Night Shift", true, "Weekly Report", "night_shift", "#", ""+approot+"/report/nightshift/weekly_night.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_NIGHT_SHIFT_REPORT, AppObjInfo.OBJ_MENU_NIGHT_SHIFT_WEEKLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Night Shift", true, "Monthly Report", "night_shift", "#", ""+approot+"/report/nightshift/monthly_night.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_NIGHT_SHIFT_REPORT, AppObjInfo.OBJ_MENU_NIGHT_SHIFT_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Absenteeism", true, "Daily Report", "absenteeism", "#", ""+approot+"/report/absenteeism/daily_absence.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_ABSENTEEISM_REPORT, AppObjInfo.OBJ_MENU_ABSENTEEISM_DAILY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Absenteeism", true, "Weekly Report", "absenteeism", "#", ""+approot+"/report/absenteeism/weekly_absence.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_ABSENTEEISM_REPORT, AppObjInfo.OBJ_MENU_ABSENTEEISM_WEEKLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Absenteeism", true, "Monthly Report", "absenteeism", "#", ""+approot+"/report/absenteeism/monthly_absence.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_ABSENTEEISM_REPORT, AppObjInfo.OBJ_MENU_ABSENTEEISM_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Sickness", true, "Daily Report", "sickness", "#", ""+approot+"/report/sickness/daily_sickness.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SICKNESS_REPORT, AppObjInfo.OBJ_MENU_SICKNESS_DAILY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Sickness", true, "Weekly Report", "sickness", "#", ""+approot+"/report/sickness/weekly_sickness.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SICKNESS_REPORT, AppObjInfo.OBJ_MENU_SICKNESS_WEEKLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Sickness", true, "Monthly Report", "sickness", "#", ""+approot+"/report/sickness/monthly_sickness.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SICKNESS_REPORT, AppObjInfo.OBJ_MENU_SICKNESS_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Sickness", true, "Zero Sickness", "sickness", "#", ""+approot+"/report/sickness/zero_sickness.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SICKNESS_REPORT, AppObjInfo.OBJ_MENU_SICKNESS_ZERO_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Special Dispensation", true, "Daily Report", "special_dispensation", "#", ""+approot+"/report/sickness/zero_sickness.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SPECIAL_DISPENSATION_REPORT, AppObjInfo.OBJ_MENU_SPECIAL_DISPENSATION_DAILY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Special Dispensation", true, "Weekly Report", "special_dispensation", "#", ""+approot+"/report/specialdisp/weekly_specialdisp.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SPECIAL_DISPENSATION_REPORT, AppObjInfo.OBJ_MENU_SPECIAL_DISPENSATION_WEEKLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Special Dispensation", true, "Monthly Report", "special_dispensation", "#", ""+approot+"/report/specialdisp/monthly_specialdisp.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_SPECIAL_DISPENSATION_REPORT, AppObjInfo.OBJ_MENU_SPECIAL_DISPENSATION_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Leave Report", true, "Leave & DP Summary", "leave_report", "#", ""+approot+"/report/leavedp/leave_dp_sum.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LEAVE_REPORT, AppObjInfo.OBJ_MENU_LEAVE_DP_SUMMARY), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Leave Report", true, "Leave & DP Detail ", "leave_report", "#", ""+approot+"/report/leavedp/leave_dp_detail.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LEAVE_REPORT, AppObjInfo.OBJ_MENU_LEAVE_DP_DETAIL), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Leave Report", true, "Leave & DP Sum.Period", "leave_report", "#", ""+approot+"/report/leavedp/leave_department_by_period.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LEAVE_REPORT, AppObjInfo.OBJ_MENU_LEAVE_DP_SUMMARY_PERIOD), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Leave Report", true, "Leave & DP Detail Period", "leave_report", "#", ""+approot+"/report/leavedp/leave_dp_detail_period.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LEAVE_REPORT, AppObjInfo.OBJ_MENU_LEAVE_DP_DETAIL_PERIOD), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Leave Report", true, "Special & Unpaid Period", "leave_report", "#", ""+approot+"/employee/leave/leave_sp_period.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LEAVE_REPORT, AppObjInfo.OBJ_MENU_SPECIAL_UNPAID_PERIOD), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Leave Report", true, "DP Ekspired", "leave_report", "#", ""+approot+"/report/attendance/dpexp_report.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_LEAVE_REPORT, AppObjInfo.OBJ_MENU_DP_EXPIRED), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Trainee", true, "Monthly Report", "trainee", "#", ""+approot+"/report/training/monthly_tr_rpt.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINEE_REPORT, AppObjInfo.OBJ_MENU_TRAINEE_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Trainee", true, "End Period", "trainee", "#", ""+approot+"/report/training/end_tr_rpt.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINEE_REPORT, AppObjInfo.OBJ_MENU_TRAINEE_END_PERIOD), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Employee", true, "List of Employee Category", "employee", "#", ""+approot+"/report/employee/list_employee_category.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_EMPLOYEE_REPORT, AppObjInfo.OBJ_MENU_LIST_EMPLOYEE_CATEGORY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Employee", true, "List of Employee Resignation", "employee", "#", ""+approot+"/report/employee/list_employee_resignation1.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_EMPLOYEE_REPORT, AppObjInfo.OBJ_MENU_LIST_EMPLOYEE_RESIGNATION_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Employee", true, "List of Employee Education", "employee", "#", ""+approot+"/report/employee/list_employee_education.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_EMPLOYEE_REPORT, AppObjInfo.OBJ_MENU_LIST_EMPLOYEE_EDUCATION_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Employee", true, "List of Emp Category by Name", "employee", "#", ""+approot+"/report/employee/list_employee_by_Name.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_EMPLOYEE_REPORT, AppObjInfo.OBJ_MENU_LIST_EMPLOYEE_CATEGORY_BY_NAME_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Employee", true, "List Number Of Absences", "employee", "#", ""+approot+"/report/employee/list_absence_reason.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_EMPLOYEE_REPORT, AppObjInfo.OBJ_MENU_LIST_NUMBER_ABSENCES_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Employee", true, "List Of Employee Race", "employee", "#", ""+approot+"/report/employee/list_employee_race.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_EMPLOYEE_REPORT, AppObjInfo.OBJ_MENU_LIST_EMPLOYEE_RACE_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			  
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Training Report", true, "Monthly Training", "training_report", "#", ""+approot+"/report/training/monthly_train.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINING_REPORT, AppObjInfo.OBJ_MENU_MONTHLY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			  
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Training Report", true, "Training Profiles", "training_report", "#", ""+approot+"/report/training/src_training_profiles.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINING_REPORT, AppObjInfo.OBJ_MENU_PROFILES_REPORT), 
+             AppObjInfo.COMMAND_VIEW))); 
+			  
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Training Report", true, "Training Target", "training_report", "#", ""+approot+"/report/training/src_training_target.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINING_REPORT, AppObjInfo.OBJ_MENU_TARGET_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			  
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Training Report", true, "Report By Departement", "training_report", "#", ""+approot+"/report/training/src_report_dept.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINING_REPORT, AppObjInfo.OBJ_MENU_REPORT_BY_DEPARTEMENT), 
+             AppObjInfo.COMMAND_VIEW)));
+			  
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Training Report", true, "Report By Employee", "training_report", "#", ""+approot+"/report/training/src_report_emp.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINING_REPORT, AppObjInfo.OBJ_MENU_REPORT_BY_EMPLOYEE), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Training Report", true, "Report By Trainer", "training_report", "#", ""+approot+"/report/training/src_report_trainer.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINING_REPORT, AppObjInfo.OBJ_MENU_REPORT_BY_TRAINNER), 
+             AppObjInfo.COMMAND_VIEW))); 
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Training Report", true, "Report By Course Detail", "training_report", "#", ""+approot+"/report/training/src_training_course.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINING_REPORT, AppObjInfo.OBJ_MENU_REPORT_BY_COURSE_DETAIL), 
+             AppObjInfo.COMMAND_VIEW))); 
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Training Report", true, "Report By Course Date", "training_report", "#", ""+approot+"/report/training/src_training_coursedate.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_TRAINING_REPORT, AppObjInfo.OBJ_MENU_REPORT_BY_COURSE_DATE), 
+             AppObjInfo.COMMAND_VIEW))); 
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Payroll", true, "List Of Salary Summary", "payroll", "#", ""+approot+"/report/payroll/gaji_transfer.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PAYROLL_REPORT, AppObjInfo.OBJ_MENU_LIST_SALARY_SUMMARY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Payroll", true, "Salary Summary", "payroll", "#", ""+approot+"/report/payroll/src_list_benefit_deduction.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PAYROLL_REPORT, AppObjInfo.OBJ_MENU_LIST_SALARY_SUMMARY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Payroll", true, "Report Rekonsiliasi", "payroll", "#", ""+approot+"/report/payroll/src_list_benefit_deduction_department.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PAYROLL_REPORT, AppObjInfo.OBJ_MENU_LIST_SALARY_SUMMARY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Payroll", true, "Report ESPT Monthly", "payroll", "#", ""+approot+"/report/payroll/src_espt_month.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PAYROLL_REPORT, AppObjInfo.OBJ_MENU_LIST_SALARY_SUMMARY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Payroll", true, "Custom Report", "payroll", "#", ""+approot+"/report/payroll/custom_rpt_main.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PAYROLL_REPORT, AppObjInfo.OBJ_MENU_LIST_SALARY_SUMMARY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Payroll", true, "JV Report", "payroll", "#", ""+approot+"/report/payroll/jv_report.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PAYROLL_REPORT, AppObjInfo.OBJ_MENU_LIST_SALARY_SUMMARY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Payroll", true, "Leave Entitle Report", "payroll", "#", ""+approot+"/report/payroll/leave_entitle_report.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PAYROLL_REPORT, AppObjInfo.OBJ_MENU_LIST_SALARY_SUMMARY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("reports.jsp", "Reports", "Payroll", true, "Taken Leave Report", "payroll", "#", ""+approot+"/report/payroll/taken_leave_report.jsp",	userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_REPORTS, AppObjInfo.G2_MENU_PAYROLL_REPORT, AppObjInfo.OBJ_MENU_LIST_SALARY_SUMMARY_REPORT), 
+             AppObjInfo.COMMAND_VIEW)));
+
+
+/* 16) System */
+flyout.addMenuFlyOut("system.jsp", "System", "Service", true, "Service Center", "service_center", "#", ""+approot+"/service/service_center.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_SERVICE_CENTER, AppObjInfo.OBJ_MENU_SERVICE_CENTER), 
+             AppObjInfo.COMMAND_VIEW))); 
+			 
+flyout.addMenuFlyOut("system.jsp", "System", "Service", true, "Manual Service", "manual_prosess", "#", ""+approot+"/service/attendance_manual_calculation.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_MANUAL_PROCESS, AppObjInfo.OBJ_MENU_MANUAL_PROCESS), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("system.jsp", "System", "Service", true, "Admin Test Mesin", "service_center", "#", ""+approot+"/system/test_mesin_odbc.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_ADMIN_TEST_MESIN, AppObjInfo.OBJ_MENU_ADMIN_TEST_MESIN), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("system.jsp", "System", "Service", true, "Admin Query Setup", "admin_query_setup", "#", ""+approot+"/system/query_setup.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_ADMIN_QUERY_SETUP, AppObjInfo.OBJ_MENU_ADMIN_QUERY_SETUP), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("system.jsp", "System", "User Management", true, "User List", "user_management", "#", ""+approot+"/admin/userlist.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_USER_MANAGEMENT, AppObjInfo.OBJ_MENU_USER_LIST), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("system.jsp", "System", "User Management", true, "Group Priviledge", "user_management", "#", ""+approot+"/admin/grouplist.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_USER_MANAGEMENT, AppObjInfo.OBJ_MENU_USER_GROUP), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("system.jsp", "System", "User Management", true, "Priviledge", "user_management", "#", ""+approot+"/admin/privilegelist.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_USER_MANAGEMENT, AppObjInfo.OBJ_MENU_USER_PRIVILEGE), 
+             AppObjInfo.COMMAND_VIEW)));
+flyout.addMenuFlyOut("system.jsp", "System", "User Management", true, "Update Password", "user_management", "#", ""+approot+"/admin/userupdatepasswd.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_USER_MANAGEMENT, AppObjInfo.OBJ_MENU_USER_UPDATE_PASSWORD), 
+             AppObjInfo.COMMAND_VIEW)));
+			 
+flyout.addMenuFlyOut("system.jsp", "System", "User Management", true, "User Compare", "user_management", "#", ""+approot+"/employee/databank/harisma_vs_machine.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_USER_MANAGEMENT, AppObjInfo.OBJ_MENU_USER_COMPARE), 
+             AppObjInfo.COMMAND_VIEW)));
+		 
+flyout.addMenuFlyOut("system.jsp", "System", "System Management", true, "System Properties", "system_management", "#", ""+approot+"/system/sysprop.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_SYSTEM_MANAGEMENT, AppObjInfo.OBJ_MENU_SYSTEM_PROPERTIES), 
+             AppObjInfo.COMMAND_VIEW))); 
+			 
+flyout.addMenuFlyOut("system.jsp", "System", "System Management", true, "Login History", "system_management", "#", ""+approot+"/common/logger/history.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_SYSTEM_MANAGEMENT, AppObjInfo.OBJ_MENU_LOGIN_HISTORY), 
+             AppObjInfo.COMMAND_VIEW))); 
+			 
+flyout.addMenuFlyOut("system.jsp", "System", "System Management", true, "System Log", "system_management", "#", ""+approot+"/log/system_log.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_SYSTEM_MANAGEMENT, AppObjInfo.OBJ_MENU_SYSTEM_LOG), 
+             AppObjInfo.COMMAND_VIEW)));		 
+	
+flyout.addMenuFlyOut("system.jsp", "System", "Time Keeping", true, "Service Manager", "tiime_keeping", "#", ""+approot+"/system/timekeepingpro/svcmgr.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_MENU_SYSTEM, AppObjInfo.G2_MENU_TIMEKEEPING, AppObjInfo.OBJ_MENU_SERVICE_MANAGER), 
+             AppObjInfo.COMMAND_VIEW)));
+
+flyout.addMenuFlyOut("system.jsp", "System", "Service", true, "Service Service Bakup", "Service Service Bakup", "#", ""+approot+"/service/service_bakup_emp_outlet.jsp", userSession.checkPrivilege(AppObjInfo.composeCode(
+             AppObjInfo.composeObjCode(AppObjInfo.G1_SYSTEM, AppObjInfo.G2_TIMEKEEPING, AppObjInfo.OBJ_SERVICE_MANAGER), 
+             AppObjInfo.COMMAND_VIEW)));  
+//flyout.MenuFlyout(out, url, isMSIE, approot);
+flyout.drawMenuFlayOut(out, url, isMSIEE, approot);
+
+%>
+
+                
+               
+

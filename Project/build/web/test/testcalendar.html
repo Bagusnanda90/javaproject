@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo">Click the button to display todays day of the week.</p>
+
+<button onclick="myFunction()">Try it</button>
+
+<script>
+function myFunction()
+{
+var d = new Date();
+d.setDate(1);
+d.setMonth(10);
+d.setFullYear(2012);
+
+
+var x = document.getElementById("demo");
+alert(d.getDay());
+alert(d);
+}
+</script>
+Test 3
+</body>
+</html>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN" "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+<!--
+                Sun Public License Notice
+
+The contents of this file are subject to the Sun Public License
+Version 1.0 (the "License"). You may not use this file except in
+compliance with the License. A copy of the License is available at
+http://www.sun.com/
+
+The Original Code is NetBeans. The Initial Developer of the Original
+Code is Sun Microsystems, Inc. Portions Copyright 1997-2000 Sun
+Microsystems, Inc. All Rights Reserved.
+-->
+<web-app>
+    <context-param>
+        <param-name>test123</param-name>
+        <param-value>test123</param-value>
+        <description>test123</description>
+    </context-param>
+    <servlet>
+    <servlet-name>Servlet_com.dimata.hris.report.EmpScheduleListXLS</servlet-name>
+    <display-name>Servlet com.dimata.hris.report.EmpScheduleListXLS</display-name>
+    <description>Default configuration created for servlet.</description>
+    <servlet-class>com.dimata.hris.report.EmpScheduleListXLS</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Servlet_com.dimata.harisma.session.employee.SpecialQueryResult</servlet-name>
+    <display-name>Servlet com.dimata.harisma.session.employee.SpecialQueryResult</display-name>
+    <description>Default configuration created for servlet.</description>
+    <servlet-class>com.dimata.harisma.session.employee.SpecialQueryResult</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Servlet_com.dimata.harisma.report.EmployeeDetailPdf</servlet-name>
+    <display-name>Servlet com.dimata.harisma.report.EmployeeDetailPdf</display-name>
+    <description>Default configuration created for servlet.</description>
+    <servlet-class>com.dimata.harisma.report.EmployeeDetailPdf</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>Servlet_com.dimata.harisma.report.EmployeeListXLS_1</servlet-name>
+    <display-name>Servlet com.dimata.harisma.report.EmployeeListXLS_1</display-name>
+    <description>Default configuration created for servlet.</description>
+    <servlet-class>com.dimata.harisma.report.EmpSalXLS</servlet-class>
+  </servlet>
+    <servlet>
+        <servlet-name>ListEmployeeEthnicPdf</servlet-name>
+        <servlet-class>com.dimata.harisma.report.listRequest.ListEmployeeEthnicPdf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrainingProfiles</servlet-name>
+        <servlet-class>com.dimata.harisma.report.employee.TrainingProfilesPdf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrainingByDeptPdf</servlet-name>
+        <servlet-class>com.dimata.harisma.report.employee.TrainingByDeptPdf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrainingByEmpPdf</servlet-name>
+        <servlet-class>com.dimata.harisma.report.employee.TrainingByEmpPdf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrainingByTrainer</servlet-name>
+        <servlet-class>com.dimata.harisma.report.employee.TrainingByTrainerPdf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrainingCoursePdf</servlet-name>
+        <servlet-class>com.dimata.harisma.report.employee.TrainingCoursePdf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrainingCourseDatePdf</servlet-name>
+        <servlet-class>com.dimata.harisma.report.employee.TrainingCourseDatePdf</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TrainingMonthlyPdf</servlet-name>
+        <servlet-class>com.dimata.harisma.report.employee.TrainingMonthlyPdf</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>Servlet_com.dimata.hris.report.EmpScheduleListXLS</servlet-name>
+    <url-pattern>/servlet/com/dimata/hris/report/EmpScheduleListXLS</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Servlet_com.dimata.harisma.session.employee.SpecialQueryResult</servlet-name>
+    <url-pattern>/servlet/com/dimata/harisma/session/employee/SpecialQueryResult</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Servlet_com.dimata.harisma.report.EmployeeDetailPdf</servlet-name>
+    <url-pattern>/servlet/com/dimata/harisma/report/EmployeeDetailPdf</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Servlet_com.dimata.harisma.report.EmployeeListXLS_1</servlet-name>
+    <url-pattern>/servlet/com/dimata/harisma/report/EmployeeListXLS_1</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListEmployeeEthnicPdf</servlet-name>
+        <url-pattern>/ListEmployeeEthnicPdf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainingProfiles</servlet-name>
+        <url-pattern>/TrainingProfiles</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainingByDeptPdf</servlet-name>
+        <url-pattern>/TrainingByDeptPdf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainingByEmpPdf</servlet-name>
+        <url-pattern>/TrainingByEmpPdf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainingByTrainer</servlet-name>
+        <url-pattern>/TrainingByTrainer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainingCoursePdf</servlet-name>
+        <url-pattern>/TrainingCoursePdf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainingCourseDatePdf</servlet-name>
+        <url-pattern>/TrainingCourseDatePdf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TrainingMonthlyPdf</servlet-name>
+        <url-pattern>/TrainingMonthlyPdf</url-pattern>
+    </servlet-mapping>
+    <session-config>
+    <session-timeout>
+            30
+        </session-timeout>
+  </session-config>
+  <welcome-file-list>
+    <welcome-file>
+            index.jsp
+        </welcome-file>
+    <welcome-file>
+            index.html
+        </welcome-file>
+    <welcome-file>
+            index.htm
+        </welcome-file>
+  </welcome-file-list>
+</web-app>

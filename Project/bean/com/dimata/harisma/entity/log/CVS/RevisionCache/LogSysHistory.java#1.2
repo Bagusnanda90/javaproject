@@ -1,0 +1,329 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dimata.harisma.entity.log;
+
+import com.dimata.qdep.entity.Entity;
+import com.dimata.util.Formater;
+import java.util.Date;
+
+/** 
+ *
+ * @author AGUS
+ * Objectives;
+ *  - Menyiapkan fasilitas untuk tracking dan control aktifitas user terhadap data-data dan dokumen 
+ *   yang dibuat maupun di update user di system
+ * Use Cases :
+ *  - Admin :
+ *       1. Mencari dan list aktifitas user berdasarkan : user name /login ID, documen number, date/time of update, detail data, action
+ *       2. Drill down membuka document yang diubah dengan click : di list log
+ *       3. Drill down membuka user yang dilog
+ *       4. Ide : roll back document / data ..ini agak rumit deh ..
+ *  - User : 
+ *       1. user bisa melihat list history pada saat buka document bila diperlukan dengan click ShoW History
+ * 
+ */
+public class LogSysHistory extends Entity{
+    private long logUserId;
+    private String logLoginName;
+    private String logDocumentNumber;
+    private String logDocumentType;
+    private int logDocumentStatus;
+    private long logDocumentId;
+    private String logUserAction;
+    private String logOpenUrl;
+    private Date logUpdateDate;
+    private String logDetail;
+    private String logApplication;
+    private int status =0;
+    private long approverId=0;
+    private Date approveDate = null;
+    private String approverNote ="";
+    private Date startS = null;
+    private Date endS = null;
+    private String order1 = "";
+    private String order2 = "";
+    private String order3 = "";
+
+    /**
+     * @return the logUserId
+     */
+    public long getLogUserId() {
+        return logUserId;
+    }
+
+    /**
+     * @param logUserId the logUserId to set
+     */
+    public void setLogUserId(long logUserId) {
+        this.logUserId = logUserId;
+    }
+
+    /**
+     * @return the logLoginName
+     */
+    public String getLogLoginName() {
+        return logLoginName;
+    }
+
+    /**
+     * @param logLoginName the logLoginName to set
+     */
+    public void setLogLoginName(String logLoginName) {
+        this.logLoginName = logLoginName;
+    }
+
+    /**
+     * @return the logDocumentNumber
+     */
+    public String getLogDocumentNumber() {
+        return logDocumentNumber;
+    }
+
+    /**
+     * @param logDocumentNumber the logDocumentNumber to set
+     */
+    public void setLogDocumentNumber(String logDocumentNumber) {
+        this.logDocumentNumber = logDocumentNumber;
+    }
+
+    /**
+     * @return the logDocumentType
+     */
+    public String getLogDocumentType() {
+        return logDocumentType;
+    }
+
+    /**
+     * @param logDocumentType the logDocumentType to set
+     */
+    public void setLogDocumentType(String logDocumentType) {
+        this.logDocumentType = logDocumentType;
+    }
+
+    /**
+     * @return the logDocumentId
+     */
+    public long getLogDocumentId() {
+        return logDocumentId;
+    }
+
+    /**
+     * @param logDocumentId the logDocumentId to set
+     */
+    public void setLogDocumentId(long logDocumentId) {
+        this.logDocumentId = logDocumentId;
+    }
+
+    /**
+     * @return the logUserAction
+     */
+    public String getLogUserAction() {
+        return logUserAction;
+    }
+
+    /**
+     * @param logUserAction the logUserAction to set
+     */
+    public void setLogUserAction(String logUserAction) {
+        this.logUserAction = logUserAction;
+    }
+
+    /**
+     * @return the logOpenUrl
+     */
+    public String getLogOpenUrl() {
+        return logOpenUrl;
+    }
+
+    /**
+     * @param logOpenUrl the logOpenUrl to set
+     */
+    public void setLogOpenUrl(String logOpenUrl) {
+        this.logOpenUrl = logOpenUrl;
+    }
+
+    /**
+     * @return the logUpdateDate
+     */
+    public Date getLogUpdateDate() {
+        return logUpdateDate;
+    }
+
+    /**
+     * @param logUpdateDate the logUpdateDate to set
+     */
+    public void setLogUpdateDate(Date logUpdateDate) {
+        this.logUpdateDate = logUpdateDate;
+    }
+
+    /**
+     * @return the logDetail
+     */
+    public String getLogDetail() {
+        return logDetail;
+    }
+
+    /**
+     * @param logDetail the logDetail to set
+     */
+    public void setLogDetail(String logDetail) {
+        this.logDetail = logDetail;
+    }
+
+    /**
+     * @return the logApplication
+     */
+    public String getLogApplication() {
+        return logApplication;
+    }
+
+    /**
+     * @param logApplication the logApplication to set
+     */
+    public void setLogApplication(String logApplication) {
+        this.logApplication = logApplication;
+    }
+
+    /**
+     * @return the logDocumentStatus
+     */
+    public int getLogDocumentStatus() {
+        return logDocumentStatus;
+    }
+
+    /**
+     * @param logDocumentStatus the logDocumentStatus to set
+     */
+    public void setLogDocumentStatus(int logDocumentStatus) {
+        this.logDocumentStatus = logDocumentStatus;
+    }
+
+    /**
+     * @return the status
+     */
+    public int getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the approverId
+     */
+    public long getApproverId() {
+        return approverId;
+    }
+
+    /**
+     * @param approverId the approverId to set
+     */
+    public void setApproverId(long approverId) {
+        this.approverId = approverId;
+    }
+
+    /**
+     * @return the approveDate
+     */
+    public Date getApproveDate() {
+        return approveDate;
+    }
+
+    /**
+     * @param approveDate the approveDate to set
+     */
+    public void setApproveDate(Date approveDate) {
+        this.approveDate = approveDate;
+    }
+
+    /**
+     * @return the approverNote
+     */
+    public String getApproverNote() {
+        return approverNote;
+    }
+
+    /**
+     * @param approverNote the approverNote to set
+     */
+    public void setApproverNote(String approverNote) {
+        this.approverNote = approverNote;
+    }
+
+    /**
+     * @return the startS
+     */
+    public Date getStartS() {
+        return startS;
+    }
+
+    /**
+     * @param startS the startS to set
+     */
+    public void setStartS(Date startS) {
+        this.startS = startS;
+    }
+
+    /**
+     * @return the endS
+     */
+    public Date getEndS() {
+        return endS;
+    }
+
+    /**
+     * @param endS the endS to set
+     */
+    public void setEndS(Date endS) {
+        this.endS = endS;
+    }
+
+    /**
+     * @return the order1
+     */
+    public String getOrder1() {
+        return order1;
+    }
+
+    /**
+     * @param order1 the order1 to set
+     */
+    public void setOrder1(String order1) {
+        this.order1 = order1;
+    }
+
+    /**
+     * @return the order2
+     */
+    public String getOrder2() {
+        return order2;
+    }
+
+    /**
+     * @param order2 the order2 to set
+     */
+    public void setOrder2(String order2) {
+        this.order2 = order2;
+    }
+
+    /**
+     * @return the order3
+     */
+    public String getOrder3() {
+        return order3;
+    }
+
+    /**
+     * @param order3 the order3 to set
+     */
+    public void setOrder3(String order3) {
+        this.order3 = order3;
+    }
+
+}

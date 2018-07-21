@@ -1,0 +1,225 @@
+ /** 
+                            Vector vectComp = new Vector(1, 1);
+                            String formSQL = "";
+                            StringTokenizer tokenComp = new StringTokenizer(formula);
+                            while (tokenComp.hasMoreTokens()) {
+                                String compToken = (String) tokenComp.nextToken();
+                                vectComp.add(compToken);
+                            }
+                            for (int r = 0; r < vectComp.size(); r++) {
+                                String payCom = (String) vectComp.get(r);
+                                int lengthPayCom = payCom.length();
+                                String lastChar = payCom.substring(lengthPayCom - 1, lengthPayCom);
+                                String firstChar = payCom.substring(0, lengthPayCom - 1);
+                                String compNum = payCom.substring(0, 1);
+                                if (payCom.equals("=")) {
+                                    formSQL = formSQL;
+                                } // jika tokennya berupa operator
+                                else if (payCom.equals("(") || payCom.equals(")") || payCom.equals("*") || payCom.equals("/") || payCom.equals("+") || payCom.equals("-")) {
+                                    formSQL = formSQL + payCom;
+                                } // jika tokennya berupa numerik/angka, maka langsung digabung
+                                else if (compNum.equals("0") || compNum.equals("1") || compNum.equals("2") || compNum.equals("3") || compNum.equals("4") || compNum.equals("5") || compNum.equals("6") || compNum.equals("6") || compNum.equals("7") || compNum.equals("8") || compNum.equals("9")) {
+                                    formSQL = formSQL + payCom;
+                                } // jika tokennya berupa persen,replace persen dengan angka
+                                else if (lastChar.equals("%")) {
+                                    double numPersen = Double.parseDouble(firstChar);
+                                    double valuePersen = (numPersen / 100);
+                                    String strValuePersen = String.valueOf(valuePersen);
+                                    formSQL = formSQL + strValuePersen;
+                                } // berupa variabel/komponent yang nilainya sudah disimpan di tabel atau ambil dari sistem property
+                                else {
+                                    boolean compCalculated = false;
+                                    // untuk pengambilan nilai day late
+                                    if (payCom.equals("" + strDayLate) || payCom.equals(SalaryLevelDetail.DATE_LATE)) {
+                                        double day_late = 0;
+                                        PaySlip paySlip = new PaySlip();
+                                        compCalculated = true;
+                                        try {
+                                            paySlip = PstPaySlip.fetchExc(paySlipId);
+                                            day_late = paySlip.getDayLate();
+                                        } catch (Exception e) {
+                                        }
+                                        formSQL = formSQL + String.valueOf(day_late);
+                                    }
+
+                                    //untuk mengambil nilai absent                                                          
+                                    if (payCom.equals("" + strAbsent) || payCom.equals(SalaryLevelDetail.DATE_ABSENT)) {
+                                        double day_absent = 0;
+                                        PaySlip paySlip = new PaySlip();
+                                        compCalculated = true;
+                                        try {
+                                            paySlip = PstPaySlip.fetchExc(paySlipId);
+                                            day_absent = paySlip.getDayAbsent();
+                                        } catch (Exception e) {
+                                        }
+                                        formSQL = formSQL + String.valueOf(day_absent);
+                                    }
+
+                                    //untuk mengambil nilai day in period                                                          
+                                    if (payCom.equals(SalaryLevelDetail.DAY_PERIOD)) {
+                                        formSQL = formSQL + String.valueOf(selPeriod.getDayInPeriod());
+                                        compCalculated = true;
+                                    }
+
+                                    //untuk mengambil nilai working day in period                                                          
+                                    if (payCom.equals(SalaryLevelDetail.WORK_DAY_PERIOD)) {
+                                        formSQL = formSQL + String.valueOf(selPeriod.getWorkDays());
+                                        compCalculated = true;
+                                    }
+
+                                    //untuk mengambil nilai off schedule 
+                                    if (payCom.equals("" + SalaryLevelDetail.DAY_OFF_SCHEDULE)) {
+                                        compCalculated = true;
+                                        //EmpSchedule empSch = PstEmpSchedule.fetch(periodId, empId);
+                                        int offDay = empSch.numberOfScheduleSymbol(vctSchIDOff);
+                                        formSQL = formSQL + String.valueOf(selPeriod.getWorkDays());
+                                    }
+
+                                    //untuk mengambil nilai date overtime pada off schedule 
+                                    if (payCom.equals("" + SalaryLevelDetail.TOTAL_DAY_OFF_OVERTIME)) {
+                                        //EmpSchedule empSch = PstEmpSchedule.fetch(periodId, empId);
+                                        double tOvtDate = 0.0;
+                                        if (empSch != null) {
+                                            Vector dates = empSch.dateOfScheduleSymbol(vctSchIDOff, selPeriod.getStartDate());
+                                            tOvtDate = PstOvt_Employee.getTotalDatesOverTm(dates, selPeriod.getOID(), emp.getEmployeeNum(), minOvtDuration);
+                                        }
+                                        formSQL = formSQL + String.valueOf(tOvtDate);
+                                        compCalculated = true;
+                                    }
+
+                                    // untuk mengambil nilai status absensi dan reason                                  
+                                    if (payCom.startsWith(SalaryLevelDetail.SCH_STS_RSN)) {
+                                        String sTemp = "";
+                                        if (payCom.length() > SalaryLevelDetail.SCH_STS_RSN.length()) {
+                                            payCom.substring(SalaryLevelDetail.SCH_STS_RSN.length() + 1);// get data code_Schedulestatus_reason                                        
+                                            String sSchStatus = sTemp.substring(0, sTemp.indexOf("_"));
+                                            String sSchReason = sTemp.substring(sTemp.indexOf("_") + 1, sTemp.length());
+                                            // lanjutkan dengan code tertentu
+                                            compCalculated = true;
+                                        }
+
+                                    }
+
+                                    if (payCom.startsWith(SalaryLevelDetail.ABSENT_RSN)) {
+                                        String sTemp = "";
+                                        int sumRsn = 0;
+                                        compCalculated = true;
+                                        if (payCom.length() > SalaryLevelDetail.ABSENT_RSN.length()) {
+                                            sTemp = payCom.substring(SalaryLevelDetail.SCH_STS_RSN.length());// get data number_of_Schedulestatus_reason                                        
+                                            String sSchReason = sTemp.substring(0, sTemp.length());
+                                            try {
+                                                Integer iRsn = new Integer(sSchReason);
+                                                Vector vctSt = new Vector();
+                                                vctSt.add(new Integer(PstEmpSchedule.STATUS_PRESENCE_ABSENCE));
+
+                                                Vector vctReason = new Vector();
+                                                vctReason.add(iRsn);
+                                                sumRsn = PstEmpSchedule.sumStatusDisp(empId, periodId, maxDateOfMonth, vctSt, vctReason);
+
+
+                                            } catch (Exception exc) {
+                                                System.out.println("payroll-process : ABSENT_RSN : " + exc);
+                                            }
+                                        }
+                                        formSQL = formSQL + String.valueOf(sumRsn);
+                                    }
+
+                                    if (payCom.startsWith(SalaryLevelDetail.DAYWORK_LESS_MNT)) {
+                                        String sTemp = "";
+                                        int dayLessWork = 0;
+                                        compCalculated = true;
+
+                                        try {
+                                            if (payCom.length() > SalaryLevelDetail.DAYWORK_LESS_MNT.length()) {
+                                                sTemp = payCom.substring(SalaryLevelDetail.DAYWORK_LESS_MNT.length());// get data minutes minimum of work minutes in day                                        
+                                                String sMinMinutes = sTemp.substring(1, sTemp.length());
+                                                Integer iMinMinutes = new Integer(sMinMinutes);
+                                                //EmpSchedule empSch = PstEmpSchedule.fetch(periodId, empId);
+                                                long lMaxMIN = (iMinMinutes.longValue()*60L*1000L)-1L;
+                                                dayLessWork =   empSch.getNumberDatePresentDuration(1L, lMaxMIN, PstEmpSchedule.STATUS_PRESENCE_OK, 1, 1);  // get date that status present OK but work hour is less then maxMinutes
+                                            }
+                                        } catch (Exception exc) {
+                                            System.out.println("payroll-process : DAYWORK_LESS_MINUTES : " + exc);
+                                        }
+
+                                        formSQL = formSQL + String.valueOf(dayLessWork);
+                                    }
+
+
+                                    // untyk presence
+                                    if (payCom.equals("" + strPresence) || payCom.equals(SalaryLevelDetail.DATE_PRESENT)) {
+                                        double day_presence = 0;
+                                        PaySlip paySlip = new PaySlip();
+                                        compCalculated = true;
+                                        try {
+                                            paySlip = PstPaySlip.fetchExc(paySlipId);
+                                            day_presence = paySlip.getDayPresent();
+                                        } catch (Exception e) {
+                                        }
+                                        formSQL = formSQL + String.valueOf(day_presence);
+                                    } // kondisi untuk tunjangan ekspor(khusus intimas)
+                                    else if (payCom.equals("" + procentasePresence)) {
+                                        double procenPresence = 0;
+                                        PaySlip paySlip = new PaySlip();
+                                        try {
+                                            paySlip = PstPaySlip.fetchExc(paySlipId);
+                                            //ubah persen jadi decimal
+                                            procenPresence = (paySlip.getProcentasePresence() / 100);
+                                        } catch (Exception e) {
+                                        }
+                                        formSQL = formSQL + String.valueOf(procenPresence);
+                                    } else if (payCom.equals("" + salaryEmp)) {
+                                        double sumSalary = PstPaySlip.getSumSalary(periodId, empId);
+                                        formSQL = formSQL + String.valueOf(sumSalary);
+                                    } else if (payCom.equals("" + tot_idx)) {
+                                        double total_idx = PstOvt_Employee.getTotIdx(paySlipId);
+                                        formSQL = formSQL + String.valueOf(total_idx);
+                                    } else if (payCom.equals("" + tot_ovt)) {
+                                        double total_ovt = PstOvt_Employee.getTotOvtDuration(paySlipId);
+                                        formSQL = formSQL + String.valueOf(total_ovt);
+                                    } else if (!compCalculated /*!payCom.equals(SalaryLevelDetail.DAY_PERIOD) &&
+                                            !payCom.equals(SalaryLevelDetail.WORK_DAY_PERIOD) &&
+                                            !payCom.equals("" + SalaryLevelDetail.DAY_OFF_SCHEDULE) && 
+                                            !payCom.equals("" + SalaryLevelDetail.TOTAL_DAY_OFF_OVERTIME) && 
+                                            !payCom.startsWith(SalaryLevelDetail.ABSENT_RSN) && 
+                                            !payCom.startsWith(SalaryLevelDetail.SCH_STS_RSN)*/ ) {
+                                        //untuk pengambilan komponent yang tidak ada spasinya
+                                        // pengecekan untuk spasi                                                                                
+                                        String payCompSpace = PstPaySlipComp.getCodeComponent(payCom);
+                                        if (payCompSpace.length() == 0) {
+                                            payCom = " " + payCom;
+                                        }
+                                        int compValue = PstPaySlipComp.getCompValueEmployee(empId, periodId, payCom);
+                                        String strCompValue = String.valueOf(compValue);
+                                        formSQL = formSQL + strCompValue;
+                                    }
+                                }
+                            }
+                            // lempar ke MySQL
+                            System.out.println("formSQL  " + compCode + " adalah" + formSQL);
+                            double compFormValue = PstPaySlipComp.getCompFormValue(formSQL);
+                            if(compFormValue<0.0) {
+                                compFormValue=0.0;
+                            }
+                            String strSubCompValue = "";
+                            
+                            //int compFormValue = Integer.parseInt(strSubCompValue);
+                            // hasil ecexute mysql simpan ke tabel pay_slip_comp
+                            paySlipComp.setPaySlipId(paySlipId);
+                            paySlipComp.setCompCode(compCode);
+                            paySlipComp.setCompValue(compFormValue);
+                            String whereSlip = PstPaySlipComp.fieldNames[PstPaySlipComp.FLD_PAY_SLIP_ID] + "=" + paySlipId +
+                                    " AND " + PstPaySlipComp.fieldNames[PstPaySlipComp.FLD_COMP_CODE] + "='" + compCode.trim() + "'";
+                            Vector vectSlipComp = PstPaySlipComp.list(0, 0, whereSlip, "");
+
+                            try {
+                                if (vectSlipComp.size() == 0) {
+                                    PstPaySlipComp.insertExc(paySlipComp);
+                                } else if (vectSlipComp.size() > 0) {
+                                    PstPaySlipComp.updateValueComp(compFormValue, whereSlip);
+                                }
+                            } catch (Exception e) {
+                                System.out.println("ERR" + e.toString());
+                            }
+                            
+                          // END **/

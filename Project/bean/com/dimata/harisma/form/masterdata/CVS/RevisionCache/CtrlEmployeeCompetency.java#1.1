@@ -1,0 +1,189 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dimata.harisma.form.masterdata;
+
+import javax.servlet.http.*;
+import com.dimata.util.*;
+import com.dimata.util.lang.*;
+import com.dimata.qdep.system.*;
+import com.dimata.qdep.form.*;
+import com.dimata.qdep.db.*;
+import com.dimata.harisma.entity.masterdata.*;
+
+/*
+Description : Controll EmployeeCompetency
+Date : Mon Feb 02 2015
+Author : Hendra McHen
+*/
+
+public class CtrlEmployeeCompetency extends Control implements I_Language {
+public static int RSLT_OK = 0;
+public static int RSLT_UNKNOWN_ERROR = 1;
+public static int RSLT_EST_CODE_EXIST = 2;
+public static int RSLT_FORM_INCOMPLETE = 3;
+public static String[][] resultText = {
+{"Berhasil", "Tidak dapat diproses", "NoPerkiraan sudah ada", "Data tidak lengkap"},
+{"Succes", "Can not process", "Estimation code exist", "Data incomplete"}
+};
+private int start;
+private String msgString;
+private EmployeeCompetency entEmployeeCompetency;
+private PstEmployeeCompetency pstEmployeeCompetency;
+private FrmEmployeeCompetency frmEmployeeCompetency;
+int language = LANGUAGE_DEFAULT;
+
+public CtrlEmployeeCompetency(HttpServletRequest request) {
+msgString = "";
+entEmployeeCompetency = new EmployeeCompetency();
+try {
+pstEmployeeCompetency = new PstEmployeeCompetency(0);
+} catch (Exception e) {;
+}
+frmEmployeeCompetency = new FrmEmployeeCompetency(request, entEmployeeCompetency);
+}
+
+private String getSystemMessage(int msgCode) {
+switch (msgCode) {
+case I_DBExceptionInfo.MULTIPLE_ID:
+this.frmEmployeeCompetency.addError(frmEmployeeCompetency.FRM_FIELD_EMPLOYEE_COMP_ID, resultText[language][RSLT_EST_CODE_EXIST]);
+return resultText[language][RSLT_EST_CODE_EXIST];
+default:
+return resultText[language][RSLT_UNKNOWN_ERROR];
+}
+}
+
+private int getControlMsgId(int msgCode) {
+switch (msgCode) {
+case I_DBExceptionInfo.MULTIPLE_ID:
+return RSLT_EST_CODE_EXIST;
+default:
+return RSLT_UNKNOWN_ERROR;
+}
+}
+
+public int getLanguage() {
+return language;
+}
+
+public void setLanguage(int language) {
+this.language = language;
+}
+
+public EmployeeCompetency getEmployeeCompetency() {
+return entEmployeeCompetency;
+}
+
+public FrmEmployeeCompetency getForm() {
+return frmEmployeeCompetency;
+}
+
+public String getMessage() {
+return msgString;
+}
+
+public int getStart() {
+return start;
+}
+
+public int action(int cmd, long oidEmployeeCompetency) {
+msgString = "";
+int excCode = I_DBExceptionInfo.NO_EXCEPTION;
+int rsCode = RSLT_OK;
+switch (cmd) {
+case Command.ADD:
+break;
+
+case Command.SAVE:
+if (oidEmployeeCompetency != 0) {
+try {
+entEmployeeCompetency = PstEmployeeCompetency.fetchExc(oidEmployeeCompetency);
+} catch (Exception exc) {
+}
+}
+
+frmEmployeeCompetency.requestEntityObject(entEmployeeCompetency);
+
+if (frmEmployeeCompetency.errorSize() > 0) {
+msgString = FRMMessage.getMsg(FRMMessage.MSG_INCOMPLATE);
+return RSLT_FORM_INCOMPLETE;
+}
+
+if (entEmployeeCompetency.getOID() == 0) {
+try {
+long oid = pstEmployeeCompetency.insertExc(this.entEmployeeCompetency);
+} catch (DBException dbexc) {
+excCode = dbexc.getErrorCode();
+msgString = getSystemMessage(excCode);
+return getControlMsgId(excCode);
+} catch (Exception exc) {
+msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+return getControlMsgId(I_DBExceptionInfo.UNKNOWN);
+}
+
+} else {
+try {
+long oid = pstEmployeeCompetency.updateExc(this.entEmployeeCompetency);
+} catch (DBException dbexc) {
+excCode = dbexc.getErrorCode();
+msgString = getSystemMessage(excCode);
+} catch (Exception exc) {
+msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+}
+
+}
+break;
+
+case Command.EDIT:
+if (oidEmployeeCompetency != 0) {
+try {
+entEmployeeCompetency = PstEmployeeCompetency.fetchExc(oidEmployeeCompetency);
+} catch (DBException dbexc) {
+excCode = dbexc.getErrorCode();
+msgString = getSystemMessage(excCode);
+} catch (Exception exc) {
+msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+}
+}
+break;
+
+case Command.ASK:
+if (oidEmployeeCompetency != 0) {
+try {
+entEmployeeCompetency = PstEmployeeCompetency.fetchExc(oidEmployeeCompetency);
+} catch (DBException dbexc) {
+excCode = dbexc.getErrorCode();
+msgString = getSystemMessage(excCode);
+} catch (Exception exc) {
+msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+}
+}
+break;
+
+case Command.DELETE:
+if (oidEmployeeCompetency != 0) {
+try {
+long oid = PstEmployeeCompetency.deleteExc(oidEmployeeCompetency);
+if (oid != 0) {
+msgString = FRMMessage.getMessage(FRMMessage.MSG_DELETED);
+excCode = RSLT_OK;
+} else {
+msgString = FRMMessage.getMessage(FRMMessage.ERR_DELETED);
+excCode = RSLT_FORM_INCOMPLETE;
+}
+} catch (DBException dbexc) {
+excCode = dbexc.getErrorCode();
+msgString = getSystemMessage(excCode);
+} catch (Exception exc) {
+msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+}
+}
+break;
+
+default:
+
+}
+return rsCode;
+}
+}

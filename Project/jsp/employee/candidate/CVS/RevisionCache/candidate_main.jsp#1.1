@@ -1,0 +1,434 @@
+<%-- 
+    Document   : candidate_main
+    Created on : Sep 6, 2015, 11:56:24 PM
+    Author     : Hendra Putu
+--%>
+<%@page import="com.dimata.harisma.form.employee.FrmCandidateMain"%>
+<%@page import="com.dimata.harisma.form.employee.CtrlCandidateMain"%>
+<%@page import="com.dimata.gui.jsp.ControlCombo"%>
+<%@ include file = "../../main/javainit.jsp" %>
+<% int appObjCode = AppObjInfo.composeObjCode(AppObjInfo.G1_EMPLOYEE, AppObjInfo.G2_DATABANK, AppObjInfo.OBJ_DATABANK);%>
+<% boolean privGenerate = userSession.checkPrivilege(AppObjInfo.composeCode(appObjCode, AppObjInfo.COMMAND_GENERATE_SALARY_LEVEL));%>
+<%@ include file = "../../main/checkuser.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%!
+    public String getEmployeeName(long empId){
+        String str = "";
+        Employee emp = new Employee();
+        try {
+            emp = PstEmployee.fetchExc(empId);
+            str = emp.getFullName();
+        } catch(Exception e){
+            System.out.println("Employee Name=>"+e.toString());
+        }
+        return str;
+    }
+%>
+<%
+int iCommand = FRMQueryString.requestCommand(request);
+long oidCandidateMain = FRMQueryString.requestLong(request, "oid_candidate_main");
+long approve1 = FRMQueryString.requestLong(request, "approve_1");
+
+String whereClause = "";
+int iErrCode = FRMMessage.NONE;
+CtrlCandidateMain ctrlCandidateMain = new CtrlCandidateMain(request);
+iErrCode = ctrlCandidateMain.action(iCommand, oidCandidateMain);
+FrmCandidateMain frmCandidateMain = ctrlCandidateMain.getForm();
+CandidateMain candidateMain = ctrlCandidateMain.getCandidateMain();
+/////////////////////////////////
+if (iCommand == Command.SAVE){
+    String redirectURL = approot+"/employee/candidate/candidate_location.jsp?oid="+candidateMain.getOID();
+    response.sendRedirect(redirectURL);
+
+}
+%>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Candidate Main</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <link rel="stylesheet" href="../../styles/main.css" type="text/css">
+        <link rel="stylesheet" href="../../styles/tab.css" type="text/css">
+        <link href="<%=approot%>/stylesheets/superTables.css" rel="Stylesheet" type="text/css" /> 
+        <style type="text/css">
+
+            #mn_utama {color: #FF6600; padding: 5px 14px; border-left: 1px solid #999; font-size: 12px; font-weight: bold; background-color: #F5F5F5;}
+            
+            #menu_utama {padding: 9px 14px; border-left: 1px solid #0099FF; font-size: 14px; background-color: #F3F3F3; color:#0099FF; font-size: 14px; font-weight: bold;}
+            
+            #btn {
+              background: #3498db;
+              border: 1px solid #0066CC;
+              border-radius: 3px;
+              font-family: Arial;
+              color: #ffffff;
+              font-size: 12px;
+              padding: 3px 9px 3px 9px;
+            }
+
+            #btn:hover {
+              background: #3cb0fd;
+              border: 1px solid #3498db;
+            }
+            #btn1 {
+              background-color: #DDD;
+              border: 1px solid #CCC;
+              border-radius: 3px;
+              color: #575757;
+              font-size: 11px;
+              padding: 2px 5px;
+              cursor: pointer;
+            }
+            #btn1:hover {
+              color: #373737;
+              background-color: #c5c5c5;
+              border: 1px solid #999;
+            }
+            
+            #btn2 {
+              background-color: #00ccff;
+              border: 1px solid #00aeda;
+              border-radius: 3px;
+              color: #FFF;
+              font-size: 14px;
+              padding: 9px 17px;
+              cursor: pointer;
+            }
+            #btn2:hover {
+              color: #FFF;
+              background-color: #0096bb;
+              border: 1px solid #007592;
+            }
+            
+            #btn_disable {
+              background-color: #EEE;
+              border: 1px solid #D5D5D5;
+              border-radius: 3px;
+              color: #CCC;
+              font-size: 14px;
+              padding: 9px 17px;
+            }
+            
+            #nav-next {
+              background-color: #00ccff;
+              color: #FFF;
+              font-size: 14px;
+              padding: 11px 17px 10px 17px;
+              cursor: pointer;
+            }
+            #nav-next-disable {
+              background-color: #d9d9d9;
+              color: #FFF;
+              font-size: 14px;
+              padding: 11px 17px 10px 17px;
+              cursor: pointer;
+            }
+            .tblStyle {border-collapse: collapse; font-size: 9px;}
+            .tblStyle td {font-weight: bold; padding: 3px 7px; color: #575757;}
+            .title_tbl {font-weight: bold;background-color: #DDD; color: #575757; }
+            .title_part {background-color: #FFF; border-left: 1px solid #3cb0fd; padding:5px 15px;  color: #575757; margin: 1px 0px;}
+            
+        </style>
+
+<link rel="stylesheet" href="<%=approot%>/javascripts/datepicker/themes/jquery.ui.all.css">
+<script src="<%=approot%>/javascripts/jquery.js"></script>
+<script src="<%=approot%>/javascripts/datepicker/jquery.ui.core.js"></script>
+<script src="<%=approot%>/javascripts/datepicker/jquery.ui.widget.js"></script>
+<script src="<%=approot%>/javascripts/datepicker/jquery.ui.datepicker.js"></script>
+
+<script type="text/javascript">
+    function getCmd(){
+        document.frm.action = "candidate_main.jsp";
+        document.frm.submit();
+    }
+    function cmdSave(){
+        document.frm.command.value = "<%=Command.SAVE%>";
+        getCmd();
+    }
+
+    function cmdAdd(){
+        document.frm.oid_candidate_main.value = "0";
+        document.frm.command.value="<%=Command.ADD%>";
+        getCmd();
+    }
+
+    function cmdEdit(oid) {
+        document.frm.command.value = "<%=Command.EDIT%>";
+        document.frm.oid_candidate_main.value = oid;
+        getCmd();
+    }
+    function cmdBack() {
+        document.frm.command.value="<%=Command.BACK%>";               
+        getCmd();
+    }
+    function cmdAsk(oid){
+        document.frm.command.value="<%=Command.ASK%>";
+        document.frm.oid_candidate_main.value = oid;
+        getCmd();
+    }
+    function cmdDelete(oid){
+        document.frm.command.value = "<%=Command.DELETE%>";
+        document.frm.oid_candidate_main.value = oid;
+        getCmd();
+    }
+    
+    function cmdApproveBy(val){
+        newWindow=window.open("candidate_approve_source.jsp?id="+val,"ApproveSource", "height=600,width=500,status=yes,toolbar=no,menubar=no,location=center,scrollbars=yes");
+        newWindow.focus();
+    }
+</script>
+<script>
+$(function() {
+    $( "#datepicker1" ).datepicker({ dateFormat: "yy-mm-dd" });
+    $( "#datepicker2" ).datepicker({ dateFormat: "yy-mm-dd" });
+    
+    $( "#datepicker_appr1" ).datepicker({ dateFormat: "yy-mm-dd" });
+    $( "#datepicker_appr2" ).datepicker({ dateFormat: "yy-mm-dd" });
+    $( "#datepicker_appr3" ).datepicker({ dateFormat: "yy-mm-dd" });
+    $( "#datepicker_appr4" ).datepicker({ dateFormat: "yy-mm-dd" });
+});
+</script>
+
+    </head>
+    <body <%=noBack%> bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%" bgcolor="#F9FCFF" >
+            <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%> 
+            <%@include file="../../styletemplate/template_header.jsp" %>
+            <%} else {%>
+            <tr> 
+                <td ID="TOPTITLE" background="<%=approot%>/images/HRIS_HeaderBg3.jpg" height="54"> 
+                    <!-- #BeginEditable "header" --> 
+                    <%@ include file = "../../main/header.jsp" %>
+                    <!-- #EndEditable --> 
+                </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="15" ID="MAINMENU" valign="middle"> <!-- #BeginEditable "menumain" --> 
+                    <%@ include file = "../../main/mnmain.jsp" %>
+                    <!-- #EndEditable --> </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="10" valign="middle"> 
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr> 
+                            <td align="left"><img src="<%=approot%>/images/harismaMenuLeft1.jpg" width="8" height="8"></td>
+                            <td align="center" background="<%=approot%>/images/harismaMenuLine1.jpg" width="100%"><img src="<%=approot%>/images/harismaMenuLine1.jpg" width="8" height="8"></td>
+                            <td align="right"><img src="<%=approot%>/images/harismaMenuRight1.jpg" width="8" height="8"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <%}%>
+            <tr> 
+                <td valign="top" align="left" width="100%"> 
+                    <table border="0" cellspacing="3" cellpadding="2" id="tbl0" width="100%">
+                        <tr> 
+                            <td  colspan="3" valign="top" style="padding: 12px"> 
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr> 
+                                        <td height="20"> <div id="menu_utama">Candidate Main</div> </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color:#EEE;" valign="top" width="100%">
+                                       
+                                            
+                                            <table width="100%" style="padding:9px; border:1px solid <%=garisContent%>;"  border="0" cellspacing="1" cellpadding="1" class="tablecolor">
+                                                <tr>
+                                                    <td valign="top">
+                                                        <form name="frm" method="post" action="">
+                                                            <input type="hidden" name="command" value="<%=iCommand%>">
+                                                            <input type="hidden" name="oid_candidate_main" value="<%=oidCandidateMain%>" />
+                                                            <table>
+                                                                <tr>
+                                                                    <td colspan="2" style="border-bottom:1px solid #CCC; padding:15px 9px;">
+                                                                        <table cellspacing="0" cellpadding="0" border="0">
+                                                                            <tr>
+                                                                                <td valign="top"><div id="nav-next" onclick="cmdSaveCandidateMain()">1) Candidate Main</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next.png" /></td>
+                                                                                <td valign="top"><div id="nav-next-disable">2) Candidate Location</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next-disable.png" /></td>
+                                                                                <td valign="top"><div id="nav-next-disable">3) Candidate Position</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next-disable.png" /></td>
+                                                                                <td valign="top"><div id="nav-next-disable">4) Candidate Matrix</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next-disable.png" /></td>
+                                                                                <td valign="top"><div id="nav-next-disable">5) Candidate Search</div></td>
+                                                                                <td valign="middle"><img src="<%=approot%>/images/nav-next-disable.png" /></td>
+                                                                                <td valign="top"><div id="nav-next-disable">6) Candidate Complete</div></td>                                                                                
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign="top">
+                                                                        <table class="tblStyle">
+                                                                            <tr>
+                                                                                <td valign="top">Candidate Type</td>
+                                                                                <td valign="top">
+                                                                                    <input type="radio" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_CANDIDATE_TYPE]%>" value="0" /> Free Position
+                                                                                    <input type="radio" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_CANDIDATE_TYPE]%>" value="1" /> Replacement
+                                                                                    <input type="radio" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_CANDIDATE_TYPE]%>" value="2" /> Rotation
+                                                                                    <input type="radio" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_CANDIDATE_TYPE]%>" value="3" /> Talent Pool
+                                                                                    <input type="radio" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_CANDIDATE_TYPE]%>" value="4" /> Mix
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">Title</td>
+                                                                                <td valign="top"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_TITLE]%>" size="70" /></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">Objective</td>
+                                                                                <td valign="top">
+                                                                                    <textarea name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_OBJECTIVE]%>" cols="45"></textarea>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">Due date</td>
+                                                                                <td valign="top"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_DUE_DATE]%>" id="datepicker1" value="" /></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">Request by</td>
+                                                                                <td valign="top"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_REQUESTED_BY]%>" size="40" />&nbsp;<button id="btn1">Browse</button></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">Date of Request</td>
+                                                                                <td valign="top"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_DATE_OF_REQUEST]%>" id="datepicker2" value="" /></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2">
+                                                                                    <input type="hidden" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_CREATED_BY]%>" value="1" />
+                                                                                    <input type="hidden" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_CREATED_DATE]%>" value="2015-09-07" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">Score Tolerance</td>
+                                                                                <td valign="top"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_SCORE_TOLERANCE]%>" value="" /></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="top">Status Document</td>
+                                                                                <td valign="top"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_STATUS_DOC]%>" value="" /></td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                    
+                                                                    <td valign="top">
+                                                                        <table class="tblStyle">
+                                                                            <tr>
+                                                                                <td valign="middle">Approve By (1)</td>
+                                                                                <td valign="middle">
+                                                                                    <button id="btn1" onclick="cmdApproveBy('1')">Browse</button>
+                                                                                    <input type="hidden" name="approve_1" value="<%=approve1%>" />
+                                                                                    <input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_APPROVE_BY_ID_1]%>" value="<%=getEmployeeName(approve1)%>" size="45" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="middle">Approve Date (1)</td>
+                                                                                <td valign="middle"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_APPROVE_DATE_1]%>" id="datepicker_appr1" value="" /></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2">&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="middle">Approve By (2)</td>
+                                                                                <td valign="middle">
+                                                                                    <button id="btn1" onclick="cmdApproveBy('2')">Browse</button>
+                                                                                    <input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_APPROVE_BY_ID_1]%>" value="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="middle">Approve Date (2)</td>
+                                                                                <td valign="middle"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_APPROVE_DATE_2]%>" id="datepicker_appr2" value="" /></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2">&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="middle">Approve By (3)</td>
+                                                                                <td valign="middle">
+                                                                                    <button id="btn1" onclick="cmdApproveBy('3')">Browse</button>
+                                                                                    <input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_APPROVE_BY_ID_1]%>" value="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="middle">Approve Date (3)</td>
+                                                                                <td valign="middle"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_APPROVE_DATE_3]%>" id="datepicker_appr3" value="" /></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2">&nbsp;</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="middle">Approve By (4)</td>
+                                                                                <td valign="middle">
+                                                                                    <button id="btn1" onclick="cmdApproveBy('4')">Browse</button>
+                                                                                    <input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_APPROVE_BY_ID_1]%>" value="" />
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td valign="middle">Approve Date (4)</td>
+                                                                                <td valign="middle"><input type="text" name="<%=frmCandidateMain.fieldNames[FrmCandidateMain.FRM_FIELD_APPROVE_DATE_4]%>" id="datepicker_appr4" value="" /></td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="2">&nbsp;</td>
+                                                                            </tr>
+                                                                            
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td colspan="2" style="border-top:1px solid #DDD; padding-top: 12px">
+                                                                        <button id="btn2" onclick="cmdSave()">Next Step</button>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                            
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        
+                                        </td>
+                                    </tr>
+                                </table><!---End Tble--->
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%>
+            <tr>
+                <td valign="bottom">
+                    <!-- untuk footer -->
+                    <%@include file="../../footer.jsp" %>
+                </td>
+                            
+            </tr>
+            <%} else {%>
+            <tr> 
+                <td colspan="2" height="20" > <!-- #BeginEditable "footer" --> 
+                    <%@ include file = "../../main/footer.jsp" %>
+                    <!-- #EndEditable --> </td>
+            </tr>
+            <%}%>
+        </table>
+    </body>
+    <!-- #BeginEditable "script" --> <script language="JavaScript">
+                var oBody = document.body;
+                var oSuccess = oBody.attachEvent('onkeydown',fnTrapKD);
+    </script>
+                
+    <!-- #EndEditable --> <!-- #EndTemplate -->
+</html>

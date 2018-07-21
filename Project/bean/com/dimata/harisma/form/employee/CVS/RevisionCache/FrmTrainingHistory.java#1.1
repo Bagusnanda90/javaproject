@@ -1,0 +1,110 @@
+/* 
+ * Form Name  	:  FrmTrainingHistory.java 
+ * Created on 	:  [date] [time] AM/PM 
+ * 
+ * @author  	:  [authorName] 
+ * @version  	:  [version] 
+ */
+
+/*******************************************************************
+ * Class Description 	: [project description ... ] 
+ * Imput Parameters 	: [input parameter ...] 
+ * Output 		: [output ...] 
+ *******************************************************************/
+
+package com.dimata.harisma.form.employee;
+
+/* java package */ 
+import java.io.*; 
+import java.util.*; 
+import javax.servlet.*;
+import javax.servlet.http.*; 
+/* qdep package */ 
+import com.dimata.qdep.form.*;
+/* project package */
+import com.dimata.harisma.entity.employee.*;
+
+public class FrmTrainingHistory extends FRMHandler implements I_FRMInterface, I_FRMType 
+{
+	private TrainingHistory trainingHistory;
+
+	public static final String FRM_NAME_TRAININGHISTORY		=  "FRM_NAME_TRAININGHISTORY" ;
+
+	public static final int FRM_FIELD_TRAINING_HISTORY_ID			=  0 ;
+	public static final int FRM_FIELD_EMPLOYEE_ID			=  1 ;
+	public static final int FRM_FIELD_TRAINING_PROGRAM			=  2 ;
+	public static final int FRM_FIELD_START_DATE			=  3 ;
+	public static final int FRM_FIELD_END_DATE			=  4 ;
+	public static final int FRM_FIELD_TRAINER			=  5 ;
+	public static final int FRM_FIELD_REMARK			=  6 ;
+        public static final int FRM_FIELD_DURATION			=  7 ;
+        public static final int FRM_FIELD_PRESENCE			=  8 ;
+        public static final int FRM_FIELD_START_TIME			=  9 ;
+        //sehubungan dengan training Nikko
+        //updated by Yunny
+        public static final  int FLD_TRAINING_ACTIVITY_PLAN_ID= 10;
+        public static final  int FLD_TRAINING_ACTIVITY_ACTUAL_ID= 11;
+        public static final int FRM_FIELD_END_TIME			=  12 ;
+
+	public static String[] fieldNames = {
+		"FRM_FIELD_TRAINING_HISTORY_ID",  "FRM_FIELD_EMPLOYEE_ID",
+		"FRM_FIELD_TRAINING_ID",  "FRM_FIELD_START_DATE",
+		"FRM_FIELD_END_DATE",  "FRM_FIELD_TRAINER",
+		"FRM_FIELD_REMARK", "FRM_FIELD_DURATION",
+                "FRM_FIELD_PRESENCE", "FRM_FIELD_START_TIME",
+                //sehubungan dengan training Nikko
+                //updated by Yunny
+                "FLD_TRAINING_ACTIVITY_PLAN_ID",
+                "FLD_TRAINING_ACTIVITY_ACTUAL_ID",
+                "FLD_END_TIME"
+	} ;
+
+	public static int[] fieldTypes = {
+		TYPE_LONG,  TYPE_LONG + ENTRY_REQUIRED,
+		TYPE_LONG + ENTRY_REQUIRED,  TYPE_DATE + ENTRY_REQUIRED,
+		TYPE_DATE + ENTRY_REQUIRED,  TYPE_STRING + ENTRY_REQUIRED,
+		TYPE_STRING, TYPE_INT + ENTRY_REQUIRED,
+                TYPE_INT, TYPE_DATE, TYPE_LONG, TYPE_LONG, TYPE_DATE
+	} ;
+
+	public FrmTrainingHistory(){
+	}
+	public FrmTrainingHistory(TrainingHistory trainingHistory){
+		this.trainingHistory = trainingHistory;
+	}
+
+	public FrmTrainingHistory(HttpServletRequest request, TrainingHistory trainingHistory){
+		super(new FrmTrainingHistory(trainingHistory), request);
+		this.trainingHistory = trainingHistory;
+	}
+
+	public String getFormName() { return FRM_NAME_TRAININGHISTORY; } 
+
+	public int[] getFieldTypes() { return fieldTypes; }
+
+	public String[] getFieldNames() { return fieldNames; } 
+
+	public int getFieldSize() { return fieldNames.length; } 
+
+	public TrainingHistory getEntityObject(){ return trainingHistory; }
+
+	public void requestEntityObject(TrainingHistory trainingHistory) {
+		try{
+			this.requestParam();
+			trainingHistory.setEmployeeId(getLong(FRM_FIELD_EMPLOYEE_ID));
+			trainingHistory.setTrainingId(getLong(FRM_FIELD_TRAINING_PROGRAM));
+			trainingHistory.setStartDate(getDate(FRM_FIELD_START_DATE));
+			trainingHistory.setEndDate(getDate(FRM_FIELD_END_DATE));
+			trainingHistory.setTrainer(getString(FRM_FIELD_TRAINER));
+			trainingHistory.setRemark(getString(FRM_FIELD_REMARK));
+                        trainingHistory.setDuration(getInt(FRM_FIELD_DURATION));
+                        trainingHistory.setPresence(getInt(FRM_FIELD_PRESENCE));
+                        trainingHistory.setTrainingActivityPlanId(getLong(FLD_TRAINING_ACTIVITY_PLAN_ID));
+                        //trainingHistory.setStartDate(getDate(FRM_FIELD_START_DATE));
+                        trainingHistory.setTrainingActivityActualId(getLong(FLD_TRAINING_ACTIVITY_ACTUAL_ID));
+                        trainingHistory.setEndTime(getDate(FRM_FIELD_END_TIME));
+		}catch(Exception e){
+			System.out.println("Error on requestEntityObject : "+e.toString());
+		}
+	}
+}

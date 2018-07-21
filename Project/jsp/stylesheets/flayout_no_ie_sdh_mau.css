@@ -1,0 +1,1539 @@
+/* 
+    Document   : flayout
+    Created on : Dec 26, 2013, 9:38:41 AM
+    Author     : Dimata 007
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+#menu_kanan{
+
+	/*margin-top:45px;*/
+	margin-left:400px;
+        margin-top:50px;
+}
+#menu_kiri{
+  
+    padding-top: 50px;
+    float:left;
+    /*style=" position: absolute; left: 22px; top: 102px;"*/
+}
+
+            /* Base Styles */
+            spacing{
+                padding-left: 15px;
+                
+            } 
+            #menuheader > h2{
+                
+                margin-left: 0px;
+                margin-top: 0px;
+                background-image:url(../menustylesheet/bg_menu.png); 
+                height: 30px;
+                background-repeat: repeat-x;
+                background-position: center;
+               
+	box-shadow:rgba(17,4,83,0.3) 4px 4px 4px,
+	           rgba(17,4,83,0.3) -4px 4px 4px;
+			   -moz-box-shadow:rgba(17,4,83,0.3) 10px 10px 10px,
+			                   rgba(17,4,83,0.3) -10px 10px 10px;
+	-webkit-box-shadow:rgba(17,4,83,0.3) 5px 5px 5px,
+	                   rgba(17,4,83,0.3) -5px 5px 5px;
+        width: 300px;
+             
+            }
+            #cssmenu,
+            #cssmenu ul,
+            #cssmenu li,
+            #cssmenu a {
+                margin: 0;
+                padding: 0;
+
+                list-style: none;
+                font-weight: normal;
+                text-decoration: none;
+                /*line-height: 1;*/
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                position: relative;
+                
+
+            }
+            #cssmenu a {
+                line-height: 2.8;/* height */
+
+            }
+            #cssmenu {
+                width: 400px;
+                margin-top: -40px;
+               
+                /*padding: 3px;*/
+
+            }
+            #cssmenu > ul > li {
+                margin: 0 0 2px 0;
+            }
+            #cssmenu > ul > li:last-child {
+                margin: 0;
+            }
+            #cssmenu > ul > li > a {
+                /* untuk jika tidak ada sub menu lagi */
+                font-size: 15px;
+                display: block;
+                /*color: #ffffff;*/
+
+                background: url(../menustylesheet/icon_flyout/1.1.png) 5% center no-repeat; 
+                /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+           
+            #cssmenu > ul > li > a > span {
+                display: block;
+
+                /*padding: 1px 10px;*/
+
+                font-weight: bold;
+            }
+             #cssmenu > ul > li > a:link
+             {
+                
+                color: #000;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            #cssmenu > ul > li >  a
+             {
+
+                color: #000;
+                text-decoration: none;
+                font-weight: bold;
+            }
+            
+            #cssmenu > ul > li > a:hover {
+                text-decoration: none;
+                color: red;
+            }
+            #cssmenu > ul > li.active {
+                border-bottom: none;
+
+
+            }
+            
+            /* untuk align di has-sub <p id=has-sub-align>isi </p>*/
+            #has-sub-align{
+                margin-left:65px;
+
+            }
+
+            /* update */
+            #has-sub-menu{
+                background: url(../menustylesheet/icon_flyout/submenu.png) 5% center no-repeat;
+
+            }
+            #cssmenu pxsubmenu {
+                top: 0;
+                left: 0;
+                margin-left: 13px;
+            }
+
+            #has-sub-menu1{
+                background: url(../menustylesheet/icon_flyout/submenu1.png) 20% center no-repeat;
+              
+
+            }
+            #enter_word{
+                top: 0;
+                left: 0;
+                
+                margin-left: 30px;
+                width: 10px;
+                font:Arial, Helvetica, sans-serif;
+            }
+            #cssmenu px {
+                top: 0;
+                left: 0;
+                margin-left: 30px;
+                font:Arial, Helvetica, sans-serif;
+
+            }
+
+
+            /* Sub menu */
+            #cssmenu ul ul {
+                padding: 5px 12px;
+                display: none;
+            }
+            #cssmenu ul ul li {
+                padding: 3px 0;
+            }
+            #cssmenu ul ul a {
+                display: block;
+                color: #595959;
+                font-size: 13px;
+                /*  font-weight: bold;*/
+            }
+            #cssmenu ul ul a:hover {
+                color:#FFFFFF;
+            }
+            /* css icon mulai dari sini */
+                        #cssmenu > ul > li > a#data_bank {
+            /* untuk jika tidak ada sub menu lagi */
+              font-size: 15px;
+              display: block;
+              /*color: #ffffff;*/
+
+              background: url(../menustylesheet/icon_flyout/1.png) 5% center no-repeat;
+              /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+             #cssmenu > ul > li.active > a#data_bank {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                        #cssmenu > ul > li > a#company_structure {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/2.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li.active > a#company_structure {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                           #cssmenu > ul > li > a#new_employee {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/3.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#new_employee {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                        
+                          #cssmenu > ul > li > a#attendance {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/04.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#attendance {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/4a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#leave_application {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/5.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#leave_application {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/employee/5aM.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#leave_balancing {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/6.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#leave_balancing {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/employee/6aM.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+             
+                        }
+                         #cssmenu > ul > li > a#excuse_application {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/7.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#excuse_application {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/employee/7aM.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#absence_management {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/8.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#absence_management {
+           /* untuk jika tidak ada sub menu lagi */
+            
+              color: #ffffff;
+             
+                        }
+                          #cssmenu > ul > li > a#assessment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/9.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#assessment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/employee/9aM.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#recognitions {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/10.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#recognitions {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/employee/10aM.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#recruitment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/11.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#recruitment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/employee/11aM.png) 5% center no-repeat;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#warning {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/employee/12.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#warning {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/employee/12aM.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#trening_type {
+            /* untuk jika tidak ada sub menu lagi */
+              font-size: 15px;
+              display: block;
+              /*color: #ffffff;*/
+
+              background: url(../menustylesheet/icon_flyout/trening/1.png) 5% center no-repeat;
+              /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+             #cssmenu > ul > li.active > a#trening_type {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                         #cssmenu > ul > li > a#trening_vanue {
+            /* untuk jika tidak ada sub menu lagi */
+              font-size: 15px;
+              display: block;
+              /*color: #ffffff;*/
+
+              background: url(../menustylesheet/icon_flyout/trening/2.png) 5% center no-repeat;
+              /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+             #cssmenu > ul > li.active > a#trening_vanue {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                         #cssmenu > ul > li > a#trening_program {
+            /* untuk jika tidak ada sub menu lagi */
+              font-size: 15px;
+              display: block;
+              /*color: #ffffff;*/
+
+              background: url(../menustylesheet/icon_flyout/trening/3.png) 5% center no-repeat;
+              /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+             #cssmenu > ul > li.active > a#trening_program {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                         #cssmenu > ul > li > a#trening_plan {
+            /* untuk jika tidak ada sub menu lagi */
+              font-size: 15px;
+              display: block;
+              /*color: #ffffff;*/
+
+              background: url(../menustylesheet/icon_flyout/trening/4.png) 5% center no-repeat;
+              /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+             #cssmenu > ul > li.active > a#trening_plan {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                         #cssmenu > ul > li > a#trening_actual {
+            /* untuk jika tidak ada sub menu lagi */
+              font-size: 15px;
+              display: block;
+              /*color: #ffffff;*/
+
+              background: url(../menustylesheet/icon_flyout/trening/5.png) 5% center no-repeat;
+              /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+             #cssmenu > ul > li.active > a#trening_actual {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                         #cssmenu > ul > li > a#trening_search {
+            /* untuk jika tidak ada sub menu lagi */
+              font-size: 15px;
+              display: block;
+              /*color: #ffffff;*/
+
+              background: url(../menustylesheet/icon_flyout/trening/6.png) 5% center no-repeat;
+              /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+             #cssmenu > ul > li.active > a#trening_search {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                         #cssmenu > ul > li > a#trening_history {
+            /* untuk jika tidak ada sub menu lagi */
+              font-size: 15px;
+              display: block;
+              /*color: #ffffff;*/
+
+              background: url(../menustylesheet/icon_flyout/trening/7.png) 5% center no-repeat;
+              /*text-shadow: 0 1px 1px #000; warna text*/
+
+            }
+             #cssmenu > ul > li.active > a#trening_history {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+              color: #ffffff;
+             
+                        }
+                          #cssmenu > ul > li > a#staff_control {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/1.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#staff_control {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/1a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#Presence {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/2.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Presence {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/2a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#lateness {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/3.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#lateness {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/3a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#split_shift {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/4.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#split_shift {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/4a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#night_shift {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/5.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#night_shift {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/5a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#absenteeism {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/6.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#absenteeism {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/6a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#sickness {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/7.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#sickness {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/7a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#special_dispensation {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/8.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#special_dispensation {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/8a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#leave_report {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/9.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#leave_report {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/9a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#trainee {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/10.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#trainee {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/10a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna */
+                        }
+                         #cssmenu > ul > li > a#employee {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/11.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#employee {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/11a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#traning_report {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/12.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#traning_report {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/12a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#payroll {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/reports/13.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#payroll {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/reports/13a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#employee_family {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/clinik/1.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#employee_family {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+            
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#medical_record {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/clinik/2.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#medical_record {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+           
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#Medicine {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/clinik/3.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Medicine {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/clinik/3a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#employee_visit {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/clinik/4.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#employee_visit {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+            
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#guest_handling {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/clinik/5.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#guest_handling {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#Disease {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/clinik/6.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Disease {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/clinik/6a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#Medical {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/clinik/7.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Medical {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/clinik/7a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#Locker {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/locker/01.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Locker {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#locker_treatment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/locker/02.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#locker_treatment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#company {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/master/01.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#company {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/master/01a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#employee {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/master/02.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#employee {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+            background: url(../menustylesheet/icon_flyout/master/02a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#Schedule {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/master/03.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Schedule {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/master/03a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#locker_data {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/master/04.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#locker_data {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/master/04a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#Assessment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/master/05.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Assessment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+              background: url(../menustylesheet/icon_flyout/master/05a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#Recruitment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/master/06.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Recruitment {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/master/06a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#geo_area {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/master/07.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#geo_area {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/master/07a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#user_management {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/system/01.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#user_management {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/system/01a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#system_management {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/system/02.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#system_management {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+            background: url(../menustylesheet/icon_flyout/system/02a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#time_keeping {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/system/03.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#time_keeping {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             background: url(../menustylesheet/icon_flyout/system/03a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#service_center {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/system/04.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#service_center {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#manual_prosess {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/system/05.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#manual_prosess {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+              
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#admin_query_setup {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/system/06.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#admin_query_setup {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+          
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#General {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/01.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#General {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#payroll_periode {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/02.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#payroll_periode {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+            
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#bank_list {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/03.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#bank_list {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#pay_slip_group {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/04.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#pay_slip_group {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#salary_component {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/05.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#salary_component {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+              
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#salary_level {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/06.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#salary_level {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+          
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                        #cssmenu > ul > li > a#employee_setup {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/07.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#employee_setup {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+          
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                        #cssmenu > ul > li > a#Currency {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/08.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Currency {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+          
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                        #cssmenu > ul > li > a#Currency_rate {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_setup/09.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Currency_rate {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+          
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#overtime_form {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/over_time/01.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#overtime_form {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#overtime_report {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/over_time/02.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#overtime_report {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+            
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#overtime_index {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/over_time/03.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#overtime_index {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#overtime_summary {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/over_time/04.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#overtime_summary {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#prepare_data {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_procces/01.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#prepare_data {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#payroll_input {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_procces/02.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#payroll_input {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+            
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li > a#payroll_process {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_procces/03.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#payroll_process {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#payslip_printing {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/payroll_procces/04.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#payslip_printing {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+             
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                         #cssmenu > ul > li > a#Reports {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/canteen/01.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Reports {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+              background: url(../menustylesheet/icon_flyout/canteen/01a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                           #cssmenu > ul > li > a#Data {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+
+             background: url(../menustylesheet/icon_flyout/canteen/02.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                          #cssmenu > ul > li.active > a#Data {
+           /* untuk jika tidak ada sub menu lagi */
+             font-size: 15px;
+             display: block;
+             /*color: #ffffff;*/
+              color: #ffffff;
+              background: url(../menustylesheet/icon_flyout/canteen/02a.png) 5% center no-repeat;
+             /*text-shadow: 0 1px 1px #000; warna text*/
+                        }
+                        
+
+            /* ini nantinya bisa di ubah" sesuai gambarnya main utama*/
+            #cssmenu > ul > li.has-sub > a span {
+                background: url(../menustylesheet/icon_flyout/11.png) 5% center no-repeat;
+
+            }
+            /* ini nantinya bisa di ubah" sesuai gambarnya hover image*/
+            #cssmenu > ul > li.has-sub.actived > a span {
+                /* untuk jika tidak ada sub menu lagi */
+                background: url(../menustylesheet/icon_flyout/11.png) 5% center no-repeat;
+            }
+            #cssmenu > ul > li.data_bank > a {
+                /* untuk jika tidak ada sub menu lagi */
+                background: url(../menustylesheet/icon_flyout/employee/1.png) 5% center no-repeat;
+                /*text-shadow: 0 1px 1px #000;*/
+            }
+             #cssmenu > ul > li.company_structure > a {
+                /* untuk jika tidak ada sub menu lagi */
+                background: url(../menustylesheet/icon_flyout/employee/2.png) 5% center no-repeat;
+                /*text-shadow: 0 1px 1px #000;*/
+            }
+            #cssmenu > ul > li.new_employee > a {
+                /* untuk jika tidak ada sub menu lagi */
+                background: url(../menustylesheet/icon_flyout/employee/3.png) 5% center no-repeat;
+                /*text-shadow: 0 1px 1px #000;*/
+            }
+            
+            #cssmenu > ul > li.attendance > a {
+                /* untuk jika tidak ada sub menu lagi */
+                background: url(../menustylesheet/icon_flyout/employee/04.png) 5% center no-repeat;
+                /*text-shadow: 0 1px 1px #000;*/
+            }
+             /* ini nantinya bisa di ubah" sesuai gambarnya hover image*/
+            #cssmenu > ul > li.attendance.actived > a span {
+                /* untuk jika tidak ada sub menu lagi */
+                
+                background: url(../menustylesheet/icon_flyout/5.png) 5% center no-repeat;
+            }
+             #cssmenu > ul > li.actived > a {
+                /* untuk jika tidak ada sub menu lagi */
+                color: #ffffff;
+                /*background: url(../menustylesheet/icon_flyout/1.png) 5% center no-repeat;*/
+
+                /*text-shadow: 0 1px 1px #000;*/
+            }
+            #cssmenu > ul > li.active1 > a {
+                /* untuk jika tidak ada sub menu lagi */
+
+                background: url(../menustylesheet/icon_flyout/11.png) 5% center no-repeat;
+
+                /*text-shadow: 0 1px 1px #000;*/
+            }
+
+               

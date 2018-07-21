@@ -1,0 +1,1339 @@
+/* 
+ * Ctrl Name  		:  CtrlEmployee.java 
+ * Created on 	:  [date] [time] AM/PM 
+ * 
+ * @author  		: karya 
+ * @version  		: 01 
+ */
+/**
+ * *****************************************************************
+ * Class Description : [project description ... ] Imput Parameters : [input
+ * parameter ...] Output : [output ...] 
+ *******************************************************************
+ */
+package com.dimata.harisma.form.employee;
+/* java package */
+
+import com.dimata.common.entity.contact.ContactList;
+import com.dimata.common.entity.contact.PstContactList;
+import com.dimata.harisma.entity.admin.PstAppUser;
+import java.util.Date;
+import javax.servlet.*;
+import javax.servlet.http.*;
+/* dimata package */
+import com.dimata.util.*;
+import com.dimata.util.lang.*;
+/* qdep package */
+import com.dimata.qdep.system.*;
+import com.dimata.qdep.form.*;
+import com.dimata.qdep.db.*;
+/* project package */
+//import com.dimata.harisma.db.*;
+import com.dimata.harisma.entity.employee.*;
+import com.dimata.harisma.entity.locker.*;
+import com.dimata.harisma.form.locker.*;
+import com.dimata.harisma.entity.attendance.*;
+import com.dimata.harisma.entity.log.I_LogHistory;
+import com.dimata.harisma.entity.log.LogSysHistory;
+import com.dimata.harisma.entity.log.PstLogSysHistory;
+import com.dimata.harisma.entity.masterdata.Company;
+import com.dimata.harisma.entity.masterdata.Department;
+import com.dimata.harisma.entity.masterdata.Division;
+import com.dimata.harisma.entity.masterdata.EmpCategory;
+import com.dimata.harisma.entity.masterdata.GradeLevel;
+import com.dimata.harisma.entity.masterdata.Level;
+import com.dimata.harisma.entity.masterdata.LockerLocation;
+import com.dimata.harisma.entity.masterdata.Marital;
+import com.dimata.harisma.entity.masterdata.Position;
+import com.dimata.harisma.entity.masterdata.PstCompany;
+import com.dimata.harisma.entity.masterdata.PstDepartment;
+import com.dimata.harisma.entity.masterdata.PstDivision;
+import com.dimata.harisma.entity.masterdata.PstEmpCategory;
+import com.dimata.harisma.entity.masterdata.PstGradeLevel;
+import com.dimata.harisma.entity.masterdata.PstLevel;
+import com.dimata.harisma.entity.masterdata.PstLockerLocation;
+import com.dimata.harisma.entity.masterdata.PstMarital;
+import com.dimata.harisma.entity.masterdata.PstPosition;
+import com.dimata.harisma.entity.masterdata.PstRace;
+import com.dimata.harisma.entity.masterdata.PstReligion;
+import com.dimata.harisma.entity.masterdata.PstResignedReason;
+import com.dimata.harisma.entity.masterdata.PstSection;
+import com.dimata.harisma.entity.masterdata.Race;
+import com.dimata.harisma.entity.masterdata.Religion;
+import com.dimata.harisma.entity.masterdata.ResignedReason;
+import com.dimata.harisma.entity.masterdata.Section;
+import com.dimata.harisma.session.employee.SessEmployee;
+import com.dimata.harisma.session.leave.SessLeaveClosing;
+import com.dimata.qdep.entity.Entity;
+import com.dimata.system.entity.system.PstSystemProperty;
+import java.sql.*;
+import java.util.Vector;
+import org.apache.jasper.tagplugins.jstl.core.Catch;
+
+public class CtrlEmployee extends Control implements I_Language {
+
+    public static int RSLT_OK = 0;
+    public static int RSLT_UNKNOWN_ERROR = 1;
+    public static int RSLT_EST_CODE_EXIST = 2;
+    public static int RSLT_FORM_INCOMPLETE = 3;
+    public static int RSLT_EMPLYEE_NUM_EXIST = 4;
+    public static String[][] resultText = {
+        {"Berhasil", "Tidak dapat diproses", "NoPerkiraan sudah ada", "Data tidak lengkap", " employee number sudah ada"},
+        {"Succes", "Can not process", "Estimation code exist", "Data incomplete", "Employee number exist"}};
+    private int start;
+    private String msgString;
+    private Employee employee;
+    private PstEmployee pstEmployee;
+    private FrmEmployee frmEmployee;
+    //locker;
+    private Locker locker;
+    private PstLocker pstLocker;
+    private FrmLocker frmLocker;
+    //mutation
+    private FrmEmployeeMutation frmEmployeeMutation;
+    
+    int language = LANGUAGE_DEFAULT;
+
+    public CtrlEmployee(HttpServletRequest request) {
+        msgString = "";
+        employee = new Employee();
+        locker = new Locker();
+        try {
+            pstEmployee = new PstEmployee(0);
+            pstLocker = new PstLocker(0);
+        } catch (Exception e) {
+            ;
+        }
+
+        frmEmployee = new FrmEmployee(request, employee);
+
+        frmLocker = new FrmLocker(request, locker);
+    }
+
+    private String getSystemMessage(int msgCode) {
+        switch (msgCode) {
+            case I_DBExceptionInfo.MULTIPLE_ID:
+                this.frmEmployee.addError(frmEmployee.FRM_FIELD_EMPLOYEE_ID, resultText[language][RSLT_EST_CODE_EXIST]);
+                return resultText[language][RSLT_EST_CODE_EXIST];
+            default:
+                return resultText[language][RSLT_UNKNOWN_ERROR];
+        }
+    }
+
+    private int getControlMsgId(int msgCode) {
+        switch (msgCode) {
+            case I_DBExceptionInfo.MULTIPLE_ID:
+                return RSLT_EST_CODE_EXIST;
+            default:
+                return RSLT_UNKNOWN_ERROR;
+        }
+    }
+
+    public int getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(int language) {
+        this.language = language;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public FrmEmployee getForm() {
+        return frmEmployee;
+    }
+
+    public Locker getLocker() {
+        return locker;
+    }
+
+    public FrmLocker getFormLocker() {
+        return frmLocker;
+    }
+    
+    public FrmEmployeeMutation getFormMutation() {
+        return frmEmployeeMutation;
+    }
+
+    public String getMessage() {
+        return msgString;
+    }
+
+    public int getStart() {
+        return start;
+    }
+
+    public int action(int cmd, long oidEmployee, HttpServletRequest request, String loginName, long userId) {
+
+        String MachineFnSpot = "";
+
+        try {
+            MachineFnSpot = PstSystemProperty.getValueByName("MACHINE_FN_SPOT");
+        } catch (Exception e) {
+            MachineFnSpot = "";
+            System.out.println("Exception " + e.toString());
+        }
+
+        
+
+        msgString = "";
+        String tmpBarcodeNumber = "";
+        String tmpFullName = "";
+        int excCode = I_DBExceptionInfo.NO_EXCEPTION;
+        int rsCode = RSLT_OK;
+        int sysLog = Integer.parseInt(String.valueOf(PstSystemProperty.getPropertyLongbyName("SET_USER_ACTIVITY_LOG")));
+        //long sysLog = 1;
+        String logDetail = "";
+        String logPrev = "";
+        String logCurr = "";
+        Date nowDate = new Date();
+        
+        switch (cmd) {
+            case Command.ADD:
+                break;
+
+            case Command.SAVE:
+                Employee prevEmployee = null;
+                if (oidEmployee != 0) {
+                    try {
+                        employee = PstEmployee.fetchExc(oidEmployee);
+                        if(sysLog == 1){
+                            prevEmployee = PstEmployee.fetchExc(oidEmployee);
+                            
+                        }
+                            
+                        tmpBarcodeNumber = employee.getBarcodeNumber();
+                        tmpFullName = employee.getFullName();
+                    } catch (Exception exc) {
+                        System.out.println("Exception Save Employee " + exc);
+                    }
+                }
+                String[] SelectedValues = FRMQueryString.requestStringValues(request, "medicalinfo");// 2015-01-12 update by Hendra McHen
+                if(SelectedValues == null){
+                    SelectedValues = new String[1];
+                }//
+                frmEmployee.setSelectedValues(SelectedValues);// 2015-01-12 update by Hendra McHen
+                frmEmployee.requestEntityObject(employee);
+                if (frmEmployee.errorSize() > 0) {
+                    msgString = FRMMessage.getMsg(FRMMessage.MSG_INCOMPLATE);
+                    return RSLT_FORM_INCOMPLETE;
+                }
+                if (employee.getResigned() == PstEmployee.YES_RESIGN) {
+                    employee.setLockerId(0);
+                    //update by satrya 2012-11-08
+                    //employee.setBarcodeNumber(null);
+                    //employee.setBarcodeNumber(null);
+                }
+
+                // ---- untuk bali dynasty karena tidak memakai locker maka di comment ----
+                // get Request Value Of  Locker
+                frmLocker.requestEntityObject(locker);
+                locker.setOID(employee.getLockerId());
+                long locationidX = 0;
+                try {
+                    locationidX = FRMQueryString.requestLong(request, "LOCKER_LOCATION");
+                } catch (Exception ex) {
+                    System.out.println("Exception LOCKER_LOCATION not Set" + ex);
+                }
+                locker.setLocationId(locationidX);
+                //locker.setLocationId(employee.getLockerId());
+                //locker.setOID(employee.getLockerId());
+
+                //System.out.println("PstEmployee.checkLocker(locker) : " + PstEmployee.checkLocker(locker));
+                String strIsCheck = "0";
+                try {
+                    strIsCheck = PstSystemProperty.getValueByName("LOCKER_MANY_USER");
+                } catch (Exception ex) {
+                    System.out.println("Exception LOCKER_MANY_USER not Set" + ex);
+                }
+
+                if (strIsCheck.equals("0")) { // satu locaker satu pemakai
+                    //Dimatikan untuk di hardrock
+                    // if(PstEmployee.checkLocker(locker)){
+                    //     msgString = "Locker has been used by another employee";
+                    //     return RSLT_FORM_INCOMPLETE ;
+                    // }
+                }
+
+                if ((locker.getLocationId() != 0) && (locker.getLockerNumber() != null && locker.getLockerNumber().length() > 0)) {
+                    try {
+                        if (locker.getOID() == 0) {
+                            long oid = pstLocker.insertExc(locker);
+                            employee.setLockerId(oid);
+                        } else {
+                            System.out.println("++++" + locker.getOID());
+                            long oid = PstLocker.updateLocker(locker);
+                        }
+
+                    } catch (DBException dbexc) {
+                        excCode = dbexc.getErrorCode();
+                        msgString = getSystemMessage(excCode);
+                        return getControlMsgId(excCode);
+                    } catch (Exception exc) {
+                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                        return getControlMsgId(I_DBExceptionInfo.UNKNOWN);
+                    }
+                }
+
+                /* pengecekan untuk employee number yang sama */
+                String where = PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_NUM] + " = \"" + employee.getEmployeeNum() + "\" AND " + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_ID] + " != " + employee.getOID();
+
+                Vector resultEmp = new Vector();
+
+                try {
+                    resultEmp = PstEmployee.list(0, 0, where, null);
+                } catch (Exception e) {
+                    System.out.println("[Exc] " + e.toString());
+                }
+
+                if (resultEmp != null && resultEmp.size() > 0) {
+                    msgString = FRMMessage.getMsg(FRMMessage.MSG_EMP_NUM_IN_EXIST);
+                    return RSLT_EMPLYEE_NUM_EXIST;
+                }
+
+                /* Untuk pengecekan barcode number */
+                Vector resultEmpBarcode = new Vector();
+                //update by satrya 2012-11-09
+                if (employee.getBarcodeNumber() != null) {
+                    String whereBarcode = PstEmployee.fieldNames[PstEmployee.FLD_BARCODE_NUMBER] + " = " + "\"" + employee.getBarcodeNumber() + "\"" + " AND " + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_ID] + " != " + employee.getOID();
+                    try {
+                        resultEmpBarcode = PstEmployee.list(0, 0, whereBarcode, null);
+                    } catch (Exception e) {
+                        System.out.println("Exc " + e.toString());
+                    }
+                }
+                if (resultEmpBarcode != null && resultEmpBarcode.size() > 0) {
+                    msgString = FRMMessage.getMsg(FRMMessage.MSG_BARCODE_IN_EXIST);
+                    return RSLT_EMPLYEE_NUM_EXIST;
+                }
+
+                /* Pengecekan untuk menghindari pin yang sama 
+                
+                 String wherePin = PstEmployee.fieldNames[PstEmployee.FLD_EMP_PIN] + " = " + employee.getEmpPin() + " AND " + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_ID] + " != " + employee.getOID() + " AND ( " + PstEmployee.fieldNames[PstEmployee.FLD_EMP_PIN] + " is not null OR " + PstEmployee.fieldNames[PstEmployee.FLD_EMP_PIN] + " != '' ) ";
+
+                 Vector resultEmpPin = new Vector();
+
+                 try {
+                 resultEmpPin = PstEmployee.list(0, 0, wherePin, null);
+                 } catch (Exception e) {
+                 System.out.println("Exc " + e.toString());
+                 }
+
+                 if (resultEmpPin != null && resultEmpPin.size() > 0) {
+                 msgString = FRMMessage.getMsg(FRMMessage.MSG_PIN_IN_EXIST);
+                 return RSLT_EMPLYEE_NUM_EXIST;
+                 }
+                 */
+                employee.getEnd_contract();
+                if (employee.getOID() == 0) {
+                    try {
+
+                        long oid = pstEmployee.insertExc(this.employee);
+
+                        if (oid != 0) {
+                            
+                            //buatkan save carrer path
+                            
+                             
+                             String whereClause = PstCareerPath.fieldNames[PstCareerPath.FLD_EMPLOYEE_ID] + " = " + oid;   
+                             Vector listcareerpath = PstCareerPath.listcheckcareer(0, 0, whereClause, null);
+                                                        
+                            if ((listcareerpath.size()==0) &&(this.employee.getEnd_contract()!=null)){
+                                
+                               
+                                CareerPath careerPath= new CareerPath();
+                                careerPath.setEmployeeId(oid);
+                                careerPath.setCompanyId(this.employee.getCompanyId());
+                                careerPath.setCompany(PstCareerPath.getCompany(String.valueOf(this.employee.getCompanyId()).toString()));
+                                careerPath.setDepartmentId(this.employee.getDepartmentId());
+                                careerPath.setDepartment(PstCareerPath.getDepartment(String.valueOf(this.employee.getDepartmentId()).toString()));
+                                careerPath.setPositionId(this.employee.getPositionId());
+                                careerPath.setPosition(PstCareerPath.getDepartment(String.valueOf(this.employee.getDepartmentId()).toString()));
+                                careerPath.setSectionId(this.employee.getSectionId());
+                                careerPath.setSection(PstCareerPath.getSection(String.valueOf(this.employee.getSectionId()).toString()));
+                                careerPath.setWorkFrom(this.employee.getCommencingDate());
+                                careerPath.setWorkTo(this.employee.getEnd_contract());
+                                careerPath.setSalary(0);
+                                careerPath.setDescription("First carrier");
+                                careerPath.setEmpCategoryId(this.employee.getEmpCategoryId());
+                                careerPath.setEmpCategory(PstCareerPath.getCategory(String.valueOf(this.employee.getEmpCategoryId()).toString()));
+                              //  careerPath.set(this.employee.getCompanyId());
+                                careerPath.setDivisionId(this.employee.getDivisionId());
+                                careerPath.setDivision(PstCareerPath.getDivision(String.valueOf(this.employee.getDivisionId()).toString()));
+                                careerPath.setLevelId(this.employee.getLevelId());
+                                careerPath.setLevel(PstCareerPath.getLevel(String.valueOf(this.employee.getLevelId()).toString()));
+                                careerPath.setLocationId(this.employee.getLocationId());
+                                careerPath.setLocation(PstCareerPath.getLocation(String.valueOf(this.employee.getLocationId()).toString()));
+                               //hilangkan sementara karena  metode masuk ke carier path untuk karyawan baru itu salah 20151212 
+                                //  PstCareerPath.insertExc(careerPath);
+                            }
+                            
+                            msgString = FRMMessage.getMsg(FRMMessage.MSG_SAVED);
+                            //Untuk Nikko karena database ada 2, jadi setiap ada perubahan di database yang satu, akan mengupdate data base yang lain
+                            try {
+
+                                String db_backup_url = PstSystemProperty.getValueByName("DB_BACKUP_URL");
+                                String db_backup_usr = PstSystemProperty.getValueByName("DB_BACKUP_USR");
+                                String db_backup_psd = PstSystemProperty.getValueByName("DB_BACKUP_PSWD");
+
+                                /* Pengecekan kelengkapan konfigurasi di system property */
+                                if (db_backup_url.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0
+                                        && db_backup_usr.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0
+                                        && db_backup_psd.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0) {
+
+                                    try {
+                                        Class.forName("com.mysql.jdbc.Driver");
+                                        System.out.println("Driver Found");
+                                    } catch (ClassNotFoundException e) {
+                                        javax.swing.JOptionPane.showMessageDialog(null, "Driver Not Found " + e.toString());
+                                    }
+
+                                    Connection con = null;
+                                    Statement stmt = null;
+                                    try {
+
+                                        con = DriverManager.getConnection(db_backup_url, db_backup_usr, db_backup_psd);
+
+                                        String strBirthDate = "";
+                                        if (this.employee.getBirthDate() != null) {
+                                            try {
+                                                strBirthDate = Formater.formatDate(this.employee.getBirthDate(), "yyyy-MM-dd");
+                                            } catch (Exception E) {
+                                                System.out.println("[exc] Parsing Commencing Date" + E.toString());
+                                                msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                            }
+                                        }
+
+                                        String strEndContract = "";
+                                        if (this.employee.getEnd_contract() != null) {
+                                            try {
+                                                strEndContract = Formater.formatDate(this.employee.getEnd_contract(), "yyyy-MM-dd");
+                                            } catch (Exception E) {
+                                                System.out.println("[exc] Parsing Commencing Date" + E.toString());
+                                                msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                            }
+                                        }
+                                        
+                                        String strCommencingDate = "";
+                                        if (this.employee.getCommencingDate() != null) {
+                                            try {
+                                                strCommencingDate = Formater.formatDate(this.employee.getCommencingDate(), "yyyy-MM-dd");
+                                            } catch (Exception E) {
+                                                System.out.println("[exc] Parsing Commencing Date" + E.toString());
+                                                msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                            }
+                                        }
+
+                                        String sql = "INSERT INTO " + PstEmployee.TBL_HR_EMPLOYEE
+                                                + " (" + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_COMPANY_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_DEPARTMENT_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_SECTION_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_NUM] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_EMP_CATEGORY_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_LEVEL_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_FULL_NAME] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_ADDRESS] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_SEX] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_BIRTH_PLACE] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_BIRTH_DATE] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RELIGION_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_BLOOD_TYPE] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_COMMENCING_DATE] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RESIGNED] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RESIGNED_DESC] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RESIGNED_REASON_ID] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_BARCODE_NUMBER] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_EMP_PIN] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_TAX_REG_NR] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RACE] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_MARITAL_ID] + ","//Gede_15Nov2011{
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_FATHER] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_MOTHER] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_PARENTS_ADDRESS] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_NAME_EMG] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_PHONE_EMG] + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_ADDRESS_EMG] + "," //}
+                                                //Gede_27Nov2011{
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_HOD_EMPLOYEE_ID] +","//}
+                                                //Ganki_27okt2014{
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_LOCATION_ID] +","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_END_CONTRACT] +","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_COMPANY_ID] +","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_DIVISION_ID] +","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_DEPARTMENT_ID] +","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_SECTION_ID] +","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_POSITION_ID] +
+                                                
+                                                " ) VALUES ( "
+                                                + oid + ","
+                                                + this.employee.getCompanyId() + ","
+                                                + this.employee.getDivisionId() + ","
+                                                + this.employee.getDepartmentId() + ","
+                                                + this.employee.getPositionId() + ","
+                                                + this.employee.getSectionId() + ","
+                                                + "'" + this.employee.getEmployeeNum() + "',"
+                                                + this.employee.getEmpCategoryId() + ","
+                                                + this.employee.getLevelId() + ","
+                                                + "'" + this.employee.getFullName() + "',"
+                                                + "'" + this.employee.getAddress() + "',"
+                                                + this.employee.getSex() + ","
+                                                + "'" + this.employee.getBirthPlace() + "',"
+                                                + "'" + strBirthDate + "',"
+                                                + this.employee.getReligionId() + ","
+                                                + "'" + this.employee.getBloodType() + "',"
+                                                + "'" + strCommencingDate + "',"
+                                                + this.employee.getResigned() + ","
+                                                + "'" + this.employee.getResignedDesc() + "',"
+                                                + this.employee.getResignedReasonId() + ","
+                                                + "'" + this.employee.getBarcodeNumber() + "',"
+                                                + "'" + this.employee.getEmpPin() + "',"
+                                                + "'" + this.employee.getTaxRegNr() + "',"
+                                                + this.employee.getRace() + ","
+                                                + +this.employee.getMaritalId() + ","//Gede_15Nov2011{
+                                                + "'" + this.employee.getFather() + "',"
+                                                + "'" + this.employee.getMother() + "',"
+                                                + "'" + this.employee.getParentsAddress() + "'"
+                                                + "'" + this.employee.getNameEmg() + "',"
+                                                + "'" + this.employee.getPhoneEmg() + "',"
+                                                + "'" + this.employee.getAddressEmg() + "',"//}
+                                                //Gede_27Nov2011{
+                                                + "'" + this.employee.getHodEmployeeId() + "',"//}
+                                                //Ganki_27okt2014{
+                                                + this.employee.getLocationId() + ","
+                                                + "'" + strEndContract  + "',"
+                                                + this.employee.getWorkassigncompanyId() +","
+                                                + this.employee.getWorkassigndivisionId() +","
+                                                + this.employee.getWorkassigndepartmentId() +","
+                                                + this.employee.getWorkassignsectionId() +","
+                                                + this.employee.getWorkassignpositionId() +"')";//}
+
+
+                                        
+                                        
+                                        stmt = con.createStatement();
+                                        stmt.executeUpdate(sql);
+
+                                    } catch (Exception E) {
+                                        System.out.println("[exception] INSERT INTO DATABASE BACKUP " + E.toString());
+                                    } finally {
+                                        try {
+                                            stmt.close();
+                                            con.close();
+                                        } catch (Exception e) {
+                                            System.out.println("EXCEPTION " + e.toString());
+                                            msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                        }
+                                    }
+                                }
+
+                            } catch (Exception E) {
+                                System.out.println("EXCEPTION " + E.toString());
+                                msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                            }
+
+                            /* Pengecekan untuk Database Finger Spot ( Exist or not )*/
+                            if (!MachineFnSpot.equals("") && MachineFnSpot.equals("ok")) {
+
+                                SessEmployee.insertUserInfo(this.employee.getBarcodeNumber(), this.employee.getFullName());
+
+                            }
+
+                        }
+
+                        /**
+                         * using in aiso to set employee to be contact
+                         * PstContactList pstContactList = new PstContactList();
+                         * if(employee.getIsAssignToAccounting()){ long
+                         * oidContact =
+                         * pstContactList.insertEmployeeToContact(this.employee);
+                         * }else{ long oidContact =
+                         * pstContactList.deleteEmployeeFromContact(oidEmployee);
+                         * }
+                         */
+                        //on add new employee -- add also to leave stock
+                        /*
+                         if (oid != 0) {
+                         LeaveStock stock = new LeaveStock();
+                         stock.setEmployeeId(oid);
+                         PstLeaveStock.insertExc(stock);
+                         }
+                         */
+                    } catch (DBException dbexc) {
+                        excCode = dbexc.getErrorCode();
+                        msgString = getSystemMessage(excCode);
+                        return getControlMsgId(excCode);
+                    } catch (Exception exc) {
+                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                        return getControlMsgId(I_DBExceptionInfo.UNKNOWN);
+                    }
+                } else {
+                    try {
+
+                        long oid = pstEmployee.updateExc(this.employee);
+                        
+                        // logHistory
+                        if(sysLog == 1){
+                            employee = PstEmployee.fetchExc(oid);
+                            
+                            if(employee != null && prevEmployee != null){
+                                //Basic Information
+                                if(!employee.getEmployeeNum().equals(prevEmployee.getEmployeeNum())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_NUM]+";";
+                                    logPrev += "'"+prevEmployee.getEmployeeNum()+"';";
+                                    logCurr += "'"+employee.getEmployeeNum()+"';";
+                                }
+                                if(!employee.getFullName().equals(prevEmployee.getFullName())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_FULL_NAME]+";";
+                                    logPrev += "'"+prevEmployee.getFullName()+"';";
+                                    logCurr += "'"+employee.getFullName()+"';";
+                                }
+                                if(!employee.getAddress().equals(prevEmployee.getAddress())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_ADDRESS]+";";
+                                    logPrev += "'"+prevEmployee.getAddress()+"';";
+                                    logCurr += "'"+employee.getAddress()+"';";
+                                }
+                                if(!employee.getAddressPermanent().equals(prevEmployee.getAddressPermanent())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_ADDRESS_PERMANENT]+";";
+                                    logPrev += "'"+prevEmployee.getAddressPermanent()+"';";
+                                    logCurr += "'"+employee.getAddressPermanent()+"';";
+                                }
+                                if(employee.getPostalCode() != prevEmployee.getPostalCode()){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_POSTAL_CODE]+";";
+                                    logPrev += prevEmployee.getPostalCode()+";";
+                                    logCurr += employee.getPostalCode()+";";
+                                }
+                                if(!employee.getPhone().equals(prevEmployee.getPhone())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_PHONE]+";";
+                                    logPrev += "'"+prevEmployee.getPhone()+"';";
+                                    logCurr += "'"+employee.getPhone()+"';";
+                                }
+                                if(!employee.getHandphone().equals(prevEmployee.getHandphone())){
+                                    logDetail += logDetail += PstEmployee.fieldNames[PstEmployee.FLD_HANDPHONE]+";";
+                                    logPrev += "'"+prevEmployee.getHandphone()+"';";
+                                    logCurr += "'"+employee.getHandphone()+"';";
+                                }
+                                if(!employee.getPhoneEmergency().equals(prevEmployee.getPhoneEmergency())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_PHONE_EMERGENCY]+";";
+                                    logPrev += "'"+prevEmployee.getPhoneEmergency()+"';";
+                                    logCurr += "'"+employee.getPhoneEmergency()+"';";
+                                }
+                                if(!employee.getNameEmg().equals(prevEmployee.getNameEmg())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_NAME_EMG]+";";
+                                    logPrev += "'"+prevEmployee.getNameEmg()+"';";
+                                    logCurr += "'"+employee.getNameEmg()+"';";
+                                }
+                                if(!employee.getAddressEmg().equals(prevEmployee.getAddressEmg())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_ADDRESS_EMG]+";";
+                                    logPrev += "'"+prevEmployee.getAddressEmg()+"';";
+                                    logCurr += "'"+employee.getAddressEmg()+"';";
+                                }
+                                if(employee.getSex() != prevEmployee.getSex()){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_SEX]+";";
+                                    logPrev += prevEmployee.getSex()+";";
+                                    logCurr += employee.getSex()+";";
+                                }
+                                if(!(employee.getBirthPlace().equals(prevEmployee.getBirthPlace()))){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_BIRTH_PLACE]+";";
+                                    logPrev += "'"+prevEmployee.getBirthPlace()+"';";
+                                    logCurr += "'"+employee.getBirthPlace()+"';";
+                                }
+                                if (employee.getBirthDate() != null){
+                                    if(!(employee.getBirthDate().equals(prevEmployee.getBirthDate()))){
+                                        logDetail += PstEmployee.fieldNames[PstEmployee.FLD_BIRTH_DATE]+";";
+                                        logPrev += "'"+prevEmployee.getBirthDate()+"';";
+                                        logCurr += "'"+employee.getBirthDate()+"';";
+                                    }
+                                }
+                                if(employee.getReligionId() != prevEmployee.getReligionId()){
+                                    Religion relig = PstReligion.fetchExc(employee.getReligionId());
+                                    Religion prevRelig = PstReligion.fetchExc(prevEmployee.getReligionId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_RELIGION_ID]+";";
+                                    logPrev += "["+prevEmployee.getReligionId()+"]"+prevRelig.getReligion()+";";
+                                    logCurr += "["+employee.getReligionId()+"]"+relig.getReligion()+";";
+                                }
+                                if(employee.getMaritalId() != prevEmployee.getMaritalId()){
+                                    Marital marital = PstMarital.fetchExc(employee.getMaritalId());
+                                    Marital prevMarital = PstMarital.fetchExc(prevEmployee.getMaritalId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_MARITAL_ID]+";";
+                                    logPrev += "["+prevEmployee.getMaritalId()+"]"+prevMarital.getMaritalStatus()+";";
+                                    logCurr += "["+employee.getMaritalId()+"]"+marital.getMaritalStatus()+";";
+                                }
+                                if(employee.getTaxMaritalId() != prevEmployee.getTaxMaritalId()){
+                                    Marital marital = PstMarital.fetchExc(employee.getTaxMaritalId());
+                                    Marital prevMarital = PstMarital.fetchExc(prevEmployee.getTaxMaritalId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_TAX_MARITAL_ID]+";";
+                                    logPrev += "["+prevEmployee.getTaxMaritalId()+"]"+prevMarital.getMaritalStatus()+";";
+                                    logCurr += "["+employee.getTaxMaritalId()+"]"+marital.getMaritalStatus()+";";
+                                }
+                                if(!employee.getBloodType().equals(prevEmployee.getBloodType())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_BLOOD_TYPE]+";";
+                                    logPrev += "'"+prevEmployee.getBloodType()+"';";
+                                    logCurr += "'"+employee.getBloodType()+"';";
+                                }
+                                if(employee.getRace() != prevEmployee.getRace()){
+                                    Race race = PstRace.fetchExc(employee.getRace());
+                                    Race prevRace = PstRace.fetchExc(prevEmployee.getRace());
+                                    logDetail = logDetail += PstEmployee.fieldNames[PstEmployee.FLD_RACE]+";";
+                                    logPrev += "["+prevEmployee.getRace()+"]"+prevRace.getRaceName()+";";
+                                    logCurr += "["+employee.getRace()+"]"+race.getRaceName()+";";
+                                }
+                                if(!employee.getBarcodeNumber().equals(prevEmployee.getBarcodeNumber())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_BARCODE_NUMBER]+";";
+                                    logPrev += "'"+prevEmployee.getBarcodeNumber()+"';";
+                                    logCurr += "'"+employee.getBarcodeNumber()+"';";
+                                }
+                                if(!employee.getIdcardtype().equals(prevEmployee.getIdcardtype())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_ID_CARD_TYPE]+";";
+                                    logPrev += "'"+prevEmployee.getIdcardtype()+"';";
+                                    logCurr += "'"+employee.getIdcardtype()+"';";
+                                }
+                                if(!(employee.getIndentCardValidTo().equals(prevEmployee.getIndentCardValidTo()))){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_INDENT_CARD_VALID_TO]+";";
+                                    logPrev += "'"+prevEmployee.getIndentCardValidTo()+"';";
+                                    logCurr += "'"+employee.getIndentCardValidTo()+"';";
+                                }
+                                if(!employee.getEmailAddress().equals(prevEmployee.getEmailAddress())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_EMAIL_ADDRESS]+";";
+                                    logPrev += "'"+prevEmployee.getEmailAddress()+"';";
+                                    logCurr += "'"+employee.getEmailAddress()+"';";
+                                }
+                                // end Basic Information
+                                // Quotient Information
+                                if(!employee.getIq().equals(prevEmployee.getIq()) && employee.getIq() != null){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_IQ]+";";
+                                    logPrev += "'"+prevEmployee.getIq()+"';";
+                                    logCurr += "'"+employee.getIq()+"';";
+                                }
+                                if(!employee.getEq().equals(prevEmployee.getEq()) && employee.getEq() != null){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_EQ]+";";
+                                    logPrev += "'"+prevEmployee.getEq()+"';";
+                                    logCurr += "'"+employee.getEq()+"';";
+                                }
+                                // end Quotient Information
+                                if(!employee.getNoRekening().equals(prevEmployee.getNoRekening())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_NO_REKENING]+";";
+                                    logPrev += "'"+prevEmployee.getNoRekening()+"';";
+                                    logCurr += "'"+employee.getNoRekening()+"';";
+                                }
+                                if(!employee.getNpwp().equals(prevEmployee.getNpwp())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_NPWP]+";";
+                                    logPrev += "'"+prevEmployee.getNpwp()+"';";
+                                    logCurr += "'"+employee.getNpwp()+"';";
+                                }
+                                // start parent
+                                if(!employee.getFather().equals(prevEmployee.getFather())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_FATHER]+";";
+                                    logPrev += "'"+prevEmployee.getFather()+"';";
+                                    logCurr += "'"+employee.getFather()+"';";
+                                }
+                                if(!employee.getMother().equals(prevEmployee.getMother())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_MOTHER]+";";
+                                    logPrev += "'"+prevEmployee.getMother()+"';";
+                                    logCurr += "'"+employee.getMother()+"';";
+                                }
+                                if(!employee.getParentsAddress().equals(prevEmployee.getParentsAddress())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_PARENTS_ADDRESS]+";";
+                                    logPrev += "'"+prevEmployee.getParentsAddress()+"';";
+                                    logCurr += "'"+employee.getParentsAddress()+"';";
+                                }
+                                // end parent
+                                // start informasi perusahaan
+                                if(employee.getCompanyId() != prevEmployee.getCompanyId()){
+                                    Company company = PstCompany.fetchExc(employee.getCompanyId());
+                                    Company prevCompany = PstCompany.fetchExc(prevEmployee.getCompanyId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_COMPANY_ID]+";";
+                                    logPrev += "["+prevEmployee.getCompanyId()+"]"+prevCompany.getCompany()+";";
+                                    logCurr += "["+employee.getCompanyId()+"]"+company.getCompany()+";";
+                                }
+                                if(employee.getDivisionId() != prevEmployee.getDivisionId()){
+                                    Division div = PstDivision.fetchExc(employee.getDivisionId());
+                                    Division prevDiv = PstDivision.fetchExc(prevEmployee.getDivisionId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+";";
+                                    logPrev += "["+prevEmployee.getDivisionId()+"]"+prevDiv.getDivision()+";";
+                                    logCurr += "["+employee.getDivisionId()+"]"+div.getDivision()+";";
+                                }
+                                if(employee.getDepartmentId() != prevEmployee.getDepartmentId()){
+                                    Department dep = PstDepartment.fetchExc(employee.getDepartmentId());
+                                    Department prevDep = PstDepartment.fetchExc(prevEmployee.getDepartmentId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_DEPARTMENT_ID]+";";
+                                    logPrev += "["+prevEmployee.getDepartmentId()+"]"+prevDep.getDepartment()+";";
+                                    logCurr += "["+employee.getDepartmentId()+"]"+dep.getDepartment()+";";
+                                }
+                                if(employee.getSectionId() != prevEmployee.getSectionId()){
+                                    Section sec = PstSection.fetchExc(employee.getSectionId());
+                                    Section prevSec = PstSection.fetchExc(prevEmployee.getSectionId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_SECTION_ID]+";";
+                                    logPrev += "["+prevEmployee.getSectionId()+"]"+prevSec.getSection()+";";
+                                    logCurr += "["+employee.getSectionId()+"]"+sec.getSection()+";";
+                                }
+                                if(employee.getEmpCategoryId() != prevEmployee.getEmpCategoryId()){
+                                    EmpCategory cat = PstEmpCategory.fetchExc(employee.getEmpCategoryId());
+                                    EmpCategory prevCat = PstEmpCategory.fetchExc(prevEmployee.getEmpCategoryId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_EMP_CATEGORY_ID]+";";
+                                    logPrev += "["+prevEmployee.getEmpCategoryId()+"]"+prevCat.getEmpCategory()+";";
+                                    logCurr += "["+employee.getEmpCategoryId()+"]"+cat.getEmpCategory()+";";
+                                }
+                                if(employee.getLevelId() != prevEmployee.getLevelId() || employee.getGradeLevelId() != prevEmployee.getGradeLevelId()){
+                                    Level lvl = PstLevel.fetchExc(employee.getLevelId());
+                                    Level prevLvl = PstLevel.fetchExc(prevEmployee.getLevelId());
+                                    GradeLevel gLvl = PstGradeLevel.fetchExc(employee.getGradeLevelId());
+                                    GradeLevel prevGLvl = PstGradeLevel.fetchExc(prevEmployee.getGradeLevelId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_LEVEL_ID]+";";
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_GRADE_LEVEL_ID]+";";
+                                    if (employee.getLevelId() != prevEmployee.getLevelId()){
+                                        logPrev += "["+prevEmployee.getLevelId()+"]"+prevLvl.getLevel()+";";
+                                        logCurr += "["+employee.getLevelId()+"]"+lvl.getLevel()+";";
+                                    }
+                                    if (employee.getGradeLevelId() != prevEmployee.getGradeLevelId()){
+                                        logPrev += "["+prevEmployee.getGradeLevelId()+"]"+prevGLvl.getCodeLevel()+";";
+                                        logCurr += "["+employee.getGradeLevelId()+"]"+gLvl.getCodeLevel()+";";
+                                    }
+                                    
+                                }
+                                if(employee.getPositionId() != prevEmployee.getPositionId()){
+                                    Position pos = PstPosition.fetchExc(employee.getPositionId());
+                                    Position prevPos = PstPosition.fetchExc(prevEmployee.getPositionId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID]+";";
+                                    logPrev += "["+prevEmployee.getPositionId()+"]"+prevPos.getPosition()+";";
+                                    logCurr += "["+employee.getPositionId()+"]"+pos.getPosition()+";";
+                                }
+                                // end informasi perusahaan
+                                // start Informasi penempatan Kerja
+                                if(employee.getWorkassigncompanyId() != prevEmployee.getWorkassigncompanyId()){
+                                    Company waCompany = PstCompany.fetchExc(employee.getWorkassigncompanyId());
+                                    Company prevWaCompany = PstCompany.fetchExc(prevEmployee.getWorkassigncompanyId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_COMPANY_ID]+";";
+                                    logPrev += "["+prevEmployee.getWorkassigncompanyId()+"]"+prevWaCompany.getCompany()+";";
+                                    logCurr += "["+employee.getWorkassigncompanyId()+"]"+waCompany.getCompany()+";";
+                                }
+                                if(employee.getWorkassigndivisionId() != prevEmployee.getWorkassigndivisionId()){
+                                        Division waDiv = PstDivision.fetchExc(employee.getWorkassigndivisionId());
+                                        Division prevWaDiv = PstDivision.fetchExc(prevEmployee.getWorkassigndivisionId());
+                                        //logDetail = logDetail+" W.A.Satuan Kerja : "+prevWaDiv.getDivision()+" >> "+waDiv.getDivision()+" UPDATED</br>";
+                                    logPrev += "WORK_ASSIGN_DIVISION_ID=["+prevEmployee.getWorkassigndivisionId()+"]"+prevWaDiv.getDivision()+";";
+                                    logCurr += "WORK_ASSIGN_DIVISION_ID=["+employee.getWorkassigndivisionId()+"]"+waDiv.getDivision()+";";
+                                }
+                                if(employee.getWorkassigndepartmentId() != prevEmployee.getWorkassigndepartmentId()){
+                                    Department waDep = PstDepartment.fetchExc(employee.getWorkassigndepartmentId());
+                                    Department prevWaDp = PstDepartment.fetchExc(prevEmployee.getWorkassigndepartmentId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_DEPARTMENT_ID]+";";
+                                    logPrev += "["+prevEmployee.getWorkassigndepartmentId()+"]"+prevWaDp.getDepartment()+";";
+                                    logCurr += "["+employee.getWorkassigndepartmentId()+"]"+waDep.getDepartment()+";";
+                                }
+                                if(employee.getWorkassignsectionId() != prevEmployee.getWorkassignsectionId()){
+                                    Section waSec = PstSection.fetchExc(employee.getWorkassignsectionId());
+                                    Section prevWaSec = PstSection.fetchExc(prevEmployee.getWorkassignsectionId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_SECTION_ID]+";";
+                                    logPrev += "["+prevEmployee.getWorkassignsectionId()+"]"+prevWaSec.getSection()+";";
+                                    logCurr += "["+employee.getWorkassignsectionId()+"]"+waSec.getSection()+";";
+                                }
+                                if(employee.getWorkassignpositionId() != prevEmployee.getWorkassignpositionId()){
+                                    Position waPos = PstPosition.fetchExc(employee.getWorkassignpositionId());
+                                    Position prevWaPos = PstPosition.fetchExc(prevEmployee.getWorkassignpositionId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_POSITION_ID]+";";
+                                    logPrev += "["+prevEmployee.getWorkassignpositionId()+"]"+prevWaPos.getPosition()+";";
+                                    logCurr += "["+employee.getWorkassignpositionId()+"]"+waPos.getPosition()+";";
+                                }
+                                if(employee.getProviderID() != prevEmployee.getProviderID()){
+                                    ContactList waCon = PstContactList.fetchExc(employee.getProviderID());
+                                    ContactList prevWaCon = PstContactList.fetchExc(prevEmployee.getProviderID());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_PROVIDER_ID]+";";
+                                    logPrev += "["+prevEmployee.getProviderID()+"]"+prevWaCon.getCompName()+";";
+                                    logCurr += "["+employee.getProviderID()+"]"+waCon.getCompName()+";";       
+                                }
+                                if (employee.getCommencingDate() != null){
+                                    if(!(employee.getCommencingDate().equals(prevEmployee.getCommencingDate()))){
+                                        logDetail += PstEmployee.fieldNames[PstEmployee.FLD_COMMENCING_DATE]+";";
+                                        logPrev += "'"+prevEmployee.getCommencingDate()+"';";
+                                        logCurr += "'"+employee.getCommencingDate()+"';";
+                                    }
+                                }
+                                
+                                if (employee.getProbationEndDate() != null){
+                                    if(!(employee.getProbationEndDate().equals(prevEmployee.getProbationEndDate()))){
+                                        logDetail += PstEmployee.fieldNames[PstEmployee.FLD_PROBATION_END_DATE]+";";
+                                        logPrev += "'"+prevEmployee.getProbationEndDate()+"';";
+                                        logCurr += "'"+employee.getProbationEndDate()+"';";
+                                    }
+                                }
+                                
+                                if(employee.getLockerId() != prevEmployee.getLockerId()){
+                                    LockerLocation lock = PstLockerLocation.fetchExc(employee.getLockerId());
+                                    LockerLocation prevLock = PstLockerLocation.fetchExc(prevEmployee.getLockerId());
+                                    Locker lockerEmp = PstLocker.fetchExc(employee.getLockerId());
+                                    Locker prevLockerEmp = PstLocker.fetchExc(employee.getLockerId());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_LOCKER_ID]+";";
+                                    logPrev += "["+prevEmployee.getLockerId()+"]"+prevLockerEmp.getLockerNumber()+";";
+                                    logCurr += "["+employee.getLockerId()+"]"+lockerEmp.getLockerNumber()+";"; 
+                                }
+                                if(!employee.getAstekNum().equals(prevEmployee.getAstekNum())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_ASTEK_NUM]+";";
+                                    logPrev += "'"+prevEmployee.getAstekNum()+"';";
+                                    logCurr += "'"+employee.getAstekNum()+"';";
+                                }
+                                if (employee.getAstekDate() != null){
+                                    if(!(employee.getAstekDate().equals(prevEmployee.getAstekDate()))){
+                                        logDetail += PstEmployee.fieldNames[PstEmployee.FLD_ASTEK_DATE]+";";
+                                        logPrev += "'"+prevEmployee.getAstekDate()+"';";
+                                        logCurr += "'"+employee.getAstekDate()+"';";
+                                    }
+                                }
+                                
+                                if(!employee.getBpjs_no().equals(prevEmployee.getBpjs_no())){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_BPJS_NO]+";";
+                                    logPrev += "'"+prevEmployee.getBpjs_no()+"';";
+                                    logCurr += "'"+employee.getBpjs_no()+"';";
+                                }
+                                if (employee.getBpjs_date() != null){
+                                    if(!(employee.getAstekDate().equals(prevEmployee.getAstekDate()))){
+                                        logDetail += PstEmployee.fieldNames[PstEmployee.FLD_BPJS_DATE]+";";
+                                        logPrev += "'"+prevEmployee.getBpjs_date()+"';";
+                                        logCurr += "'"+employee.getBpjs_date()+"';";
+                                    }
+                                }
+                                
+                                if(employee.getStatusPensiunProgram() != prevEmployee.getStatusPensiunProgram()){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_STATUS_PENSIUN_PROGRAM]+";";
+                                    logPrev += "["+prevEmployee.getStatusPensiunProgram()+"];";
+                                    logCurr += "["+employee.getStatusPensiunProgram()+"];";
+                                }
+                                if (employee.getStartDatePensiun() != null){
+                                    if(!(employee.getStartDatePensiun().equals(prevEmployee.getStartDatePensiun()))){
+                                        logDetail += PstEmployee.fieldNames[PstEmployee.FLD_START_DATE_PENSIUN]+";";
+                                        logPrev += "'"+prevEmployee.getStartDatePensiun()+"';";
+                                        logCurr += "'"+employee.getStartDatePensiun()+"';";
+                                    }
+                                }
+                                
+                                if(employee.getDanaPendidikan() != prevEmployee.getDanaPendidikan()){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_DANA_PENDIDIKAN]+";";
+                                    logPrev += prevEmployee.getDanaPendidikan()+";";
+                                    logCurr += employee.getDanaPendidikan()+";";
+                                }
+                                if(employee.getResigned() != prevEmployee.getResigned()){
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_RESIGNED]+";";
+                                    logPrev += prevEmployee.getResigned()+";";
+                                    logCurr += employee.getResigned()+";";
+                                }
+                                if (employee.getResignedDate() != null){
+                                    if(!(employee.getResignedDate().equals(prevEmployee.getResignedDate()))){
+                                        logDetail += PstEmployee.fieldNames[PstEmployee.FLD_RESIGNED_DATE]+";";
+                                        logPrev += "'"+prevEmployee.getResignedDate()+"';";
+                                        logCurr += "'"+employee.getResignedDate()+"';";
+                                    }
+                                }
+                                
+                                if(employee.getProviderID() != prevEmployee.getProviderID()){
+                                    ResignedReason resReason = PstResignedReason.fetchExc(employee.getProviderID());
+                                    ResignedReason prevResReason = PstResignedReason.fetchExc(prevEmployee.getProviderID());
+                                    logDetail += PstEmployee.fieldNames[PstEmployee.FLD_PROVIDER_ID]+";";
+                                    logPrev += prevEmployee.getStartDatePensiun()+";";
+                                    logCurr += employee.getStartDatePensiun()+";";
+                                }
+                                // end Informasi penempatan Kerja
+                                String className = employee.getClass().getName();
+                                
+                                LogSysHistory logSysHistory = new LogSysHistory();
+                                
+                                String reqUrl = request.getRequestURI().toString()+"?employee_oid="+oidEmployee;
+                        
+                                logSysHistory.setLogDocumentId(0);
+                                logSysHistory.setLogUserId(userId);
+                                logSysHistory.setLogLoginName(loginName);
+                                logSysHistory.setLogDocumentNumber("");
+                                logSysHistory.setLogDocumentType(className); //entity
+                                logSysHistory.setLogUserAction("EDIT"); // command
+                                logSysHistory.setLogOpenUrl(reqUrl); // locate jsp
+                                logSysHistory.setLogUpdateDate(nowDate);
+                                logSysHistory.setApproverId(userId);
+                                logSysHistory.setApproveDate(nowDate);
+                                logSysHistory.setLogApplication(I_LogHistory.SYSTEM_NAME[I_LogHistory.SYSTEM_HAIRISMA]); // interface
+                                logSysHistory.setLogDetail(logDetail); // apa yang dirubah
+                                logSysHistory.setLogStatus(0);
+                                logSysHistory.setLogPrev(logPrev);
+                                logSysHistory.setLogCurr(logCurr);
+                                logSysHistory.setLogModule("Databank/Pesonal Data");
+                                logSysHistory.setCompanyId(employee.getCompanyId());
+                                logSysHistory.setDivisionId(employee.getDivisionId());
+                                logSysHistory.setDepartmentId(employee.getDepartmentId());
+                                logSysHistory.setSectionId(employee.getSectionId());
+                                logSysHistory.setLogEditedUserId(employee.getOID());
+                                
+                                PstLogSysHistory.insertExc(logSysHistory);
+                            }
+                        }
+
+                        /* Bila Proses yang dilakukan adalah edit */
+                        if (oid != 0) {
+                            
+                            
+                            String whereClause = PstCareerPath.fieldNames[PstCareerPath.FLD_EMPLOYEE_ID] + " = " + oid;   
+                             Vector listcareerpath = PstCareerPath.listcheckcareer(0, 0, whereClause, null);
+                                                        
+                            if ((listcareerpath.size()==0) &&(this.employee.getEnd_contract()!=null)){
+                                
+                               
+                                CareerPath careerPath= new CareerPath();
+                                careerPath.setEmployeeId(oid);
+                                careerPath.setCompanyId(this.employee.getCompanyId());
+                                careerPath.setCompany(PstCareerPath.getCompany(String.valueOf(this.employee.getCompanyId()).toString()));
+                                careerPath.setDepartmentId(this.employee.getDepartmentId());
+                                careerPath.setDepartment(PstCareerPath.getDepartment(String.valueOf(this.employee.getDepartmentId()).toString()));
+                                careerPath.setPositionId(this.employee.getPositionId());
+                                careerPath.setPosition(PstCareerPath.getDepartment(String.valueOf(this.employee.getDepartmentId()).toString()));
+                                careerPath.setSectionId(this.employee.getSectionId());
+                                careerPath.setSection(PstCareerPath.getSection(String.valueOf(this.employee.getSectionId()).toString()));
+                                careerPath.setWorkFrom(this.employee.getCommencingDate());
+                                careerPath.setWorkTo(this.employee.getEnd_contract());
+                                careerPath.setSalary(0);
+                                careerPath.setDescription("First carrier");
+                                careerPath.setEmpCategoryId(this.employee.getEmpCategoryId());
+                                careerPath.setEmpCategory(PstCareerPath.getCategory(String.valueOf(this.employee.getEmpCategoryId()).toString()));
+                              //  careerPath.set(this.employee.getCompanyId());
+                                careerPath.setDivisionId(this.employee.getDivisionId());
+                                careerPath.setDivision(PstCareerPath.getDivision(String.valueOf(this.employee.getDivisionId()).toString()));
+                                careerPath.setLevelId(this.employee.getLevelId());
+                                careerPath.setLevel(PstCareerPath.getLevel(String.valueOf(this.employee.getLevelId()).toString()));
+                                careerPath.setLocationId(this.employee.getLocationId());
+                                careerPath.setLocation(PstCareerPath.getLocation(String.valueOf(this.employee.getLocationId()).toString()));
+                                //salah metode karena kariawan baru seharusnya belum masuk ke carrier path 20151212
+                                //PstCareerPath.insertExc(careerPath);
+                            }
+                            
+                            
+                            msgString = FRMMessage.getMsg(FRMMessage.MSG_UPDATED);
+                            try {
+
+                                String db_backup_url = PstSystemProperty.getValueByName("DB_BACKUP_URL");
+                                String db_backup_usr = PstSystemProperty.getValueByName("DB_BACKUP_USR");
+                                String db_backup_psd = PstSystemProperty.getValueByName("DB_BACKUP_PSWD");
+
+                                /* Pengecekan kelengkapan konfigurasi di system property */
+                                if (db_backup_url.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0
+                                        && db_backup_usr.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0
+                                        && db_backup_psd.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0) {
+
+                                    try {
+                                        Class.forName("com.mysql.jdbc.Driver");
+                                        System.out.println("Driver Found");
+                                    } catch (ClassNotFoundException e) {
+                                        javax.swing.JOptionPane.showMessageDialog(null, "Driver Not Found " + e.toString());
+                                    }
+
+                                    Connection con = null;
+                                    Statement stmt = null;
+                                    try {
+
+                                        con = DriverManager.getConnection(db_backup_url, db_backup_usr, db_backup_psd);
+
+                                        String strBirthDate = "";
+                                        if (this.employee.getBirthDate() != null) {
+                                            try {
+                                                strBirthDate = Formater.formatDate(this.employee.getBirthDate(), "yyyy-MM-dd");
+                                            } catch (Exception E) {
+                                                System.out.println("[exc] Parsing Commencing Date" + E.toString());
+                                                msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                            }
+                                        }
+                                        
+                                        String strEndContract = "";
+                                        if (this.employee.getEnd_contract() != null) {
+                                            try {
+                                                strEndContract = Formater.formatDate(this.employee.getEnd_contract(), "yyyy-MM-dd");
+                                            } catch (Exception E) {
+                                                System.out.println("[exc] Parsing Commencing Date" + E.toString());
+                                                msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                            }
+                                        }
+                                        
+
+                                        String strCommencingDate = "";
+                                        if (this.employee.getCommencingDate() != null) {
+                                            try {
+                                                strCommencingDate = Formater.formatDate(this.employee.getCommencingDate(), "yyyy-MM-dd");
+                                            } catch (Exception E) {
+                                                System.out.println("[exc] Parsing Commencing Date" + E.toString());
+                                                msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                            }
+                                        }
+
+                                        String sql = "UPDATE " + PstEmployee.TBL_HR_EMPLOYEE + " SET "
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_COMPANY_ID] + " = " + this.employee.getCompanyId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID] + " = " + this.employee.getDivisionId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_DEPARTMENT_ID] + " = " + this.employee.getDepartmentId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID] + " = " + this.employee.getPositionId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_SECTION_ID] + " = " + this.employee.getSectionId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_NUM] + " = '" + this.employee.getEmployeeNum() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_EMP_CATEGORY_ID] + " = " + this.employee.getEmpCategoryId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_LEVEL_ID] + " = " + this.employee.getLevelId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_FULL_NAME] + " = '" + this.employee.getFullName() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_ADDRESS] + " = '" + this.employee.getAddress() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_SEX] + " = " + this.employee.getSex() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_BIRTH_PLACE] + "= '" + this.employee.getBirthPlace() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_BIRTH_DATE] + " = '" + strBirthDate + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RELIGION_ID] + " = " + this.employee.getReligionId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_BLOOD_TYPE] + " = '" + this.employee.getBloodType() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_COMMENCING_DATE] + " = '" + strCommencingDate + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RESIGNED] + " = " + this.employee.getResigned() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RESIGNED_DESC] + " = '" + this.employee.getResignedDesc() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_RESIGNED_REASON_ID] + " = " + this.employee.getResignedReasonId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_TAX_REG_NR] + " = '" + this.employee.getTaxRegNr() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_BARCODE_NUMBER] + " = '" + this.employee.getBarcodeNumber() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_EMP_PIN] + " = '" + this.employee.getEmpPin() + "' " //Gede_15Nov2011{
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_FATHER] + " = '" + this.employee.getFather() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_MOTHER] + " = '" + this.employee.getMother() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_PARENTS_ADDRESS] + " = '" + this.employee.getParentsAddress() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_NAME_EMG] + " = '" + this.employee.getNameEmg() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_PHONE_EMG] + " = '" + this.employee.getPhoneEmg() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_ADDRESS_EMG] + " = '" + this.employee.getAddressEmg() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_HOD_EMPLOYEE_ID] + " = " + this.employee.getHodEmployeeId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_LOCATION_ID] + " = " + this.employee.getLocationId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_END_CONTRACT] + " = '" + this.employee.getEnd_contract() + "',"
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_COMPANY_ID] + " = " + this.employee.getWorkassigncompanyId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_DIVISION_ID] + " = " + this.employee.getWorkassigndivisionId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_DEPARTMENT_ID] + " = " + this.employee.getWorkassigndepartmentId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_SECTION_ID] + " = " + this.employee.getWorkassignsectionId() + ","
+                                                + PstEmployee.fieldNames[PstEmployee.FLD_WORK_ASSIGN_POSITION_ID] + " = " + this.employee.getWorkassignpositionId() + ","
+                                                
+                                                + " WHERE " + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_ID] + " = " + oid;
+
+                                        stmt = con.createStatement();
+                                        stmt.executeUpdate(sql);
+
+                                    } catch (Exception E) {
+                                        System.out.println("[exception] UPDATE INTO DATABASE BACKUP " + E.toString());
+                                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                    } finally {
+                                        try {
+                                            stmt.close();
+                                            con.close();
+                                        } catch (Exception e) {
+                                            System.out.println("EXCEPTION " + e.toString());
+                                            msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                        }
+                                    }
+                                }
+
+                            } catch (Exception E) {
+                                System.out.println("EXCEPTION " + E.toString());
+                                msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                            }
+
+                        }
+
+
+                        /* Pengecekan bila ada perubahan barcode number, karena akan mengupdate database finger spot */
+                        boolean updateBarcode = true;
+                        boolean upMachine = false;
+
+                        /* Penegcekan untuk mesin, apakah ada database mesin atau tidak */
+                        //update by satrya 2012-11-09
+                        if (employee.getBarcodeNumber() != null) {
+                            if (!tmpBarcodeNumber.equals(employee.getBarcodeNumber()) && oid != 0) {
+
+                                if (!MachineFnSpot.equals("") && MachineFnSpot.equals("ok")) {
+
+                                    updateBarcode = SessEmployee.updateBarcodeAtt2010(tmpBarcodeNumber, employee.getBarcodeNumber(), employee.getFullName());
+                                    upMachine = true;
+
+                                }
+                            }
+                        }
+
+                        if (!tmpFullName.equals(employee.getFullName()) && oid != 0 && updateBarcode == true) {
+
+                            if (!MachineFnSpot.equals("") && MachineFnSpot.equals("ok")) {
+
+                                SessEmployee.updateFullNameAtt2010(employee.getBarcodeNumber(), employee.getFullName());
+                                upMachine = true;
+
+                            }
+
+                        }
+
+                        if (upMachine) {
+                            msgString = FRMMessage.getMsg(FRMMessage.MSG_UPDATE_DB_MACHINE);
+                            return RSLT_FORM_INCOMPLETE;
+                        }
+
+                    } catch (DBException dbexc) {
+                        excCode = dbexc.getErrorCode();
+                        msgString = getSystemMessage(excCode);
+                    } catch (Exception exc) {
+                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                    }
+                }
+                break;
+
+            case Command.EDIT:
+                if (oidEmployee != 0) {
+                    try {
+                        employee = PstEmployee.fetchExc(oidEmployee);
+                        if (employee.getLockerId() != 0) {
+                            locker = PstLocker.fetchExc(employee.getLockerId());
+                        }
+                    } catch (DBException dbexc) {
+                        excCode = dbexc.getErrorCode();
+                        msgString = getSystemMessage(excCode);
+                    } catch (Exception exc) {
+                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                    }
+                }
+                break;
+
+            case Command.ASK:
+                if (oidEmployee != 0) {
+                    try {
+                        employee = PstEmployee.fetchExc(oidEmployee);
+                        if (employee.getLockerId() != 0) {
+                            locker = PstLocker.fetchExc(employee.getLockerId());
+                        }
+                    } catch (DBException dbexc) {
+                        excCode = dbexc.getErrorCode();
+                        msgString = getSystemMessage(excCode);
+                    } catch (Exception exc) {
+                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                    }
+                }
+                break;
+
+            case Command.DELETE:
+                System.out.println("oidEmployee " + oidEmployee);
+                if (oidEmployee != 0) {
+                    try {
+
+                        Employee objEmployee = new Employee();
+
+                        try {
+                            objEmployee = PstEmployee.fetchExc(oidEmployee);
+                        } catch (Exception e) {
+                            System.out.println("Exception " + e.toString());
+                        }
+
+                        long oid = PstEmpLanguage.deleteByEmployee(oidEmployee);
+                        oid = PstFamilyMember.deleteByEmployee(oidEmployee);
+                        oid = PstExperience.deleteByEmployee(oidEmployee);
+
+                        oid = PstCareerPath.deleteByEmployee(oidEmployee);
+                        oid = PstEmpSalary.deleteByEmployee(oidEmployee);
+                        oid = PstEmpSchedule.deleteByEmployee(oidEmployee);
+                        oid = PstLeave.deleteByEmployee(oidEmployee);
+                        oid = PstDayOfPayment.deleteByEmployee(oidEmployee);
+                        oid = PstPresence.deleteByEmployee(oidEmployee);
+                        oid = PstLocker.deleteByEmployee(oidEmployee);
+                        oid = PstEmployee.deleteExc(oidEmployee);
+                        
+                        // logHistory
+                        if(sysLog == 1){
+                            
+                            if(!objEmployee.getFullName().equals("")){
+                                logDetail = logDetail+" Employee : "+objEmployee.getFullName()+" DELETED</br>";
+                            }
+                            
+                            String className = objEmployee.getClass().getName();
+
+                            LogSysHistory logSysHistory = new LogSysHistory();
+
+                            String reqUrl = request.getRequestURI().toString()+"?employee_oid="+oidEmployee;
+
+                            logSysHistory.setLogDocumentId(0);
+                            logSysHistory.setLogUserId(userId);
+                            logSysHistory.setLogLoginName(loginName);
+                            logSysHistory.setLogDocumentNumber("");
+                            logSysHistory.setLogDocumentType(className); //entity
+                            logSysHistory.setLogUserAction("DELETE"); // command
+                            logSysHistory.setLogOpenUrl(reqUrl); // locate jsp
+                            logSysHistory.setLogUpdateDate(nowDate);
+                            logSysHistory.setLogApplication(I_LogHistory.SYSTEM_NAME[I_LogHistory.SYSTEM_HAIRISMA]); // interface
+                            logSysHistory.setLogDetail(logDetail); // apa yang dirubah
+                            logSysHistory.setLogStatus(0);
+
+                            PstLogSysHistory.insertExc(logSysHistory);
+                            
+                        }
+
+
+                        /*Untuk penghapusan data di database backup untuk kasus NIKKO*/
+                        try {
+
+                            String db_backup_url = PstSystemProperty.getValueByName("DB_BACKUP_URL");
+                            String db_backup_usr = PstSystemProperty.getValueByName("DB_BACKUP_USR");
+                            String db_backup_psd = PstSystemProperty.getValueByName("DB_BACKUP_PSWD");
+
+                            if (db_backup_url.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0
+                                    && db_backup_usr.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0
+                                    && db_backup_psd.compareTo(PstSystemProperty.SYS_NOT_INITIALIZED) != 0) {
+
+                                try {
+                                    Class.forName("com.mysql.jdbc.Driver");
+                                    System.out.println("Driver Found");
+                                } catch (ClassNotFoundException e) {
+                                    javax.swing.JOptionPane.showMessageDialog(null, "Driver Not Found " + e.toString());
+                                }
+
+                                Connection con = null;
+                                Statement stmt = null;
+                                try {
+
+                                    con = DriverManager.getConnection(db_backup_url, db_backup_usr, db_backup_psd);
+
+                                    String sql = "DELETE FROM " + PstEmployee.TBL_HR_EMPLOYEE + " WHERE "
+                                            + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_ID] + " = " + oidEmployee;
+
+                                    stmt = con.createStatement();
+                                    stmt.executeUpdate(sql);
+
+                                } catch (Exception E) {
+                                    System.out.println("[exception] UPDATE INTO DATABASE BACKUP " + E.toString());
+                                } finally {
+                                    try {
+                                        stmt.close();
+                                        con.close();
+                                    } catch (Exception e) {
+                                        System.out.println("EXCEPTION " + e.toString());
+                                    }
+                                }
+                            }
+
+                        } catch (Exception E) {
+
+                            System.out.println("[exception] " + E.toString());
+
+                        }
+
+                        /* Penghapusan untuk data pada database mesin finger spot*/
+
+                        if (objEmployee.getOID() != 0) {
+                            if (!MachineFnSpot.equals("") && MachineFnSpot.equals("ok")) {
+                                SessEmployee.delDbFingerSpot(objEmployee.getBarcodeNumber());
+                            }
+                        }
+
+                        if (oid != 0) {
+                            msgString = FRMMessage.getMessage(FRMMessage.MSG_DELETED);
+                            excCode = RSLT_OK;
+                        } else {
+                            msgString = FRMMessage.getMessage(FRMMessage.ERR_DELETED);
+                            excCode = RSLT_FORM_INCOMPLETE;
+                        }
+
+                    } catch (DBException dbexc) {
+                        excCode = dbexc.getErrorCode();
+                        msgString = getSystemMessage(excCode);
+                    } catch (Exception exc) {
+                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                    }
+                }
+                break;
+
+            default:
+
+        }
+        return rsCode;
+    }
+}

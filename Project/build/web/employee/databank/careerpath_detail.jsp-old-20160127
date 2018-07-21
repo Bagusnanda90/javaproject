@@ -1,0 +1,281 @@
+<%-- 
+    Document   : careerpath_detail
+    Created on : Oct 27, 2015, 10:41:26 AM
+    Author     : Dimata 007
+--%>
+
+<%@page import="com.dimata.harisma.entity.payroll.PstPayGeneral"%>
+<%@page import="com.dimata.harisma.entity.payroll.PayGeneral"%>
+<%@page import="com.dimata.util.Formater"%>
+<%@page import="com.dimata.common.entity.contact.PstContactList"%>
+<%@page import="com.dimata.common.entity.contact.ContactList"%>
+<%@page import="com.dimata.util.lang.I_Dictionary"%>
+<%@ include file = "../../main/javainit.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%
+long oidCareerPath = FRMQueryString.requestLong(request, "oid");
+CareerPath careerPath = new CareerPath();
+String companyName = "";
+String divisionName = "";
+String departmentName = "";
+String sectionName = "";
+String positionName = "";
+String levelName = "";
+String categoryName = "";
+String historyFrom = "";
+String historyTo = "";
+String gradeLevelName = "";
+String description = "";
+String historyType = "";
+String historyGroup = "";
+String provider = "";
+String nomorSk = "";
+String tanggalSk = "";
+if (oidCareerPath != 0){
+    try {
+        careerPath = PstCareerPath.fetchExc(oidCareerPath);
+        companyName = careerPath.getCompany();
+        divisionName = careerPath.getDivision();
+        departmentName = careerPath.getDepartment();
+        sectionName = careerPath.getSection();
+        positionName = careerPath.getPosition();
+        levelName = careerPath.getLevel();
+        categoryName = careerPath.getEmpCategory();
+        historyFrom = Formater.formatDate(careerPath.getWorkFrom(), "dd MMMM yyyy");
+        historyTo = Formater.formatDate(careerPath.getWorkTo(), "dd MMMM yyyy");
+        try {
+            GradeLevel gLevel = PstGradeLevel.fetchExc(careerPath.getGradeLevelId());
+            gradeLevelName = gLevel.getCodeLevel();
+        } catch(Exception e){
+            System.out.print("=>"+e.toString());
+        }
+        description = careerPath.getDescription();
+        historyType = PstCareerPath.historyType[careerPath.getHistoryType()];
+        historyGroup = PstCareerPath.historyGroup[careerPath.getHistoryGroup()];
+        ContactList contact = new ContactList();
+        try {
+            contact = PstContactList.fetchExc(careerPath.getProviderID());
+            provider = contact.getCompName();
+        } catch (Exception e){
+            System.out.println(e.toString());
+        }
+        nomorSk = careerPath.getNomorSk();
+        tanggalSk = Formater.formatDate(careerPath.getTanggalSk(), "dd MMMM yyyy");
+    } catch(Exception e){
+        System.out.println(e.toString());
+    }
+    if (careerPath == null || careerPath.getOID() == 0){
+        Employee employee = new Employee();
+        try {
+            employee = PstEmployee.fetchExc(oidCareerPath);
+        } catch(Exception e){
+            System.out.println("Employee from careerpath detail=>"+e.toString());
+        }
+        if(employee.getCompanyId()!=0){
+            PayGeneral payGeneral =new PayGeneral();
+            try{
+                payGeneral =PstPayGeneral.fetchExc(employee.getCompanyId());
+            }catch(Exception exc){
+
+            }
+            companyName = payGeneral.getCompanyName();
+        }
+        if(employee.getDivisionId()!=0){
+            Division division =new Division();
+            try{
+                division =PstDivision.fetchExc(employee.getDivisionId());
+            }catch(Exception exc){
+
+            }
+            divisionName = division.getDivision();
+        }
+        if(employee.getDepartmentId()!=0){
+            Department department =new Department();
+            try{
+                department =PstDepartment.fetchExc(employee.getDepartmentId());
+            }catch(Exception exc){
+
+            }
+            departmentName = department.getDepartment();
+        }
+        if(employee.getSectionId()!=0){
+            Section section =new Section();
+            try{
+                section =PstSection.fetchExc(employee.getSectionId());
+            }catch(Exception exc){
+
+            }
+            sectionName = section.getSection();
+        }
+        if(employee.getPositionId()!=0){
+            Position position =new Position();
+            try{
+                position =PstPosition.fetchExc(employee.getPositionId());
+            }catch(Exception exc){
+
+            }
+            positionName = position.getPosition();
+        }
+        if(employee.getLevelId()!=0){
+            Level level =new Level();
+            try{
+                level =PstLevel.fetchExc(employee.getLevelId());
+            }catch(Exception exc){
+
+            }
+            levelName = level.getLevel();
+        }
+        if(employee.getEmpCategoryId()!=0){
+            EmpCategory empCategory = new EmpCategory();
+            try{
+                empCategory = PstEmpCategory.fetchExc(employee.getEmpCategoryId());
+            }catch(Exception exc){
+
+            }
+            categoryName = empCategory.getEmpCategory();
+        }
+        historyFrom = "fr";
+        historyTo = "to";
+        try {
+            GradeLevel gLevel = PstGradeLevel.fetchExc(employee.getGradeLevelId());
+            gradeLevelName = gLevel.getCodeLevel();
+        } catch(Exception e){
+            System.out.print("=>"+e.toString());
+        }
+        description = "";
+        historyType = "";
+        historyGroup = "";
+        provider = "";
+        nomorSk = "";
+        tanggalSk = "";
+    }
+}
+%>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Career Detail</title>
+        <style type="text/css">
+            body {
+                font-family: sans-serif;
+                font-size: 11px;
+                margin: 0; padding: 0;
+                background-color: #FFF;
+                color: #474747;
+            }
+            #header-title {
+                font-size: 24px; 
+                color: #575757; 
+                text-align: center;
+            }
+            .header {
+                margin: 0;
+                background-color: #FFF;
+                border-bottom: 1px solid #CCC;
+            }
+            .content-main{
+                margin: 0;
+                padding: 12px;
+                background-color: #DDD;
+            }
+            .content-box {
+                background-color: #FFF;
+                padding: 15px;
+                margin: 15px 9px;
+                border-radius: 3px;
+            }
+            .item {margin: 7px 0px;}
+            #caption {font-weight: bold;}
+            #value {padding-top: 2px;}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <p id="header-title">View Career Detail</p>
+        </div>
+        <div class="content-main">
+            <table cellpadding="0" cellspacing="0" width="100%" style="font-size: 12px">
+                <tr>
+                    <td valign="top">
+                        <div class="content-box">
+                            <div class="item">
+                                <div id="caption"><%=dictionaryD.getWord(I_Dictionary.COMPANY)%></div>
+                                <div id="value"><%= companyName %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption"><%=dictionaryD.getWord(I_Dictionary.DIVISION)%></div>
+                                <div id="value"><%= divisionName %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption"><%=dictionaryD.getWord(I_Dictionary.DEPARTMENT)%></div>
+                                <div id="value"><%= departmentName %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption"><%=dictionaryD.getWord("SECTION")%></div>
+                                <div id="value"><%= sectionName %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption"><%=dictionaryD.getWord(I_Dictionary.POSITION)%></div>
+                                <div id="value"><%= positionName %></div>
+                            </div>
+                                <div class="item">
+                                <div id="caption"><%=dictionaryD.getWord("LEVEL")%></div>
+                                <div id="value"><%= levelName %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption"><%=dictionaryD.getWord("CATEGORY")%></div>
+                                <div id="value"><%= categoryName %></div>
+                            </div>  
+                        </div>
+                            <div class="content-box">
+                                <div class="item">
+                                    <div id="caption">History from</div>
+                                    <div id="value"><%= historyFrom %></div>
+                                </div>
+                                <div class="item">
+                                    <div id="caption">History to</div>
+                                    <div id="value"><%= historyTo %></div>
+                                </div>
+                            </div>
+                    </td>
+                    <td valign="top">
+                        <div class="content-box">
+                            <div class="item">
+                                <div id="caption">Grade Level</div>
+                                <div id="value"><%= gradeLevelName %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption">Description</div>
+                                <div id="value"><%= description %></div>
+                            </div>
+                        </div>
+                        <div class="content-box">
+                            <div class="item">
+                                <div id="caption">History Type</div>
+                                <div id="value"><%= historyType %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption">History Group</div>
+                                <div id="value"><%= historyGroup %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption">Provider</div>
+                                <div id="value"><%= provider %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption">Nomor SK</div>
+                                <div id="value"><%= nomorSk %></div>
+                            </div>
+                            <div class="item">
+                                <div id="caption">Tanggal SK</div>
+                                <div id="value"><%= tanggalSk %></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+    </body>
+</html>

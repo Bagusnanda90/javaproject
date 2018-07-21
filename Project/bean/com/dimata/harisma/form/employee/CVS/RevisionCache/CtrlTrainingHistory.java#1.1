@@ -1,0 +1,769 @@
+/* 
+ * Ctrl Name  		:  CtrlTrainingHistory.java 
+ * Created on 	:  [date] [time] AM/PM 
+ * 
+ * @author  		:  [authorName] 
+ * @version  		:  [version] 
+ */
+
+/*******************************************************************
+ * Class Description 	: [project description ... ] 
+ * Imput Parameters 	: [input parameter ...] 
+ * Output 		: [output ...] 
+ *******************************************************************/
+
+package com.dimata.harisma.form.employee;
+
+/* java package */ 
+import java.util.*; 
+import javax.servlet.*;
+import javax.servlet.http.*; 
+/* dimata package */
+import com.dimata.util.*;
+import com.dimata.util.lang.*;
+/* qdep package */
+import com.dimata.qdep.system.*;
+import com.dimata.qdep.form.*;
+import com.dimata.qdep.db.*;
+import com.dimata.gui.jsp.*;
+/* project package */
+//import com.dimata.harisma.db.*;
+import com.dimata.harisma.entity.employee.*;
+import com.dimata.harisma.session.employee.*;
+
+public class CtrlTrainingHistory extends Control implements I_Language 
+{
+	public static int RSLT_OK = 0;
+	public static int RSLT_UNKNOWN_ERROR = 1;
+	public static int RSLT_EST_CODE_EXIST = 2;
+	public static int RSLT_FORM_INCOMPLETE = 3;
+
+	public static String[][] resultText = {
+		{"Berhasil", "Tidak dapat diproses", "Data sudah ada", "Data tidak lengkap"},
+		{"Succes", "Can not process", "Data already exist", "Data incomplete"}
+	};
+
+	private int start;
+	private String msgString;
+	private TrainingHistory trainingHistory;
+	private PstTrainingHistory pstTrainingHistory;
+	private FrmTrainingHistory frmTrainingHistory;
+	int language = LANGUAGE_DEFAULT;
+
+	public CtrlTrainingHistory(HttpServletRequest request){
+		msgString = "";
+		trainingHistory = new TrainingHistory();
+		try{
+			pstTrainingHistory = new PstTrainingHistory(0);
+		}catch(Exception e){;}
+		frmTrainingHistory = new FrmTrainingHistory(request, trainingHistory);
+	}
+
+	private String getSystemMessage(int msgCode){
+		switch (msgCode){
+			case I_DBExceptionInfo.MULTIPLE_ID :
+				this.frmTrainingHistory.addError(frmTrainingHistory.FRM_FIELD_TRAINING_HISTORY_ID, resultText[language][RSLT_EST_CODE_EXIST] );
+				return resultText[language][RSLT_EST_CODE_EXIST];
+			default:
+				return resultText[language][RSLT_UNKNOWN_ERROR]; 
+		}
+	}
+
+	private int getControlMsgId(int msgCode){
+		switch (msgCode){
+			case I_DBExceptionInfo.MULTIPLE_ID :
+				return RSLT_EST_CODE_EXIST;
+			default:
+				return RSLT_UNKNOWN_ERROR;
+		}
+	}
+
+	public int getLanguage(){ return language; }
+
+	public void setLanguage(int language){ this.language = language; }
+
+	public TrainingHistory getTrainingHistory() { return trainingHistory; } 
+
+	public FrmTrainingHistory getForm() { return frmTrainingHistory; }
+
+	public String getMessage(){ return msgString; }
+
+	public int getStart() { return start; }
+
+	public int action(int cmd , long oidTrainingHistory, HttpServletRequest request){
+		msgString = "";
+		int excCode = I_DBExceptionInfo.NO_EXCEPTION;
+		int rsCode = RSLT_OK;
+		switch(cmd){
+			case Command.ADD :
+				break;
+
+			case Command.SAVE :
+				if(oidTrainingHistory != 0){
+					try{
+						trainingHistory = PstTrainingHistory.fetchExc(oidTrainingHistory);
+					}catch(Exception exc){
+					}
+				}
+
+            	Date start = ControlDate.getTime(FrmTrainingHistory.fieldNames[FrmTrainingHistory.FRM_FIELD_START_TIME], request);
+
+				frmTrainingHistory.requestEntityObject(trainingHistory);
+
+                trainingHistory.setStartTime(start);
+
+				if(frmTrainingHistory.errorSize()>0) {
+					msgString = FRMMessage.getMsg(FRMMessage.MSG_INCOMPLATE);
+					return RSLT_FORM_INCOMPLETE ;
+				}
+
+				if(trainingHistory.getOID()==0){
+					try{
+						long oid = pstTrainingHistory.insertExc(this.trainingHistory);
+					}catch(DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+						return getControlMsgId(excCode);
+					}catch (Exception exc){
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+						return getControlMsgId(I_DBExceptionInfo.UNKNOWN);
+					}
+
+				}else{
+					try {
+						long oid = pstTrainingHistory.updateExc(this.trainingHistory);
+					}catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					}catch (Exception exc){
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN); 
+					}
+
+				}
+				break;
+
+			case Command.EDIT :
+				if (oidTrainingHistory != 0) {
+					try {
+						trainingHistory = PstTrainingHistory.fetchExc(oidTrainingHistory);
+					} catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					} catch (Exception exc){ 
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			case Command.ASK :
+				if (oidTrainingHistory != 0) {
+					try {
+						trainingHistory = PstTrainingHistory.fetchExc(oidTrainingHistory);
+					} catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					} catch (Exception exc){ 
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			case Command.DELETE :
+				if (oidTrainingHistory != 0){
+					try{
+						long oid = PstTrainingHistory.deleteExc(oidTrainingHistory);
+						if(oid!=0){
+							msgString = FRMMessage.getMessage(FRMMessage.MSG_DELETED);
+							excCode = RSLT_OK;
+						}else{
+							msgString = FRMMessage.getMessage(FRMMessage.ERR_DELETED);
+							excCode = RSLT_FORM_INCOMPLETE;
+						}
+					}catch(DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					}catch(Exception exc){	
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			default :
+
+		}
+		return rsCode;
+	}
+        
+        //method dotambahkan sehubungan dengan training Nikko
+        //updated by Yunny
+        public int actionActual(int cmd , long oidTrainingHistory, long oidTraining, long oidEmployee, long oidTrainingAktivityActual, HttpServletRequest request){
+		msgString = "";
+		int excCode = I_DBExceptionInfo.NO_EXCEPTION;
+		int rsCode = RSLT_OK;
+                Date dateStart = new Date();
+                 Date startTime = new Date();
+                 Date endTime = new Date();
+                 String remaks ="";
+                 String trainner ="";
+                 long oidTrainingPlan=0;
+            
+		switch(cmd){
+			case Command.ADD :
+				break;
+
+			case Command.SAVE :
+                                 
+				if(oidTrainingHistory != 0){
+					try{
+						trainingHistory = PstTrainingHistory.fetchExc(oidTrainingHistory);
+					}catch(Exception exc){
+					}
+				}
+                                
+                               
+					try{
+                                                //System.out.println("masuk sinisdjshfjshdfjhjsdfh"+oidTrainingAktivityActual);
+						TrainingActivityActual trH = PstTrainingActivityActual.fetchExc(oidTrainingAktivityActual);
+                                                Date dt = trH.getDate();
+                                                 System.out.println("Date dt  "+dt);
+                                                 dateStart.setDate(dt.getDate());
+                                                 dateStart.setMonth(dt.getMonth());
+                                                 dateStart.setYear(dt.getYear());
+                                                 
+                                                 Date timeStart = trH.getStartTime();
+                                                 startTime = (Date)dateStart.clone();
+                                                 startTime.setHours(timeStart.getHours());
+                                                 startTime.setMinutes(timeStart.getMinutes());
+                                                 startTime.setSeconds(timeStart.getSeconds());
+                                                 
+                                                 Date timeEnd = trH.getEndTime();
+                                                 endTime = (Date)dateStart.clone();
+                                                 endTime.setHours(timeEnd.getHours());
+                                                 endTime.setMinutes(timeEnd.getMinutes());
+                                                 endTime.setSeconds(timeEnd.getSeconds());
+                                                 
+                                                 remaks = trH.getRemark();
+                                                 trainner = trH.getTrainner();
+                                                 oidTrainingPlan = trH.getTrainingActivityPlanId();
+                                                 
+                                                 
+					}catch(Exception exc){
+					}
+				
+
+                                //Date start = ControlDate.getTime(FrmTrainingHistory.fieldNames[FrmTrainingHistory.FRM_FIELD_START_TIME], request);
+                                int duration;
+                                int start = Integer.parseInt(String.valueOf(startTime.getHours()));
+                                int end = Integer.parseInt(String.valueOf(endTime.getHours()));
+                                duration = end - start;
+                                System.out.println("start "+start);
+                                System.out.println("end "+end);
+                                System.out.println("duration "+duration);
+                                
+                                //Date startDate = ControlDate.(FrmTrainingHistory.fieldNames[FrmTrainingHistory.FRM_FIELD_START_TIME], request);
+				frmTrainingHistory.requestEntityObject(trainingHistory);
+                          
+                                trainingHistory.setStartTime(startTime);
+                                trainingHistory.setStartDate(dateStart);
+                                trainingHistory.setEndDate(dateStart);
+                                trainingHistory.setTrainingId(oidTraining);
+                                trainingHistory.setEmployeeId(oidEmployee);
+                                trainingHistory.setTrainer("yunny");
+                                trainingHistory.setDuration(duration);
+                                trainingHistory.setRemark(remaks);
+                                trainingHistory.setPresence(0);
+                                trainingHistory.setTrainer(trainner);
+                                trainingHistory.setTrainingActivityPlanId(oidTrainingPlan);
+                                
+                                try{
+                                               System.out.println("masuk insert"); 
+						pstTrainingHistory.insertExc(this.trainingHistory);
+					}catch(DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+						return getControlMsgId(excCode);
+					}catch (Exception exc){
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+						return getControlMsgId(I_DBExceptionInfo.UNKNOWN);
+					}
+
+				if(frmTrainingHistory.errorSize()>0) {
+					msgString = FRMMessage.getMsg(FRMMessage.MSG_INCOMPLATE);
+					return RSLT_FORM_INCOMPLETE ;
+				}
+
+				if(trainingHistory.getOID()==0){
+					try{
+                                               System.out.println("masuk insert"); 
+						long oid = pstTrainingHistory.insertExc(this.trainingHistory);
+					}catch(DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+						return getControlMsgId(excCode);
+					}catch (Exception exc){
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+						return getControlMsgId(I_DBExceptionInfo.UNKNOWN);
+					}
+
+				}else{
+					try {
+						long oid = pstTrainingHistory.updateExc(this.trainingHistory);
+					}catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					}catch (Exception exc){
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN); 
+					}
+
+				}
+				break;
+
+			case Command.EDIT :
+				if (oidTrainingHistory != 0) {
+					try {
+						trainingHistory = PstTrainingHistory.fetchExc(oidTrainingHistory);
+					} catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					} catch (Exception exc){ 
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			case Command.ASK :
+				if (oidTrainingHistory != 0) {
+					try {
+						trainingHistory = PstTrainingHistory.fetchExc(oidTrainingHistory);
+					} catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					} catch (Exception exc){ 
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			case Command.DELETE :
+				if (oidTrainingHistory != 0){
+					try{
+						long oid = PstTrainingHistory.deleteExc(oidTrainingHistory);
+						if(oid!=0){
+							msgString = FRMMessage.getMessage(FRMMessage.MSG_DELETED);
+							excCode = RSLT_OK;
+						}else{
+							msgString = FRMMessage.getMessage(FRMMessage.ERR_DELETED);
+							excCode = RSLT_FORM_INCOMPLETE;
+						}
+					}catch(DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					}catch(Exception exc){	
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			default :
+
+		}
+		return rsCode;
+	}
+
+        //updated by Bayu
+        public int actionActual(int cmd, String oidEmp, String hour, Date trainDate, long oidTraining, long oidTrainingPlan, long oidTrainingAktivityActual, HttpServletRequest request){
+                 msgString = "";
+                 int excCode = I_DBExceptionInfo.NO_EXCEPTION;
+                 int rsCode = RSLT_OK;
+                 
+                 Date dateStart = new Date();
+                 Date startTime = new Date();
+                 Date endTime = new Date();
+                 String remaks ="";
+                 String trainner ="";
+                 
+                 String whereClause = "";
+                 long historyId = 0;
+               
+                 switch(cmd){			
+			case Command.SAVE :
+                                 
+                                //DEBUG
+                                //System.out.println("***** Saving Data");
+                            
+				// check for training history records
+                                /*whereClause = PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_EMPLOYEE_ID] + "=" + oidEmp + " AND " +
+                                              PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_TRAINING_ID] + "=" + oidTraining + " AND " +
+                                              PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_TRAINING_ACTIVITY_PLAN_ID] + "=" + oidTrainingPlan + " AND " +    
+                                              PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_START_DATE] + "=" + Formater.formatDate(trainDate, "yyyy-mm-dd");*/
+                                  
+                                  whereClause = PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_EMPLOYEE_ID] + "=" + oidEmp + " AND " +
+                                                PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_TRAINING_ACTIVITY_ACTUAL_ID] + "=" + oidTrainingAktivityActual;
+                                              
+                                //DEBUG
+                                //System.out.println("Where clause before pass on checking = " + whereClause);
+                                
+                                historyId = 0;
+                                
+                                try {
+                                    historyId = PstTrainingHistory.getTrainingHistoryId(whereClause);
+                                    
+                                    if(historyId == 0)      // insert
+                                        trainingHistory = new TrainingHistory();
+                                    else                    // update
+                                        trainingHistory = PstTrainingHistory.fetchExc(historyId);
+                                }
+                                catch(Exception e) {
+                                    System.err.println("Error on counting training history");
+                                }
+                                
+                                //DEBUG
+                                //System.out.println("***** History Id = " + historyId);
+                                
+                                // get required values
+                                try{
+                                     TrainingActivityActual trH = PstTrainingActivityActual.fetchExc(oidTrainingAktivityActual);
+                                     Date dt = trH.getDate();
+                                     dateStart.setDate(dt.getDate());
+                                     dateStart.setMonth(dt.getMonth());
+                                     dateStart.setYear(dt.getYear());
+
+                                     Date timeStart = trH.getStartTime();
+                                     startTime = (Date)dateStart.clone();
+                                     startTime.setHours(timeStart.getHours());
+                                     startTime.setMinutes(timeStart.getMinutes());
+                                     startTime.setSeconds(timeStart.getSeconds());
+
+                                     Date timeEnd = trH.getEndTime();
+                                     endTime = (Date)dateStart.clone();
+                                     endTime.setHours(timeEnd.getHours());
+                                     endTime.setMinutes(timeEnd.getMinutes());
+                                     endTime.setSeconds(timeEnd.getSeconds());
+
+                                     remaks = trH.getRemark();
+                                     trainner = trH.getTrainner();
+                                }
+                                catch(Exception exc){ }
+		
+                                frmTrainingHistory.requestEntityObject(trainingHistory);
+                          
+                                // set those values
+                                trainingHistory.setStartTime(startTime);
+                                trainingHistory.setStartDate(dateStart);
+                                trainingHistory.setEndDate(dateStart);
+                                trainingHistory.setTrainingId(oidTraining);
+                                trainingHistory.setEmployeeId(Long.parseLong(oidEmp));
+                                trainingHistory.setTrainer(trainner);
+                                trainingHistory.setDuration(Integer.parseInt(hour));
+                                trainingHistory.setRemark(remaks);
+                                trainingHistory.setPresence(0);          
+                                trainingHistory.setTrainingActivityPlanId(oidTrainingPlan);
+                                trainingHistory.setTrainingActivityActualId(oidTrainingAktivityActual);
+                                
+                                /* DEBUG 
+                                System.out.println();
+                                System.out.println("***** THIS VALUE IS FOUND ON OBJECT *****");
+                                System.out.println("Start Time = " + trainingHistory.getStartTime());
+                                System.out.println("Start Date = " + trainingHistory.getStartDate());
+                                System.out.println("End Date = " + trainingHistory.getEndDate());
+                                System.out.println("OID Training = " + trainingHistory.getTrainingId());
+                                System.out.println("OID Employee = " + trainingHistory.getEmployeeId());
+                                System.out.println("Trainer = " + trainingHistory.getTrainer());
+                                System.out.println("Duration = " + trainingHistory.getDuration());
+                                System.out.println("Remarks = " + trainingHistory.getRemark());
+                                System.out.println("Presence = " + trainingHistory.getPresence());
+                                System.out.println("OID Training Plan = " + trainingHistory.getTrainingActivityPlanId());
+                                System.out.println("OID Training Actual = " + trainingHistory.getTrainingActivityActualId());
+                                */
+                                
+                                try{
+                                    if(trainingHistory.getOID() == 0) {
+                                        long oid = pstTrainingHistory.insertExc(trainingHistory);
+                                        
+                                         //DEBUG
+                                         //System.out.println("***** Do Insert Result = " + oid);
+                                    }
+                                    else {
+                                        long oid = pstTrainingHistory.updateExc(trainingHistory);
+                                        
+                                         //DEBUG
+                                         //System.out.println("***** Do Update Result = " + oid);
+                                    }
+                                }
+                                catch(DBException dbexc){
+                                    excCode = dbexc.getErrorCode();
+                                    msgString = getSystemMessage(excCode);
+                                    return getControlMsgId(excCode);                                    
+                                }
+                                catch (Exception exc){
+                                    msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                    return getControlMsgId(I_DBExceptionInfo.UNKNOWN);                                    
+                                }
+                    
+				if(frmTrainingHistory.errorSize()>0) {
+                                    msgString = FRMMessage.getMsg(FRMMessage.MSG_INCOMPLATE);
+                                    return RSLT_FORM_INCOMPLETE ;
+				}
+                             
+                                // check for update or insert
+				/*if(trainingHistory.getOID()==0){
+                                    try{
+                                        long oid = pstTrainingHistory.insertExc(this.trainingHistory);
+                                        
+                                        //DEBUG
+                                        System.out.println("***** Do Insert Result = " + oid);
+                                    }
+                                    catch(DBException dbexc){
+                                        excCode = dbexc.getErrorCode();
+                                        msgString = getSystemMessage(excCode);
+                                        return getControlMsgId(excCode);
+                                    }
+                                    catch (Exception exc){
+                                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                        return getControlMsgId(I_DBExceptionInfo.UNKNOWN);
+                                    }
+
+				}
+                                else{
+                                    try {
+                                        long oid = pstTrainingHistory.updateExc(this.trainingHistory);
+                                        
+                                        //DEBUG
+                                        System.out.println("***** Do Update Result = " + oid);
+                                    }
+                                    catch (DBException dbexc){
+                                        excCode = dbexc.getErrorCode();
+                                        msgString = getSystemMessage(excCode);
+                                    }
+                                    catch (Exception exc){
+                                        msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN); 
+                                    }
+				}*/
+				break;
+					
+			case Command.DELETE :
+                                
+                                //DEBUG
+                                System.out.println("***** Deleting Data");
+                            
+				// check for training history records
+                                /*whereClause = PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_EMPLOYEE_ID] + "=" + oidEmp + " AND " +
+                                                     PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_TRAINING_ID] + "=" + oidTraining + " AND " +
+                                                     PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_TRAINING_ACTIVITY_PLAN_ID] + "=" + oidTrainingPlan + " AND " +    
+                                                     PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_START_DATE] + "=" + Formater.formatDate(trainDate, "yyyy-mm-dd");*/
+                                
+                                  whereClause = PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_EMPLOYEE_ID] + "=" + oidEmp + " AND " +
+                                                PstTrainingHistory.fieldNames[PstTrainingHistory.FLD_TRAINING_ACTIVITY_ACTUAL_ID] + "=" + oidTrainingAktivityActual;
+                                
+                                historyId = 0;
+                                
+                                try {
+                                    historyId = PstTrainingHistory.getTrainingHistoryId(whereClause);
+                                    
+                                    //DEBUG
+                                    System.out.println("***** History Id = " + historyId);
+                                    
+                                    if(historyId == 0) {     // exit
+                                        break;
+                                    }
+                                    else {
+                                        long oid = PstTrainingHistory.deleteExc(historyId);
+
+                                        //DEBUG
+                                        System.out.println("***** Do Delete Result = " + oid);
+
+                                        if(oid!=0){
+                                            msgString = FRMMessage.getMessage(FRMMessage.MSG_DELETED);
+                                            excCode = RSLT_OK;
+                                        }
+                                        else{
+                                            msgString = FRMMessage.getMessage(FRMMessage.ERR_DELETED);
+                                            excCode = RSLT_FORM_INCOMPLETE;
+                                        }                                        
+                                    }
+				}
+                                catch(DBException dbexc){
+                                    excCode = dbexc.getErrorCode();
+                                    msgString = getSystemMessage(excCode);
+                                }
+                                catch(Exception exc){	
+                                    msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+                                }
+				
+		}
+		return rsCode;
+	}
+        
+        public synchronized int actionHistory(int cmd, TrainingHistory trainHistory, long oidTrainingHistory, long oidEmployee){
+		msgString = "";
+		int excCode = I_DBExceptionInfo.NO_EXCEPTION;
+		int rsCode = RSLT_OK;
+                
+		switch(cmd){
+			case Command.ADD :
+				break;
+
+			case Command.SAVE :
+                                TrainingHistory history = new TrainingHistory();
+                                boolean changeActual = false;
+                                                                
+                                if(oidTrainingHistory != 0){    // editing
+                                    
+                                    // get old record
+                                    try {
+                                        history = PstTrainingHistory.fetchExc(oidTrainingHistory);
+                                    }
+                                    catch(Exception e) {
+                                        history = new TrainingHistory();
+                                    }
+                                    
+                                    // check if old record is the same with new record
+                                    if(history.getTrainingActivityActualId() != trainHistory.getTrainingActivityActualId()){
+                                        changeActual = true;
+                                    }
+                                }                                                            
+
+				if(trainHistory.getTrainingActivityActualId() == 0) {
+                                    msgString = FRMMessage.getMsg(FRMMessage.MSG_INCOMPLATE);
+                                    return RSLT_FORM_INCOMPLETE ;
+				}
+                                
+                                
+
+				if(!changeActual) {
+					try {             
+                                                boolean exists = SessTraining.checkAttendance(trainHistory.getTrainingActivityActualId(), oidEmployee);
+                                            
+                                                if(exists && oidTrainingHistory == 0) {     // insert new
+                                                    this.trainingHistory = trainHistory;
+                                                    msgString = resultText[1][RSLT_EST_CODE_EXIST];
+                                                    return RSLT_EST_CODE_EXIST;
+                                                }
+                                                
+                                                if(oidTrainingHistory == 0) {   // insert new
+                                                    long oid = pstTrainingHistory.insertExc(trainHistory);                                                
+                                                    // update actual, jumlah + 1
+                                                    SessTraining.incrementAttendance(trainHistory.getTrainingActivityActualId());
+                                                }
+                                                else {
+                                                    // update duration
+                                                    history.setDuration(trainHistory.getDuration());
+                                                    PstTrainingHistory.updateExc(history);
+                                                }
+					}
+                                        catch(DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+						return getControlMsgId(excCode);
+					}
+                                        catch (Exception exc){
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+						return getControlMsgId(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+                                else {
+					try {
+                                            boolean exists = SessTraining.checkAttendance(trainHistory.getTrainingActivityActualId(), oidEmployee);
+                                            
+                                            if(exists) {
+                                                this.trainingHistory = trainHistory;
+                                                msgString = msgString = resultText[1][RSLT_EST_CODE_EXIST];
+                                                return RSLT_EST_CODE_EXIST;
+                                            }
+
+                                            if(!exists) {                                            
+                                                // update actual, lama -1,
+                                                SessTraining.decrementAttendance(history.getTrainingActivityActualId());
+                                                long oid = PstTrainingHistory.deleteExc(oidTrainingHistory);
+                                                                                                
+                                                // update actual, baru + 1
+                                                SessTraining.incrementAttendance(trainHistory.getTrainingActivityActualId());
+                                                oid = PstTrainingHistory.insertExc(trainHistory);
+                                            }
+                                        }
+                                        catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					}
+                                        catch (Exception exc){
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN); 
+					}
+				}
+                                
+                                this.trainingHistory = trainHistory;
+                                
+				break;
+
+			case Command.EDIT :
+				if (oidTrainingHistory != 0) {
+					try {
+						trainingHistory = PstTrainingHistory.fetchExc(oidTrainingHistory);
+					} 
+                                        catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					} 
+                                        catch (Exception exc){ 
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			case Command.ASK :
+				if (oidTrainingHistory != 0) {
+					try {
+						trainingHistory = PstTrainingHistory.fetchExc(oidTrainingHistory);
+					} 
+                                        catch (DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					} 
+                                        catch (Exception exc){ 
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			case Command.DELETE :
+				if (oidTrainingHistory != 0){
+                                        TrainingHistory hist = new TrainingHistory();
+                                    
+                                         // get old record
+                                        try {
+                                            hist = PstTrainingHistory.fetchExc(oidTrainingHistory);
+                                        }
+                                        catch(Exception e) {
+                                            hist = new TrainingHistory();
+                                        }
+                                    
+					try{
+                                                // update actual, lama -1,
+                                                SessTraining.decrementAttendance(hist.getTrainingActivityActualId());
+						long oid = PstTrainingHistory.deleteExc(oidTrainingHistory);
+                                                
+                                                if(oid!=0){
+							msgString = FRMMessage.getMessage(FRMMessage.MSG_DELETED);
+							excCode = RSLT_OK;
+						}
+                                                else{
+							msgString = FRMMessage.getMessage(FRMMessage.ERR_DELETED);
+							excCode = RSLT_FORM_INCOMPLETE;
+						}
+					}
+                                        catch(DBException dbexc){
+						excCode = dbexc.getErrorCode();
+						msgString = getSystemMessage(excCode);
+					}
+                                        catch(Exception exc){	
+						msgString = getSystemMessage(I_DBExceptionInfo.UNKNOWN);
+					}
+				}
+				break;
+
+			default :
+
+		}
+		return rsCode;
+	}
+
+}

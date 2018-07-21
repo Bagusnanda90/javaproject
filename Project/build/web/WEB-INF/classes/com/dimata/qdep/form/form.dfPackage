@@ -1,0 +1,33 @@
+package id3nyytczuh95siczujqpka;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:java#Class#com.wihita.qdep.form.Control:oiref><oihard>
+@__modelType reference 
+*/
+class reference {
+}/**
+@__ref <oiref:java#Class#com.wihita.qdep.form.I_Control:oiref><oihard>
+@__modelType reference 
+*/
+class reference1 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:java#Class#com.wihita.qdep.form.I_Control:oiref>=237,47,63,59,1:oigroup>
+<oigroup:<oiref:java#Class#com.wihita.qdep.form.Control:oiref>=55,41,203,71,1:oigroup>
+*/
+class __positions {
+}

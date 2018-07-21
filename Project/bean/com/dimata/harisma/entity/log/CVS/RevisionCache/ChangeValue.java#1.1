@@ -1,0 +1,63 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dimata.harisma.entity.log;
+
+import com.dimata.common.entity.contact.ContactList;
+import com.dimata.common.entity.contact.PstContactList;
+import com.dimata.harisma.entity.masterdata.Education;
+import com.dimata.harisma.entity.masterdata.Position;
+import com.dimata.harisma.entity.masterdata.PstEducation;
+import com.dimata.harisma.entity.masterdata.PstPosition;
+
+/**
+ *
+ * @author Dimata 007
+ */
+public class ChangeValue {
+    public String getPositionName(long posId) {
+        String position = "-";
+        Position pos = new Position();
+        try {
+            pos = PstPosition.fetchExc(posId);
+            position = pos.getPosition();
+        } catch (Exception ex) {
+            System.out.println("getPositionName ==> " + ex.toString());
+        }
+        return position;
+    }
+    
+    public String getStringValue(String field, String value){
+        String str = value;
+        if (field.equals("EDUCATION_ID")){
+            str = getEducation(Long.valueOf(value));
+        }
+        if (field.equals("INSTITUTION_ID")){
+            str = getContactList(Long.valueOf(value));
+        }
+        return str;
+    }
+    
+    public String getEducation(long oid) {
+        String str = "-";
+        try {
+            Education education = PstEducation.fetchExc(oid);
+            str = education.getEducation();
+        } catch (Exception ex) {
+            System.out.println("Education ==> " + ex.toString());
+        }
+        return str;
+    }
+    
+    public String getContactList(long oid){
+        String str = "-";
+        try {
+            ContactList contactList = PstContactList.fetchExc(oid);
+            str = contactList.getCompName();
+        } catch (Exception ex) {
+            System.out.println("Contact List ==> " + ex.toString());
+        }
+        return str;
+    }
+}

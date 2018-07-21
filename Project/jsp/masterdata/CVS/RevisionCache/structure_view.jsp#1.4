@@ -1,0 +1,909 @@
+<%-- 
+    Document   : structure_view
+    Created on : Aug 27, 2015, 11:20:21 AM
+    Author     : Dimata 007
+--%>
+
+<%@page import="com.dimata.harisma.session.employee.SessEmployeePicture"%>
+<%@page import="com.dimata.gui.jsp.ControlCombo"%>
+<%@page import="com.dimata.harisma.entity.masterdata.PstCustomFieldMaster"%>
+<%@page import="com.dimata.harisma.entity.masterdata.CustomFieldMaster"%>
+<%@page import="com.dimata.harisma.form.masterdata.FrmCustomFieldMaster"%>
+<%@page import="com.dimata.harisma.form.masterdata.CtrlCustomFieldMaster"%>
+<%@page import="com.dimata.util.Command"%>
+<%@page import="com.dimata.qdep.form.FRMQueryString"%>
+<%@page import="com.dimata.qdep.form.FRMMessage"%>
+<%@page import="java.util.Vector"%>
+<%@page import="com.dimata.harisma.entity.masterdata.PstPosition"%>
+<%@page import="com.dimata.system.entity.system.PstSystemProperty"%>
+<%@page import="com.dimata.harisma.entity.admin.AppObjInfo"%>
+<%@page import="com.dimata.harisma.entity.payroll.PstCustomRptMain"%>
+<%@page import="com.dimata.harisma.entity.payroll.CustomRptMain"%>
+<%@page import="com.dimata.gui.jsp.ControlLine"%>
+<%@page import="com.dimata.harisma.form.payroll.CtrlCustomRptMain"%>
+<%@page import="com.dimata.harisma.form.payroll.FrmCustomRptMain"%>
+<%@page import="com.dimata.gui.jsp.ControlList"%>
+<%@ include file = "../main/javainit.jsp" %>
+<% int appObjCode = AppObjInfo.composeObjCode(AppObjInfo.G1_REPORTS, AppObjInfo.G2_PRESENCE_REPORT, AppObjInfo.OBJ_PRESENCE_REPORT);
+    int appObjCodePresenceEdit = AppObjInfo.composeObjCode(AppObjInfo.G1_EMPLOYEE, AppObjInfo.G2_ATTENDANCE, AppObjInfo.OBJ_PRESENCE);
+    boolean privUpdatePresence = userSession.checkPrivilege(AppObjInfo.composeCode(appObjCodePresenceEdit, AppObjInfo.COMMAND_UPDATE));
+%>
+<%@ include file = "../main/checkuser.jsp" %>
+<%
+    long hrdDepOid = Long.parseLong(String.valueOf(PstSystemProperty.getPropertyLongbyName(OID_HRD_DEPARTMENT)));
+    boolean isHRDLogin = hrdDepOid == departmentOid ? true : false;
+    long edpSectionOid = Long.parseLong(String.valueOf(PstSystemProperty.getPropertyLongbyName(OID_EDP_SECTION)));
+    boolean isEdpLogin = edpSectionOid == sectionOfLoginUser.getOID() ? true : false;
+    boolean isGeneralManager = positionType == PstPosition.LEVEL_GENERAL_MANAGER ? true : false;
+%>
+<%!
+     
+    public long getTopPosition(Vector listData){
+        long[] arrUp = new long[listData.size()];
+        long[] arrDown = new long[listData.size()];
+        long topMain = 0;
+        int checkUp = 0;
+        if (listData != null && listData.size() > 0){
+            for(int i=0; i<listData.size(); i++){
+                MappingPosition map = (MappingPosition)listData.get(i);
+                arrUp[i] = map.getUpPositionId();
+                arrDown[i] = map.getDownPositionId();
+            }
+            for(int j=0; j<arrUp.length; j++){
+                for(int k=0; k<arrDown.length; k++){
+                    if (arrUp[j] == arrDown[k]){
+                        checkUp++;
+                    }
+                }
+                if (checkUp == 0){
+                    topMain = arrUp[j];
+                }
+                checkUp = 0;
+            }
+        } else {
+            topMain = 0;
+        }
+        return topMain;
+    }
+
+    public String getPositionName(long posId){
+        String position = "";
+        Position pos = new Position();
+        try {
+            pos = PstPosition.fetchExc(posId);
+        } catch(Exception ex){
+            System.out.println("getPositionName ==> "+ex.toString());
+        }
+        position = pos.getPosition();
+        return position;
+    }
+    
+    public String getCompetencyPosition(long oidPosition){
+        String str = "";
+        String whereClause = ""+oidPosition;
+        Vector listPosCompetency = PstPositionCompetencyRequired.listInnerJoin(whereClause);
+        if (listPosCompetency != null && listPosCompetency.size()>0){
+            str += "<table>";
+            for (int i=0; i<listPosCompetency.size(); i++){
+                Vector vect = (Vector)listPosCompetency.get(i);
+                PositionCompetencyRequired posCom = (PositionCompetencyRequired)vect.get(0);
+                Competency comp = (Competency)vect.get(1);
+                str += "<tr>";
+                    str += "<td>"+(i+1)+") "+comp.getCompetencyName()+"</td>";
+                    str += "<td style=\"padding-left:21px;\">"+posCom.getScoreReqMin()+"</td>";
+                str += "</tr>";
+            }
+            str += "</table>";
+        }
+        return str;
+    }
+    
+    public String getCompetencyEmployee(long oidPosition, long oidEmployee){
+        String str = "";
+        String whereClause = ""+oidPosition;
+        Vector listPosCompetency = PstPositionCompetencyRequired.listInnerJoin(whereClause);
+        if (listPosCompetency != null && listPosCompetency.size()>0){
+            str += "<table>";
+            for (int i=0; i<listPosCompetency.size(); i++){
+                Vector vect = (Vector)listPosCompetency.get(i);
+                PositionCompetencyRequired posCom = (PositionCompetencyRequired)vect.get(0);
+                Competency comp = (Competency)vect.get(1);
+                String where = PstEmployeeCompetency.fieldNames[PstEmployeeCompetency.FLD_EMPLOYEE_ID]+"="+oidEmployee;
+                where += " AND "+PstEmployeeCompetency.fieldNames[PstEmployeeCompetency.FLD_COMPETENCY_ID]+"="+posCom.getCompetencyId();
+                Vector listEmpComp = PstEmployeeCompetency.list(0, 0, where, "");
+                if (listEmpComp != null && listEmpComp.size()>0){
+                    for(int j=0; j<listEmpComp.size(); j++){
+                        EmployeeCompetency empComp = (EmployeeCompetency)listEmpComp.get(j);
+                        empComp.getScoreValue();
+                        if (posCom.getCompetencyId() == empComp.getCompetencyId()){
+                            str += "<tr>";
+                            str += "<td>"+(i+1)+") "+comp.getCompetencyName()+"</td>";
+                            str += "<td style=\"padding-left:21px;\">"+empComp.getScoreValue()+"</td>";
+                            str += "</tr>";
+                        }
+                    }
+                } else {
+                    str += "<tr>";
+                        str += "<td>"+(i+1)+") "+comp.getCompetencyName()+"</td>";
+                        str += "<td style=\"padding-left:21px;\">0</td>";
+                    str += "</tr>";
+                }
+                
+            }
+            str += "</table>";
+        }
+        return str;
+    }
+    
+    public String getCompetencyGap(long oidPosition, long oidEmployee){
+        String str = "";
+        String whereClause = ""+oidPosition;
+        Vector listPosCompetency = PstPositionCompetencyRequired.listInnerJoin(whereClause);
+        if (listPosCompetency != null && listPosCompetency.size()>0){
+            str += "<table>";
+            for (int i=0; i<listPosCompetency.size(); i++){
+                Vector vect = (Vector)listPosCompetency.get(i);
+                PositionCompetencyRequired posCom = (PositionCompetencyRequired)vect.get(0);
+                Competency comp = (Competency)vect.get(1);
+                String where = PstEmployeeCompetency.fieldNames[PstEmployeeCompetency.FLD_EMPLOYEE_ID]+"="+oidEmployee;
+                where += " AND "+PstEmployeeCompetency.fieldNames[PstEmployeeCompetency.FLD_COMPETENCY_ID]+"="+posCom.getCompetencyId();
+                Vector listEmpComp = PstEmployeeCompetency.list(0, 0, where, "");
+                if (listEmpComp != null && listEmpComp.size()>0){
+                    for(int j=0; j<listEmpComp.size(); j++){
+                        EmployeeCompetency empComp = (EmployeeCompetency)listEmpComp.get(j);
+                        empComp.getScoreValue();
+                        if (posCom.getCompetencyId() == empComp.getCompetencyId()){
+                            double gap = posCom.getScoreReqMin() - empComp.getScoreValue();
+                            str += "<tr>";
+                            str += "<td style=\"padding-left:21px;\">"+gap+"</td>";
+                            str += "</tr>";
+                        }
+                    }
+                } else {
+                    str += "<tr>";
+                        str += "<td style=\"padding-left:21px;\">0</td>";
+                    str += "</tr>";
+                }
+                
+            }
+            str += "</table>";
+        }
+        return str;
+    }
+    
+    public String getEmployeeName(long posId, long divId){
+        String empName = "";
+        String whereClause = PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID]+"="+posId;
+        if (divId > 0){
+            whereClause += " AND "+PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divId;
+        }
+        Vector listEmp = PstEmployee.list(0, 0, whereClause, "");
+        if (listEmp != null && listEmp.size()>0){
+            for(int i=0; i<listEmp.size(); i++){
+                Employee emp = (Employee)listEmp.get(i);
+                empName = emp.getFullName();
+            }
+        } else {
+            empName = "Kosong";
+        }
+        return empName;
+    }
+    
+    public long getEmployeeID(long posId, long divId){
+        long empId = 0;
+        String whereClause = PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID]+"="+posId;
+        if (divId > 0){
+            whereClause += " AND "+PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divId;
+        }
+        Vector listEmp = PstEmployee.list(0, 0, whereClause, "");
+        if (listEmp != null && listEmp.size()>0){
+            for(int i=0; i<listEmp.size(); i++){
+                Employee emp = (Employee)listEmp.get(i);
+                empId = emp.getOID();
+            }
+        } else {
+            empId = 0;
+        }
+        return empId;
+    }
+    
+    public String getEmployeePhoto(long posId, long divId){
+        String empPhoto = "";
+        String whereClause = PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID]+"="+posId;
+        if (divId > 0){
+            whereClause += " AND "+PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divId;
+        }
+        Vector listEmp = PstEmployee.list(0, 0, whereClause, "");
+        if (listEmp != null && listEmp.size()>0){
+            for(int i=0; i<listEmp.size(); i++){
+                Employee emp = (Employee)listEmp.get(i);
+                empPhoto = ""+emp.getEmployeeNum();
+            }
+        } else {
+            empPhoto = "employee-sample";
+        }
+        return empPhoto;
+    }
+    
+    public String getEmployeePayroll(long posId, long divId){
+        String empPayroll = "";
+        String whereClause = PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID]+"="+posId;
+        if (divId > 0){
+            whereClause += " AND "+PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divId;
+        }
+        Vector listEmp = PstEmployee.list(0, 0, whereClause, "");
+        if (listEmp != null && listEmp.size()>0){
+            for(int i=0; i<listEmp.size(); i++){
+                Employee emp = (Employee)listEmp.get(i);
+                empPayroll = emp.getEmployeeNum();
+            }
+        } else {
+            empPayroll = "0000";
+        }
+        return empPayroll;
+    }
+    
+    public int getLevelPosition(long positionId){
+        int levelRank = 0;
+        long levelId = 0;
+        String whereClause = PstPosition.fieldNames[PstPosition.FLD_POSITION_ID]+"="+positionId;
+        Vector listPosition = PstPosition.list(0, 0, whereClause, "");
+        if (listPosition != null && listPosition.size()>0){
+            for(int i=0; i<listPosition.size(); i++){
+                Position position = (Position)listPosition.get(i);
+                levelId = position.getLevelId();
+            }
+            whereClause = PstLevel.fieldNames[PstLevel.FLD_LEVEL_ID]+"="+levelId;
+            Vector listLevel = PstLevel.list(0, 0, whereClause, "");
+            if (listLevel != null && listLevel.size()>0){
+                for(int j=0; j<listLevel.size(); j++){
+                    Level level = (Level)listLevel.get(j);
+                    levelRank = level.getLevelRank();
+                }
+            }
+        }
+        return levelRank;
+    }
+    
+    public String getDrawDownPosition(long oidPosition, long oidTemplate, long oidDivision, String approot, int chkPhoto, int levelRank){
+        String str = "";
+        SessEmployeePicture sessEmployeePicture = new SessEmployeePicture();
+        int rank = 0; 
+        String whereClause = PstMappingPosition.fieldNames[PstMappingPosition.FLD_UP_POSITION_ID]+"="+oidPosition;
+        whereClause += " AND "+PstMappingPosition.fieldNames[PstMappingPosition.FLD_TEMPLATE_ID]+"="+oidTemplate;
+        Vector listDown = PstMappingPosition.list(0, 0, whereClause, "");
+        if (listDown != null && listDown.size()>0){
+            str = "<table class=\"tblStyle\"><tr>";
+            for(int i=0; i<listDown.size(); i++){
+                MappingPosition pos = (MappingPosition)listDown.get(i);
+                rank = getLevelPosition(pos.getDownPositionId());
+                if (rank <= levelRank){
+                    String pictPath = sessEmployeePicture.fetchImageEmployee(getEmployeeID(pos.getDownPositionId(), oidDivision));
+                    str += "<td>";
+                    if (chkPhoto == 1){
+                        str += "<div><img width=\"64\" src=\"" + approot + "/" + pictPath + "\" style=\"padding:3px; background-color: #373737;\" /></div>";
+                    }
+                    str += "<div style=\"color: #373737\"><a id=\"linkStyle\" href=\"javascript:cmdViewEmployee('"+getEmployeeID(pos.getDownPositionId(), oidDivision)+"')\">";
+                    str +="<strong>"+getEmployeeName(pos.getDownPositionId(), oidDivision)+"</strong></a></div>";
+                    str +="<div>"+getPositionName(pos.getDownPositionId())+"</div>"+getDrawDownPosition(pos.getDownPositionId(),oidTemplate, oidDivision, approot, chkPhoto, levelRank)+"</td>";
+                }
+            }
+            str += "</tr></table>";
+        }
+        
+        return str;
+    }
+    
+    public String getViewList(long oidPosition, long oidTemplate, long oidDivision, int inc, String approot, int chkPhoto){
+        String str = "";
+        SessEmployeePicture sessEmployeePicture = new SessEmployeePicture();
+        String whereClause = PstMappingPosition.fieldNames[PstMappingPosition.FLD_UP_POSITION_ID]+"="+oidPosition;
+        whereClause += " AND "+PstMappingPosition.fieldNames[PstMappingPosition.FLD_TEMPLATE_ID]+"="+oidTemplate;
+        Vector listDown = PstMappingPosition.list(0, 0, whereClause, "");
+        if (listDown != null && listDown.size()>0){
+            inc = inc + 32;
+            for(int i=0; i<listDown.size(); i++){
+                MappingPosition pos = (MappingPosition)listDown.get(i);
+                long employeeId = getEmployeeID(pos.getDownPositionId(), oidDivision);
+                String pictPath = sessEmployeePicture.fetchImageEmployee(employeeId);
+                str += "<table><tr><td style=\"padding-left:"+inc+"px;\">";
+                str += "<table class=\"tblStyle1\"><tr>";
+                str += "<td valign=\"top\"><div class=\"box1\">"+(i+1)+"</div></td>";
+                str += "<td>";
+                str += "<div class=\"box\">";
+                if (chkPhoto == 1){
+                    str += "<img width=\"64\" src=\"" + approot + "/" + pictPath + "\" style=\"padding:3px; background-color: #373737;\" />";
+                }
+                str += "<div style=\"color: #373737\">";
+                str += "<a id=\"linkStyle\" href=\"javascript:cmdViewEmployee('"+getEmployeeID(pos.getDownPositionId(), oidDivision)+"')\">";
+                str += "<strong>"+getEmployeeName(pos.getDownPositionId(), oidDivision)+"</strong> | ";
+                str += "<strong>"+getEmployeePayroll(pos.getDownPositionId(), oidDivision)+"</strong>";
+                str += "</a>";
+                str += "</div>";
+                str += getPositionName(pos.getDownPositionId());
+                str += "</div>";
+                str += "</td>";
+                str += "<td valign=\"top\">";
+                str += "<strong>Kompetensi yang dibutuhkan</strong>";
+                str += getCompetencyPosition(pos.getDownPositionId());
+                str += "</td>";
+                str += "<td valign=\"top\">";
+                str += "<strong>Kompetensi yang dimiliki</strong>";
+                str += getCompetencyEmployee(pos.getDownPositionId(), employeeId);
+                str += "</td>";
+                str += "<td valign=\"top\">";
+                str += "<strong>Gap</strong>";
+                str += getCompetencyGap(pos.getDownPositionId(), employeeId);
+                str += "</td>";
+                str += "</tr></table>";
+                str += "</td></tr></table>";
+                
+                str += getViewList(pos.getDownPositionId(), oidTemplate, oidDivision, inc, approot, chkPhoto);
+            }
+        }
+        
+        return str;
+    }
+    
+    public String getListEmployeeByPosition(long divisionId, long departmentId, long positionId){
+        String str = "";
+        String whereClause = PstEmployee.fieldNames[PstEmployee.FLD_DIVISION_ID]+"="+divisionId;
+        whereClause += " AND "+PstEmployee.fieldNames[PstEmployee.FLD_DEPARTMENT_ID]+"="+departmentId;
+        whereClause += " AND "+PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID]+"="+positionId;
+        Vector listEmployee = PstEmployee.list(0, 0, whereClause, "");
+        if (listEmployee != null && listEmployee.size()>0){
+            str += "<table class=\"tblStyle1\">";
+            for (int i=0; i<listEmployee.size(); i++){
+                Employee emp = (Employee)listEmployee.get(i);
+                str += "<tr>";
+                str += "<td><a id=\"linkStyle\" href=\"javascript:cmdViewEmployee('"+emp.getOID()+"')\">"+emp.getFullName()+" | "+emp.getEmployeeNum()+"</a></td>";
+                str += "</tr>";
+            }
+            str += "</table>";
+        }
+        return str;
+    }
+    /*
+    public int getRangeDate(){
+        
+    }///
+   */
+%>
+<!DOCTYPE html>
+<%  
+    int iCommand = FRMQueryString.requestCommand(request);
+    int structureOp = FRMQueryString.requestInt(request, "structure_op");
+    int structureSelect = FRMQueryString.requestInt(request, "structure_select");
+    int viewMode = FRMQueryString.requestInt(request, "view_mode");
+    /* Update by Hendra Putu | 20150217 */
+    long companyId = FRMQueryString.requestLong(request, "company_id");
+    long divisionId = FRMQueryString.requestLong(request, "division_id");
+    long departmentId = FRMQueryString.requestLong(request, "department_id");
+    
+    int chkPhoto = FRMQueryString.requestInt(request, "chk_photo");
+    int levelRank = FRMQueryString.requestInt(request, "level_rank");
+    
+    long parentMain = 0;
+    /* get data structure template*/
+    Vector listTemplate = PstStructureTemplate.list(0, 0, "", "");
+    long[] arrTemp = new long[listTemplate.size()];
+    int[] arrTotalTemp = new int[listTemplate.size()];
+    long templateID = 0;
+    if (listTemplate != null && listTemplate.size()>0){
+        for(int t=0; t<listTemplate.size(); t++){
+            StructureTemplate temp = (StructureTemplate)listTemplate.get(t);
+            arrTemp[t] = temp.getOID();
+        }
+    }
+    
+    Vector listPositionByStructure = PstPosition.getPositionByStructure(divisionId, departmentId);
+    
+    
+    if (structureOp == 1){
+/* Pusat
+* jika mode structureOp == 1 maka tampil structure utama dg proses
+* ambil data pada hr_division_type dengan kondisi GROUP TYPE = BOD, dan SHAREHOLDER
+* ambil data division dengan WHERE IN() division_type_id yg sudah didapat
+* ambil data pada hr_position_division dengan WHERE IN(data division id yg sudah didapat)
+* ambil data MappingPosition dengan data WHERE dari proses di atas
+* setelah data mapping position didapat maka cari dimana template id yg paling dominan
+* tentukan template id
+* proses-proses di atas hanya utk mencari template id yg sesuai
+*/
+        /* Kondisi utk view Structure Utama (Pusat) */
+        if (companyId > 0){
+            /* if view all */
+            Vector listDivType = new Vector();
+            Vector listDivisi = new Vector();
+            Vector listPosDiv = new Vector();
+            Vector listMapPos = new Vector();
+            String whereDiv = "";
+            String wherePosDiv = "";
+            String whereMapPos = "";
+            String inData = "";
+            String inData2 = "";
+            String inData3 = "";
+
+            String whereDivType = PstDivisionType.fieldNames[PstDivisionType.FLD_GROUP_TYPE]+" IN(";
+            whereDivType += PstDivisionType.TYPE_BOD+","+PstDivisionType.TYPE_SHAREHOLDER+")";
+            listDivType = PstDivisionType.list(0, 0, whereDivType, "");
+            if (listDivType != null && listDivType.size()>0){
+                inData = "";
+                for(int dt=0; dt<listDivType.size(); dt++){
+                    DivisionType divType = (DivisionType)listDivType.get(dt);
+                    inData += divType.getOID()+",";
+                }
+                whereDiv = PstDivision.fieldNames[PstDivision.FLD_DIVISION_TYPE_ID]+" IN("+inData+"0)";
+                listDivisi = PstDivision.list(0, 0, whereDiv, "");
+                if (listDivisi != null && listDivisi.size()>0){
+                    inData2 = "";
+                    for(int d=0; d<listDivisi.size(); d++){
+                        Division divisi = (Division)listDivisi.get(d);
+                        inData2 += divisi.getOID()+",";
+                    }
+                    wherePosDiv = PstPositionDivision.fieldNames[PstPositionDivision.FLD_DIVISION_ID]+" IN("+inData2+"0)";
+                    listPosDiv = PstPositionDivision.list(0, 0, wherePosDiv, "");
+                    if (listPosDiv != null && listPosDiv.size() > 0) {
+                        for (int p = 0; p < listPosDiv.size(); p++) {
+                            PositionDivision pos = (PositionDivision) listPosDiv.get(p);
+                            inData3 += pos.getPositionId()+",";
+                        }
+                        whereMapPos = PstMappingPosition.fieldNames[PstMappingPosition.FLD_UP_POSITION_ID]+" IN("+inData3+"0)";
+                        String orderMapPos = PstMappingPosition.fieldNames[PstMappingPosition.FLD_TEMPLATE_ID];
+                        listMapPos = PstMappingPosition.list(0, 0, whereMapPos, orderMapPos);
+                        if (listMapPos != null && listMapPos.size()>0){
+                            int inc = 0;
+                            int banding = -1;
+                            for(int a=0; a<arrTemp.length; a++){
+                                for(int p=0; p<listMapPos.size(); p++){
+                                    MappingPosition pos = (MappingPosition)listMapPos.get(p);
+                                    if (arrTemp[a]==pos.getTemplateId()){
+                                        inc++;
+                                    }
+                                }
+                                arrTotalTemp[a] = inc;
+                                if (arrTotalTemp[a]>banding){
+                                    banding = arrTotalTemp[a];
+                                    templateID = arrTemp[a];
+                                }
+                                inc = 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        /* Pusat > per division*/
+        if (companyId > 0 && divisionId > 0){
+            /* ambil data dari hr_position_division */
+            String wherePosDivision = PstPositionDivision.fieldNames[PstPositionDivision.FLD_DIVISION_ID]+"="+divisionId;
+            Vector listPositionDivision = PstPositionDivision.list(0, 0, wherePosDivision, "");
+            String inData = "";
+            if (listPositionDivision != null && listPositionDivision.size()>0){
+                for(int p=0; p<listPositionDivision.size(); p++){
+                    PositionDivision posDiv = (PositionDivision)listPositionDivision.get(p);
+                    inData += posDiv.getPositionId()+",";
+                    parentMain = posDiv.getPositionId();
+                }
+                ////////////////////////////////////////
+                String whereMapPos = PstMappingPosition.fieldNames[PstMappingPosition.FLD_UP_POSITION_ID]+" IN("+inData+"0)";
+                String orderMapPos = PstMappingPosition.fieldNames[PstMappingPosition.FLD_TEMPLATE_ID];
+                Vector listMapPos = PstMappingPosition.list(0, 0, whereMapPos, orderMapPos);
+                if (listMapPos != null && listMapPos.size()>0){
+                    parentMain = getTopPosition(listMapPos);
+                }
+                ////////////////////////////////////////
+            }
+        }
+    } else {
+        /* Cabang
+        if (structureOp == 2){
+        if (companyId > 0 && divisionId > 0){ */
+        String inData = "";
+        if (listPositionByStructure != null && listPositionByStructure.size()>0){
+            for(int p=0; p<listPositionByStructure.size(); p++){
+                Long positionId = (Long)listPositionByStructure.get(p);
+                inData += positionId +",";
+            }
+            
+            /////////////////
+            String whereMapPos = PstMappingPosition.fieldNames[PstMappingPosition.FLD_UP_POSITION_ID]+" IN("+inData+"0)";
+            String orderMapPos = PstMappingPosition.fieldNames[PstMappingPosition.FLD_TEMPLATE_ID];
+            Vector listMapPos = PstMappingPosition.list(0, 0, whereMapPos, orderMapPos);
+            if (listMapPos != null && listMapPos.size()>0){
+                int inc = 0;
+                int banding = -1;
+                for(int a=0; a<arrTemp.length; a++){
+                    for(int p=0; p<listMapPos.size(); p++){
+                        MappingPosition pos = (MappingPosition)listMapPos.get(p);
+                        if (arrTemp[a]==pos.getTemplateId()){
+                            inc++;
+                        }
+                    }
+                    arrTotalTemp[a] = inc;
+                    if (arrTotalTemp[a]>banding){
+                        banding = arrTotalTemp[a];
+                        templateID = arrTemp[a];
+                    }
+                    inc = 0;
+                }
+            }
+            /////////////////
+            
+        }
+    }
+%>
+
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Struktur Organisasi</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <link rel="stylesheet" href="../styles/main.css" type="text/css">
+        <link rel="stylesheet" href="../styles/tab.css" type="text/css">
+        <link href="<%=approot%>/stylesheets/superTables.css" rel="Stylesheet" type="text/css" /> 
+        <style type="text/css">
+            #mn_utama {color: #FF6600; padding: 5px 14px; border-left: 1px solid #999; font-size: 12px; font-weight: bold; background-color: #F5F5F5;}        
+            #menu_utama {padding: 9px 14px; border-left: 1px solid #0099FF; font-size: 14px; background-color: #F3F3F3; color:#0099FF; font-size: 14px; font-weight: bold;}   
+            .btn {
+              background: #C7C7C7;
+              border: 1px solid #BBBBBB;
+              border-radius: 3px;
+              font-family: Arial;
+              color: #474747;
+              font-size: 11px;
+              padding: 3px 7px;
+              cursor: pointer;
+            }
+
+            .btn:hover {
+              color: #FFF;
+              background: #B3B3B3;
+              border: 1px solid #979797;
+            }
+            
+            #btn {
+              background: #3498db;
+              border: 1px solid #0066CC;
+              border-radius: 3px;
+              font-family: Arial;
+              color: #ffffff;
+              font-size: 12px;
+              padding: 3px 9px 3px 9px;
+            }
+
+            #btn:hover {
+              background: #3cb0fd;
+              border: 1px solid #3498db;
+            }
+            #btn1 {
+              background: #f27979;
+              border: 1px solid #d74e4e;
+              border-radius: 3px;
+              font-family: Arial;
+              color: #ffffff;
+              font-size: 12px;
+              padding: 3px 9px 3px 9px;
+            }
+
+            #btn1:hover {
+              background: #d22a2a;
+              border: 1px solid #c31b1b;
+            }
+            #tdForm {
+                padding: 5px;
+            }
+            .detail {
+                background-color: #b01818;
+                color:#FFF;
+                padding: 2px;
+                font-size: 9px;
+                cursor: pointer;
+            }
+            .detail1 {
+                background-color: #ffe400;
+                color:#d76f09;
+                padding: 2px;
+                font-size: 9px;
+                cursor: pointer;
+            }
+            .detail_pos {
+                cursor: pointer;
+            }
+            .tblStyle {border-collapse: collapse; background-color: #FFF;}
+            .tblStyle td {font-size: 11px; color:#05a5c7; text-align: center; border: 1px solid #C7C7C7; padding: 3px 5px;}
+            .tblStyle1 {border-collapse: collapse; background-color: #FFF;}
+            .tblStyle1 td {font-size: 11px; color:#575757; border: 1px solid #C7C7C7; padding: 3px 5px;}
+            .title_tbl {font-weight: bold;background-color: #DDD; color: #575757; }
+            .shareholder {background-color: #999; color: #FFF; padding: 3px;}
+            .comp_media {background-color: #CCC; color: #FFF; padding: 3px;}
+            .dir {background-color: #0599ab; color: #FFF; padding: 3px;}
+            .div {background-color: #dd4949; color: #FFF; padding: 3px;}
+            .dep {background-color: #ff8a00; color: #FFF; padding: 3px; margin: 2px 0px;}
+            .filter {
+                background-color: #DDD;
+                border: 1px solid #FFF;
+                border-radius: 3px;
+                padding: 5px;
+            }
+            .part {
+                background-color: #bce7e9;
+                border:1px solid #64adb0;
+                padding: 3px;
+                margin: 1px 1px 0px 2px;
+                color:#64adb0;
+                font-size: 11px;
+            }
+            .box {
+                color: #0099FF;
+                background-color: #FFF;
+                padding: 3px 9px;
+                margin: 1px 2px;
+            }
+            .box1 {
+                color: #EEE;
+                border: 1px solid #999;
+                background-color: #CCC;
+                padding: 3px 5px;
+                margin: 3px 3px 0px 0px
+            }
+            #space {margin: 3px;}
+            .position {
+                background-color: #FFF;
+                color:#373737;
+                padding: 17px 21px;
+                margin: 1px 0px;
+            }
+            #linkStyle {
+                text-decoration: none;
+                color:#474747;
+            }
+            #linkStyle:hover {
+                color:#ff0000;
+            }
+        </style>
+        <script type="text/javascript">
+            function cmdBack() {
+                document.frm.command.value="<%=Command.BACK%>";               
+                document.frm.action="structure_src.jsp";
+                document.frm.submit();
+            }
+            function cmdViewEmployee(oid){
+		document.frm.employee_oid.value=oid;
+		document.frm.command.value="<%=Command.EDIT%>";
+		document.frm.prev_command.value="<%=Command.EDIT%>";
+                document.frm.target="_blank";
+		document.frm.action="../employee/databank/employee_edit.jsp";
+		document.frm.submit();
+            }
+        </script>
+        
+    </head>
+    <body <%=noBack%> bgcolor="#FFFFFF" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%" bgcolor="#F9FCFF" >
+            <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%> 
+            <%@include file="../styletemplate/template_header.jsp" %>
+            <%} else {%>
+            <tr> 
+                <td ID="TOPTITLE" background="<%=approot%>/images/HRIS_HeaderBg3.jpg" height="54"> 
+                    <!-- #BeginEditable "header" --> 
+                    <%@ include file = "../main/header.jsp" %>
+                    <!-- #EndEditable --> 
+                </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="15" ID="MAINMENU" valign="middle"> <!-- #BeginEditable "menumain" --> 
+                    <%@ include file = "../main/mnmain.jsp" %>
+                    <!-- #EndEditable --> </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="10" valign="middle"> 
+                    <table border="0" cellspacing="0" cellpadding="0">
+                        <tr> 
+                            <td align="left"><img src="<%=approot%>/images/harismaMenuLeft1.jpg" width="8" height="8"></td>
+                            <td align="center" background="<%=approot%>/images/harismaMenuLine1.jpg" width="100%"><img src="<%=approot%>/images/harismaMenuLine1.jpg" width="8" height="8"></td>
+                            <td align="right"><img src="<%=approot%>/images/harismaMenuRight1.jpg" width="8" height="8"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <%}%>
+            <tr> 
+                <td valign="top" align="left" width="100%"> 
+                    <table border="0" cellspacing="3" cellpadding="2" id="tbl0" width="100%">
+                        <tr> 
+                            <td  colspan="3" valign="top" style="padding: 12px"> 
+                                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                                    <tr> 
+                                        <td height="20"> 
+                                            <div id="menu_utama"> 
+                                                <button class="btn" onclick="cmdBack()">Back to search</button> &nbsp; Struktur Organisasi
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color:#EEE;" valign="top" width="100%">
+                                        
+                                            <table width="100%" style="padding:9px; border:1px solid <%=garisContent%>;"  border="0" cellspacing="1" cellpadding="1" class="tablecolor">
+                                                <tr>
+                                                    <td valign="top">
+                                                        <!--- fitur filter  --->
+                                                        <form name="frm" method="post" action="" target="">
+                                                            <input type="hidden" name="command" value="<%=iCommand%>">
+                                                            <input type="hidden" name="prev_command" value="<%=iCommand%>">
+                                                            <input type="hidden" name="employee_oid" value="">
+                                                        </form>
+                                                        <div id="mn_utama">
+                                                            <%
+                                                            if (iCommand == Command.VIEW && viewMode == 1){
+                                                            %>
+                                                            Organization Structure
+                                                            <% } else if (iCommand == Command.VIEW && viewMode == 2){%>
+                                                            List of Organization Structure
+                                                            <% } else { %>
+                                                            There is not view
+                                                            <% } %>
+                                                        </div>
+                                                        <div>&nbsp;</div>
+                                                        <%
+                                                        if (iCommand == Command.VIEW){
+                                                            if (structureOp == 1){
+                                                                /* Pusat */
+                                                                if (companyId > 0 && divisionId == 0){
+                                                                    String whereClause = PstMappingPosition.fieldNames[PstMappingPosition.FLD_TEMPLATE_ID]+"="+templateID;
+                                                                    Vector listMapping = PstMappingPosition.list(0, 0, whereClause, "");
+                                                                    parentMain = getTopPosition(listMapping);
+                                                                }
+                                                            } else { /* structureOp == 2 */
+                                                                /* Cabang */
+                                                                if (companyId > 0 && divisionId > 0 && departmentId > 0){
+                                                                    String whereClause = PstMappingPosition.fieldNames[PstMappingPosition.FLD_TEMPLATE_ID]+"="+templateID;
+                                                                    Vector listMapping = PstMappingPosition.list(0, 0, whereClause, "");
+                                                                    parentMain = getTopPosition(listMapping);
+                                                                }
+                                                            }
+                                                            /* jika parentMain sudah terisi nilai Position ID Top maka tampilkan struktur */
+                                                            if (viewMode == 1){
+                                                                if (parentMain > 0){
+                                                                    %>
+                                                                    <table class="tblStyle">
+                                                                        <tr>
+                                                                            <td>
+                                                                                <% if (chkPhoto == 1){ %>
+                                                                                <div><img width="64" src="<%=approot%>/imgcache/employee-sample.jpg" style="padding:3px; background-color: #373737;" /></div>
+                                                                                <% } %>
+                                                                                <div style="color: #373737"><a id="linkStyle" href="javascript:cmdViewEmployee('<%=getEmployeeID(parentMain, divisionId)%>')"><strong><%=getEmployeeName(parentMain, divisionId)%></strong></a></div>
+                                                                                <div><%=getPositionName(parentMain)%></div>
+                                                                                <%=getDrawDownPosition(parentMain, templateID, divisionId, approot, chkPhoto, levelRank)%>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    <%
+                                                                }
+                                                            }
+                                                            if (viewMode == 2){
+                                                                if (parentMain > 0){
+                                                                    long employeeId = getEmployeeID(parentMain, divisionId);
+                                                                    SessEmployeePicture sessEmployeePicture = new SessEmployeePicture();
+                                                                    String pictPath = sessEmployeePicture.fetchImageEmployee(employeeId);
+                                                                %>
+                                                                <div>
+                                                                    <table>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <table class="tblStyle1">
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            <div class="box1">1</div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div class="box">
+                                                                                                <%
+                                                                                                if (chkPhoto == 1){
+                                                                                                    %>
+                                                                                                    <img width="64" src="<%=approot + "/" + pictPath%>" style="padding:3px; background-color: #373737;" />
+                                                                                                    <%
+                                                                                                }
+                                                                                                %>
+                                                                                                <div style="color: #373737">
+                                                                                                    <a id="linkStyle" href="javascript:cmdViewEmployee('<%=getEmployeeID(parentMain, divisionId)%>')">
+                                                                                                    <strong><%=getEmployeeName(parentMain, divisionId)%> | </strong>
+                                                                                                    <strong><%=getEmployeePayroll(parentMain, divisionId)%></strong>
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                                <%=getPositionName(parentMain)%>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td valign="top">
+                                                                                            <strong>Kompetensi yang dibutuhkan</strong>
+                                                                                            <%=getCompetencyPosition(parentMain)%>
+                                                                                        </td>
+                                                                                        <td valign="top">
+                                                                                            <strong>Kompetensi yang dimiliki</strong>
+                                                                                            <%=getCompetencyEmployee(parentMain, employeeId)%>
+                                                                                        </td>
+                                                                                        <td valign="top">
+                                                                                            <strong>Gap</strong>
+                                                                                            <%=getCompetencyGap(parentMain, employeeId)%>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                    <%=getViewList(parentMain, templateID, divisionId, 0, approot, chkPhoto)%>
+                                                                </div>
+                                                                <%
+                                                                }
+                                                            }
+                                                        }
+                                                        %>
+                                                        <div>&nbsp;</div>
+                                                        <div id="mn_utama">Position Available</div>
+                                                        <div>&nbsp;</div>
+                                                        <%
+                                                            if (structureOp == 2){
+                                                                if (listPositionByStructure != null && listPositionByStructure.size()>0){
+                                                                    for(int p=0; p<listPositionByStructure.size(); p++){
+                                                                        Long positionIds = (Long)listPositionByStructure.get(p);
+                                                                        %>
+                                                                        <div class="position">
+                                                                            <p style="font-size: 15px; color: #0599ab; padding-bottom: 3px; margin-bottom: 0px;"><%=getPositionName(positionIds)%></p>
+                                                                            <%=getListEmployeeByPosition(divisionId, departmentId, positionIds)%>
+                                                                        </div>
+                                                                        <%
+                                                                    }
+                                                                }
+                                                            }
+                                                        %>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                            </table>
+                                        
+                                        </td>
+                                    </tr>
+                                </table><!---End Tble--->
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%>
+            <tr>
+                <td valign="bottom">
+                    <!-- untuk footer -->
+                    <%@include file="../footer.jsp" %>
+                </td>
+                            
+            </tr>
+            <%} else {%>
+            <tr> 
+                <td colspan="2" height="20" > <!-- #BeginEditable "footer" --> 
+                    <%@ include file = "../main/footer.jsp" %>
+                    <!-- #EndEditable --> </td>
+            </tr>
+            <%}%>
+        </table>
+    </body>
+    <!-- #BeginEditable "script" --> <script language="JavaScript">
+                var oBody = document.body;
+                var oSuccess = oBody.attachEvent('onkeydown',fnTrapKD);
+    </script>
+                
+    <!-- #EndEditable --> <!-- #EndTemplate -->
+</html>

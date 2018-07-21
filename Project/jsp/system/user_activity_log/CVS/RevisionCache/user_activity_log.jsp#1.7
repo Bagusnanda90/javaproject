@@ -1,0 +1,407 @@
+<%-- 
+    Document   : user_activity_log_new
+    Created on : Feb 12, 2016, 4:38:23 PM
+    Author     : Dimata 007
+--%>
+<%@page import="com.dimata.gui.jsp.ControlCombo"%>
+<%@page import="com.dimata.qdep.entity.I_DocStatus"%>
+<%@page import="com.dimata.harisma.entity.log.PstLogSysHistory"%>
+<%@page import="com.dimata.harisma.entity.log.LogSysHistory"%>
+<%@page import="com.dimata.gui.jsp.ControlList"%>
+<%@ include file = "../../main/javainit.jsp" %>
+<%  int appObjCode = AppObjInfo.composeObjCode(AppObjInfo.G1_SYSTEM, AppObjInfo.G2_SYSTEM_MANAGEMENT, AppObjInfo.OBJ_SYSTEM_PROPERTIES); %>
+<%@ include file = "../../main/checkuser.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%!
+    public String parsingData(String data){
+        String str = "";
+        str = data.replaceAll(";", "<br>");
+        return str;
+    }
+    
+    public String drawList(Vector objectClass){
+        ControlList ctrlist = new ControlList();
+        ctrlist.setAreaWidth("100%");
+        ctrlist.setListStyle("tblStyle");
+        ctrlist.setTitleStyle("title_tbl");
+        ctrlist.setCellStyle("listgensell");
+        ctrlist.setHeaderStyle("title_tbl");
+        ctrlist.setCellSpacing("0");
+        ctrlist.addHeader("No", "");
+        ctrlist.addHeader("Date", "");
+        ctrlist.addHeader("User", "");
+        ctrlist.addHeader("Action", "");
+        ctrlist.addHeader("Detail Previous", "");
+        ctrlist.addHeader("Detail Current", "");
+        ctrlist.addHeader("Module", "");
+        //ctrlist.addHeader("Approver", "");
+        ctrlist.addHeader("Status", "");
+        ctrlist.setLinkRow(1);
+        ctrlist.setLinkSufix("");
+        Vector lstData = ctrlist.getData();
+        Vector lstLinkData = ctrlist.getLinkData();
+        ctrlist.setLinkPrefix("javascript:cmdEdit('");
+        ctrlist.setLinkSufix("')");
+        ctrlist.reset();
+
+        for (int i = 0; i < objectClass.size(); i++) {
+            LogSysHistory logSysHistory = (LogSysHistory) objectClass.get(i);
+            Vector rowx = new Vector();
+
+            rowx.add(""+(i+1));
+            rowx.add(""+logSysHistory.getLogUpdateDate());
+            rowx.add(logSysHistory.getLogLoginName());
+            rowx.add(""+logSysHistory.getLogUserAction());
+            rowx.add(""+parsingData(logSysHistory.getLogPrev()));
+            rowx.add(""+parsingData(logSysHistory.getLogCurr()));
+            rowx.add(""+logSysHistory.getLogModule());
+            rowx.add(""+I_DocStatus.fieldDocumentStatus[logSysHistory.getLogStatus()]);
+            
+            lstData.add(rowx);
+            lstLinkData.add(String.valueOf(logSysHistory.getOID()));
+        }
+        return ctrlist.draw();
+    }
+%>
+<%
+    int iCommand = FRMQueryString.requestCommand(request);
+    String dateFrom = FRMQueryString.requestString(request, "datefrom");
+    String dateTo = FRMQueryString.requestString(request, "dateto");
+    Vector listLogSysHistory = new Vector();
+    String whereClause = "";
+    String orderBy = ""+PstLogSysHistory.fieldNames[PstLogSysHistory.FLD_LOG_UPDATE_DATE];
+    
+    if (iCommand == Command.SEARCH){
+        whereClause = PstLogSysHistory.fieldNames[PstLogSysHistory.FLD_LOG_UPDATE_DATE]+" BETWEEN '"+dateFrom+"' AND '"+dateTo+"'";
+        listLogSysHistory = PstLogSysHistory.list(0, 500, whereClause, orderBy);
+    }
+%>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>User Activity Log</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+        <link rel="stylesheet" href="../../styles/main.css" type="text/css">
+        <style type="text/css">
+            .tblStyle {border-collapse: collapse; }
+            .tblStyle td {padding: 5px 7px; border: 1px solid #CCC; font-size: 12px; }
+            .title_tbl {font-weight: bold;background-color: #DDD; color: #575757;}
+            .title_page {color:#0db2e1; font-weight: bold; font-size: 14px; background-color: #EEE; border-left: 1px solid #0099FF; padding: 12px 18px;}
+            #user {
+                background-color: #474747; 
+                color: #EEE; padding: 5px 11px; 
+                border-radius: 3px;
+                
+            }
+            body {color:#373737;}
+            #menu_utama {padding: 9px 14px; border-left: 1px solid #0099FF; font-size: 14px; background-color: #F3F3F3;}
+            #menu_title {color:#0099FF; font-size: 14px;}
+            #menu_teks {color:#CCC;}
+            
+            #btn {
+              background: #3498db;
+              border: 1px solid #0066CC;
+              border-radius: 3px;
+              font-family: Arial;
+              color: #ffffff;
+              font-size: 12px;
+              padding: 3px 9px 3px 9px;
+            }
+
+            #btn:hover {
+              background: #3cb0fd;
+              border: 1px solid #3498db;
+            }
+            .title_part {color:#FF7E00; background-color: #F7F7F7; border-left: 1px solid #0099FF; padding: 9px 11px;}
+            
+            body {background-color: #EEE; font-size: 12px;}
+            .header {
+                
+            }
+            .content-main {
+                padding: 5px 25px 25px 25px;
+                margin: 0px 23px 59px 23px;
+            }
+            .content-info {
+                padding: 21px;
+                border-bottom: 1px solid #E5E5E5;
+            }
+            .content-title {
+                padding: 21px;
+                border-bottom: 1px solid #E5E5E5;
+                margin-bottom: 5px;
+            }
+            #title-large {
+                color: #575757;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            #title-small {
+                color:#797979;
+                font-size: 11px;
+            }
+            .content {
+                padding: 21px;
+            }
+            .box {
+                margin: 17px 7px;
+                background-color: #FFF;
+                color:#575757;
+            }
+            #box_title {
+                padding:21px; 
+                font-size: 14px; 
+                color: #007fba;
+                border-top: 1px solid #28A7D1;
+                border-bottom: 1px solid #EEE;
+            }
+            #box_content {
+                padding:21px; 
+                font-size: 12px;
+                color: #575757;
+            }
+            #info {
+                background-color: #CCC;
+                color:#FFF;
+                margin-top: 21px;
+                padding: 12px 17px;
+                border-radius: 3px;
+            }
+            .box-info {
+                padding:21px 43px; 
+                background-color: #F7F7F7;
+                border-bottom: 1px solid #CCC;
+                -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+                 -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+                      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+            }
+            #title-info-name {
+                padding: 11px 15px;
+                font-size: 35px;
+                color: #535353;
+            }
+            #title-info-desc {
+                padding: 7px 15px;
+                font-size: 21px;
+                color: #676767;
+            }
+            
+            #photo {
+                padding: 7px; 
+                background-color: #FFF; 
+                border: 1px solid #DDD;
+            }
+            .btn {
+                background-color: #00a1ec;
+                border-radius: 3px;
+                font-family: Arial;
+                border-radius: 3px;
+                color: #EEE;
+                font-size: 12px;
+                padding: 7px 11px 7px 11px;
+                border: solid #00a1ec 1px;
+                text-decoration: none;
+            }
+
+            .btn:hover {
+                color: #FFF;
+                background-color: #007fba;
+                text-decoration: none;
+                border: 1px solid #007fba;
+            }
+            
+            .btn-small {
+                text-decoration: none;
+                padding: 3px; border: 1px solid #CCC; 
+                background-color: #EEE; color: #777777; 
+                font-size: 11px; cursor: pointer;
+            }
+            .btn-small:hover {border: 1px solid #999; background-color: #CCC; color: #FFF;}
+            
+            .tbl-main {border-collapse: collapse; font-size: 11px; background-color: #FFF; margin: 0px;}
+            .tbl-main td {padding: 4px 7px; border: 1px solid #DDD; }
+            #tbl-title {font-weight: bold; background-color: #F5F5F5; color: #575757;}
+            
+            .tbl-small {border-collapse: collapse; font-size: 11px; background-color: #FFF;}
+            .tbl-small td {padding: 2px 3px; border: 1px solid #DDD; }
+            
+            #caption {
+                font-size: 12px;
+                color: #474747;
+                font-weight: bold;
+                padding: 2px 0px 3px 0px;
+            }
+            #divinput {
+                margin-bottom: 5px;
+                padding-bottom: 5px;
+            }
+            
+            #div_item_sch {
+                background-color: #EEE;
+                color: #575757;
+                padding: 5px 7px;
+            }
+            
+            .form-style {
+                font-size: 12px;
+                color: #575757;
+                border: 1px solid #DDD;
+                border-radius: 5px;
+            }
+            .form-title {
+                padding: 11px 21px;
+                margin-bottom: 2px;
+                border-bottom: 1px solid #DDD;
+                background-color: #EEE;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                font-weight: bold;
+            }
+            .form-content {
+                padding: 21px;
+            }
+            .form-footer {
+                border-top: 1px solid #DDD;
+                padding: 11px 21px;
+                margin-top: 2px;
+                background-color: #EEE;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+            #confirm {
+                padding: 18px 21px;
+                background-color: #FF6666;
+                color: #FFF;
+                border: 1px solid #CF5353;
+            }
+            #btn-confirm {
+                padding: 3px; border: 1px solid #CF5353; 
+                background-color: #CF5353; color: #FFF; 
+                font-size: 11px; cursor: pointer;
+            }
+            .footer-page {
+                font-size: 12px;
+            }
+            td { font-size: 12px; }
+        </style>
+        <script type="text/javascript">
+            function cmdSearch(){
+                document.frm.command.value="<%=Command.SEARCH%>";
+                document.frm.action="user_activity_log.jsp";
+                document.frm.submit();
+            }
+        </script>
+        <link rel="stylesheet" href="<%=approot%>/javascripts/datepicker/themes/jquery.ui.all.css">
+        <script src="<%=approot%>/javascripts/jquery.js"></script>
+        <script src="<%=approot%>/javascripts/datepicker/jquery.ui.core.js"></script>
+	<script src="<%=approot%>/javascripts/datepicker/jquery.ui.widget.js"></script>
+	<script src="<%=approot%>/javascripts/datepicker/jquery.ui.datepicker.js"></script>
+        <script>
+        function pageLoad(){ $(".mydate").datepicker({ dateFormat: "yy-mm-dd" }); } 
+	</script>
+    </head>
+    <body onload="pageLoad()">
+        <div class="header">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%> 
+            <%@include file="../../styletemplate/template_header.jsp" %>
+            <%} else {%>
+            <tr> 
+                <td ID="TOPTITLE" background="<%=approot%>/images/HRIS_HeaderBg3.jpg" width="100%" height="54"> 
+                    <!-- #BeginEditable "header" --> 
+                    <%@ include file = "../../main/header.jsp" %>
+                    <!-- #EndEditable --> 
+                </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="15" ID="MAINMENU" valign="middle"> <!-- #BeginEditable "menumain" --> 
+                    <%@ include file = "../../main/mnmain.jsp" %>
+                    <!-- #EndEditable --> </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="10" valign="middle"> 
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr> 
+                            <td align="left"><img src="<%=approot%>/images/harismaMenuLeft1.jpg" width="8" height="8"></td>
+                            <td align="center" background="<%=approot%>/images/harismaMenuLine1.jpg" width="100%"><img src="<%=approot%>/images/harismaMenuLine1.jpg" width="8" height="8"></td>
+                            <td align="right"><img src="<%=approot%>/images/harismaMenuRight1.jpg" width="8" height="8"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <%}%>
+            </table>
+        </div>
+        <div id="menu_utama">
+            <span id="menu_title">System <strong style="color:#333;"> / </strong>User Activity Log</span>
+        </div>
+
+        <div class="content-main">
+            <form name="frm" method="post" action="">
+                <input type="hidden" name="command" value="<%=iCommand%>">
+                <table cellpadding="5" cellspacing="5">
+                    <tr>
+                        <td><strong>Date from</strong></td>
+                        <td><input type="text" name="datefrom" class="mydate" /> to <input type="text" name="dateto" class="mydate" /></td>
+                    </tr>
+                    <tr>
+                        <td><strong>User</strong></td>
+                        <td>
+                            <a href="javascript:cmdBrowse()" style="color:#FFF" class="btn">Pilih user</a>
+                            <span id="user">Nama Pengguna</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Status</strong></td>
+                        <td>
+                            <%
+                                Vector val_status = new Vector(1,1);
+                                Vector key_status = new Vector(1,1);
+                                val_status.add(""+I_DocStatus.DOCUMENT_STATUS_DRAFT) ;
+                                key_status.add(""+I_DocStatus.fieldDocumentStatus[I_DocStatus.DOCUMENT_STATUS_DRAFT] );
+                                val_status.add(""+I_DocStatus.DOCUMENT_STATUS_CANCELLED);
+                                key_status.add(""+I_DocStatus.fieldDocumentStatus[I_DocStatus.DOCUMENT_STATUS_CANCELLED] );
+                                val_status.add(""+I_DocStatus.DOCUMENT_STATUS_CLOSED);
+                                key_status.add(""+I_DocStatus.fieldDocumentStatus[I_DocStatus.DOCUMENT_STATUS_CLOSED]);
+                            %>
+                            <%=ControlCombo.draw("cbox_status", null,"", val_status, key_status,"", "formElemen")%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>
+                            <a href="javascript:cmdSearch()" style="color:#FFF;" class="btn">Search History</a>
+                        </td>
+                    </tr>
+                </table>
+                <p>&nbsp;</p>
+                <%
+                if (listLogSysHistory != null && listLogSysHistory.size()>0){
+                    %>
+                    <%= drawList(listLogSysHistory)%>
+                    <%
+                } else {
+                    %>
+                    <div id="info">There is no list</div>
+                    <%
+                }
+                %>
+            </form>
+        </div>
+        <div class="footer-page">
+            <table>
+                <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%>
+                <tr>
+                    <td valign="bottom"><%@include file="../../footer.jsp" %></td>
+                </tr>
+                <%} else {%>
+                <tr> 
+                    <td colspan="2" height="20" ><%@ include file = "../../main/footer.jsp" %></td>
+                </tr>
+                <%}%>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+package id4zffee514qhrke51a30xo;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:java#Class#com.dimata.interfaces.common.loginsystem.I_LoginSession:oiref><oihard>
+@__modelType reference 
+*/
+class reference {
+}/**
+@__ref <oiref:java#Class#com.dimata.interfaces.common.loginsystem.I_LoginSystem:oiref><oihard>
+@__modelType reference 
+*/
+class reference66 {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:java#Class#com.dimata.interfaces.common.loginsystem.I_LoginSystem:oiref>=441,138,203,89,1:oigroup>
+<oigroup:<oiref:java#Class#com.dimata.interfaces.common.loginsystem.I_LoginSession:oiref>=160,99,203,89,1:oigroup>
+*/
+class __positions {
+}

@@ -1,0 +1,28 @@
+package id316pbe514qhrke51a2pxa;
+
+/**
+@version 2.0
+@physicalPackage
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#id4zffee514qhrke51a30xo.diagram:oiref><oihard>
+@__modelType reference
+@__fqn <oiref:#Package#com.dimata.interfaces.common.loginsystem:oiref> 
+*/
+class reference {
+}}/**
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:design#Class#id4zffee514qhrke51a30xo.diagram:oiref>=178,82,78,63,1:oigroup> 
+*/
+class __positions {
+}

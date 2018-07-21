@@ -1,0 +1,2 @@
+1) finish employee view new
+2) familymember, employee education,dll : buat versi view (just view)

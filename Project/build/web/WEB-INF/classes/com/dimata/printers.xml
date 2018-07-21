@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+   <printers>
+	<printer>
+		<idx>1</idx>
+		<name>LX300</name>
+		<port>COM1</port>
+		<driver>com.dimata.printman.DSJ_PrnDrv_LX300</driver>	
+                <shared>1</shared>
+    	</printer> 	
+  </printers>

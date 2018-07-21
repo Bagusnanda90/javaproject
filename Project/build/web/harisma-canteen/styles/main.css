@@ -1,0 +1,112 @@
+td {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal}
+a:hover {  text-decoration: underline; color: #FF0000}
+a.submenu:hover {  color: #000000; text-decoration: underline}
+a.submenu:link {  color: #FFFFFF}
+.footer {  font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #FFFFFF; font-weight: normal; text-align: center}
+.tableheader {  font-weight: bold; color: #FFFFFF; background-color: #0099FF; text-align: center}
+.tablecell {  background-color: #EAF7FF}
+.tablecolor { }
+.tabinactive {  font-weight: bold; color: #FFFFFF; background-color: #0066CC; text-align: center}
+.tabcontent {  background-color: #EAF7FF}
+.tabactive {  background-color: #0099FF}
+.button {  color: #FFFFFF; vertical-align: middle; font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold}
+a.buttonlink:hover {  color: #FF0000; text-decoration: none}
+a.buttonlink:link {  color: #0000FF; text-decoration: none}
+a.buttonlink:visited {  color: #0000FF; text-decoration: none}
+body {  color: #000000; background-color: #D6EFFF; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.toptitle {  font-size: 16px; font-style: italic; color: #FFFFFF; background-color: #0066FF; font-weight: bold}
+.topmenu {  font-size: 10px; font-style: normal; color: #000000; background-color: #FFFFFF; font-weight: bold}
+.leftmenu {  font-size: 10px; font-weight: bold; color: #000000; background-color: #F2F2FF; border: #000099; border-style: solid; border-top-width: thin; border-right-width: thin; border-bottom-width: thin; border-left-width: thin}
+.leftmenutitle {  font-size: 14px; font-style: normal; font-weight: bold; color: #FFFFFF; background-color: #0000FF}
+.contenttitle {  font-size: 14px; font-style: normal; font-weight: bold}
+.footer {  font-size: 9px; color: #FFFFFF; background-color: #000099}
+.formtitle {  font-size: 12px; font-style: normal; font-weight: bolder; color: #FFFFFF; background-color: #0099FF}
+a.topmnlnk:active {  color: #000000}
+a.topmnlnk:hover {  color: #000000}
+a.topmnlnk:link {  color: #000000}
+a.topmnlnk:visited {  color: #000000}
+a.bulletlnk:active {  color: #000000}
+a.bulletlnk:hover {  color: #000000}
+a.bulletlnk:link {  color: #000000}
+a.bulletlnk:visited {  color: #000000}
+.listgenedit {  font-size: 10px; font-style: normal; line-height: normal; background-color: #666666; color: #FFFFFF}
+td {  font-family: Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal}
+input {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+.inputgen {  font-family: Arial, Helvetica, sans-serif; font-size: 11px; font-style: normal; line-height: normal; font-weight: normal; font-variant: normal; text-transform: none;  border-style : none none none none;  border : thin;  background : White;    }
+.command {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-style: normal; line-height: normal; font-weight: bold; font-variant: normal; text-align: left; text-indent: 0px; white-space: normal}
+.txtheading1 {  font-size: 12px; font-style: normal; font-weight: bold}
+.numberright {  text-align: right}
+.tabtitle {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; background-color: #FFFFFF}
+.tabtitleactive { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; background-color: #0099FF}
+.tabtitlehidden { font-family: Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold; background-color: #FFCC99}
+
+.msginfo
+{
+    BACKGROUND-COLOR: #cccccc;
+    COLOR: #008000;
+    FONT-SIZE: 12px;
+    TEXT-ALIGN: center
+}
+.msgquestion
+{
+    BACKGROUND-COLOR: yellow;
+    COLOR: blue;
+    FONT-SIZE: 14px;
+    FONT-WEIGHT: bolder;
+    TEXT-ALIGN: center
+}
+.msgwarning
+{
+    COLOR: #ffcc33;
+    FONT-SIZE: 12px;
+    TEXT-ALIGN: center
+}
+.systeminfo
+{
+font-size: 10px; font-weight: normal; color: #000099
+}
+.menuleft
+{
+    BACKGROUND-COLOR: #cccccc
+}
+.msgerror
+{
+    BACKGROUND-COLOR: #ffff00;
+    COLOR: #ff0000;
+    FONT-SIZE: 12px;
+    TEXT-ALIGN: center
+}
+
+.reqfield {  font-family: Arial, Helvetica, sans-serif; font-size: 9pt; color: #0000CC}
+.errfont {  font-family: Arial, Helvetica, sans-serif; color: #FF0000}
+.comment {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #0000CC;
+	font-style : italic;
+	font-weight : normal;
+}.fielderror {  color: #FF0000}.bullettitle1 {  font-size: 12px; font-weight: bolder; color: #FF0000}
+.bullettitle2 {  font-size: 12px; font-weight: bold}
+.bullettitle3 {  font-size: 12px; font-weight: bolder; color: #008040}
+.tabbg { background-image:url(stylesheets/images/backgroundx.png);
+ background-repeat: no-repeat;
+ background-position: center;}
+.listtitle {  font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #FF8080}
+.listheader {  font-family: Arial, Helvetica, sans-serif; font-weight: normal; color: #FFFFFF; background-color: #0099FF}
+.listcontent {  font-family: Arial, Helvetica, sans-serif; color: #666666; background-color: #FFFFCC}
+.listbg {  background-color: #C9EDED}
+.listgentitle { font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #FFFFFF; background-color: #33AAFF }
+.listgensell { font-family: Arial, Helvetica, sans-serif; color: #666666; background-color: #FEFEFF}
+.listgen { background-color: #C9EDED }
+.listarea {  font-family: Arial, Helvetica, sans-serif; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px}
+.listedittitle {  font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #FF6600}
+.transelement {  background-color: #FFFFFF; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 0px; border-left-width: 0px; text-align: right}
+.listgensellerror {  font-family: Arial, Helvetica, sans-serif; color: 666666; background-color: #FFDDEE}

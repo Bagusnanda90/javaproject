@@ -1,0 +1,773 @@
+<%-- 
+    Document   : search_amount_emp
+    Created on : Jan 9, 2016, 9:22:31 AM
+    Author     : Dimata 007
+--%>
+<%@page import="com.dimata.harisma.entity.payroll.Value_Mapping"%>
+<%@page import="com.dimata.harisma.entity.payroll.PstValue_Mapping"%>
+<%@page import="com.dimata.harisma.report.EmployeeAmountXLS"%>
+<%@ include file = "../main/javainit.jsp" %> 
+<% int  appObjCode = AppObjInfo.composeObjCode(AppObjInfo.G1_MASTERDATA, AppObjInfo.G2_MD_COMPANY, AppObjInfo.OBJ_DEPARTMENT); %>
+<%@ include file = "../main/checkuser.jsp" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%!
+    public String getDivisionName(long divisionId){
+        String name = "-";
+        if (divisionId != 0) {
+            try {
+                Division division = PstDivision.fetchExc(divisionId);
+                name = division.getDivision();
+            } catch (Exception e) {
+                System.out.println("Division Name =>" + e.toString());
+            }
+        }
+        return name;
+    }
+%>
+<%
+    int iCommand = FRMQueryString.requestCommand(request);
+    String[] divisionSelect = FRMQueryString.requestStringValues(request, "division_select");
+    String[] levelSelect = FRMQueryString.requestStringValues(request, "level_select");
+    String[] categorySelect = FRMQueryString.requestStringValues(request, "category_select");
+    String[] positionSelect = FRMQueryString.requestStringValues(request, "position_select");
+    int chooseBy = FRMQueryString.requestInt(request, "choose_by");
+    
+    String dateFrom = FRMQueryString.requestString(request, "datefrom");
+    String dateTo = FRMQueryString.requestString(request, "dateto");
+    
+    EmployeeAmountXLS empAmount = new EmployeeAmountXLS();
+%>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Search Amount of Employee</title>
+        <link rel="stylesheet" href="../styles/main.css" type="text/css">
+        <style type="text/css">
+            .tblStyle {border-collapse: collapse; font-size: 12px; }
+            .tblStyle td {padding: 5px 7px; border: 1px solid #CCC; font-size: 12px; background-color: #FFF;}
+            .title_tbl {font-weight: bold;background-color: #DDD; color: #575757;}
+            .title_page {color:#0db2e1; font-weight: bold; font-size: 14px; background-color: #EEE; border-left: 1px solid #0099FF; padding: 12px 18px;}
+
+            body {color:#373737;}
+            #menu_utama {padding: 9px 14px; border-left: 1px solid #0099FF; font-size: 14px; background-color: #F3F3F3;}
+            #menu_title {color:#0099FF; font-size: 14px;}
+            #menu_teks {color:#CCC;}
+            
+            #btn {
+              background: #3498db;
+              border: 1px solid #0066CC;
+              border-radius: 3px;
+              font-family: Arial;
+              color: #ffffff;
+              font-size: 12px;
+              padding: 3px 9px 3px 9px;
+            }
+
+            #btn:hover {
+              background: #3cb0fd;
+              border: 1px solid #3498db;
+            }
+            .title_part {color:#FF7E00; background-color: #F7F7F7; border-left: 1px solid #0099FF; padding: 9px 11px;}
+            
+            body {background-color: #EEE;}
+            .header {
+                
+            }
+            .content-main {
+                padding: 21px 32px;
+                margin: 0px 23px 59px 23px;
+            }
+            .content-info {
+                padding: 21px;
+                border-bottom: 1px solid #E5E5E5;
+            }
+            .content-title {
+                padding: 21px;
+                border-bottom: 1px solid #E5E5E5;
+                margin-bottom: 5px;
+            }
+            #title-large {
+                color: #575757;
+                font-size: 16px;
+                font-weight: bold;
+            }
+            #title-small {
+                color:#797979;
+                font-size: 11px;
+            }
+            .content {
+                padding: 21px;
+            }
+            .box {
+                margin: 17px 7px;
+                background-color: #FFF;
+                color:#575757;
+            }
+            #box_title {
+                padding:21px; 
+                font-size: 14px; 
+                color: #007fba;
+                border-top: 1px solid #28A7D1;
+                border-bottom: 1px solid #EEE;
+            }
+            #box_content {
+                padding:21px; 
+                font-size: 12px;
+                color: #575757;
+            }
+            .box-info {
+                padding:21px 43px; 
+                background-color: #F7F7F7;
+                border-bottom: 1px solid #CCC;
+                -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+                 -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+                      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.065);
+            }
+            #title-info-name {
+                padding: 11px 15px;
+                font-size: 35px;
+                color: #535353;
+            }
+            #title-info-desc {
+                padding: 7px 15px;
+                font-size: 21px;
+                color: #676767;
+            }
+            .btn {
+                background-color: #00a1ec;
+                border-radius: 3px;
+                font-family: Arial;
+                color: #EEE;
+                font-size: 12px;
+                padding: 7px 11px 7px 11px;
+                text-decoration: none;
+            }
+
+            .btn:hover {
+                color: #FFF;
+                background-color: #007fba;
+                text-decoration: none;
+            }
+            
+            .btn-small {
+                font-family: sans-serif;
+                text-decoration: none;
+                padding: 5px 7px; 
+                background-color: #676767; color: #F5F5F5; 
+                font-size: 11px; cursor: pointer;
+                border-radius: 3px;
+            }
+            .btn-small:hover { background-color: #474747; color: #FFF;}
+            
+            .btn-small-1 {
+                font-family: sans-serif;
+                text-decoration: none;
+                padding: 5px 7px; 
+                background-color: #EEE; color: #575757; 
+                font-size: 11px; cursor: pointer;
+                border-radius: 3px;
+            }
+            .btn-small-1:hover { background-color: #DDD; color: #474747;}
+            
+            .tbl-main {border-collapse: collapse; font-size: 11px; background-color: #FFF; margin: 0px;}
+            .tbl-main td {padding: 4px 7px; border: 1px solid #DDD; }
+            #tbl-title {font-weight: bold; background-color: #F5F5F5; color: #575757;}
+            
+            .tbl-small {border-collapse: collapse; font-size: 11px; background-color: #FFF;}
+            .tbl-small td {padding: 2px 3px; border: 1px solid #DDD; }
+            
+            #caption {
+                font-size: 12px;
+                color: #474747;
+                font-weight: bold;
+                padding: 2px 0px 3px 0px;
+            }
+            #divinput {
+                margin-bottom: 5px;
+                padding-bottom: 5px;
+            }
+            
+            #level_select {
+                margin-bottom: 5px;
+                padding-bottom: 5px;
+                visibility: hidden;
+            }
+            
+            #category_select {
+                margin-bottom: 5px;
+                padding-bottom: 5px;
+                visibility: hidden;
+            }
+            
+            #position_select {
+                margin-bottom: 5px;
+                padding-bottom: 5px;
+                visibility: hidden;
+            }
+            
+            #div_item_sch {
+                background-color: #EEE;
+                color: #575757;
+                padding: 5px 7px;
+            }
+            
+            #record_count{
+                font-size: 12px;
+                font-weight: bold;
+                padding-bottom: 9px;
+            }
+            #box-form {
+                background-color: #EEE; 
+                border-radius: 5px;
+            }
+            .form-style {
+                font-size: 12px;
+                color: #575757;
+                border: 1px solid #DDD;
+                border-radius: 5px;
+            }
+            .form-title {
+                padding: 11px 21px;
+                text-align: left;
+                border-bottom: 1px solid #DDD;
+                background-color: #FFF;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                font-weight: bold;
+            }
+            .form-content {
+                text-align: left;
+                padding: 21px;
+                background-color: #DDD;
+            }
+            .form-footer {
+                border-top: 1px solid #DDD;
+                padding: 11px 21px;
+                background-color: #FFF;
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+            #confirm {
+                padding: 13px 17px;
+                background-color: #FF6666;
+                color: #FFF;
+                border-radius: 3px;
+                font-size: 12px;
+                font-weight: bold;
+                visibility: hidden;
+            }
+            #btn-confirm {
+                padding: 4px 9px; border-radius: 3px;
+                background-color: #CF5353; color: #FFF; 
+                font-size: 11px; cursor: pointer;
+            }
+            .footer-page {
+                font-size: 12px; 
+            }
+            
+        </style>
+        <script type="text/javascript">
+            function getExportToExcel(){
+                document.frm.action="<%=printroot%>.report.EmployeeAmountXLS"; 
+                document.frm.target = "ReportExcel";
+                document.frm.submit();
+            }
+            
+            function getAmount(){
+                document.frm.command.value="<%= Command.LIST %>";
+                document.frm.action="search_amount_emp.jsp";
+                document.frm.submit();
+            }
+            
+            function cmdCheck(nilai){
+                switch(nilai){
+                    case 0:
+                        document.getElementById("level_select").style.visibility="visible";
+                        document.getElementById("category_select").style.visibility="hidden";
+                        document.getElementById("position_select").style.visibility="hidden";
+                        break;
+                    case 1:
+                        document.getElementById("level_select").style.visibility="hidden";
+                        document.getElementById("category_select").style.visibility="visible";
+                        document.getElementById("position_select").style.visibility="hidden";
+                        break;
+                    case 2:
+                        document.getElementById("level_select").style.visibility="hidden";
+                        document.getElementById("category_select").style.visibility="hidden";
+                        document.getElementById("position_select").style.visibility="visible";
+                        break;
+                }
+            }
+        </script>
+        <link rel="stylesheet" href="<%=approot%>/javascripts/datepicker/themes/jquery.ui.all.css">
+        <script src="<%=approot%>/javascripts/jquery.js"></script>
+        <script src="<%=approot%>/javascripts/datepicker/jquery.ui.core.js"></script>
+	<script src="<%=approot%>/javascripts/datepicker/jquery.ui.widget.js"></script>
+	<script src="<%=approot%>/javascripts/datepicker/jquery.ui.datepicker.js"></script>
+        <script>
+        function pageLoad(){ $(".mydate").datepicker({ dateFormat: "yy-mm-dd" }); } 
+	</script>
+    </head>
+    <body onload="pageLoad()">
+        <div class="header">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%> 
+            <%@include file="../styletemplate/template_header.jsp" %>
+            <%} else {%>
+            <tr> 
+                <td ID="TOPTITLE" background="<%=approot%>/images/HRIS_HeaderBg3.jpg" width="100%" height="54"> 
+                    <!-- #BeginEditable "header" --> 
+                    <%@ include file = "../main/header.jsp" %>
+                    <!-- #EndEditable --> 
+                </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="15" ID="MAINMENU" valign="middle"> <!-- #BeginEditable "menumain" --> 
+                    <%@ include file = "../main/mnmain.jsp" %>
+                    <!-- #EndEditable --> </td>
+            </tr>
+            <tr> 
+                <td  bgcolor="#9BC1FF" height="10" valign="middle"> 
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr> 
+                            <td align="left"><img src="<%=approot%>/images/harismaMenuLeft1.jpg" width="8" height="8"></td>
+                            <td align="center" background="<%=approot%>/images/harismaMenuLine1.jpg" width="100%"><img src="<%=approot%>/images/harismaMenuLine1.jpg" width="8" height="8"></td>
+                            <td align="right"><img src="<%=approot%>/images/harismaMenuRight1.jpg" width="8" height="8"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <%}%>
+            </table>
+        </div>
+        <div id="menu_utama">
+            <span id="menu_title">Masterdata <strong style="color:#333;"> / </strong>Pencarian Jumlah Karyawan</span>
+        </div>
+        <div class="content-main">
+            <form name="frm" method="post" action="">
+                <input type="hidden" name="command" value="<%=iCommand%>">
+                <table class="tblStyle">
+                    <tr><td colspan="4" style="color: #474747; font-weight: bold;">Date From <input type="text" name="datefrom" class="mydate" /> to <input type="text" name="dateto" class="mydate" /></td></tr>
+                    <tr><td colspan="4" style="color: #474747; font-weight: bold;">If you want to select multiple data, click [Ctrl] and then select items</td></tr>
+                    <tr>
+                        <td valign="top"><div id="caption"><%=dictionaryD.getWord(I_Dictionary.DIVISION)%></div></td>
+                        <td valign="top"><div id="caption"><input type="radio" name="choose_by" id="choose_by" onclick="cmdCheck(0)" value="0" /> <%=dictionaryD.getWord(I_Dictionary.LEVEL)%></div></td>
+                        <td valign="top"><div id="caption"><input type="radio" name="choose_by" id="choose_by" onclick="javascript:cmdCheck(1)" value="1" /> <%= dictionaryD.getWord(I_Dictionary.CATEGORY)%>&nbsp;<%= dictionaryD.getWord(I_Dictionary.EMPLOYEE)%></div></td>
+                        <td valign="top"><div id="caption"><input type="radio" name="choose_by" id="choose_by" onclick="javascript:cmdCheck(2)" value="2" /> <%=dictionaryD.getWord(I_Dictionary.POSITION)%></div></td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <div id="divinput">
+                                <select name="division_select" multiple="multiple" size="20">
+                                    <%
+                                    Vector listDivision = PstDivision.list(0, 0, "", PstDivision.fieldNames[PstDivision.FLD_DIVISION]);
+                                    if (listDivision != null && listDivision.size()>0){
+                                        for(int i=0; i<listDivision.size(); i++){
+                                            Division division = (Division)listDivision.get(i);
+                                            %>
+                                            <option value="<%=division.getOID()%>"><%=division.getDivision()%></option>
+                                            <%
+                                        }
+                                    }
+                                    %>
+                                </select>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div id="level_select">
+                                <select name="level_select" multiple="multiple" size="20">
+                                    <%
+                                    Vector listLevel = PstLevel.list(0, 0, "", PstLevel.fieldNames[PstLevel.FLD_LEVEL_RANK]+" DESC");
+                                    if (listLevel != null && listLevel.size()>0){
+                                        for(int i=0; i<listLevel.size(); i++){
+                                            Level level = (Level)listLevel.get(i);                        
+                                        %>
+                                        <option value="<%=level.getOID()%>"><%=level.getLevel()%></option>
+                                        <%
+                                        }
+                                    }
+                                    %>
+                                </select>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div id="category_select">
+                                <select name="category_select" multiple="multiple" size="20">
+                                    <%
+                                    Vector listEmpCategory = PstEmpCategory.list(0, 0, "", PstEmpCategory.fieldNames[PstEmpCategory.FLD_EMP_CATEGORY]);
+                                    if (listEmpCategory != null && listEmpCategory.size()>0){
+                                        for(int i=0; i<listEmpCategory.size(); i++){
+                                            EmpCategory empCategory = (EmpCategory)listEmpCategory.get(i);
+                                            %>
+                                            <option value="<%=empCategory.getOID()%>"><%=empCategory.getEmpCategory()%></option>
+                                            <%
+                                        }
+                                    }
+                                    %>
+                                </select>
+                            </div>
+                        </td>
+                        <td valign="top">
+                            <div id="position_select">
+                                <select name="position_select" multiple="multiple" size="20">
+                                    <%
+                                    String wherePosition = PstPosition.fieldNames[PstPosition.FLD_VALID_STATUS]+"="+PstPosition.VALID_ACTIVE;
+                                    Vector listPosition = PstPosition.list(0, 0, wherePosition, PstPosition.fieldNames[PstPosition.FLD_POSITION]);
+                                    if (listPosition != null && listPosition.size()>0){
+                                        for(int i=0; i<listPosition.size(); i++){
+                                            Position pos = (Position)listPosition.get(i);
+                                            %>
+                                            <option value="<%=pos.getOID()%>"><%=pos.getPosition()%></option>
+                                            <%
+                                        }
+                                    }
+                                    %>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="padding: 17px 7px;">
+                            <a style="color:#FFF" class="btn" href="javascript:getAmount()">Get amount</a>
+                            <a style="color:#FFF" class="btn" href="javascript:getExportToExcel()">Export to Excel</a>
+                        </td>
+                    </tr>
+                </table>
+                <div>&nbsp;</div>               
+                <%
+                if (iCommand == Command.LIST){
+                    String amountTitle = "";
+                    switch(chooseBy){
+                        case 0: amountTitle = "Level";
+                            break;
+                        case 1: amountTitle = "Kategori Karyawan";
+                            break;
+                        case 2: amountTitle = "Jabatan";
+                            break;
+                    }
+                    %>
+                    <div id="menu_utama">
+                        <strong>Period :</strong> <span style="font-size: 12px;"><%= dateFrom +" To "+ dateTo %></span>
+                        &nbsp;|&nbsp;
+                        <strong>By :</strong> <span style="font-size: 12px;"><%=amountTitle%></span>
+                    </div>
+                    <div>&nbsp;</div>
+                    <%= empAmount.getDrawListAmount(chooseBy, dateFrom, dateTo, divisionSelect, levelSelect, categorySelect, positionSelect) %>
+                    <%
+                }
+                %>
+                
+            </form>
+                <div>
+                    <%
+                        String employeeId = "504404525507022426";
+                        String salaryComp = "BNF01";
+                        String periodFrom = "2016-01-01";
+                        String periodTo = "2016-01-31";
+                        String[] arrStart = periodFrom.split("-");
+                        int index = -1;
+                        Vector listRangeDate = new Vector();
+                        Vector valueMappingCareer = new Vector();
+                        String whereClause = "";
+                        String order = "";
+                        Employee empData = new Employee();
+                        try {
+                            empData = PstEmployee.fetchExc(Long.valueOf(employeeId));
+                        } catch(Exception e){
+                            System.out.println(e.toString());
+                        }
+                        // dapatkan value mapping current
+                        double valueCurrent = empAmount.getValuemapping(periodFrom, periodTo, employeeId, salaryComp);
+                        double valuePrevious = 0;
+                        double proporsionalCurr = 0;
+                        double proporsionalPrev = 0;
+                        double totalValue = 0;
+                
+                        String test = "";
+                        String fieldKey = empAmount.getFieldKey();
+                        String valueKey = empAmount.getValueKey();
+                        if (fieldKey.equals(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_EMPLOYEE_CATEGORY])) {
+                            fieldKey = PstCareerPath.fieldNames[PstCareerPath.FLD_EMP_CATEGORY_ID];
+                        }
+                        if (fieldKey.equals(PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_GRADE])) {
+                            fieldKey = PstCareerPath.fieldNames[PstCareerPath.FLD_GRADE_LEVEL_ID];
+                        }
+                
+                        // Jika value Current != 0 maka cari list career
+                        String dataCareer = "";
+                        String dataValueM = "";
+                        boolean find = false;
+                        boolean math = false;
+                        if (valueCurrent != 0) {
+                            long oidCareer = empAmount.getCareerOid(periodFrom, employeeId);
+                            whereClause = PstCareerPath.fieldNames[PstCareerPath.FLD_WORK_HISTORY_NOW_ID] + "=" + oidCareer;
+                            Vector listCareerPath = PstCareerPath.list(0, 0, whereClause, ""); // ga ada limit
+                            whereClause = "";
+                            if (listCareerPath != null && listCareerPath.size() > 0) {
+                                CareerPath career = (CareerPath) listCareerPath.get(0);
+                                
+                                listRangeDate = empAmount.getRangeOfDate("" + career.getWorkFrom(), "" + career.getWorkTo());
+                                if (listRangeDate != null && listRangeDate.size() > 0) {
+                                    for (int r = 0; r < listRangeDate.size(); r++) {
+                                        String rDate = (String) listRangeDate.get(r);
+                                        if (rDate.equals(periodFrom)) {
+                                            math = true;
+                                        }
+                                    }
+                                }
+                        
+                                if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_COMPANY_ID])) {
+                                    if (!empAmount.getValueKey().equals("" + career.getCompanyId())) {
+                                        whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                        whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMPANY_ID] + "=" + career.getCompanyId();
+                                        dataCareer += empAmount.getFieldKey() + " = " + career.getCompanyId() + "<br />";
+                                        dataValueM += empAmount.getFieldKey() + " = " + empAmount.getValueKey() + "<br />";
+                                    } else {
+                                        find = true;
+                                    }
+                            
+                                }
+                                if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_DIVISION_ID])) {
+                                    if (!empAmount.getValueKey().equals("" + career.getDivisionId())) {
+                                        whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                        whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_DIVISION_ID] + "=" + career.getDivisionId();
+                                    } else {
+                                        find = true;
+                                    }
+                                    dataCareer += empAmount.getFieldKey() + " = " + career.getDivisionId() + "<br />";
+                                    dataValueM += empAmount.getFieldKey() + " = " + empAmount.getValueKey() + "<br />";
+                                }
+                                if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_DEPARTMENT_ID])) {
+                                    if (!empAmount.getValueKey().equals("" + career.getDepartmentId())) {
+                                        whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                        whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_DEPARTMENT_ID] + "=" + career.getDepartmentId();
+                                    } else {
+                                        find = true;
+                                    }
+                                    dataCareer += empAmount.getFieldKey() + " = " + career.getDepartmentId() + "<br />";
+                                    dataValueM += empAmount.getFieldKey() + " = " + empAmount.getValueKey() + "<br />";
+                                }
+                                if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_SECTION_ID])) {
+                                    if (!empAmount.getValueKey().equals("" + career.getSectionId())) {
+                                        whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                        whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_SECTION_ID] + "=" + career.getSectionId();
+                                    } else {
+                                        find = true;
+                                    }
+                                    dataCareer += empAmount.getFieldKey() + " = " + career.getSectionId() + "<br />";
+                                    dataValueM += empAmount.getFieldKey() + " = " + empAmount.getValueKey() + "<br />";
+                                }
+                                if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_LEVEL_ID])) {
+                                    if (!empAmount.getValueKey().equals("" + career.getLevelId())) {
+                                        whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                        whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_LEVEL_ID] + "=" + career.getLevelId();
+                                    } else {
+                                        find = true;
+                                    }
+                                    dataCareer += empAmount.getFieldKey() + " = " + career.getLevelId() + "<br />";
+                                    dataValueM += empAmount.getFieldKey() + " = " + empAmount.getValueKey() + "<br />";
+                                }
+                                if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_POSITION_ID])) {
+                                    if (!empAmount.getValueKey().equals("" + career.getPositionId())) {
+                                        whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                        whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_POSITION_ID] + "=" + career.getPositionId();
+                                    } else {
+                                        find = true;
+                                    }
+                                    dataCareer += empAmount.getFieldKey() + " = " + career.getPositionId() + "<br />";
+                                    dataValueM += empAmount.getFieldKey() + " = " + empAmount.getValueKey() + "<br />";
+                                }
+                                if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_EMP_CATEGORY_ID])) {
+                                    if (!empAmount.getValueKey().equals("" + career.getEmpCategoryId())) {
+                                        whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                        whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_EMPLOYEE_CATEGORY] + "=" + career.getEmpCategoryId();
+                                    } else {
+                                        find = true;
+                                    }
+                                    dataCareer += empAmount.getFieldKey() + " = " + career.getEmpCategoryId() + "<br />";
+                                    dataValueM += empAmount.getFieldKey() + " = " + empAmount.getValueKey() + "<br />";
+                                }
+                                if (fieldKey.equals(PstCareerPath.fieldNames[PstCareerPath.FLD_GRADE_LEVEL_ID])) {
+                                    if (!empAmount.getValueKey().equals("" + career.getGradeLevelId())) {
+                                        whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                        whereClause += " AND " + PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_GRADE] + "=" + career.getGradeLevelId();
+                                    } else {
+                                        find = true;
+                                    }
+                                    dataCareer += empAmount.getFieldKey() + " = " + career.getGradeLevelId() + "<br />";
+                                    dataValueM += empAmount.getFieldKey() + " = " + empAmount.getValueKey() + "<br />";
+                                }
+                        
+                                valueMappingCareer = PstValue_Mapping.list(0, 0, whereClause, "");
+                                if (find == false && math == true) {
+                                    if (valueMappingCareer != null && valueMappingCareer.size() > 0) {
+                                        Value_Mapping valueMapping = (Value_Mapping) valueMappingCareer.get(0);
+                                        valuePrevious = valueMapping.getValue();
+                                        String workTo = "" + career.getWorkTo();
+                                        String[] arrWorkTo = workTo.split("-");
+                                        if (arrStart[0].equals(arrWorkTo[0])) {
+                                            int periodInt = Integer.valueOf(arrStart[0] + arrStart[1] + arrStart[2]);
+                                            int workToInt = Integer.valueOf(arrWorkTo[0] + arrWorkTo[1] + arrWorkTo[2]);
+                                            if (periodInt < workToInt) {
+                                                totalValue = valuePrevious;
+                                            } else {
+                                                //listRangeDate = empAmount.getRangeOfDate("" + career.getWorkFrom(), "" + career.getWorkTo());
+                                                if (listRangeDate != null && listRangeDate.size() > 0) {
+                                                    for (int r = 0; r < listRangeDate.size(); r++) {
+                                                        String rDate = (String) listRangeDate.get(r);
+                                                        if (rDate.equals(periodFrom)) {
+                                                            index = r;
+                                                        }
+                                                    }
+                                                    int amountPrev = listRangeDate.size() - index;
+                                                    int amountCurr = 30 - amountPrev;
+                                                    proporsionalPrev = (valuePrevious / 30) * amountPrev;
+                                                    proporsionalCurr = (valueCurrent / 30) * amountCurr;
+                                                    totalValue = proporsionalPrev + proporsionalCurr;
+                                                }
+                                            }
+                                        } else {
+                                            totalValue = valueCurrent;
+                                        }
+                                    } else {
+                                        ///test = "Test";//
+                                        totalValue = valuePrevious;
+                                    }
+                                } else {
+                                    totalValue = valueCurrent;
+                                }
+                            } else {
+                                totalValue = valueCurrent;
+                            } 
+                        } else { /* Fokus pencarian ke riwayat jabatan */
+                            whereClause = PstCareerPath.fieldNames[PstCareerPath.FLD_EMPLOYEE_ID] + "=" + employeeId;
+                            order = PstCareerPath.fieldNames[PstCareerPath.FLD_WORK_FROM] + " DESC";
+                            Vector listCareerPath = PstCareerPath.list(0, 1, whereClause, order);
+                            whereClause = "";
+                            if (listCareerPath != null && listCareerPath.size() > 0) {
+                                CareerPath career = (CareerPath) listCareerPath.get(0);
+                                
+                                
+                                listRangeDate = empAmount.getRangeOfDate("" + career.getWorkFrom(), "" + career.getWorkTo());
+                                if (listRangeDate != null && listRangeDate.size() > 0) {
+                                    for (int r = 0; r < listRangeDate.size(); r++) {
+                                        String rDate = (String) listRangeDate.get(r);
+                                        if (rDate.equals(periodFrom)) {
+                                            math = true;
+                                        }
+                                    }
+                                }
+                                
+                                if (math == true){
+                                    whereClause = PstValue_Mapping.fieldNames[PstValue_Mapping.FLD_COMP_CODE] + "='" + salaryComp + "'";
+                                    valueMappingCareer = PstValue_Mapping.list(0, 0, whereClause, "");
+                                    if (valueMappingCareer != null && valueMappingCareer.size() > 0) {
+                                        for (int i=0; i<valueMappingCareer.size(); i++){
+                                            Value_Mapping valueMapping = (Value_Mapping) valueMappingCareer.get(i);
+                                            if (valueMapping.getCompany_id() != 0){
+                                                if (valueMapping.getCompany_id()==career.getCompanyId()){
+                                                    valuePrevious = valueMapping.getValue();
+                                                    dataCareer = "COMPANY_ID";
+                                                }
+                                            }
+                                            if (valueMapping.getDivision_id() != 0){
+                                                if (valueMapping.getDivision_id()==career.getDivisionId()){
+                                                    valuePrevious = valueMapping.getValue();
+                                                    dataCareer = "DIVISION_ID";
+                                                }
+                                            }
+                                            if (valueMapping.getDepartment_id() != 0){
+                                                if (valueMapping.getDepartment_id()==career.getDepartmentId()){
+                                                    valuePrevious = valueMapping.getValue();
+                                                    dataCareer = "DEPARTMENT_ID";
+                                                }
+                                            }
+                                            if (valueMapping.getSection_id() != 0){
+                                                if (valueMapping.getSection_id()==career.getSectionId()){
+                                                    valuePrevious = valueMapping.getValue();
+                                                    dataCareer = "SECTION_ID";
+                                                }
+                                            }
+                                            if (valueMapping.getLevel_id() != 0){
+                                                if (valueMapping.getLevel_id()==career.getLevelId()){
+                                                    valuePrevious = valueMapping.getValue();
+                                                    dataCareer = "LEVEL_ID";
+                                                }
+                                            }
+                                            if (valueMapping.getEmployee_category() != 0){
+                                                if (valueMapping.getEmployee_category()==career.getEmpCategoryId()){
+                                                    valuePrevious = valueMapping.getValue();
+                                                    dataCareer = "EMPLOYEE_CATEGORY_ID";
+                                                }
+                                            }
+                                            if (valueMapping.getPosition_id() != 0){
+                                                if (valueMapping.getPosition_id()==career.getPositionId()){
+                                                    valuePrevious = valueMapping.getValue();
+                                                    dataCareer = "POSITION_ID";
+                                                }
+                                            }
+                                            if (valueMapping.getGrade() != 0){
+                                                if (valueMapping.getGrade()==career.getGradeLevelId()){
+                                                    valuePrevious = valueMapping.getValue();
+                                                    dataCareer = "GRADE_LEVEL_ID";
+                                                }
+                                            }
+                                        }
+                                        totalValue = valuePrevious;
+                                    }
+                                }
+                            }
+                        }
+                    %>
+                    <div><%=test%></div>
+                    <table class="tblStyle">
+                        <tr>
+                            <td colspan="2">
+                                <%=
+                                empData.getEmployeeNum()+"<br>"+empData.getFullName()+"<br>"+
+                                salaryComp+"<br>"+periodFrom+"<br>"+periodTo
+                                %>
+                            </td>
+                        </tr>
+                        <tr><td><strong>Previous Data</strong></td><td><strong>Current Data</strong></td></tr>
+                        <tr><td><%=dataCareer%></td><td><%=dataValueM%></td></tr>
+                        <tr><td>Value = <%= Formater.formatNumber(valuePrevious, "")%></td><td>Value = <%=Formater.formatNumber(valueCurrent, "")%></td></tr>
+                        <tr>
+                            <td>Amount = <%= (listRangeDate.size() - index)%></td>
+                            <td>Amount = <%= (31 - (listRangeDate.size() - index))%></td>
+                        </tr>
+                        <tr>
+                            <td>Proporsional = <%=proporsionalPrev%></td>
+                            <td>Proporsional = <%=proporsionalCurr%></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <%= "index = " + index%><br>Jumlah range - index = <%= (listRangeDate.size() - index)%>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                Total Value = <%= Formater.formatNumber(totalValue, "")%><br>
+                                WhereClause = <%= whereClause %>
+                            </td>
+                        </tr>
+                    </table>
+            
+                </div>
+        </div>
+        <div class="footer-page">
+            <table>
+                <%if (headerStyle && !verTemplate.equalsIgnoreCase("0")) {%>
+                <tr>
+                    <td valign="bottom"><%@include file="../footer.jsp" %></td>
+                </tr>
+                <%} else {%>
+                <tr> 
+                    <td colspan="2" height="20" ><%@ include file = "../main/footer.jsp" %></td>
+                </tr>
+                <%}%>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dimata.harisma.entity.log;
+
+import java.util.Hashtable;
+
+/**
+ *
+ * @author Dimata 007
+ */
+public class DictionaryField {
+    
+    public final static String EMP_EDUCATION_ID = "EMP_EDUCATION_ID" ;
+    public final static String EDUCATION_ID = "EDUCATION_ID" ;
+    public final static String EMPLOYEE_ID = "EMPLOYEE_ID" ;
+    public final static String START_DATE = "START_DATE" ;
+    public final static String END_DATE = "END_DATE" ;
+    public final static String GRADUATION = "GRADUATION" ;
+    public final static String EDUCATION_DESC = "EDUCATION_DESC" ;
+    public final static String POINT = "POINT" ;
+    public final static String INSTITUTION_ID = "INSTITUTION_ID" ;
+    
+    static Hashtable <String,String> dictionary = null;
+    
+    public String getWord(String key) {
+        return dictionary.get(key);
+    }
+
+    public void loadWord() {
+        if (dictionary == null ){
+            dictionary =  new Hashtable<String, String>();
+            
+        }
+        dictionary.put(EMP_EDUCATION_ID,"Emp Edu ID");
+        dictionary.put(EDUCATION_ID,"Pendidikan");
+        dictionary.put(EMPLOYEE_ID,"Karyawan");
+        dictionary.put(START_DATE,"Tgl Mulai");
+        dictionary.put(END_DATE,"Tgl Berakhir");
+        dictionary.put(GRADUATION,"Angkatan");
+        dictionary.put(EDUCATION_DESC,"Keterangan Pendidikan");
+        dictionary.put(POINT,"Poin");
+        dictionary.put(INSTITUTION_ID,"Institusi");
+    }
+
+}

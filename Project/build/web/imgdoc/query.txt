@@ -1,0 +1,14 @@
+SELECT  DISTINCT
+		`rpm`.`REWARD_PUNISMENT_MAIN_ID`, 
+		`eo`.`EMPLOYEE_ID`, 
+		`kp`.`KOEFISION_POSITION_ID`
+		
+FROM 		`hr_reward_punisment_main` AS rpm
+
+INNER JOIN 	`hr_emp_outlet` AS eo ON `rpm`.`LOCATION_ID` = `eo`.`LOCATION_ID`
+INNER JOIN      `hr_koefision_position` AS kp ON `eo`.`POSITION_ID` = `kp`.`POSITION_ID`
+
+WHERE 		`rpm`.`LOCATION_ID`='899910007'
+
+AND 		`eo`.`DATE_FROM` BETWEEN '2014-11-01' AND '2014-12-01'
+OR 		`eo`.`DATE_TO` BETWEEN '2014-11-01' AND '2014-12-01';

@@ -1,0 +1,88 @@
+<%-- 
+    Document   : more_detail
+    Created on : May 19, 2016, 4:55:23 PM
+    Author     : Dimata 007
+--%>
+
+<%@page import="com.dimata.harisma.entity.log.PstLogSysHistory"%>
+<%@page import="com.dimata.harisma.entity.log.LogSysHistory"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ include file = "../../main/javainit.jsp" %>
+<style type="text/css">
+    body {
+        padding: 21px;
+        font-size: 12px;
+        font-family: sans-serif;
+    }
+    .tblStyle {border-collapse: collapse; }
+    .tblStyle td {padding: 5px 7px; border: 1px solid #CCC; font-size: 12px; }
+    .title_tbl {font-weight: bold;background-color: #DDD; color: #575757;}
+</style>
+<script type="text/javascript">
+    function cmdPerintah(){
+        document.frm.perintah.value="1";
+        document.frm.action="more_detail.jsp";
+        document.frm.submit();
+    }
+</script>
+<%!
+    public String parsingData(String data){
+        String str = "";
+        str = data.replaceAll(";", "<br>");
+        return str;
+    }
+    
+    public Vector<String> parsingDataVersi2(String data){
+        Vector<String> vdata = new Vector();
+        for (String retval : data.split(";")) {
+            vdata.add(retval);
+        }
+        return vdata;
+    }
+    
+    public String getTableDetail(String field, String prev, String curr){
+        String table = "";
+        Vector vField = parsingDataVersi2(field);
+        Vector vPrev = parsingDataVersi2(prev);
+        Vector vCurr = parsingDataVersi2(curr);
+        table = "<table class=\"tblStyle\">";
+        table += "<tr>";
+        table += "<td class=\"title_tbl\">Field</td><td class=\"title_tbl\">Previous</td><td class=\"title_tbl\">Current</td>";
+        table += "</tr>";
+        if (vField != null && vField.size()>0){
+            for(int i=0; i<vField.size(); i++){
+                String dataField = (String)vField.get(i);
+                String dataPrev = (String)vPrev.get(i);
+                String dataCurr = (String)vCurr.get(i);
+                table += "<tr>";
+                table += "<td><strong>"+dataField+"</strong></td>";
+                table += "<td>"+dataPrev+"</td>";
+                table += "<td>"+dataCurr+"</td>";
+                table += "</tr>";
+            }
+        }
+        table += "</table>";
+        return table;
+    }
+    
+%>
+<%
+long logSysHistoryOid = FRMQueryString.requestLong(request, "oid");
+int perintah = FRMQueryString.requestInt(request, "perintah");
+LogSysHistory logSysHistory = new LogSysHistory();
+if (perintah == 1){
+
+}
+%>
+<%
+    if (logSysHistoryOid != 0){
+        logSysHistory = PstLogSysHistory.fetchExc(logSysHistoryOid);
+        %>
+        <%= getTableDetail(logSysHistory.getLogDetail(), logSysHistory.getLogPrev(), logSysHistory.getLogCurr()) %>
+        <%
+    }
+%>
+<form name="frm" action="">
+    <input type="hidden" name="perintah" value="" />
+</form>
+<a href="javascript:cmdPerintah()">Update</a>

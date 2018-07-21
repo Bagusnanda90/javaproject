@@ -1,0 +1,68 @@
+/* CSS Document */
+.pageForm  {
+	/*padding:5px;*/
+	border:1px solid #000000;
+	background-color:#ffffff;
+}
+
+.pageFormTitle  {
+	/*padding:5px;*/
+	border:1px solid #000000;
+	background-color:#999999;
+}
+
+
+.pageInput  {
+	/*padding:5px;*/
+	border-top:1px solid #000000;
+	border-right:4px solid #000000;
+	border-left:1px solid #000000;
+	border-bottom:4px solid #000000;
+	background-color:#ffffff;
+}
+
+.pageCover {
+	/*padding:5px;*/
+	border-top:1px solid #000000;
+	border-right:1px solid #000000;
+	border-left:1px solid #000000;
+	border-bottom:1px solid #000000;
+	background-color:#ffffff;
+}
+
+.pageCoverHeader {
+	/*padding:5px;*/
+	border-top:1px solid #000000;
+	border-right:1px solid #000000;
+	border-left:1px solid #000000;
+	border-bottom:1px solid #000000;
+	background-color:#CCCCCC;
+}
+
+.pagelink2  {
+	padding:5px;
+	border:1px solid #EAF7FF;
+	font-family:"Courier New", Courier, monospace;
+	font-size:12px;
+	background-color:#339933;
+}
+
+.pagelink2 a:hover  {
+	text-decoration:none;
+	color: #fffc00;
+}
+
+.pagelink2 a {
+	text-decoration:none;
+	color: #FFFFFF;
+}
+
+.pageSelected2  {
+	padding:5px;
+	border:1px solid #EAF7FF;
+	font-family:"Courier New", Courier, monospace;
+	font-size:12px;
+	background-color:#EAF7FF;
+        text-decoration:none;
+	color: #000000;
+}

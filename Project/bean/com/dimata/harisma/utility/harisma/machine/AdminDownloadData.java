@@ -1,0 +1,1051 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.dimata.harisma.utility.harisma.machine;
+
+import com.dimata.harisma.session.aplikasidesktop.attendance.SessAplicationDestopAbsensiAttendance;
+import com.dimata.harisma.session.aplikasidesktop.attendance.SessDestopApplication;
+import com.dimata.harisma.utility.harisma.machine.db.DBHandler;
+import com.dimata.harisma.utility.harisma.machine.transferdataemployee.ServiceEmployeeOutletTransfer;
+import com.dimata.harisma.utility.harisma.machine.transferdataemployee.ServiceTransferDataInformationHrd;
+import com.dimata.util.Formater;
+import com.dimata.util.ImagesParser;
+import java.awt.Color;
+import java.io.File;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+
+/**
+ *
+ * @author Dimata 007
+ */
+public class AdminDownloadData extends javax.swing.JFrame {
+
+    /**
+     * Creates new form AdminHome
+     */
+    private final String[] okFileExtensions = new String[]{"sql"};
+    private SessDestopApplication obSessDestopApplication = new SessDestopApplication();
+    //private static String valueSelectedImportFdd="";
+    ServiceEmployeeOutletTransfer serviceEmployeeOutletTransfer = ServiceEmployeeOutletTransfer.getInstance(false);
+    //ServiceTransferDataPresence serviceTransferDataPresence = ServiceTransferDataPresence.getInstance(false);
+    ServiceTransferDataInformationHrd serviceTransferDataInformationHrd = ServiceTransferDataInformationHrd.getInstance(false);
+    //ServiceEmployeeScheduleTransfer serviceEmployeeScheduleTransfer = ServiceEmployeeScheduleTransfer.getInstance(false);
+    //ServiceScheduleTransfer serviceScheduleTransfer = ServiceScheduleTransfer.getInstance(false);
+
+
+    public AdminDownloadData() {
+        String x = "";
+        Formater formater = new Formater();
+        ImagesParser imagesParser = new ImagesParser();
+        initComponents();
+         this.setResizable(false); 
+        btnHome.setIcon(new javax.swing.ImageIcon(SessAplicationDestopAbsensiAttendance.getBtnHome())); // NOI18N
+        btnDownloadData.setIcon(new javax.swing.ImageIcon(SessAplicationDestopAbsensiAttendance.getBtnDownloadData())); // NOI18N
+        btnUploadData.setIcon(new javax.swing.ImageIcon(SessAplicationDestopAbsensiAttendance.getBtnUploadData())); // NOI18N
+        btnEmployeeManagement.setIcon(new javax.swing.ImageIcon(SessAplicationDestopAbsensiAttendance.getBtnEmployeeManagement())); // NOI18N
+        btnBakupData.setIcon(new javax.swing.ImageIcon(SessAplicationDestopAbsensiAttendance.getBtnBakupData())); // NOI18N
+        btnLogOut.setIcon(new javax.swing.ImageIcon(SessAplicationDestopAbsensiAttendance.getBtnLogOut())); // NOI18N
+        imagesParser.tampilkanImage(iconHarisma, iconClient, SessAplicationDestopAbsensiAttendance.getUrlGambarHarisma(), SessAplicationDestopAbsensiAttendance.getUrlGambarClient());
+        imagesParser.tampilkanImage(labelLogoDimata, SessAplicationDestopAbsensiAttendance.getLogoDimata());
+        labelDate.setText("");
+        labelTime.setText("");
+        cboxEmpSchedule.setVisible(false);
+        dtStartEmpSchedule.setVisible(false);
+        dtEndEmpSchedule.setVisible(false);
+        labelEndDateInformation2.setVisible(false);
+        //txtFldBroseFile.setText(valueSelectedImportFdd == null ? "" : valueSelectedImportFdd);
+        panelHeader.setBackground(SessAplicationDestopAbsensiAttendance.getColor() != null ? SessAplicationDestopAbsensiAttendance.getColor() : Color.WHITE);
+        body.setBackground(SessAplicationDestopAbsensiAttendance.getColor() != null ? SessAplicationDestopAbsensiAttendance.getColor() : Color.WHITE);
+        formater.getTimeInJavaDesktop(labelTime, labelDate);
+        obSessDestopApplication = new SessDestopApplication();
+        txtFldBroseFile.setEnabled(false);
+        try {
+            obSessDestopApplication = SessAplicationDestopAbsensiAttendance.getObSessDestopApplication();
+        } catch (Exception exc) {
+        }
+        String namaEmp = (obSessDestopApplication.getNamaEmployee() != null && obSessDestopApplication.getNamaEmployee().length() > 0 ? "" + obSessDestopApplication.getNamaEmployee() : "-");
+        labelNamaEmp.setText("<html><p> Name: <br>&nbsp;" + namaEmp + "</p></html>");
+        labelPosition.setText("<html><p> Position: <br>&nbsp;" + (obSessDestopApplication.getPositionName() != null && obSessDestopApplication.getPositionName().length() > 0 ? "" + obSessDestopApplication.getPositionName() : "-") + "</p></html>");
+
+        setLocationRelativeTo(this);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        //labelMenu.setText("<html>Download Data :</html>");
+//        setLocationRelativeTo(this);
+//        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        fileBrowser = new usu.widget.FileBrowser();
+        BodyContainer = new javax.swing.JPanel();
+        panelHeader = new javax.swing.JPanel();
+        iconHarisma = new javax.swing.JLabel();
+        judulDepan = new javax.swing.JLabel();
+        iconClient = new javax.swing.JLabel();
+        body = new javax.swing.JPanel();
+        labelDate = new javax.swing.JLabel();
+        labelTime = new javax.swing.JLabel();
+        labelNamaEmp = new javax.swing.JLabel();
+        labelPosition = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        labelGarisTengahButton = new javax.swing.JLabel();
+        panelButtonMenu = new usu.widget.Panel();
+        labelGarisKiriButton = new javax.swing.JLabel();
+        btnHome = new usu.widget.ButtonGlass();
+        labelGarisKananLabel = new javax.swing.JLabel();
+        btnDownloadData = new usu.widget.ButtonGlass();
+        btnUploadData = new usu.widget.ButtonGlass();
+        btnEmployeeManagement = new usu.widget.ButtonGlass();
+        btnBakupData = new usu.widget.ButtonGlass();
+        btnLogOut = new usu.widget.ButtonGlass();
+        jSeparator3 = new javax.swing.JSeparator();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        labelDownloadDtEmployee = new javax.swing.JLabel();
+        btnRunDtEmployee = new javax.swing.JButton();
+        panelEmployeeChekbox = new usu.widget.Panel();
+        cboxEmpOutlet = new javax.swing.JCheckBox();
+        cboxEmpSchedule = new javax.swing.JCheckBox();
+        dtStartEmpSchedule = new com.toedter.calendar.JDateChooser();
+        dtEndEmpSchedule = new com.toedter.calendar.JDateChooser();
+        labelEndDateInformation2 = new javax.swing.JLabel();
+        dtStartEmpOutlet = new com.toedter.calendar.JDateChooser();
+        labelEndDateInformation3 = new javax.swing.JLabel();
+        dtEndEmployeeOutlet = new com.toedter.calendar.JDateChooser();
+        cboxScheduleSymbol = new javax.swing.JCheckBox();
+        cboxKadivMapping = new javax.swing.JCheckBox();
+        txtInputParamSch = new javax.swing.JTextField();
+        lblProgress = new javax.swing.JLabel();
+        jProgressBarDtEmployee = new javax.swing.JProgressBar();
+        msgDownloadData = new javax.swing.JLabel();
+        labelImportFlasdisk = new javax.swing.JLabel();
+        btnBrowseFd = new javax.swing.JButton();
+        btnRunFd = new javax.swing.JButton();
+        labelDownloadInformation = new javax.swing.JLabel();
+        btnRunInformation = new javax.swing.JButton();
+        msgInportFd = new javax.swing.JLabel();
+        jProgressBarFd = new javax.swing.JProgressBar();
+        lblProgressFlasdisk = new javax.swing.JLabel();
+        lblProgressInformation = new javax.swing.JLabel();
+        jProgressBarInformation = new javax.swing.JProgressBar();
+        msgDownloadInformation = new javax.swing.JLabel();
+        labelStartDateInformation = new javax.swing.JLabel();
+        txtStartDateInformation = new com.toedter.calendar.JDateChooser();
+        labelEndDateInformation = new javax.swing.JLabel();
+        txtDateEndInformation = new com.toedter.calendar.JDateChooser();
+        txtFldBroseFile = new javax.swing.JTextField();
+        labelLogoDimata = new javax.swing.JLabel();
+        labelGarisAja = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        BodyContainer.setBackground(new java.awt.Color(255, 255, 255));
+        BodyContainer.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        panelHeader.setBackground(new java.awt.Color(255, 255, 255));
+
+        iconHarisma.setBackground(new java.awt.Color(255, 255, 255));
+        iconHarisma.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconHarisma.setText("icon_harisma");
+        iconHarisma.setToolTipText("");
+        iconHarisma.setName("iconHarisma"); // NOI18N
+
+        judulDepan.setBackground(new java.awt.Color(255, 255, 255));
+        judulDepan.setFont(new java.awt.Font("Vani", 1, 18)); // NOI18N
+        judulDepan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        judulDepan.setText("Outlet Attendance System");
+        judulDepan.setToolTipText("Outlet Attendance System");
+        judulDepan.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        judulDepan.setName("judul"); // NOI18N
+
+        iconClient.setBackground(new java.awt.Color(255, 255, 255));
+        iconClient.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconClient.setText("icon_client");
+        iconClient.setToolTipText("");
+        iconClient.setName("iconClient"); // NOI18N
+
+        body.setBackground(new java.awt.Color(255, 255, 255));
+        body.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        body.setName("body"); // NOI18N
+        body.setPreferredSize(new java.awt.Dimension(500, 410));
+
+        labelDate.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        labelDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelDate.setText("date");
+        labelDate.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+
+        labelTime.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTime.setText("time");
+        labelTime.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+
+        labelNamaEmp.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelNamaEmp.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelNamaEmp.setText("jLabel1");
+        labelNamaEmp.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        labelNamaEmp.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        labelPosition.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelPosition.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        labelPosition.setText("jLabel1");
+        labelPosition.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        labelPosition.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        jSeparator1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        panelButtonMenu.setBackground(new java.awt.Color(255, 255, 255));
+        panelButtonMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnHome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHomeActionPerformed(evt);
+            }
+        });
+
+        btnDownloadData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDownloadDataActionPerformed(evt);
+            }
+        });
+
+        btnUploadData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUploadDataActionPerformed(evt);
+            }
+        });
+
+        btnEmployeeManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEmployeeManagementActionPerformed(evt);
+            }
+        });
+
+        btnBakupData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBakupDataActionPerformed(evt);
+            }
+        });
+
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelButtonMenuLayout = new javax.swing.GroupLayout(panelButtonMenu);
+        panelButtonMenu.setLayout(panelButtonMenuLayout);
+        panelButtonMenuLayout.setHorizontalGroup(
+            panelButtonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelGarisKananLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(btnDownloadData, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(btnUploadData, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnEmployeeManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(btnBakupData, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelGarisKiriButton, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelButtonMenuLayout.setVerticalGroup(
+            panelButtonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelButtonMenuLayout.createSequentialGroup()
+                .addGroup(panelButtonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelGarisKananLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelGarisKiriButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(50, 50, 50))
+            .addGroup(panelButtonMenuLayout.createSequentialGroup()
+                .addGroup(panelButtonMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDownloadData, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUploadData, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEmployeeManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBakupData, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(panelButtonMenuLayout.createSequentialGroup()
+                .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
+        labelDownloadDtEmployee.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelDownloadDtEmployee.setText(" Download Employee Data from Server");
+        labelDownloadDtEmployee.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnRunDtEmployee.setText("Run");
+        btnRunDtEmployee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunDtEmployeeActionPerformed(evt);
+            }
+        });
+
+        panelEmployeeChekbox.setBorder(javax.swing.BorderFactory.createTitledBorder("Employee"));
+
+        cboxEmpOutlet.setText("tbl employee outlet");
+        cboxEmpOutlet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxEmpOutletActionPerformed(evt);
+            }
+        });
+
+        cboxEmpSchedule.setText("tbl emp  schedule");
+
+        labelEndDateInformation2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelEndDateInformation2.setText("To");
+
+        labelEndDateInformation3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelEndDateInformation3.setText("To");
+
+        cboxScheduleSymbol.setText("tbl sch symbol");
+        cboxScheduleSymbol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxScheduleSymbolActionPerformed(evt);
+            }
+        });
+
+        cboxKadivMapping.setText("kadiv mapping");
+
+        txtInputParamSch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInputParamSchActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelEmployeeChekboxLayout = new javax.swing.GroupLayout(panelEmployeeChekbox);
+        panelEmployeeChekbox.setLayout(panelEmployeeChekboxLayout);
+        panelEmployeeChekboxLayout.setHorizontalGroup(
+            panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEmployeeChekboxLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEmployeeChekboxLayout.createSequentialGroup()
+                        .addComponent(cboxKadivMapping)
+                        .addGap(18, 18, 18)
+                        .addComponent(cboxEmpSchedule)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dtStartEmpSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelEndDateInformation2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dtEndEmpSchedule, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelEmployeeChekboxLayout.createSequentialGroup()
+                        .addGroup(panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboxEmpOutlet)
+                            .addComponent(cboxScheduleSymbol))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelEmployeeChekboxLayout.createSequentialGroup()
+                                .addComponent(dtStartEmpOutlet, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelEndDateInformation3, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtInputParamSch))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dtEndEmployeeOutlet, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        panelEmployeeChekboxLayout.setVerticalGroup(
+            panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEmployeeChekboxLayout.createSequentialGroup()
+                .addGroup(panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cboxEmpOutlet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelEndDateInformation3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtStartEmpOutlet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dtEndEmployeeOutlet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtInputParamSch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxScheduleSymbol, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelEmployeeChekboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cboxEmpSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cboxKadivMapping, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dtStartEmpSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelEndDateInformation2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtEndEmpSchedule, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        lblProgress.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblProgress.setText("Progress :");
+
+        jProgressBarDtEmployee.setStringPainted(true);
+
+        msgDownloadData.setText("message download data");
+
+        labelImportFlasdisk.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelImportFlasdisk.setText("Import Data from Flashdisk");
+        labelImportFlasdisk.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnBrowseFd.setText("Browse");
+        btnBrowseFd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrowseFdActionPerformed(evt);
+            }
+        });
+
+        btnRunFd.setText("Run");
+        btnRunFd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunFdActionPerformed(evt);
+            }
+        });
+
+        labelDownloadInformation.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelDownloadInformation.setText(" Download Info Data from Server");
+        labelDownloadInformation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btnRunInformation.setText("Run");
+        btnRunInformation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRunInformationActionPerformed(evt);
+            }
+        });
+
+        msgInportFd.setText("message download data");
+
+        jProgressBarFd.setStringPainted(true);
+
+        lblProgressFlasdisk.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblProgressFlasdisk.setText("Progress :");
+
+        lblProgressInformation.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblProgressInformation.setText("Progress :");
+
+        jProgressBarInformation.setStringPainted(true);
+
+        msgDownloadInformation.setText("message download data");
+
+        labelStartDateInformation.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelStartDateInformation.setText("Date :");
+
+        labelEndDateInformation.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        labelEndDateInformation.setText("To");
+
+        txtFldBroseFile.setToolTipText("data file selected");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblProgress)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBarDtEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(msgDownloadData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelDownloadDtEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRunDtEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelEmployeeChekbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelStartDateInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtStartDateInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelEndDateInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDateEndInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelImportFlasdisk, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFldBroseFile, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBrowseFd)
+                        .addGap(12, 12, 12)
+                        .addComponent(btnRunFd, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblProgressFlasdisk)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBarFd, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(msgInportFd, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblProgressInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jProgressBarInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(msgDownloadInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelDownloadInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRunInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(244, 244, 244))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtFldBroseFile, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelImportFlasdisk)
+                            .addComponent(btnBrowseFd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRunFd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelDownloadDtEmployee)
+                        .addComponent(btnRunDtEmployee)))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(panelEmployeeChekbox, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblProgress)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jProgressBarDtEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(msgDownloadData, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblProgressFlasdisk, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jProgressBarFd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(msgInportFd, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelDownloadInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRunInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblProgressInformation)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jProgressBarInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(msgDownloadInformation, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelEndDateInformation)
+                            .addComponent(txtStartDateInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelStartDateInformation)
+                            .addComponent(txtDateEndInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70))))
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
+
+        javax.swing.GroupLayout bodyLayout = new javax.swing.GroupLayout(body);
+        body.setLayout(bodyLayout);
+        bodyLayout.setHorizontalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addComponent(labelNamaEmp, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelButtonMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jSeparator2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelGarisTengahButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        bodyLayout.setVerticalGroup(
+            bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(bodyLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelDate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelTime, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(labelPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelNamaEmp, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(bodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(labelGarisTengahButton, javax.swing.GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE)
+                        .addGap(301, 301, 301))
+                    .addGroup(bodyLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelButtonMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+
+        javax.swing.GroupLayout panelHeaderLayout = new javax.swing.GroupLayout(panelHeader);
+        panelHeader.setLayout(panelHeaderLayout);
+        panelHeaderLayout.setHorizontalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelHeaderLayout.createSequentialGroup()
+                        .addComponent(iconClient, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(judulDepan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(iconHarisma, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(body, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 766, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelHeaderLayout.setVerticalGroup(
+            panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(iconHarisma, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(iconClient, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(judulDepan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout BodyContainerLayout = new javax.swing.GroupLayout(BodyContainer);
+        BodyContainer.setLayout(BodyContainerLayout);
+        BodyContainerLayout.setHorizontalGroup(
+            BodyContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BodyContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelGarisAja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2, 2, 2)
+                .addComponent(labelLogoDimata, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        BodyContainerLayout.setVerticalGroup(
+            BodyContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BodyContainerLayout.createSequentialGroup()
+                .addComponent(panelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addGroup(BodyContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelGarisAja, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelLogoDimata, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(BodyContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(BodyContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(1, 1, 1))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new AdminHome().setVisible(true);
+    }//GEN-LAST:event_btnHomeActionPerformed
+
+    private void btnDownloadDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadDataActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        // AdminUploadData.setMenuUrl("Download Data");
+        new AdminDownloadData().setVisible(true);
+    }//GEN-LAST:event_btnDownloadDataActionPerformed
+
+    private void btnUploadDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUploadDataActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        AdminUploadData.setMenuUrl("Upload Data");
+        new AdminUploadData().setVisible(true);
+    }//GEN-LAST:event_btnUploadDataActionPerformed
+
+    private void btnEmployeeManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeManagementActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new AdminEmployeeManagement().setVisible(true);
+    }//GEN-LAST:event_btnEmployeeManagementActionPerformed
+
+    private void btnBakupDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBakupDataActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        AdminUploadData.setMenuUrl("Bakup Data");
+        new AdminUploadData().setVisible(true);
+    }//GEN-LAST:event_btnBakupDataActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new Login().setVisible(true);
+    }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnRunDtEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunDtEmployeeActionPerformed
+        // TODO add your handling code here:
+        String noLocation = "";//DBHandler.getMesinLocation();
+        try {
+            noLocation = DBHandler.getMesinLocation();
+        } catch (Exception exc) {
+            msgDownloadData.setText("Please insert no mesin in outletHarisma.xml" + exc);
+        }
+        //jProgressBarDtEmployee.setValue(50);
+        //if (cboxEmpOutlet.isSelected()) {
+        if (dtStartEmpOutlet.getDate() != null && dtEndEmployeeOutlet.getDate() != null) {
+            // maka lalukan download sesuai parameter
+            //serviceEmployeeOutletTransfer = ServiceEmployeeOutletTransfer.getInstance(false);
+            serviceEmployeeOutletTransfer = ServiceEmployeeOutletTransfer.getInstance(true);
+            if (noLocation != null && noLocation.length() > 0) {
+                if (!serviceEmployeeOutletTransfer.getStatus() && btnRunDtEmployee.getText().equalsIgnoreCase("Run")) {
+                    try {
+
+                        serviceEmployeeOutletTransfer.startService(dtStartEmpOutlet.getDate(), dtEndEmployeeOutlet.getDate(), noLocation, cboxEmpOutlet.isSelected(), cboxEmpSchedule.isSelected(), cboxScheduleSymbol.isSelected(), cboxKadivMapping.isSelected(),txtInputParamSch.getText(), jProgressBarDtEmployee, msgDownloadData, btnRunDtEmployee);
+                        btnRunDtEmployee.setText("Stop");
+                        if (serviceEmployeeOutletTransfer != null) {
+                            msgDownloadData.setText(serviceEmployeeOutletTransfer.getMessageTransferEmployee());
+                        }
+                    } catch (Exception e) {
+                        msgDownloadData.setText("\t Exception svrmgrMachine.startTransfer() = " + e);
+                    }
+                } else {
+                    try {
+                        serviceEmployeeOutletTransfer.stopService();
+                        btnRunDtEmployee.setText("Run");
+                    } catch (Exception e) {
+                        msgDownloadData.setText("\t Exception svrmgrMachine.stopWatcherMachine() = " + e);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(BodyContainer, "<html> Please insert no mesin in outletHarisma.xml </html>", "Inane warning", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            //lakukan download semua
+            //JOptionPane.showMessageDialog(BodyContainer, "<html> Please Select Date </html>", "Inane warning", JOptionPane.WARNING_MESSAGE);
+            //berati kemungkinan dia memilih tabel emp schd
+            if (dtStartEmpSchedule.getDate() != null && dtStartEmpSchedule.getDate() != null) {
+                // maka lalukan download sesuai parameter
+                //serviceEmployeeOutletTransfer = ServiceEmployeeOutletTransfer.getInstance(false);
+                serviceEmployeeOutletTransfer = ServiceEmployeeOutletTransfer.getInstance(true);
+                if (noLocation != null && noLocation.length() > 0) {
+                    if (!serviceEmployeeOutletTransfer.getStatus() && btnRunDtEmployee.getText().equalsIgnoreCase("Run")) {
+                        try {
+
+                            serviceEmployeeOutletTransfer.startService(dtStartEmpSchedule.getDate(), dtStartEmpSchedule.getDate(), noLocation, cboxEmpOutlet.isSelected(), cboxEmpSchedule.isSelected(), cboxScheduleSymbol.isSelected(), cboxKadivMapping.isSelected(),txtInputParamSch.getText(), jProgressBarDtEmployee, msgDownloadData, btnRunDtEmployee);
+                            btnRunDtEmployee.setText("Stop");
+                            if (serviceEmployeeOutletTransfer != null) {
+                                msgDownloadData.setText(serviceEmployeeOutletTransfer.getMessageTransferEmployee());
+                            }
+                        } catch (Exception e) {
+                            msgDownloadData.setText("\t Exception svrmgrMachine.startTransfer() = " + e);
+                        }
+                    } else {
+                        try {
+                            serviceEmployeeOutletTransfer.stopService();
+                            btnRunDtEmployee.setText("Start");
+                        } catch (Exception e) {
+                            msgDownloadData.setText("\t Exception svrmgrMachine.stopWatcherMachine() = " + e);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(BodyContainer, "<html> Please insert no mesin in outletHarisma.xml </html>", "Inane warning", JOptionPane.WARNING_MESSAGE);
+                }
+            } else {
+                //bearti dia memilih hanya schedule saja
+                // maka lalukan download sesuai parameter
+                //serviceEmployeeOutletTransfer = ServiceEmployeeOutletTransfer.getInstance(false);
+                serviceEmployeeOutletTransfer = ServiceEmployeeOutletTransfer.getInstance(true);
+                if (noLocation != null && noLocation.length() > 0) {
+                    if (!serviceEmployeeOutletTransfer.getStatus() && btnRunDtEmployee.getText().equalsIgnoreCase("Run")) {
+                        try {
+
+                            serviceEmployeeOutletTransfer.startService(dtStartEmpSchedule.getDate(), dtStartEmpSchedule.getDate(), noLocation, cboxEmpOutlet.isSelected(), cboxEmpSchedule.isSelected(), cboxScheduleSymbol.isSelected(), cboxKadivMapping.isSelected(),txtInputParamSch.getText(), jProgressBarDtEmployee, msgDownloadData, btnRunDtEmployee);
+                            btnRunDtEmployee.setText("Stop");
+                            if (serviceEmployeeOutletTransfer != null) {
+                                msgDownloadData.setText(serviceEmployeeOutletTransfer.getMessageTransferEmployee());
+                            }
+                        } catch (Exception e) {
+                            msgDownloadData.setText("\t Exception svrmgrMachine.startTransfer() = " + e);
+                        }
+                    } else {
+                        try {
+                            serviceEmployeeOutletTransfer.stopService();
+                            btnRunDtEmployee.setText("Start");
+                        } catch (Exception e) {
+                            msgDownloadData.setText("\t Exception svrmgrMachine.stopWatcherMachine() = " + e);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(BodyContainer, "<html> Please insert no mesin in outletHarisma.xml </html>", "Inane warning", JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
+
+        }
+        //}
+    }//GEN-LAST:event_btnRunDtEmployeeActionPerformed
+    
+    
+    private void btnRunInformationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunInformationActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        String noLocation = "";//DBHandler.getMesinLocation();
+        try {
+            noLocation = DBHandler.getMesinLocation();
+        } catch (Exception exc) {
+            msgDownloadInformation.setText("Please insert no mesin in outletHarisma.xml" + exc);
+        }
+
+        if (txtStartDateInformation.getDate() != null && txtDateEndInformation.getDate() != null) {
+            // maka lalukan download sesuai parameter
+            serviceTransferDataInformationHrd = ServiceTransferDataInformationHrd.getInstance(true);
+            if (noLocation != null && noLocation.length() > 0) {
+                if (!serviceTransferDataInformationHrd.getStatus() && btnRunInformation.getText().equalsIgnoreCase("Run")) {
+                    try {
+                        serviceTransferDataInformationHrd.startService(txtStartDateInformation.getDate(), txtDateEndInformation.getDate(), jProgressBarInformation, msgDownloadInformation, btnRunInformation);
+                        btnRunInformation.setText("Stop Data Transfer");
+                        //                                                            if (serviceTransferDataInformationHrd != null && serviceEmployeeOutletTransfer.getMessageTransferEmployee()!=null) {
+                        //                                                                    //msgDownloadInformation.setText(serviceEmployeeOutletTransfer.getMessageTransferEmployee());
+                        //                                                                }
+                    } catch (Exception e) {
+                        msgDownloadInformation.setText("\t Exception svrmgrMachine.startTransfer() = " + e);
+                    }
+                } else {
+                    try {
+                        serviceTransferDataInformationHrd.stopService();
+                        btnRunInformation.setText("Run");
+                    } catch (Exception e) {
+                        msgDownloadInformation.setText("\t Exception svrmgrMachine.stopWatcherMachine() = " + e);
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(BodyContainer, "<html> Please insert no mesin in outletHarisma.xml </html>", "Inane warning", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(BodyContainer, "<html> Please insert Date start or Date End </html>", "Inane warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRunInformationActionPerformed
+
+    private void btnBrowseFdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseFdActionPerformed
+        // TODO add your handling code here:
+        FileFilter fileFilter = new FileFilter() {
+            @Override
+            public boolean accept(File file) {
+                for (String extension : okFileExtensions) {
+                    if (file.getName().toLowerCase().endsWith(extension)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            @Override
+            public String getDescription() {
+                return ".sql";
+                //throw new UnsupportedOperationException("Not supported yet.");
+            }
+        };
+
+        fileBrowser.setFileFilter(fileFilter);
+        int returnVal = fileBrowser.showOpenDialog(this);
+        if(returnVal == fileBrowser.APPROVE_OPTION) {
+            txtFldBroseFile.setText(fileBrowser.getSelectedFile().getPath());
+        }
+
+    }//GEN-LAST:event_btnBrowseFdActionPerformed
+
+    private void btnRunFdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunFdActionPerformed
+        // TODO add your handling code here:
+        //mencalankan scipt
+        if (txtFldBroseFile != null && txtFldBroseFile.getText() != null) {
+            String formatSql = ".sql";
+            String[] valueTxtFldBrowser = txtFldBroseFile.getText().split(formatSql);
+            if (valueTxtFldBrowser != null) {
+                try {
+                    if (txtFldBroseFile.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(null, "Please select the sql data");
+                    } else {
+                        String url[] = SessAplicationDestopAbsensiAttendance.getUrlLocationMysql() != null && SessAplicationDestopAbsensiAttendance.getUrlLocationMysql().length() > 0 ? SessAplicationDestopAbsensiAttendance.getUrlLocationMysql().split(",") : null;
+                        String command = url != null && url.length == 2 ? (String) url[0] : "";
+                        String commandUty = url != null && url.length == 2 ? (String) url[1] : "";
+                        String sDbnPort[] = SessAplicationDestopAbsensiAttendance.getPortnDbName() != null ? SessAplicationDestopAbsensiAttendance.getPortnDbName().split(",") : null;
+                        String host = sDbnPort != null && sDbnPort.length == 3 ? (String) sDbnPort[0] : "";
+                        String port = sDbnPort != null && sDbnPort.length == 3 ? (String) sDbnPort[1] : "";
+                        String nmDb = sDbnPort != null && sDbnPort.length == 3 ? (String) sDbnPort[2] : "";
+                        //String[] sql = new String[]{"cmd.exe", "/c", "mysql -h" + host + " -u" + SessAplicationDestopAbsensiAttendance.getUsernameMysql() + " -p" + SessAplicationDestopAbsensiAttendance.getPasswordMysql() + " -P" + port + " " + nmDb + "<" + txtFldBroseFile.getText()};
+                        String[] sql = new String[]{command, commandUty, "mysql -f -h" + host + " -u" + SessAplicationDestopAbsensiAttendance.getUsernameMysql() + " -p" + SessAplicationDestopAbsensiAttendance.getPasswordMysql() + " -P" + port + " " + nmDb + "<" + txtFldBroseFile.getText()};
+                        if (command.length() > 0 && commandUty.length() > 0 && nmDb.length() > 0 && port.length() > 0 && host.length() > 0) {
+                            Process run = Runtime.getRuntime().exec(sql);
+                            int prosesSukses = run.waitFor();
+                            if (prosesSukses == 0) {
+                                jProgressBarFd.setValue(100);
+                                msgInportFd.setText("restore database Sukses");
+                            } else {
+                                //JOptionPane.showMessageDialog(null, "restore database gagal");
+                                msgInportFd.setText("restore database gagal");
+                            }
+                        } else {
+                            msgInportFd.setText("restore database gagal");
+                        }
+                    }
+                } catch (Exception e) {
+                    //JOptionPane.showMessageDialog(null, "restore database gagal, Periksa kembali");
+                    msgInportFd.setText("restore database gagal, please check again");
+                }
+            } else {
+                // format
+                 JOptionPane.showMessageDialog(null, "Not Format .sql");
+            }
+        }
+    }//GEN-LAST:event_btnRunFdActionPerformed
+
+    private void cboxScheduleSymbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxScheduleSymbolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxScheduleSymbolActionPerformed
+
+    private void txtInputParamSchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInputParamSchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInputParamSchActionPerformed
+
+    private void cboxEmpOutletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxEmpOutletActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxEmpOutletActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AdminDownloadData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AdminDownloadData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AdminDownloadData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AdminDownloadData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AdminDownloadData().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel BodyContainer;
+    private javax.swing.JPanel body;
+    private usu.widget.ButtonGlass btnBakupData;
+    private javax.swing.JButton btnBrowseFd;
+    private usu.widget.ButtonGlass btnDownloadData;
+    private usu.widget.ButtonGlass btnEmployeeManagement;
+    private usu.widget.ButtonGlass btnHome;
+    private usu.widget.ButtonGlass btnLogOut;
+    private javax.swing.JButton btnRunDtEmployee;
+    private javax.swing.JButton btnRunFd;
+    private javax.swing.JButton btnRunInformation;
+    private usu.widget.ButtonGlass btnUploadData;
+    private javax.swing.JCheckBox cboxEmpOutlet;
+    private javax.swing.JCheckBox cboxEmpSchedule;
+    private javax.swing.JCheckBox cboxKadivMapping;
+    private javax.swing.JCheckBox cboxScheduleSymbol;
+    private com.toedter.calendar.JDateChooser dtEndEmpSchedule;
+    private com.toedter.calendar.JDateChooser dtEndEmployeeOutlet;
+    private com.toedter.calendar.JDateChooser dtStartEmpOutlet;
+    private com.toedter.calendar.JDateChooser dtStartEmpSchedule;
+    private usu.widget.FileBrowser fileBrowser;
+    private javax.swing.JLabel iconClient;
+    private javax.swing.JLabel iconHarisma;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JProgressBar jProgressBarDtEmployee;
+    private javax.swing.JProgressBar jProgressBarFd;
+    private javax.swing.JProgressBar jProgressBarInformation;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel judulDepan;
+    private javax.swing.JLabel labelDate;
+    private javax.swing.JLabel labelDownloadDtEmployee;
+    private javax.swing.JLabel labelDownloadInformation;
+    private javax.swing.JLabel labelEndDateInformation;
+    private javax.swing.JLabel labelEndDateInformation2;
+    private javax.swing.JLabel labelEndDateInformation3;
+    private javax.swing.JLabel labelGarisAja;
+    private javax.swing.JLabel labelGarisKananLabel;
+    private javax.swing.JLabel labelGarisKiriButton;
+    private javax.swing.JLabel labelGarisTengahButton;
+    private javax.swing.JLabel labelImportFlasdisk;
+    private javax.swing.JLabel labelLogoDimata;
+    private javax.swing.JLabel labelNamaEmp;
+    private javax.swing.JLabel labelPosition;
+    private javax.swing.JLabel labelStartDateInformation;
+    private javax.swing.JLabel labelTime;
+    private javax.swing.JLabel lblProgress;
+    private javax.swing.JLabel lblProgressFlasdisk;
+    private javax.swing.JLabel lblProgressInformation;
+    private javax.swing.JLabel msgDownloadData;
+    private javax.swing.JLabel msgDownloadInformation;
+    private javax.swing.JLabel msgInportFd;
+    private usu.widget.Panel panelButtonMenu;
+    private usu.widget.Panel panelEmployeeChekbox;
+    private javax.swing.JPanel panelHeader;
+    private com.toedter.calendar.JDateChooser txtDateEndInformation;
+    private javax.swing.JTextField txtFldBroseFile;
+    private javax.swing.JTextField txtInputParamSch;
+    private com.toedter.calendar.JDateChooser txtStartDateInformation;
+    // End of variables declaration//GEN-END:variables
+}

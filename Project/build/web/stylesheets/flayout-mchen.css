@@ -1,0 +1,159 @@
+/* 
+    Document   : flayout-mchen
+    Created on : Oct 16, 2015, 4:03:10 PM
+    Author     : Hendra McHen
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+.menu-main-item{
+    color: #474747;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+    background-color: #EEE;
+    margin: 7px;
+    padding: 11px 19px;
+    cursor: pointer;
+}
+.menu-main-item:hover {
+    color: #FFF;
+    background-color: #00ccff;
+    border: 1px solid #00A3CC;
+}
+
+.sub-menu{
+    font-size: 11px;
+    color: #474747;
+    border: 1px solid #C3C3C3;
+    border-radius: 3px;
+    background-color: #D5D5D5;
+    margin: 1px 21px;
+    padding: 5px 11px;
+    cursor: pointer;
+}
+
+.sub-menu:hover {
+    color: #FFF;
+    background-color: #575757;
+    border: 1px solid #474747;
+}
+
+.tbl_menu {
+    font-weight: bold;
+}
+.tbl_menu td {
+    font-weight: bold;
+}
+.menu-main{
+    padding: 11px 21px;
+}
+#menuheader {
+    font-size: 21px;
+    color: #575757;
+    border-bottom: 1px solid #DDD;
+    padding: 12px 21px;
+    margin-bottom: 11px;
+}
+#cssmenu,
+#cssmenu ul,
+#cssmenu li,
+#cssmenu a {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    /*line-height: 1;*/
+    font-family: sans-serif;
+    font-size: 12px;
+    width: 300px;
+
+}
+#cssmenu a {
+}
+#cssmenu {
+    /*padding: 3px;*/
+}
+#cssmenu > ul > li {
+    margin: 0 0 2px 0;
+}
+#cssmenu > ul > li:last-child {
+    margin: 0;
+}
+#cssmenu > ul > li > a {
+    font-size: 12px;
+    display: block;
+}
+
+#cssmenu > ul > li > a > span {
+    display: block;
+
+    /*padding: 1px 10px;*/
+
+    font-weight: bold;
+}
+#cssmenu > ul > li > a:link
+{
+
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+#cssmenu > ul > li >  a
+{
+
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#cssmenu > ul > li > a:hover {
+    text-decoration: none;
+    color: red;
+}
+#cssmenu > ul > li.active {
+    border-bottom: none;
+
+
+}
+
+#cssmenu pxsubmenu {
+    top: 0;
+    left: 0;
+    margin-left: 13px;
+}
+
+#enter_word{
+    top: 0;
+    left: 0;
+
+    margin-left: 30px;
+    width: 10px;
+    font:Arial, Helvetica, sans-serif;
+}
+#cssmenu px {
+    top: 0;
+    left: 0;
+    margin-left: 30px;
+    font:Arial, Helvetica, sans-serif;
+
+}
+/* Sub menu */
+#cssmenu ul ul {
+    padding: 5px 12px;
+    display: none;
+}
+#cssmenu ul ul li {
+    padding: 3px 0;
+}
+#cssmenu ul ul a {
+    display: block;
+    color: #595959;
+    font-size: 13px;
+    /*  font-weight: bold;*/
+}
+#cssmenu ul ul a:hover {
+    color:#FFFFFF;
+}

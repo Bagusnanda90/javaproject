@@ -1,0 +1,1262 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.dimata.harisma.session.leave;
+
+import com.dimata.harisma.entity.attendance.AlStockExpired;
+import com.dimata.harisma.entity.attendance.AlStockManagement;
+import com.dimata.harisma.entity.attendance.AlStockTaken;
+import com.dimata.harisma.entity.attendance.PstAlStockExpired;
+import com.dimata.harisma.entity.attendance.PstAlStockManagement;
+import com.dimata.harisma.entity.attendance.PstAlStockTaken;
+import com.dimata.harisma.entity.employee.Employee;
+import com.dimata.harisma.entity.employee.PstEmployee;
+import com.dimata.harisma.entity.leave.AlUpload;
+import com.dimata.harisma.entity.leave.PstAlUpload;
+import com.dimata.harisma.entity.masterdata.EmpCategory;
+import com.dimata.harisma.entity.masterdata.Level;
+import com.dimata.harisma.entity.masterdata.PstEmpCategory;
+import com.dimata.harisma.entity.masterdata.PstLevel;
+import com.dimata.harisma.entity.search.SrcAlUpload;
+import com.dimata.harisma.entity.leave.I_Leave;
+import com.dimata.system.entity.system.PstSystemProperty;
+import com.dimata.qdep.db.DBException;
+import com.dimata.qdep.db.DBHandler;
+import com.dimata.qdep.db.DBResultSet;
+import com.dimata.util.Formater;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Hashtable;
+import java.util.Vector;
+
+/**
+ *
+ * @author gArtha
+ */
+public class SessAlUpload {
+    
+    /**
+     * @desc menghitung banyak al yang diperoleh (entitled) sampai dengan tanggal tertentu
+     * @param id employee
+     * @param tanggal perhitungan
+     * @return banyak al yang entitled pada tanggal tertentu
+     */
+    public static int getAlEntitled(long empId,Date opnameDate){
+        int iAlEntitled = 0;
+        
+        I_Leave leaveConfig = null;           
+        try {
+            leaveConfig = (I_Leave)(Class.forName(PstSystemProperty.getValueByName("LEAVE_CONFIG")).newInstance());            
+        }
+        catch(Exception e) {
+            System.out.println("Exception : " + e.getMessage());
+        }
+        
+        if(leaveConfig.getALEntitleBy()==I_Leave.AL_ENTITLE_BY_COMMENCING){
+            try {
+                Employee objEmployee = new Employee();
+                Date dCommencingDate = new Date();
+                objEmployee = PstEmployee.fetchExc(empId);
+                if (objEmployee.getCommencingDate() != null) {
+                    dCommencingDate = new Date(objEmployee.getCommencingDate().getTime());
+                   // dCommencingDate.setYear(opnameDate.getYear());
+                    // Jika waktu commencing date lebih kecil dari waktu terkini
+                    // atau dengan kata lain, earned ytd akan muncul jika waktu commencing
+                    // pegawai telah lewat dari waktu sekarang
+                    Level objLevel = new Level();
+                    objLevel = PstLevel.fetchExc(objEmployee.getLevelId());
+                    EmpCategory objEmpCategory = new EmpCategory();
+                    objEmpCategory = PstEmpCategory.fetchExc(objEmployee.getEmpCategoryId());
+                  //  System.out.println("Comm Date   : "+dCommencingDate);
+                  //  System.out.println("Opname Date : "+opnameDate);
+                    if (dCommencingDate.getTime() <= opnameDate.getTime()) {
+                        iAlEntitled = leaveConfig.getALEntitleAnualLeave(objLevel.getLevel(), objEmpCategory.getEmpCategory());
+                    }
+                }
+            } catch (DBException ex) {
+                ex.printStackTrace();
+            }
+        }else{
+
+        }
+        return iAlEntitled;
+    }
+    
+    /**
+     * @desc menghitung banyak al yang diperoleh dan bisa dipergunakan (earned) sampai dengan tanggal tertentu
+     * @param id employee
+     * @param tanggal perhitungan
+     * @return banyak al yang earned pada tanggal tertentu
+     */
+    public static int getAlEarned(long empId,Date opnameDate){
+        int iAlEarned = 0;
+        int iAlEntitled = 0;
+        
+        I_Leave leaveConfig = null;           
+        try {
+            leaveConfig = (I_Leave)(Class.forName(PstSystemProperty.getValueByName("LEAVE_CONFIG")).newInstance());            
+        }
+        catch(Exception e) {
+            System.out.println("Exception : " + e.getMessage());
+        }
+         
+            try {
+                Employee objEmployee = new Employee();
+                objEmployee = PstEmployee.fetchExc(empId);
+             //   System.out.println(":::::: OPNAME "+opnameDate+" ::::: COMM "+objEmployee.getCommencingDate());
+             //   System.out.println(":::::: OPNAME "+opnameDate.getTime()+" ::::: COMM "+objEmployee.getCommencingDate().getTime());
+                if(opnameDate.getTime()>=objEmployee.getCommencingDate().getTime()){
+                    iAlEntitled = getAlEntitled(empId, opnameDate);
+                 //   System.out.println("::::::: 1 "+iAlEntitled);
+                    if (leaveConfig.getALEntitleBy() == I_Leave.AL_ENTITLE_BY_COMMENCING) {
+                 //       System.out.println("::::::: 2");    
+                        iAlEarned = iAlEntitled;
+                    } else {
+                        if (iAlEntitled > 0) {
+                            iAlEarned = opnameDate.getMonth() + 1;
+                            if (opnameDate.getDate() > objEmployee.getCommencingDate().getDate()) {
+                                iAlEarned += 1;
+                            }
+                        }
+                    }
+                }
+            } catch (DBException ex) {
+                ex.printStackTrace();
+            }
+        return iAlEarned;
+    }
+    
+    /**
+     * @desc mencari tanggal start periode dari employee dan tanggal diopname
+     * @param id employee
+     * @param tanggal perhitungan
+     * @return tanggal start period dari masa opname
+     */
+    public static Date getStartPeriodDate(long empId,Date opnameDate){
+        //System.out.println("::: "+empId +" :::: "+opnameDate);
+        Date dateStartPer = null; 
+        
+        I_Leave leaveConfig = null;           
+        try {
+            leaveConfig = (I_Leave)(Class.forName(PstSystemProperty.getValueByName("LEAVE_CONFIG")).newInstance());            
+        }
+        catch(Exception e) {
+            System.out.println("Exception : " + e.getMessage());
+        }
+         
+        try {
+            Employee objEmployee = new Employee();
+            objEmployee = PstEmployee.fetchExc(empId);
+            Date tempDate = new Date(objEmployee.getCommencingDate().getYear(),objEmployee.getCommencingDate().getMonth(),objEmployee.getCommencingDate().getDate());
+            if (leaveConfig.getALEntitleBy() == I_Leave.AL_ENTITLE_BY_COMMENCING) {
+                if(opnameDate.getMonth()>=objEmployee.getCommencingDate().getMonth()){
+                    if(opnameDate.getMonth()>objEmployee.getCommencingDate().getMonth()){
+                        tempDate.setYear(opnameDate.getYear());
+                    }else{
+                        if(opnameDate.getDate()>=objEmployee.getCommencingDate().getDate()){
+                            tempDate.setYear(opnameDate.getYear());
+                        }else{
+                            tempDate.setYear(opnameDate.getYear()-1);
+                        }
+                    }
+                }else{
+                    tempDate.setYear(opnameDate.getYear()-1);
+                }
+                
+            } else {
+                tempDate.setDate(1);
+                tempDate.setMonth(1);
+                tempDate.setYear(opnameDate.getYear());
+            }
+            dateStartPer = tempDate;
+        } catch (DBException ex) {
+            ex.printStackTrace();
+        }
+        //System.out.println("SessAlUpload getStartPeriodDate ::::::: tanggal : "+dateStartPer);
+        return dateStartPer;
+    }
+    
+    /**
+     * @desc mengambil data AL yang akan diset
+     * @param srcAlUpload menampung data yang menjadi acuan dalam pencarian
+     * @param start menentukan awal dari pencarian data
+     * @param recordToGet menentukan banyak data yang akan diambil
+     * @return Vector
+     */
+    public static Vector searchAlData(SrcAlUpload srcAlUpload, int start, int recordToGet){
+        Vector vResult = new Vector(1,1);
+        Vector vEmployee = new Vector(1,1);
+        Hashtable hAlUpload = new Hashtable();
+        
+        vEmployee = getDataEmployee(srcAlUpload, start, recordToGet);
+        hAlUpload = getAlUploaded(srcAlUpload, start, recordToGet);
+      //  System.out.println("SessAlUpload.searchAlUpload [Banyak data employee] ::::::::: "+vEmployee.size());
+        for(int i=0;i<vEmployee.size();i++){
+            Employee employee = new Employee();
+            AlUpload alUpload = new AlUpload();
+            
+            employee = (Employee)vEmployee.get(i);
+            if((hAlUpload.size()>0) && (hAlUpload.containsKey(String.valueOf(employee.getOID())))){
+                alUpload = (AlUpload)hAlUpload.get(String.valueOf(employee.getOID()));
+            }
+            Vector temp = new Vector(1,1);
+            temp.add(employee);
+            temp.add(alUpload);
+            temp.add(srcAlUpload);
+            vResult.add(temp);
+        }
+        
+        return vResult;
+    }
+    
+    /**
+     * @desc mencari data employee berdasarkan acuan pencarian
+     * @param srcAlUpload menampung data yang menjadi acuan dalam pencarian
+     * @param start menentukan awal dari pencarian data
+     * @param recordToGet menentukan banyak data yang akan diambil
+     * @return Vector
+     */
+    private static Vector getDataEmployee(SrcAlUpload srcAlUpload, int start, int recordToGet){
+        Vector result = new Vector(1,1);
+        String where = "";
+        if (srcAlUpload.getEmployeeName().length() > 0) {
+            if(where.length()>0){
+                where += " AND ";
+            }
+            where += " (" + PstEmployee.fieldNames[PstEmployee.FLD_FULL_NAME] + " LIKE \'%" + srcAlUpload.getEmployeeName() + "%\')";
+        }
+        if (srcAlUpload.getEmployeePayroll().length() > 0) {
+            if(where.length()>0){
+                where += " AND ";
+            }
+            where += "(" + PstEmployee.fieldNames[PstEmployee.FLD_EMPLOYEE_NUM] + " LIKE \'%" + srcAlUpload.getEmployeePayroll() + "%\')";
+        }
+        if (srcAlUpload.getEmployeeCategory() > 0) {
+            if(where.length()>0){
+                where += " AND ";
+            }
+            where += "(" + PstEmployee.fieldNames[PstEmployee.FLD_EMP_CATEGORY_ID] + "=" + srcAlUpload.getEmployeeCategory() + ")";
+        }
+        if (srcAlUpload.getEmployeeDepartement() > 0) {
+            if(where.length()>0){
+                where += " AND ";
+            }
+            where += "(" + PstEmployee.fieldNames[PstEmployee.FLD_DEPARTMENT_ID] + "=" + srcAlUpload.getEmployeeDepartement() + ")";
+        }
+        if (srcAlUpload.getEmployeeSection() > 0) {
+            if(where.length()>0){
+                where += " AND ";
+            }
+            where += "" +
+                    "(" + PstEmployee.fieldNames[PstEmployee.FLD_SECTION_ID] + "=" + srcAlUpload.getEmployeeSection() + ")";
+        }
+        if (srcAlUpload.getEmployeePosition() > 0) {
+            if(where.length()>0){
+                where += " AND ";
+            }
+            where += "(" + PstEmployee.fieldNames[PstEmployee.FLD_POSITION_ID] + "=" + srcAlUpload.getEmployeePosition() + ")";
+        }
+         
+        result = PstEmployee.list(start, recordToGet, where, null);
+        return result;
+    }
+    
+     /**
+     * @desc mencari data al yang telah diupload berdasarkan acuan pencarian
+     * @param srcAlUpload menampung data yang menjadi acuan dalam pencarian
+     * @param start menentukan awal dari pencarian data
+     * @param recordToGet menentukan banyak data yang akan diambil
+     * @return Vector
+     */
+    private static Hashtable getAlUploaded(SrcAlUpload srcAlUpload, int start, int recordToGet){
+        Vector result = new Vector(1,1);
+        String where = "";
+        Hashtable hashTable;
+        
+        if(srcAlUpload.getOpnameDate()!=null){
+            if(where.length()>0){
+                where += " AND ";
+            }
+            where += PstAlUpload.fieldNames[PstAlUpload.FLD_OPNAME_DATE] 
+                    + " = \"" + Formater.formatDate(srcAlUpload.getOpnameDate(), "yyyy-MM-dd")+"\"";
+        }
+        if (srcAlUpload.getDataStatus() > -1) {
+                    //-1 default untuk semua data
+            if(where.length()>0){
+                where += " AND ";
+            }
+            where += "(" + PstAlUpload.fieldNames[PstAlUpload.FLD_DATA_STATUS] 
+                    + "=" + srcAlUpload.getDataStatus() + ")";
+        }
+        
+        result = PstAlUpload.list(start, recordToGet, where, null);
+        hashTable = new Hashtable(result.size());
+        for(int i=0;i<result.size();i++){
+            AlUpload alUpload = new AlUpload();
+            alUpload = (AlUpload)result.get(i);
+            hashTable.put(String.valueOf(alUpload.getEmployeeId()), alUpload);
+        }
+        
+        return hashTable;
+    }
+    
+    /**
+     * @desc method untuk menyimpan data pada database (AlUpload)
+     *      - jika data telah ada sebelumnya, maka data akan diupdate
+     *      - jika data belum ada sebelumnya, maka data akan dibuat
+     * @param vector dari data yang diperlukan dalam proses
+     * @return 
+     */
+    public synchronized static Vector saveAlUpload(Vector vAlUpload){
+        Vector vAlUploadId  = new Vector(1,1);
+        try{
+            Date dateOpname = new Date();
+
+            String[] emp_id = (String[])vAlUpload.get(0);
+            String[] alUpload_id = (String[])vAlUpload.get(1);
+            String[] emp_to_clear_last_per = (String[])vAlUpload.get(2);
+            String[] emp_taken_curr_per = (String[])vAlUpload.get(3);
+            String[] data_status = (String[])vAlUpload.get(4);
+            boolean[] is_process = (boolean[])vAlUpload.get(5);
+            dateOpname = (Date)vAlUpload.get(6);
+          //  System.out.println("emp_id                  : "+emp_id.length);
+          //  System.out.println("alUpload_id             : "+alUpload_id.length);
+          //  System.out.println("emp_to_clear_last_per   : "+emp_to_clear_last_per.length);
+          //  System.out.println("emp_taken_curr_per      : "+emp_taken_curr_per.length);
+          //  System.out.println("data_status             : "+data_status.length);
+          //  System.out.println("is_process              : "+is_process.length);
+            
+            for(int i=0;i<emp_id.length;i++){
+                if(is_process[i]){
+                    AlUpload alUpload = new AlUpload();
+                    alUpload.setEmployeeId(Long.parseLong(emp_id[i]));
+                    alUpload.setDataStatus(Integer.parseInt(data_status[i]));
+                    alUpload.setOpnameDate(dateOpname);
+                    alUpload.setLastPerToClear(Integer.parseInt(emp_to_clear_last_per[i]));
+                    
+                    if(emp_taken_curr_per != null && emp_taken_curr_per.length >= i) { 
+                        if(emp_taken_curr_per[i].equals(""))
+                            alUpload.setCurrPerTaken(0);
+                        else
+                            alUpload.setCurrPerTaken(Integer.parseInt(emp_taken_curr_per[i])); 
+                    }
+                    else
+                        alUpload.setCurrPerTaken(0);
+                        
+                    if(Long.parseLong(alUpload_id[i])>0){ //Jika al upload telah ada maka akan diupdate, jika tidak maka akan disimpan yang baru
+                        try {
+                            alUpload.setOID(Long.parseLong(alUpload_id[i]));
+                            PstAlUpload.updateExc(alUpload);
+                            vAlUploadId.add(String.valueOf(Long.parseLong(alUpload_id[i])));
+                        } catch (DBException ex) {
+                            ex.printStackTrace();
+                        }
+                    }else{
+                        try {
+                            long id = PstAlUpload.insertExc(alUpload);
+                            vAlUploadId.add(String.valueOf(id));
+                        } catch (DBException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            }
+        }catch(Exception  ex){
+            System.out.println("SessAlUpload saveAlUpload [ERROR] :::::::: "+ex.toString());
+        }
+        return vAlUploadId;
+    }
+    
+    
+    /////////////proses opname/////////////////////
+    
+     /**
+     * @desc mencari al stock management dari periode dan id employee
+     * @param id employee
+     * @param tanggal perolehan
+     * @return id dari hr_al_stock_management
+     */
+    private static AlStockManagement getALStockManagement(long employeeId,Date ownDate){
+        AlStockManagement objAlStockManagement = new AlStockManagement();
+        
+        DBResultSet dbrs;
+        String strWhere = PstAlStockManagement.fieldNames[PstAlStockManagement.FLD_EMPLOYEE_ID] 
+                +" = " + employeeId 
+                +" AND " + PstAlStockManagement.fieldNames[PstAlStockManagement.FLD_OWNING_DATE] 
+                +" = \""+Formater.formatDate(ownDate, "yyyy-MM-dd 00:00:00")+"\"";
+        
+        Vector vAlStockManagement = new Vector();
+        vAlStockManagement = PstAlStockManagement.list(0,1, strWhere, PstAlStockManagement.fieldNames[PstAlStockManagement.FLD_OWNING_DATE]+" ASC");
+        
+        if(vAlStockManagement.size()>0){
+            objAlStockManagement = (AlStockManagement)vAlStockManagement.get(0);
+        }else{
+            return new AlStockManagement();
+        }
+        return objAlStockManagement;
+    }
+    
+    /**
+     * @desc mengopname al stock taken
+     * @param employee id
+     * @param al stock management id
+     * @param tanggal pelaksanaan opname
+     * @param jumlah hari yang seharusnya tersisa
+     * @return boolean status proses opname (true jika berhasil, false jika gagal)
+     */
+    private static boolean opnameAlStockTaken(long employeeId,long lAlStockManId,Date opnameDate,int iTaken){
+        boolean isSuccess = true;
+        
+        int iCountTakenCurrPeriod = 0;
+        
+        //Mengupdate al taken yang masih dalam status hutang
+        Vector vPayAble = new Vector();
+        vPayAble = PstAlStockTaken.getAlPayable(employeeId);
+        if(vPayAble.size()>0){
+            for(int i=0;i<vPayAble.size();i++){
+                try {
+                    AlStockTaken objAlStockTaken = new AlStockTaken();
+                    objAlStockTaken = (AlStockTaken) vPayAble.get(i);
+                    objAlStockTaken.setAlStockId(lAlStockManId);
+                    objAlStockTaken.setPaidDate(opnameDate);
+                    PstAlStockTaken.updateExc(objAlStockTaken);
+                } catch (DBException ex) {
+                    isSuccess = false;
+                    ex.printStackTrace();
+                }
+            }
+        }
+        
+        //Jika berhasil diupdate maka semua data yang taken akan diopname
+        if(isSuccess){
+            String strWhere = "";
+
+            strWhere = PstAlStockTaken.fieldNames[PstAlStockTaken.FLD_EMPLOYEE_ID]
+                    +" = "+employeeId
+                    +" AND "+PstAlStockTaken.fieldNames[PstAlStockTaken.FLD_AL_STOCK_ID]
+                    +" = "+lAlStockManId;
+            iCountTakenCurrPeriod = PstAlStockTaken.getSumLeave(strWhere);
+            if(iCountTakenCurrPeriod != iTaken){
+                int temp = 0;
+                temp = iTaken - iCountTakenCurrPeriod;
+                AlStockTaken objAlStockTaken = new AlStockTaken();
+                objAlStockTaken.setAlStockId(lAlStockManId);
+                objAlStockTaken.setEmployeeId(employeeId);
+                objAlStockTaken.setPaidDate(opnameDate);
+                objAlStockTaken.setTakenDate(opnameDate);
+                objAlStockTaken.setTakenQty(temp);
+                try {
+                    PstAlStockTaken.insertExc(objAlStockTaken);
+                } catch (DBException ex) {
+                    isSuccess = false;
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return isSuccess;
+    }
+    
+    /**
+     * @desc mengopname al stock expired
+     * @param employee id
+     * @param tanggal opname
+     * @param jumlah al yang expired
+     */
+    private static boolean opnameAlStockExpired(long iAlStockManId,Date expiredDate,int iAlExpired){
+        boolean isSuccess = true;
+        if(iAlExpired>0){
+            Vector vAlStockExpired = new Vector();
+            String strWhere = "";
+            strWhere = PstAlStockExpired.fieldNames[PstAlStockExpired.FLD_AL_STOCK_ID] + " = " + iAlStockManId;
+            vAlStockExpired = PstAlStockExpired.list(0, 0, strWhere, PstAlStockExpired.fieldNames[PstAlStockExpired.FLD_EXPIRED_DATE]);
+
+            AlStockExpired objAlStockExpired = new AlStockExpired();
+
+            if (vAlStockExpired.size() > 0) {
+                objAlStockExpired = (AlStockExpired) vAlStockExpired.get(0);
+                objAlStockExpired.setExpiredDate(expiredDate);
+                objAlStockExpired.setExpiredQty(iAlExpired);
+                try {
+                    PstAlStockExpired.updateExc(objAlStockExpired);
+                } catch (DBException ex) {
+                    isSuccess = false;
+                    ex.printStackTrace();
+                }
+            } else {
+                objAlStockExpired.setExpiredDate(expiredDate);
+                objAlStockExpired.setExpiredQty(iAlExpired);
+                objAlStockExpired.setAlStockId(iAlStockManId);
+                try {
+                    PstAlStockExpired.insertExc(objAlStockExpired);
+                } catch (DBException ex) {
+                    isSuccess = false;
+                    ex.printStackTrace();
+                }
+            }
+
+            AlStockManagement alStockMan = new AlStockManagement();
+            try{
+                alStockMan = (AlStockManagement)PstAlStockManagement.fetchExc(iAlStockManId);
+                if(alStockMan.getOID()>0){
+                    alStockMan.setAlStatus(PstAlStockManagement.AL_STS_EXPIRED);
+                    PstAlStockManagement.updateExc(alStockMan);
+                }
+            }catch(Exception ex){
+                isSuccess = false;
+                System.out.println("SessAlUpload.opnameAlStockExpired [ERROR] :::::::: "+ex.toString());
+            }
+        }
+        return isSuccess;
+    }
+    
+    /**
+     * @desc mengopname data stock management dari awal sampai 2 period sebelum opname  yang active menjadi expired
+     * @param employee id
+     * @param untilDate
+     */
+    public static boolean opnameAlStockManagementUntil(long employeeId, Date untilDate){
+        boolean status = false;
+        DBResultSet dbResultSet = null;
+        String strSql = "SELECT " + PstAlStockManagement.fieldNames[PstAlStockManagement.FLD_AL_STOCK_ID] 
+                + ", " + PstAlStockManagement.fieldNames[PstAlStockManagement.FLD_QTY_RESIDUE] 
+                + " FROM " + PstAlStockManagement.TBL_AL_STOCK_MANAGEMENT 
+                + " WHERE EMPLOYEE_ID = " + String.valueOf(employeeId) 
+                + " AND OWNING_DATE < \"" + Formater.formatDate(untilDate, "yyyy-MM-dd")
+                + "\"" + " AND AL_STATUS = " + PstAlStockManagement.AL_STS_AKTIF;
+        
+        //System.out.println("[SQL] SessAlUpload.opnameAlStockManagementUntil :::: "+strSql);
+        try {
+            dbResultSet = DBHandler.execQueryResult(strSql);
+            ResultSet rs = dbResultSet.getResultSet();
+            while(rs.next()){
+                long alStockManId = 0;
+                int qtyResidue = 0;
+                //System.out.println(":::::::::::::::::::OPNAME AL STOCK EXPIRED ::::::::::::::::::");
+                alStockManId = rs.getLong(PstAlStockManagement.fieldNames[PstAlStockManagement.FLD_AL_STOCK_ID] );
+                qtyResidue = rs.getInt(PstAlStockManagement.fieldNames[PstAlStockManagement.FLD_QTY_RESIDUE]);
+                status = opnameAlStockExpired(alStockManId, untilDate, qtyResidue);
+                //System.out.println("ID       : "+alStockManId);
+                //System.out.println("RESIDUE  : "+qtyResidue);
+            }
+            status = true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (DBException ex) {
+            ex.printStackTrace();
+        }
+
+        return status;
+    }
+    
+     /**
+     * @desc mencari banyak periode yang ada sampai tgl opname
+     * @param employee id
+     * @param tanggal opname
+     * @return banyak periode sampai dengan tgl opname
+     */
+    private static int getPeriodAL(long employeeId,Date dateOpname){
+        int iPeriod = 0;
+        
+        I_Leave leaveConfig = null;           
+        try {
+            leaveConfig = (I_Leave)(Class.forName(PstSystemProperty.getValueByName("LEAVE_CONFIG")).newInstance());            
+        }
+        catch(Exception e) {
+            System.out.println("Exception : " + e.getMessage());
+        }
+        
+        Employee objEmployee = new Employee();
+        try {
+            objEmployee = PstEmployee.fetchExc(employeeId);
+        } catch (DBException ex) {
+            ex.printStackTrace();
+        }
+        Date commencingDate = new Date();
+        commencingDate = objEmployee.getCommencingDate();
+        
+        boolean isByCommencing = false;
+        if(leaveConfig.getALEntitleBy() == I_Leave.AL_ENTITLE_BY_COMMENCING){
+            isByCommencing = true;
+        }
+        if(isByCommencing){
+            int tempPeriod = 0;
+            tempPeriod = dateOpname.getYear()-commencingDate.getYear();
+            
+            Date tempCommDate = new Date(dateOpname.getYear(),commencingDate.getMonth(),commencingDate.getDate());
+            if(tempCommDate.getTime() < dateOpname.getTime()){
+                tempPeriod += -1;
+            }
+            iPeriod = tempPeriod;
+        }else{
+            int tempPeriod = 0;
+            tempPeriod = dateOpname.getYear()-(commencingDate.getYear()+1);
+            iPeriod = tempPeriod;
+        }
+        if(iPeriod<0){
+            iPeriod = 0;
+        }
+        return iPeriod;
+    }
+    
+    
+    /**
+     * @desc memproses data pada al upload
+     * @param vector id dari employee
+     * 
+     */
+    public static boolean opnameALAllData(Vector vAlUploadId){
+        boolean status = true;
+        for(int i=0;i<vAlUploadId.size();i++){
+            String strAlUploadId = "";
+            strAlUploadId = (String) vAlUploadId.get(i);
+            long alUploadId = 0;
+            alUploadId = Long.parseLong(strAlUploadId);
+            AlUpload alUpload = new AlUpload();
+            try {
+                alUpload = PstAlUpload.fetchExc(alUploadId);
+                String strError = "";
+                strError = proccessOpnameAL(alUpload);
+                if(strError.length()>0){
+                    System.out.println("SessAlUpload opnameAlAllData [ERROR] ::::::::::::: "+strError);
+                    return false;
+                }
+            } catch (DBException ex) {
+                status = false;
+                ex.printStackTrace();
+            }
+        }
+        return status;
+    }
+    
+    /**
+     * @desc memproses data pada al upload
+     * @param vector id dari employee
+     * 
+     */
+    public static boolean opnameALAllData_HR(Vector vAlUploadId){
+        boolean status = true;
+        for(int i=0;i<vAlUploadId.size();i++){
+            String strAlUploadId = "";
+            strAlUploadId = (String) vAlUploadId.get(i);
+            long alUploadId = 0;
+            alUploadId = Long.parseLong(strAlUploadId);
+            AlUpload alUpload = new AlUpload();
+            try {
+                alUpload = PstAlUpload.fetchExc(alUploadId);
+                String strError = "";
+                strError = proccessOpnameAL_HR(alUpload);
+                if(strError.length()>0){
+                    System.out.println("SessAlUpload opnameAlAllData [ERROR] ::::::::::::: "+strError);
+                    return false;
+                }
+            } catch (DBException ex) {
+                status = false;
+                ex.printStackTrace();
+            }
+        }
+        return status;
+    }
+    
+    /**
+     * @desc proses opname dari AL secara keseluruhan
+     * @param employee id dan tanggal opname
+     * @return string, error
+     */
+    public static String proccessOpnameAL(AlUpload alUploadArg){
+        String strError = "";
+        long employeeId = 0;
+        Date dateOpname = new Date();
+        dateOpname = alUploadArg.getOpnameDate();
+        employeeId = alUploadArg.getEmployeeId();
+        AlUpload alUpload = new AlUpload();
+        alUpload = alUploadArg;
+        
+        if(alUploadArg.getOID()>0){
+            I_Leave leaveConfig = null;           
+            try {
+                leaveConfig = (I_Leave)(Class.forName(PstSystemProperty.getValueByName("LEAVE_CONFIG")).newInstance());            
+            }
+            catch(Exception e) {
+                System.out.println("Exception : " + e.getMessage());
+            }
+            
+            Employee employee = new Employee();
+            try {
+                employee = PstEmployee.fetchExc(employeeId);
+            } catch (DBException ex) {
+                strError = "EMPLOYEE NOT FOUND!";
+                ex.printStackTrace();
+            }
+            if (leaveConfig.getALEntitleBy() == I_Leave.AL_ENTITLE_BY_COMMENCING) {
+                //Total Earn on Period beginning
+                if(leaveConfig.getAlEarnedBy() == I_Leave.AL_EARNED_BY_TOTAL){
+                    //Jika waktu commencing date employee lebih kecil dari waktu opname
+                    Date dateStartCurrPer = new Date();
+                    dateStartCurrPer = getStartPeriodDate(employeeId, dateOpname);
+                    Date dateStartLastPer = new Date();
+                    dateStartLastPer = (Date)dateStartCurrPer.clone();
+                    dateStartLastPer.setYear(dateStartLastPer.getYear()-1);
+                   
+                    //Membersihkan data 2 periode sebelumnya
+                    opnameAlStockManagementUntil(employeeId, dateStartLastPer);
+                    
+                    //PENGECEKAN TO CLEAR LAST PERIOD
+                    if (getPeriodAL(employeeId, dateOpname)>1) {
+
+                        AlStockManagement alStockManLastPer = new AlStockManagement();
+                        alStockManLastPer = getALStockManagement(employeeId, dateStartLastPer);
+
+                        //Jika pada last period masih ada yang tersisa                    
+                        if(alUpload.getLastPerToClear()>0){
+                            alStockManLastPer.setQtyResidue(alUpload.getLastPerToClear());
+                            alStockManLastPer.setEmployeeId(employeeId);
+                            alStockManLastPer.setEntitled(getAlEntitled(employeeId, new Date(dateOpname.getYear(),dateOpname.getMonth(),dateOpname.getDate())));
+                            alStockManLastPer.setAlQty(getAlEarned(employeeId, new Date(dateOpname.getYear(),dateOpname.getMonth(),dateOpname.getDate())));
+                            alStockManLastPer.setQtyUsed(alStockManLastPer.getAlQty()-alUpload.getLastPerToClear());
+                            alStockManLastPer.setAlStatus(PstAlStockManagement.AL_STS_AKTIF);
+                            alStockManLastPer.setDtOwningDate(dateStartLastPer);
+                            alStockManLastPer.setLeavePeriodeId(0);
+                            alStockManLastPer.setStNote("AL OPNAME");
+
+                            //jika data al stock management telah ada sebelumnya
+                            long alStockManId = 0; 
+                            if(alStockManLastPer.getOID()>0){
+                                try {
+                                    alStockManId = PstAlStockManagement.updateExc(alStockManLastPer);
+                                } catch (DBException ex) {
+                                    strError = "FAILED TO UPDATE AL STOCK MANAGEMENT LAST PERSION!";
+                                    ex.printStackTrace();
+                                }
+                            }else{
+                                try {
+                                    alStockManId = PstAlStockManagement.insertExc(alStockManLastPer);
+                                } catch (DBException ex) {
+                                    strError = "FAILED TO INSERT AL STOCK MANAGEMENT LAST PERSION!";
+                                    ex.printStackTrace();
+                                }
+                            }
+                            if(alStockManId>0){
+                                opnameAlStockTaken(employeeId, alStockManId, dateOpname, alStockManLastPer.getAlQty()-alUpload.getLastPerToClear());
+                                //to XXX
+                            }
+                            
+                            
+                        }
+                        //tidak ada sisa pada periode sebelumnya
+                        else{
+                            if(alStockManLastPer.getOID()>0){
+                                opnameAlStockExpired( alStockManLastPer.getOID(),dateOpname, alStockManLastPer.getQtyResidue());
+                            }//else to XXX
+                        }
+                    }
+                    
+                    //PENGECEKAN TAKEN CURRENT PERIOD
+                    int iTakenCurrPeriod = 0;
+                    iTakenCurrPeriod = alUpload.getCurrPerTaken();
+                    
+                    AlStockManagement alStockManCurrPer = new AlStockManagement();
+                    alStockManCurrPer = getALStockManagement(employeeId, dateStartCurrPer);
+                    long alStockManCurrPerID = 0;
+                    alStockManCurrPerID = alStockManCurrPer.getOID();
+                    //al stock management tidak ditemukan
+                    if(alStockManCurrPer.getOID()<=0){
+                        alStockManCurrPer.setEmployeeId(employeeId);
+                        alStockManCurrPer.setAlQty(getAlEarned(employeeId, dateOpname));
+                        alStockManCurrPer.setEntitled(getAlEntitled(employeeId, dateOpname));
+                        alStockManCurrPer.setDtOwningDate(dateStartCurrPer);
+                        alStockManCurrPer.setLeavePeriodeId(0);
+                        alStockManCurrPer.setQtyResidue(alStockManCurrPer.getAlQty());
+                        alStockManCurrPer.setQtyUsed(0);
+                        alStockManCurrPer.setAlStatus(PstAlStockManagement.AL_STS_AKTIF);
+                        alStockManCurrPer.setStNote("AL OPNAME");
+                        try {
+                            alStockManCurrPerID = PstAlStockManagement.insertExc(alStockManCurrPer);
+                            alStockManCurrPer.setOID(alStockManCurrPerID);
+                        } catch (DBException ex) {
+                            strError = "FAILED TO INSERT AL STOCK MANAGEMENT CURRENT PERSION!";
+                            ex.printStackTrace();
+                            
+                        }
+                    }
+                    //Kerja lebih dari satu period, berarti memiliki last period
+                    if(getPeriodAL(employeeId, dateOpname)>1){
+                        AlStockManagement alStockManLastPer = new AlStockManagement();
+                        alStockManLastPer = getALStockManagement(employeeId, dateStartLastPer);
+                        //jika ada sisa maka residu dari periode sebelumnya harus diexpireadkan
+                        if(alStockManLastPer.getOID()>0 && alUpload.getLastPerToClear()<=0){
+                            opnameAlStockExpired(alStockManLastPer.getOID(), dateOpname, alStockManLastPer.getQtyResidue());
+                        }
+                        
+                    }
+                    //Pengesetan curr period
+                    if(iTakenCurrPeriod > 0){  
+                        alStockManCurrPer.setQtyUsed(iTakenCurrPeriod);
+                        alStockManCurrPer.setQtyResidue((alStockManCurrPer.getAlQty() - iTakenCurrPeriod) < 0 ? 0 : (alStockManCurrPer.getAlQty() - iTakenCurrPeriod));
+                        alStockManCurrPer.setAlStatus(alStockManCurrPer.getQtyResidue() > 0 ? PstAlStockManagement.AL_STS_AKTIF : PstAlStockManagement.AL_STS_TAKEN);
+                  
+                        //Cek jika  ada pengambilan lebih dari yang diperoleh
+                        if ((alStockManCurrPer.getAlQty() - iTakenCurrPeriod) < 0) {
+                            opnameAlStockTaken(employeeId, alStockManCurrPerID, dateOpname, alStockManCurrPer.getAlQty());
+                            AlStockTaken alStockTakenCurrPer = new AlStockTaken();
+                            alStockTakenCurrPer.setAlStockTakenId(0);
+                            alStockTakenCurrPer.setEmployeeId(employeeId);
+                            alStockTakenCurrPer.setTakenDate(dateOpname);
+                            alStockTakenCurrPer.setTakenQty(iTakenCurrPeriod - alStockManCurrPer.getAlQty());
+                            
+                            // added
+                            alStockTakenCurrPer.setPaidDate(dateOpname);
+                            alStockTakenCurrPer.setAlStockId(alStockManCurrPer.getOID());
+                            
+                            try {
+                                PstAlStockTaken.insertExc(alStockTakenCurrPer);
+                            } catch (DBException ex) {
+                                strError = "FAILED TO INSERT AL STOCK TAKEN CURRENT PERSION!";
+                                ex.printStackTrace();
+                            }
+                        }
+                        else {
+                            opnameAlStockTaken(employeeId, alStockManCurrPerID, dateOpname, iTakenCurrPeriod);
+                        }
+                        
+                        try {
+                            PstAlStockManagement.updateExc(alStockManCurrPer);
+                        } catch (DBException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                    else{
+                        opnameAlStockTaken(employeeId, alStockManCurrPerID, dateOpname, 0);
+                    }
+                    
+                    /* update stock management */
+                    /***************************/
+                    if(alStockManCurrPer.getOID() != 0) {
+                        alStockManCurrPer.setAlQty(getAlEarned(employeeId, dateOpname));
+                        alStockManCurrPer.setEntitled(getAlEntitled(employeeId, dateOpname));
+                        alStockManCurrPer.setQtyResidue(alStockManCurrPer.getAlQty() - iTakenCurrPeriod);
+                        alStockManCurrPer.setQtyUsed(iTakenCurrPeriod);
+
+                        try {
+                            PstAlStockManagement.updateExc(alStockManCurrPer);
+                        } catch (DBException ex) {
+                            ex.printStackTrace();
+                        }
+                    }                    
+                    /***************************/
+                    
+                }
+                //Bukan total earned
+                else{
+                
+                }
+                //By NEW YEAR
+            } else { 
+            }
+            
+        }else{
+            strError = "Al Upload data not found!";
+        }
+        
+        //MENDAFTARKAN STATUS AL YANG TELAH DIPROSES
+        if(strError.length()<=0){
+             alUploadArg.setDataStatus(PstAlUpload.FLD_DOC_STATUS_PROCESS);
+            try {
+                PstAlUpload.updateExc(alUploadArg);
+            } catch (DBException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return strError;
+    }
+    
+    
+    /**
+     * @desc proses opname dari AL secara keseluruhan
+     * @param employee id dan tanggal opname
+     * @return string, error
+     */
+    public static String proccessOpnameAL_HR(AlUpload alUploadArg){
+        String strError = "";
+        long employeeId = 0;
+        Date dateOpname = new Date();
+        dateOpname = alUploadArg.getOpnameDate();
+        employeeId = alUploadArg.getEmployeeId();
+        AlUpload alUpload = new AlUpload();
+        alUpload = alUploadArg;
+        
+        if(alUploadArg.getOID()>0){
+            I_Leave leaveConfig = null;           
+            try {
+                leaveConfig = (I_Leave)(Class.forName(PstSystemProperty.getValueByName("LEAVE_CONFIG")).newInstance());            
+            }
+            catch(Exception e) {
+                System.out.println("Exception : " + e.getMessage());
+            }
+            
+            Employee employee = new Employee();
+            try {
+                employee = PstEmployee.fetchExc(employeeId);
+            } catch (DBException ex) {
+                strError = "EMPLOYEE NOT FOUND!";
+                ex.printStackTrace();
+            }
+            if (leaveConfig.getALEntitleBy() == I_Leave.AL_ENTITLE_BY_COMMENCING) {
+                //Total Earn on Period beginning
+                if(leaveConfig.getAlEarnedBy() == I_Leave.AL_EARNED_BY_TOTAL){
+                    //Jika waktu commencing date employee lebih kecil dari waktu opname
+                    Date dateStartCurrPer = new Date();
+                    dateStartCurrPer = getStartPeriodDate(employeeId, dateOpname);
+                    Date dateStartLastPer = new Date();
+                    dateStartLastPer = (Date)dateStartCurrPer.clone();
+                    dateStartLastPer.setYear(dateStartLastPer.getYear()-1);
+                   
+                    //Membersihkan data 2 periode sebelumnya
+                    opnameAlStockManagementUntil(employeeId, dateStartLastPer);
+                    
+                    //PENGECEKAN TO CLEAR LAST PERIOD
+                    if (getPeriodAL(employeeId, dateOpname)>=1) {
+
+                        AlStockManagement alStockManLastPer = new AlStockManagement();
+                        //alStockManLastPer = getALStockManagement(employeeId, dateStartLastPer);
+
+                        //Jika pada last period masih ada yang tersisa                    
+                        if(alUpload.getLastPerToClear()>0){
+                            String empLevel = "";
+                            String empType = "";
+                            
+                            try {
+                                Level level = PstLevel.fetchExc(employee.getLevelId());
+                                empLevel = level.getLevel();
+                            }
+                            catch(Exception e) {}
+                            
+                            try {
+                                EmpCategory cat = PstEmpCategory.fetchExc(employee.getEmpCategoryId());
+                                empType = cat.getEmpCategory();
+                            }
+                            catch(Exception e) {}
+                            
+                            int alEntitle = leaveConfig.getALEntitleAnualLeave(empLevel, empType);
+                           
+                            
+                            /*boolean hasALThisYear = false;                            
+                            Date now = new Date();
+                            Date comm = employee.getCommencingDate();
+                            comm.setYear(now.getYear());                            
+                            if(comm.before(now))
+                                hasALThisYear = true;*/
+                                                        
+                                                        
+                            if(alUpload.getLastPerToClear()>alEntitle) {
+                                int numOfPrevCF = alUpload.getLastPerToClear() / alEntitle;
+                                int residueCF = alUpload.getLastPerToClear() % alEntitle;
+                                                                
+                                Calendar calendar = new GregorianCalendar(dateStartCurrPer.getYear()+1900, dateStartCurrPer.getMonth(), dateStartCurrPer.getDate());
+                                                               
+                                // process previous CF
+                                for(int i=0; i<numOfPrevCF; i++) {
+                                    //Calendar calendar = new GregorianCalendar(dateStartLastPer.getYear()+1900, dateStartLastPer.getMonth(), dateStartLastPer.getDate());
+                                    //calendar.add(Calendar.YEAR, -(i+1));
+                                                                       
+                                    //alStockManLastPer = getALStockManagement(employeeId, dateStartLastPer);
+                                    alStockManLastPer = getALStockManagement(employeeId, calendar.getTime());
+                                    
+                                    alStockManLastPer.setQtyResidue(alEntitle);
+                                    alStockManLastPer.setEmployeeId(employeeId);
+                                    alStockManLastPer.setEntitled(getAlEntitled(employeeId, new Date(dateOpname.getYear(),dateOpname.getMonth(),dateOpname.getDate())));
+                                    alStockManLastPer.setAlQty(getAlEarned(employeeId, new Date(dateOpname.getYear(),dateOpname.getMonth(),dateOpname.getDate())));
+                                    alStockManLastPer.setQtyUsed(alStockManLastPer.getAlQty()-alStockManLastPer.getQtyResidue());
+                                    alStockManLastPer.setAlStatus(PstAlStockManagement.AL_STS_AKTIF);
+                                    alStockManLastPer.setDtOwningDate(calendar.getTime());
+                                    alStockManLastPer.setLeavePeriodeId(0);
+                                    alStockManLastPer.setStNote("AL OPNAME");
+                                    
+                                    calendar.add(Calendar.YEAR, -1);
+
+                                    //jika data al stock management telah ada sebelumnya
+                                    long alStockManId = 0; 
+                                    if(alStockManLastPer.getOID()>0){
+                                        try {
+                                            alStockManId = PstAlStockManagement.updateExc(alStockManLastPer);
+                                        } catch (DBException ex) {
+                                            strError = "FAILED TO UPDATE AL STOCK MANAGEMENT LAST PERSION!";
+                                            ex.printStackTrace();
+                                        }
+                                    }else{
+                                        try {
+                                            alStockManId = PstAlStockManagement.insertExc(alStockManLastPer);
+                                        } catch (DBException ex) {
+                                            strError = "FAILED TO INSERT AL STOCK MANAGEMENT LAST PERSION!";
+                                            ex.printStackTrace();
+                                        }
+                                    } 
+                                    
+                                }
+                                
+                                // process residue CF
+                                //alStockManLastPer = getALStockManagement(employeeId, dateStartLastPer);
+                                ///calendar = new GregorianCalendar(dateStartCurrPer.getYear()+1900, dateStartCurrPer.getMonth(), dateStartCurrPer.getDate());
+                               
+                                alStockManLastPer = getALStockManagement(employeeId, calendar.getTime());
+                                
+                                alStockManLastPer.setQtyResidue(residueCF);
+                                alStockManLastPer.setEmployeeId(employeeId);
+                                alStockManLastPer.setEntitled(getAlEntitled(employeeId, new Date(dateOpname.getYear(),dateOpname.getMonth(),dateOpname.getDate())));
+                                alStockManLastPer.setAlQty(getAlEarned(employeeId, new Date(dateOpname.getYear(),dateOpname.getMonth(),dateOpname.getDate())));
+                                alStockManLastPer.setQtyUsed(alStockManLastPer.getAlQty()-alStockManLastPer.getQtyResidue());
+                                alStockManLastPer.setAlStatus(PstAlStockManagement.AL_STS_AKTIF);
+                                //alStockManLastPer.setDtOwningDate(dateStartLastPer);                                
+                                alStockManLastPer.setDtOwningDate(calendar.getTime());
+                                alStockManLastPer.setLeavePeriodeId(0);
+                                alStockManLastPer.setStNote("AL OPNAME");
+
+                                //jika data al stock management telah ada sebelumnya
+                                long alStockManId = 0; 
+                                if(alStockManLastPer.getOID()>0){
+                                    try {
+                                        alStockManId = PstAlStockManagement.updateExc(alStockManLastPer);
+                                    } catch (DBException ex) {
+                                        strError = "FAILED TO UPDATE AL STOCK MANAGEMENT LAST PERSION!";
+                                        ex.printStackTrace();
+                                    }
+                                }else{
+                                    try {
+                                        alStockManId = PstAlStockManagement.insertExc(alStockManLastPer);
+                                    } catch (DBException ex) {
+                                        strError = "FAILED TO INSERT AL STOCK MANAGEMENT LAST PERSION!";
+                                        ex.printStackTrace();
+                                    }
+                                } 
+                                
+                                if(alStockManId>0){
+                                    //opnameAlStockTaken(employeeId, alStockManId, dateOpname, alStockManLastPer.getQtyUsed());
+                                    opnameAlStockTaken(employeeId, alStockManId, calendar.getTime(), alStockManLastPer.getQtyUsed());                                    
+                                }
+                            }
+                            else //alUpload.getLastPerToClear() <= alEntitle
+                            {
+                                Calendar calendar = new GregorianCalendar(dateStartCurrPer.getYear()+1900, dateStartCurrPer.getMonth(), dateStartCurrPer.getDate());
+                               
+                                //alStockManLastPer = getALStockManagement(employeeId, dateStartLastPer);
+                                alStockManLastPer = getALStockManagement(employeeId, calendar.getTime());
+                                
+                                alStockManLastPer.setQtyResidue(alUpload.getLastPerToClear());
+                                alStockManLastPer.setEmployeeId(employeeId);
+                                alStockManLastPer.setEntitled(getAlEntitled(employeeId, new Date(dateOpname.getYear(),dateOpname.getMonth(),dateOpname.getDate())));
+                                alStockManLastPer.setAlQty(getAlEarned(employeeId, new Date(dateOpname.getYear(),dateOpname.getMonth(),dateOpname.getDate())));
+                                alStockManLastPer.setQtyUsed(alStockManLastPer.getAlQty()-alUpload.getLastPerToClear());
+                                alStockManLastPer.setAlStatus(PstAlStockManagement.AL_STS_AKTIF);
+                                //alStockManLastPer.setDtOwningDate(dateStartLastPer);
+                                alStockManLastPer.setDtOwningDate(calendar.getTime());
+                                alStockManLastPer.setLeavePeriodeId(0);
+                                alStockManLastPer.setStNote("AL OPNAME");
+
+                                //jika data al stock management telah ada sebelumnya
+                                long alStockManId = 0; 
+                                if(alStockManLastPer.getOID()>0){
+                                    try {
+                                        alStockManId = PstAlStockManagement.updateExc(alStockManLastPer);
+                                    } catch (DBException ex) {
+                                        strError = "FAILED TO UPDATE AL STOCK MANAGEMENT LAST PERSION!";
+                                        ex.printStackTrace();
+                                    }
+                                }else{
+                                    try {
+                                        alStockManId = PstAlStockManagement.insertExc(alStockManLastPer);
+                                    } catch (DBException ex) {
+                                        strError = "FAILED TO INSERT AL STOCK MANAGEMENT LAST PERSION!";
+                                        ex.printStackTrace();
+                                    }
+                                } 
+                                
+                                if(alStockManId>0){
+                                    //opnameAlStockTaken(employeeId, alStockManId, dateOpname, alStockManLastPer.getAlQty()-alUpload.getLastPerToClear());
+                                    opnameAlStockTaken(employeeId, alStockManId, calendar.getTime(), alStockManLastPer.getAlQty()-alUpload.getLastPerToClear());
+                                }
+                            }                           
+                           
+                           
+                        }
+                        //tidak ada sisa pada periode sebelumnya
+                        else{
+                            if(alStockManLastPer.getOID()>0){
+                                opnameAlStockExpired( alStockManLastPer.getOID(),dateOpname, alStockManLastPer.getQtyResidue());
+                            }//else to XXX
+                        }
+                    }
+                    
+                    
+                    
+                    /*
+                    //PENGECEKAN TAKEN CURRENT PERIOD
+                    int iTakenCurrPeriod = 0;
+                    iTakenCurrPeriod = alUpload.getCurrPerTaken();
+                    
+                    AlStockManagement alStockManCurrPer = new AlStockManagement();
+                    alStockManCurrPer = getALStockManagement(employeeId, dateStartCurrPer);
+                    long alStockManCurrPerID = 0;
+                    alStockManCurrPerID = alStockManCurrPer.getOID();
+                    
+                    // check commencing date
+                    Date now = new Date();
+                                        
+                    Date date = employee.getCommencingDate();
+                    date.setYear(now.getYear());
+                    
+                    //al stock management tidak ditemukan
+                    if(alStockManCurrPer.getOID()<=0){
+                        alStockManCurrPer.setEmployeeId(employeeId);
+                        alStockManCurrPer.setAlQty(getAlEarned(employeeId, dateOpname));
+                        alStockManCurrPer.setEntitled(getAlEntitled(employeeId, dateOpname));
+                        alStockManCurrPer.setDtOwningDate(dateStartCurrPer);
+                        alStockManCurrPer.setLeavePeriodeId(0);
+                        alStockManCurrPer.setQtyResidue(alStockManCurrPer.getAlQty());
+                        alStockManCurrPer.setQtyUsed(0);
+                        alStockManCurrPer.setAlStatus(PstAlStockManagement.AL_STS_AKTIF);
+                        alStockManCurrPer.setStNote("AL OPNAME");
+                        
+                        // added 
+                        if(now.after(date)) {
+                            alStockManCurrPer.setAlQty(0);
+                            alStockManCurrPer.setEntitled(0);
+                            alStockManCurrPer.setQtyUsed(iTakenCurrPeriod);
+                            alStockManCurrPer.setQtyResidue(alStockManCurrPer.getAlQty() - alStockManCurrPer.getQtyUsed());                           
+                        }                       
+                        
+                        try {
+                            alStockManCurrPerID = PstAlStockManagement.insertExc(alStockManCurrPer);
+                            alStockManCurrPer.setOID(alStockManCurrPerID);
+                        } catch (DBException ex) {
+                            strError = "FAILED TO INSERT AL STOCK MANAGEMENT CURRENT PERSION!";
+                            ex.printStackTrace();
+                            
+                        }
+                    }
+                    
+                    //Kerja lebih dari satu period, berarti memiliki last period
+                    if(getPeriodAL(employeeId, dateOpname)>1){
+                        AlStockManagement alStockManLastPer = new AlStockManagement();
+                        alStockManLastPer = getALStockManagement(employeeId, dateStartLastPer);
+                        //jika ada sisa maka residu dari periode sebelumnya harus diexpireadkan
+                        if(alStockManLastPer.getOID()>0 && alUpload.getLastPerToClear()<=0){
+                            opnameAlStockExpired(alStockManLastPer.getOID(), dateOpname, alStockManLastPer.getQtyResidue());
+                        }
+                        
+                    }
+                    //Pengesetan curr period
+                    if(iTakenCurrPeriod > 0){  
+                        
+                        //alStockManCurrPer.setQtyUsed(iTakenCurrPeriod);
+                        //alStockManCurrPer.setQtyResidue((alStockManCurrPer.getAlQty() - iTakenCurrPeriod) < 0 ? 0 : (alStockManCurrPer.getAlQty() - iTakenCurrPeriod));
+                        //alStockManCurrPer.setAlStatus(alStockManCurrPer.getQtyResidue() > 0 ? PstAlStockManagement.AL_STS_AKTIF : PstAlStockManagement.AL_STS_TAKEN);
+                        
+                       
+                        //Cek jika  ada pengambilan lebih dari yang diperoleh
+                        if ((alStockManCurrPer.getAlQty() - iTakenCurrPeriod) < 0) {
+                            opnameAlStockTaken(employeeId, alStockManCurrPerID, dateOpname, alStockManCurrPer.getAlQty());
+                            AlStockTaken alStockTakenCurrPer = new AlStockTaken();
+                            alStockTakenCurrPer.setAlStockTakenId(0);
+                            alStockTakenCurrPer.setEmployeeId(employeeId);
+                            alStockTakenCurrPer.setTakenDate(dateOpname);
+                            alStockTakenCurrPer.setTakenQty(iTakenCurrPeriod - alStockManCurrPer.getAlQty());
+                            
+                            // added
+                            alStockTakenCurrPer.setPaidDate(dateOpname);
+                            alStockTakenCurrPer.setAlStockId(alStockManCurrPer.getOID());
+                            
+                            try {
+                                PstAlStockTaken.insertExc(alStockTakenCurrPer);
+                            } catch (DBException ex) {
+                                strError = "FAILED TO INSERT AL STOCK TAKEN CURRENT PERSION!";
+                                ex.printStackTrace();
+                            }
+                        }
+                        else {
+                            opnameAlStockTaken(employeeId, alStockManCurrPerID, dateOpname, iTakenCurrPeriod);
+                        }
+                        /*
+                        try {
+                            PstAlStockManagement.updateExc(alStockManCurrPer);
+                        } catch (DBException ex) {
+                            ex.printStackTrace();
+                        }
+                        * /
+                    }
+                    else{
+                        opnameAlStockTaken(employeeId, alStockManCurrPerID, dateOpname, 0);
+                    }
+                    
+                    // update stock management 
+                    // ***************************
+                    if(alStockManCurrPer.getOID() != 0) {
+                        alStockManCurrPer.setAlQty(getAlEarned(employeeId, dateOpname));
+                        alStockManCurrPer.setEntitled(getAlEntitled(employeeId, dateOpname));
+                        alStockManCurrPer.setQtyResidue(alStockManCurrPer.getAlQty() - iTakenCurrPeriod);
+                        alStockManCurrPer.setQtyUsed(iTakenCurrPeriod);
+
+                        try {
+                            PstAlStockManagement.updateExc(alStockManCurrPer);
+                        } catch (DBException ex) {
+                            ex.printStackTrace();
+                        }
+                    }                    
+                    /***************************/
+                  
+                }
+                //Bukan total earned
+                else{
+                
+                }
+                //By NEW YEAR
+            } else { 
+            }
+            
+        }else{
+            strError = "Al Upload data not found!";
+        }
+        
+        //MENDAFTARKAN STATUS AL YANG TELAH DIPROSES
+        if(strError.length()<=0){
+             alUploadArg.setDataStatus(PstAlUpload.FLD_DOC_STATUS_PROCESS);
+            try {
+                PstAlUpload.updateExc(alUploadArg);
+            } catch (DBException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return strError;
+    }
+    
+    /**
+     * @desc mencari jumlah data yang akan ditampilkan per tgl
+     * @return int jumlah data
+     */
+    public static Vector getAllAlUpload(int start,int recordToGet){
+        Vector vAlUploadOpname = new Vector();
+        //select distinct taken_date from hr_ll_stock_taken
+        DBResultSet dbResultSet = null;
+        String sql = "SELECT DISTINCT "
+                +PstAlUpload.fieldNames[PstAlUpload.FLD_OPNAME_DATE]
+                +" FROM "+PstAlUpload.TBL_AL_UPLOAD
+                +" ORDER BY "+PstAlUpload.fieldNames[PstAlUpload.FLD_OPNAME_DATE];
+        if(start!=0 || recordToGet!=0){
+            sql += " LIMIT "+start+","+recordToGet;
+        }
+        System.out.println("All al upload...SQL ::: "+sql);
+        try{
+            dbResultSet = DBHandler.execQueryResult(sql);
+            ResultSet rs = dbResultSet.getResultSet();
+            while(rs.next()){
+                Date date = rs.getDate(PstAlUpload.fieldNames[PstAlUpload.FLD_OPNAME_DATE]);
+                vAlUploadOpname.add(Formater.formatDate(date, "yyyy-MM-dd"));
+            }
+        }catch(Exception ex){}
+        return vAlUploadOpname;
+    }
+    
+}
